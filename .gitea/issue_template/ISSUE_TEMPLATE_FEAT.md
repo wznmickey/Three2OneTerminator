@@ -1,6 +1,7 @@
 ---
 name: feature
 about: issue template for adding feature
+labels: bug
 ---
 
 **Description**
