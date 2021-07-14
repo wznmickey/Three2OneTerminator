@@ -8,14 +8,14 @@ viewUnitArea :  Area -> Svg Msg
 viewUnitArea unitArea =
     let 
      xpos = remainderBy 3 unitArea.no
-     ypos = unitArea.no // 3
+     ypos = ( unitArea.no - 1 ) // 3
 
     in
      Svg.rect
         [ SvgAttr.width (String.fromFloat 50 ++ "px")
         , SvgAttr.height (String.fromFloat 50 ++ "px")
-        , SvgAttr.x (String.fromInt xpos ++ "px")
-        , SvgAttr.y (String.fromInt ypos ++ "px")
+        , SvgAttr.x (String.fromInt (xpos * 50) ++ "px")
+        , SvgAttr.y (String.fromInt (ypos * 50) ++ "px")
         , SvgAttr.fill unitArea.areaColor
         ]
         []
