@@ -5,6 +5,7 @@ import GameData exposing (GameData, initGameData)
 import Html exposing (..)
 import Html.Attributes as HtmlAttr exposing (..)
 import Http
+import Browser.Events exposing (onAnimationFrameDelta)
 
 
 type alias Model =
@@ -14,9 +15,7 @@ type alias Model =
     }
 
 
-type Msg
-    = ToState State
-    | GotText (Result Http.Error String)
+
 
 
 type State
@@ -68,7 +67,7 @@ update msg model =
 
 subscriptions : Model -> Sub Msg
 subscriptions model =
-    Sub.batch []
+    Sub.batch [ onAnimationFrameDelta Tick]
 
 
 main =
