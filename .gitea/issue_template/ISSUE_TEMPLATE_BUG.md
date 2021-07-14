@@ -1,6 +1,7 @@
 ---
 name: Bug report
 about: issue template for reporting bug(s)
+labels: bug
 ---
 
 # Bug report
