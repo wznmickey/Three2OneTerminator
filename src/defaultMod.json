@@ -1,0 +1,174 @@
+{
+    "CP": [
+        {
+            "name": "CP1",
+            "initValue": 0,
+            "type": "Local",
+            "effect": [
+                {
+                    "name": "CP1",
+                    "value": 0
+                },
+                {
+                    "name": "CP2",
+                    "value": 1
+                },
+                {
+                    "name": "CP3",
+                    "value": -1
+                }
+            ]
+        },
+        {
+            "name": "CP2",
+            "initValue": 100,
+            "type": "Global",
+            "effect": [
+                {
+                    "name": "CP1",
+                    "value": 1
+                },
+                {
+                    "name": "CP2",
+                    "value": 0
+                },
+                {
+                    "name": "CP3",
+                    "value": -1
+                }
+            ]
+        },
+        {
+            "name": "CP3",
+            "initValue": -5,
+            "type": "Global",
+            "effect": [
+                {
+                    "name": "CP1",
+                    "value": 0
+                },
+                {
+                    "name": "CP2",
+                    "value": 0
+                },
+                {
+                    "name": "CP3",
+                    "value": 0
+                }
+            ]
+        }
+    ],
+    "CR": [
+        {
+            "name": "CR1",
+            "location": 1,
+            "effect": [
+                {
+                    "name": "CP1",
+                    "value": 1
+                },
+                {
+                    "name": "CP2",
+                    "value": 0
+                },
+                {
+                    "name": "CP3",
+                    "value": 0
+                }
+            ]
+        },
+        {
+            "name": "CR2",
+            "location": 2,
+            "effect": [
+                {
+                    "name": "CP1",
+                    "value": 1
+                },
+                {
+                    "name": "CP2",
+                    "value": 0
+                },
+                {
+                    "name": "CP3",
+                    "value": 0
+                }
+            ]
+        }
+    ],
+    "area": [
+        {
+            "name": "A1",
+            "location": 1,
+            "effect": [
+                {
+                    "name": "CP1",
+                    "value": 0
+                },
+                {
+                    "name": "CP2",
+                    "value": 0
+                },
+                {
+                    "name": "CP3",
+                    "value": 0
+                }
+            ]
+        },
+        {
+            "name": "A2",
+            "location": 2,
+            "effect": [
+                {
+                    "name": "CP1",
+                    "value": 10
+                },
+                {
+                    "name": "CP2",
+                    "value": 0
+                },
+                {
+                    "name": "CP3",
+                    "value": 1.2
+                }
+            ]
+        },
+        {
+            "name": "A3",
+            "location": 3,
+            "effect": [
+                {
+                    "name": "CP1",
+                    "value": 0
+                },
+                {
+                    "name": "CP2",
+                    "value": -2.3
+                },
+                {
+                    "name": "CP3",
+                    "value": 0
+                }
+            ]
+        },
+        {
+            "name": "A4",
+            "location": 4,
+            "effect": [
+                {
+                    "name": "CP1",
+                    "value": 0
+                },
+                {
+                    "name": "CP2",
+                    "value": 0
+                },
+                {
+                    "name": "CP3",
+                    "value": 0
+                }
+            ]
+        }
+
+    ]
+}
