@@ -1,7 +1,8 @@
 ---
 name: feature
 about: issue template for adding feature
-labels: enhancement
+labels: 
+    - enhancement
 ---
 
 **Description**
