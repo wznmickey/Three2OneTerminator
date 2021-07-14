@@ -1,16 +1,26 @@
+module View exposing (..)
 import Area exposing(..)
 import Msg exposing (Msg)
 import Svg exposing (Svg)
+import Svg.Attributes as SvgAttr
 
-viewUnitArea : List Area -> List (Svg Msg)
-viewUnitArea areaList =
-    [ Svg.rect
-        [ SvgAttr.width (String.fromFloat a.width ++ "px")
-        , SvgAttr.height (String.fromFloat a.height ++ "px")
-        , SvgAttr.x (String.fromFloat (Tuple.first a.leftTopPosition) ++ "px")
-        , SvgAttr.y (String.fromFloat (Tuple.second a.leftTopPosition) ++ "px")
-        , SvgAttr.fill (getcolor a.color)
-        
+viewUnitArea :  Area -> Svg Msg
+viewUnitArea unitArea =
+    let 
+     xpos = remainderBy 3 unitArea.no
+     ypos = unitArea.no // 3
+
+    in
+     Svg.rect
+        [ SvgAttr.width (String.fromFloat 50 ++ "px")
+        , SvgAttr.height (String.fromFloat 50 ++ "px")
+        , SvgAttr.x (String.fromInt xpos ++ "px")
+        , SvgAttr.y (String.fromInt ypos ++ "px")
+        , SvgAttr.fill unitArea.areaColor
         ]
         []
-    ]
+    
+
+viewAreas : List Area -> List (Svg Msg)
+viewAreas areaS =
+    List.map viewUnitArea areaS

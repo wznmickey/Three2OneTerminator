@@ -1,34 +1,34 @@
 module Main exposing (main)
 
+import View exposing (..)
 import Browser exposing (element)
 import GameData exposing (GameData, initGameData)
 import Html exposing (..)
 import Html.Attributes as HtmlAttr exposing (..)
 import Http
 import Browser.Events exposing (onAnimationFrameDelta)
+import Msg exposing (..)
+import Svg exposing (Svg)
+import Svg.Attributes as SvgAttr
 
+import Area exposing (..)
 
 type alias Model =
     { data : GameData
     , state : State
     , modInfo : String
+    , area : List Area
     }
 
 
 
 
 
-type State
-    = Start
-    | Loading
-    | Running
-    | Pause
-    | End
 
 
 initModel : Model
 initModel =
-    Model initGameData Start "modInfo"
+    Model initGameData Start "modInfo" (init_AreaS 9)
 
 
 init : () -> ( Model, Cmd Msg )
@@ -41,13 +41,26 @@ init result =
     )
 
 
+
+
 view : Model -> Html Msg
 view model =
     div
-        [ HtmlAttr.style "left" "0"
+        [ HtmlAttr.style "width" "500"
+        , HtmlAttr.style "height" "500"
+        , HtmlAttr.style "left" "0"
         , HtmlAttr.style "top" "0"
+        , HtmlAttr.style "text-align" "center"
         ]
-        [ text model.modInfo ]
+        [ Svg.svg
+            [ SvgAttr.width "500"
+            , SvgAttr.height "500"
+            ] 
+            (viewAreas model.area)
+        ] 
+        
+        
+
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -60,7 +73,8 @@ update msg model =
 
                 _ ->
                     ( { model | modInfo = "error" }, Cmd.none )
-
+        Tick float ->
+            ( model, Cmd.none )
         _ ->
             ( model, Cmd.none )
 

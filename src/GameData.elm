@@ -42,8 +42,7 @@ type alias HelpText =
 
 
 type alias GameData =
-    { area : List Area
-    , globalCP : List CPdata
+    {  globalCP : List CPdata
     , allCR : List CRdata
     , helpText : List HelpText
     }
@@ -67,14 +66,6 @@ initCPdata =
     }
 
 
-initArea : Area
-initArea =
-    { localCP = [ initCPdata ]
-    , effect = [ initPureCPdata ]
-    , no = 0
-    }
-
-
 initCRdata : CRdata
 initCRdata =
     { location = 0
@@ -84,4 +75,4 @@ initCRdata =
 
 initGameData : GameData
 initGameData =
-    GameData [ initArea ] [ initCPdata ] [ initCRdata ] [ initHelpText ]
+    GameData   [ initCPdata ] [ initCRdata ] [ initHelpText ]
