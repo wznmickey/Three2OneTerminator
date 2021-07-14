@@ -3,9 +3,7 @@
 name:
 location: 
 labels:
-
 potential_cause:
-acceptance criteria:
-fallback:
+time_needed:
 
 ---
