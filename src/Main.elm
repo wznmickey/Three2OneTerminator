@@ -51,12 +51,20 @@ type alias Model =
     { area : List Area
     , globalCP : List CPdata
     , cr : List CRdata
+    , state : State
     }
 
 
 type Msg
-    = Run
-    | Paue
+    = ToState State
+
+
+type State
+    = Start
+    | Loading
+    | Running
+    | Pause
+    | End
 
 
 initCPhelp : CPhelp
@@ -94,7 +102,7 @@ initCRdata =
 
 initModel : Model
 initModel =
-    Model [ initArea ] [ initCPdata ] [ initCRdata ]
+    Model [ initArea ] [ initCPdata ] [ initCRdata ] Start
 
 
 init : () -> ( Model, Cmd Msg )
