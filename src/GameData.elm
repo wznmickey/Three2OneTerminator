@@ -6,13 +6,6 @@ type CPtype
     | Global
 
 
-type alias Area =
-    { --view : Mapview,
-      localCP : List CPdata
-    , effect : List PureCPdata
-    , --The index of the area. Start from **1**.
-      no : Int
-    }
 
 
 type alias CRdata =
