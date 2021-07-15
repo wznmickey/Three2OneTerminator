@@ -1,10 +1,9 @@
 module Msg exposing (..)
 
-import Browser.Events exposing (Visibility)
+import Browser.Events exposing (Visibility, onClick)
 import GameData exposing (..)
 import Html exposing (time)
 import Http
-import Browser.Events exposing (onClick)
 
 
 type State

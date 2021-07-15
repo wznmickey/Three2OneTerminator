@@ -17,16 +17,3 @@ loadMod st =
 
         Err x ->
             ( initGameData, Json.Decode.errorToString x )
-
-
-
-
-
-
-
-
-
-
-
-
-
