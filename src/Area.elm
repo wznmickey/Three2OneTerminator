@@ -8,8 +8,8 @@ import GameData exposing (CPdata, PureCPdata, initCPdata, initPureCPdata)
 
 type alias Area =
     { --view : Mapview,
-    , name: String
-      localCP : List CPdata
+      name : String
+    , localCP : List CPdata
     , effect : List PureCPdata
     , --The index of the area. Start from **1**.
       no : Int
@@ -19,7 +19,8 @@ type alias Area =
 
 init_Area : Int -> Area
 init_Area areaNumber =
-    { localCP = [ initCPdata ]
+    { name = "Area"
+    , localCP = [ initCPdata ]
     , effect = [ initPureCPdata ]
     , no = areaNumber
     , areaColor = "pink"

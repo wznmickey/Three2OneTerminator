@@ -9,7 +9,8 @@ type CPtype
 type alias CRdata =
     { --view: CRview
       -- The index of the area.
-      location : Int
+      name : String
+    , location : Int
     , effect : List PureCPdata
     }
 
@@ -66,7 +67,8 @@ initCPdata =
 
 initCRdata : CRdata
 initCRdata =
-    { location = 0
+    { name = "CR"
+    , location = 0
     , effect = [ initPureCPdata ]
     }
 

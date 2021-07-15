@@ -7,7 +7,9 @@ import GameData exposing (GameData, initGameData)
 import Html exposing (..)
 import Html.Attributes as HtmlAttr exposing (..)
 import Http
+import LoadMod exposing (loadMod)
 import Msg exposing (..)
+import String exposing (..)
 import Svg exposing (Svg)
 import Svg.Attributes as SvgAttr
 import View exposing (..)
@@ -18,12 +20,13 @@ type alias Model =
     , state : State
     , modInfo : String
     , area : List Area
+    , loadInfo : String
     }
 
 
 initModel : Model
 initModel =
-    Model initGameData Start "modInfo" (init_AreaS 9)
+    Model initGameData Start "modInfo" (init_AreaS 9) "Init"
 
 
 init : () -> ( Model, Cmd Msg )
@@ -50,6 +53,8 @@ view model =
             , SvgAttr.height "500"
             ]
             (viewAreas model.area)
+        , p [] [ text (concat (List.map (\x -> x.text) model.data.helpText)) ]
+        , p [] [ text model.loadInfo ]
         ]
 
 
@@ -59,7 +64,7 @@ update msg model =
         GotText result ->
             case result of
                 Ok fullText ->
-                    ( { model | modInfo = fullText }, Cmd.none )
+                    ( { model | modInfo = fullText, data = Tuple.first (loadMod fullText), loadInfo = Tuple.second (loadMod fullText) }, Cmd.none )
 
                 _ ->
                     ( { model | modInfo = "error" }, Cmd.none )
