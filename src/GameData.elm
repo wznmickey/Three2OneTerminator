@@ -92,3 +92,10 @@ initCRdata =
 initGameData : GameData
 initGameData =
     GameData [ initArea ] [ initCPdata ] [ initCRdata ] [ initHelpText ]
+
+
+changeCP2CR : Int -> Int
+changeCP2CR =
+    { CPdata = CRdata+1
+    }
+
