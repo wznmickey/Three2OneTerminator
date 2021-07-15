@@ -169,6 +169,43 @@
                 }
             ]
         }
-
+    ],
+    "helpText": [
+        {
+            "name": "CP1",
+            "text": "CP1"
+        },
+        {
+            "name": "CP2",
+            "text": "CP1"
+        },
+        {
+            "name": "CP3",
+            "text": "CP1"
+        },
+        {
+            "name": "CR1",
+            "text": "CR1"
+        },
+        {
+            "name": "CR2",
+            "text": "CR2"
+        },
+        {
+            "name": "A1",
+            "text": "A2"
+        },
+        {
+            "name": "A2",
+            "text": "A2"
+        },
+        {
+            "name": "A3",
+            "text": "A3"
+        },
+        {
+            "name": "A4",
+            "text": "A4"
+        }
     ]
 }
