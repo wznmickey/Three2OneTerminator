@@ -1,8 +1,10 @@
 module Msg exposing (..)
-import GameData exposing (..)
+
 import Browser.Events exposing (Visibility)
+import GameData exposing (..)
 import Html exposing (time)
 import Http
+
 
 type State
     = Start
@@ -10,6 +12,8 @@ type State
     | Running
     | Pause
     | End
+
+
 type Msg
     = ToState State
     | GotText (Result Http.Error String)
