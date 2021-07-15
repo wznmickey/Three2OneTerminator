@@ -8,6 +8,7 @@ import GameData exposing (CPdata, PureCPdata, initCPdata, initPureCPdata)
 
 type alias Area =
     { --view : Mapview,
+    , name: String
       localCP : List CPdata
     , effect : List PureCPdata
     , --The index of the area. Start from **1**.
