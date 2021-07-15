@@ -32,6 +32,28 @@ viewUnitArea unitArea =
         , SvgAttr.stroke "white"
         ]
         [text (String.fromInt unitArea.no)]
+
+viewCR :  Area -> Svg Msg
+viewCR unitArea =
+    let 
+     areaXpos = Tuple.first (unitArea.areaPos)
+     areaYpos = Tuple.second (unitArea.areaPos)
+     xpos = Tuple.first (unitArea.areaPos)
+     ypos = Tuple.second (unitArea.areaPos)
+    
+
+    in
+   
+     Svg.rect
+        [ SvgAttr.width (String.fromFloat 75 ++ "px")
+        , SvgAttr.height (String.fromFloat 75 ++ "px")
+        , SvgAttr.x (String.fromInt ( xpos ) ++ "px")
+        , SvgAttr.y (String.fromInt ( ypos ) ++ "px")
+        , SvgAttr.fill unitArea.areaColor
+        , SvgAttr.stroke "white"
+        ]
+        [text (String.fromInt unitArea.no)]
+
     
 viewAreas : List Area -> List (Svg Msg)
 viewAreas areaS =
@@ -44,15 +66,14 @@ view_GlobalData dispData  =
 
     div
         [ style "color" "pink"
-        , style "font-family" "Helvetica, Arial, sans-serif"
         , style "font-size" "20px"
         , style "font-weight" "bold"
-        , style "line-height" "10"
         , style "position" "absolute"
         , style "left" "0"
         , style "top" "0"
         , style "width" "400px"
         , style "height" "400px"
+        , style "white-space" "pre-line"
         ]
         [text (combine_Cpdata_toString(filter_GlobalData dispData))  ]
       
@@ -74,11 +95,12 @@ combine_Cpdata_toString cpTocombine =
     (
         (List.map (
         \a-> 
-            a.pure.name ++ ": " ++ (String.fromFloat a.pure.data) ++ " "
+            a.pure.name ++ ": " ++ (String.fromFloat a.pure.data) ++ "\n"
         ) 
         cpTocombine
         )
     )
+
 
 
 
