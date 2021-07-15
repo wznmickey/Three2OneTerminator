@@ -2,7 +2,7 @@
     "CP": [
         {
             "name": "CP1",
-            "initValue": 0,
+            "initValue": 1,
             "type": "Local",
             "effect": [
                 {
