@@ -2,8 +2,10 @@ module Main exposing (main)
 
 import Area exposing (..)
 import Browser exposing (element)
-import Browser.Events exposing (onAnimationFrameDelta)
+import Browser.Events exposing (onAnimationFrameDelta, onClick)
+import Dict exposing (Dict)
 import GameData exposing (GameData, initGameData)
+import HelpText exposing (initHelpText)
 import Html exposing (..)
 import Html.Attributes as HtmlAttr exposing (..)
 import Http
@@ -19,14 +21,13 @@ type alias Model =
     { data : GameData
     , state : State
     , modInfo : String
-    , area : List Area
     , loadInfo : String
     }
 
 
 initModel : Model
 initModel =
-    Model initGameData Start "modInfo" (init_AreaS 9) "Init"
+    Model initGameData Start "modInfo" "Init"
 
 
 init : () -> ( Model, Cmd Msg )
@@ -52,9 +53,8 @@ view model =
             [ SvgAttr.width "500"
             , SvgAttr.height "500"
             ]
-            (viewAreas model.area)
-        , p [] [ text (concat (List.map (\x -> x.text) model.data.helpText)) ]
-        , p [] [ text model.loadInfo ]
+            (viewAreas (Dict.values model.data.area))
+        , viewGlobalData (Dict.values model.data.globalCP) model.data.infoCP
         ]
 
 
@@ -69,16 +69,13 @@ update msg model =
                 _ ->
                     ( { model | modInfo = "error" }, Cmd.none )
 
-        Tick float ->
-            ( model, Cmd.none )
-
         _ ->
             ( model, Cmd.none )
 
 
 subscriptions : Model -> Sub Msg
 subscriptions model =
-    Sub.batch [ onAnimationFrameDelta Tick ]
+    Sub.batch []
 
 
 main =

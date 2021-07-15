@@ -1,230 +1,127 @@
 {
-    "CP": [
-        {
-            "name": "CP1",
-            "initValue": 0,
+    "CP": {
+        "CP1": {
             "type": "Local",
-            "effect": [
-                {
-                    "name": "CP1",
-                    "value": 0
-                },
-                {
-                    "name": "CP2",
-                    "value": 1
-                },
-                {
-                    "name": "CP3",
-                    "value": -1
-                }
-            ]
+            "effect": {
+                "CP1": 0,
+                "CP2": 1,
+                "CP3": 1,
+                "CP4": 1
+            }
         },
-        {
-            "name": "CP2",
-            "initValue": 100,
+        "CP2": {
             "type": "Global",
-            "effect": [
-                {
-                    "name": "CP1",
-                    "value": 1
-                },
-                {
-                    "name": "CP2",
-                    "value": 0
-                },
-                {
-                    "name": "CP3",
-                    "value": -1
-                }
-            ]
+            "effect": {
+                "CP1": 1,
+                "CP2": 0,
+                "CP3": -1,
+                "CP4": -1
+            }
         },
-        {
-            "name": "CP3",
-            "initValue": -5,
+        "CP3": {
             "type": "Global",
-            "effect": [
-                {
-                    "name": "CP1",
-                    "value": 0
-                },
-                {
-                    "name": "CP2",
-                    "value": 0
-                },
-                {
-                    "name": "CP3",
-                    "value": 12
-                }
-            ]
+            "effect": {
+                "CP1": 0,
+                "CP2": 0,
+                "CP3": 12,
+                "CP4": -1
+            }
         },
-        {
-            "name": "CP4",
-            "initValue": -5,
+        "CP4": {
             "type": "Global",
-            "effect": [
-                {
-                    "name": "CP1",
-                    "value": 0
-                },
-                {
-                    "name": "CP2",
-                    "value": 0
-                },
-                {
-                    "name": "CP3",
-                    "value": 12
-                }
-            ]
+            "effect": {
+                "CP1": 0,
+                "CP2": 0,
+                "CP3": 12,
+                "CP4": -1
+            }
         }
-    ],
-    "CR": [
-        {
-            "name": "CR1",
-            "location": 1,
-            "effect": [
-                {
-                    "name": "CP1",
-                    "value": 1
-                },
-                {
-                    "name": "CP2",
-                    "value": 0
-                },
-                {
-                    "name": "CP3",
-                    "value": 0
-                }
-            ]
+    },
+    "globalCP": {
+        "CP2": 100,
+        "CP3": -50,
+        "CP4": 20
+    },
+    "CR": {
+        "CR1": {
+            "location": "A1",
+            "effect": {
+                "CP1": 1,
+                "CP2": 0,
+                "CP3": 0,
+                "CP4": -1
+            }
         },
-        {
-            "name": "CR2",
-            "location": 2,
-            "effect": [
-                {
-                    "name": "CP1",
-                    "value": 1
-                },
-                {
-                    "name": "CP2",
-                    "value": 0
-                },
-                {
-                    "name": "CP3",
-                    "value": 0
-                }
-            ]
+        "CR2": {
+            "location": "A2",
+            "effect": {
+                "CP1": 1,
+                "CP2": 0,
+                "CP3": 0,
+                "CP4": -1
+            }
         }
-    ],
-    "area": [
-        {
-            "name": "A1",
+    },
+    "area": {
+        "A1": {
             "location": 1,
-            "effect": [
-                {
-                    "name": "CP1",
-                    "value": 0
-                },
-                {
-                    "name": "CP2",
-                    "value": 0
-                },
-                {
-                    "name": "CP3",
-                    "value": 0
-                }
-            ]
+            "effect": {
+                "CP1": 0,
+                "CP2": 0,
+                "CP3": 0,
+                "CP4": -1
+            },
+            "init": {
+                "CP1":0
+            }
         },
-        {
-            "name": "A2",
+        "A2": {
             "location": 2,
-            "effect": [
-                {
-                    "name": "CP1",
-                    "value": 10
-                },
-                {
-                    "name": "CP2",
-                    "value": 0
-                },
-                {
-                    "name": "CP3",
-                    "value": 1.2
-                }
-            ]
+            "effect": {
+                "CP1": 10,
+                "CP2": 0,
+                "CP3": 1.2,
+                "CP4": -1
+            },
+            "init": {
+                "CP1":0
+            }
         },
-        {
-            "name": "A3",
+        "A3": {
             "location": 3,
-            "effect": [
-                {
-                    "name": "CP1",
-                    "value": 0
-                },
-                {
-                    "name": "CP2",
-                    "value": -2.3
-                },
-                {
-                    "name": "CP3",
-                    "value": 0
-                }
-            ]
+            "effect": {
+                "CP1": 0,
+                "CP2": -2.3,
+                "CP3": 0,
+                "CP4": -1
+            },
+            "init": {
+                "CP1":0
+            }
         },
-        {
-            "name": "A4",
+        "A4": {
             "location": 4,
-            "effect": [
-                {
-                    "name": "CP1",
-                    "value": 0
-                },
-                {
-                    "name": "CP2",
-                    "value": 0
-                },
-                {
-                    "name": "CP3",
-                    "value": 0
-                }
-            ]
+            "effect": {
+                "CP1": 0,
+                "CP2": 0,
+                "CP3": 0,
+                "CP4": -1
+            },
+            "init": {
+                "CP1":0
+            }
         }
-    ],
-    "helpText": [
-        {
-            "name": "CP1",
-            "text": "CP1"
-        },
-        {
-            "name": "CP2",
-            "text": "CP1"
-        },
-        {
-            "name": "CP3",
-            "text": "CP1"
-        },
-        {
-            "name": "CR1",
-            "text": "CR1"
-        },
-        {
-            "name": "CR2",
-            "text": "CR2"
-        },
-        {
-            "name": "A1",
-            "text": "A2"
-        },
-        {
-            "name": "A2",
-            "text": "A2"
-        },
-        {
-            "name": "A3",
-            "text": "A3"
-        },
-        {
-            "name": "A4",
-            "text": "A4"
-        }
-    ]
+    },
+    "helpText": {
+        "CP1": "CP1",
+        "CP2": "CP2",
+        "CP3": "CP3",
+        "CP4": "CP4",
+        "CR1": "CR1",
+        "CR2": "CR2",
+        "A1": "A1",
+        "A2": "A2",
+        "A3": "A3",
+        "A4": "A4"
+    }
 }
