@@ -91,4 +91,12 @@ initGameData =
     GameData   ([ initCPdata ] ++ [ initCPdata ]) [ initCRdata ] [ initHelpText ]
 
 
--- changeCR_fromCP : 
+update_Gamedata : GameData -> GameData
+update_Gamedata oldGmae =
+  oldGmae
+  |> update_CP_CP
+
+
+update_CP_CP : GameData -> GameData
+update_CP_CP gameData =
+ gameData

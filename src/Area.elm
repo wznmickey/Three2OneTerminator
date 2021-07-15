@@ -1,6 +1,8 @@
 --unit area
 module Area exposing (..)
 import GameData exposing (CPdata,PureCPdata,initCPdata,initPureCPdata)
+import GameData exposing (CRdata)
+import GameData exposing (initCRdata)
 type alias Area =
     { --view : Mapview,
       localCP : List CPdata
@@ -9,6 +11,7 @@ type alias Area =
       no : Int
     , areaColor : String
     , areaPos : (Int,Int)
+    
     }
 
 init_Area : Int -> (Int,Int)-> Area
