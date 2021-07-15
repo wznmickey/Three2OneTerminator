@@ -6,7 +6,7 @@ type CPtype
     | Global
 
 type alias GameData =
-    { allCP : List CPdata
+    { globalCP : List CPdata
     , allCR : List CRdata
     , helpText : List HelpText
     }
@@ -15,10 +15,9 @@ type alias GameData =
 type alias CRdata =
     { --view: CRview
       -- The index of the area.
-      city : Int
-    , effect : List PureCPdata
+      effect : List PureCPdata
     , name : String
-    , location : (Int,Int)
+    , location : Int
     }
 
 
@@ -71,18 +70,18 @@ initCPdata =
 
 initCRdata : CRdata
 initCRdata =
-    { city = 1
-    , effect = [ initPureCPdata ]
+    { 
+      effect = [ initPureCPdata ]
     , name = "init"
-    , location = (0,0)
+    , location = 1
     }
 
 initCRdata_4test : CRdata
 initCRdata_4test =
-    { city = 2
-    , effect = [ initPureCPdata ]
+    { 
+      effect = [ initPureCPdata ]
     , name = "init"
-    , location = (0,0)
+    , location = 2
     }
 
 

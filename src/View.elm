@@ -15,11 +15,11 @@ import Json.Decode exposing (string)
 import Debug exposing (toString)
 
 
-viewUnitArea :  Area -> Svg Msg
-viewUnitArea unitArea =
+viewUnitArea :   Area ->  Svg Msg
+viewUnitArea  unitArea =
     let 
-     xpos = Tuple.first (unitArea.areaPos)
-     ypos = Tuple.second (unitArea.areaPos)
+     xpos = Tuple.first (init_AreaPos unitArea.no)
+     ypos = Tuple.second (init_AreaPos unitArea.no)
 
     in
    
@@ -33,31 +33,41 @@ viewUnitArea unitArea =
         ]
         [text (String.fromInt unitArea.no)]
 
-viewCR :  Area -> Svg Msg
-viewCR unitArea =
-    let 
-     areaXpos = Tuple.first (unitArea.areaPos)
-     areaYpos = Tuple.second (unitArea.areaPos)
-     xpos = Tuple.first (unitArea.areaPos)
-     ypos = Tuple.second (unitArea.areaPos)
+-- viewCR :  Area -> Svg Msg
+-- viewCR unitArea =
+--     let 
+--      areaXpos = Tuple.first (unitArea.areaPos)
+--      areaYpos = Tuple.second (unitArea.areaPos)
+--      xpos = Tuple.first (unitArea.areaPos)
+--      ypos = Tuple.second (unitArea.areaPos)
     
 
-    in
+--     in
    
-     Svg.rect
-        [ SvgAttr.width (String.fromFloat 75 ++ "px")
-        , SvgAttr.height (String.fromFloat 75 ++ "px")
-        , SvgAttr.x (String.fromInt ( xpos ) ++ "px")
-        , SvgAttr.y (String.fromInt ( ypos ) ++ "px")
-        , SvgAttr.fill unitArea.areaColor
-        , SvgAttr.stroke "white"
-        ]
-        [text (String.fromInt unitArea.no)]
+--      Svg.rect
+--         [ SvgAttr.width (String.fromFloat 75 ++ "px")
+--         , SvgAttr.height (String.fromFloat 75 ++ "px")
+--         , SvgAttr.x (String.fromInt ( xpos ) ++ "px")
+--         , SvgAttr.y (String.fromInt ( ypos ) ++ "px")
+--         , SvgAttr.fill unitArea.areaColor
+--         , SvgAttr.stroke "white"
+--         ]
+--         [text (String.fromInt unitArea.no)]
+
+init_AreaPos: Int -> (Int,Int)
+init_AreaPos areaNumber =
+  if areaNumber == 1 then
+  (200,250)
+  else if areaNumber == 2 then
+  (280,200)
+  else if areaNumber == 3 then
+  (350,300)
+  else (50,100)
 
     
 viewAreas : List Area -> List (Svg Msg)
 viewAreas areaS =
-    List.map viewUnitArea areaS
+    List.map viewUnitArea  areaS 
 
 
 
