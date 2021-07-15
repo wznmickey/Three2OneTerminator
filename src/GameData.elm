@@ -6,13 +6,6 @@ type CPtype
     | Global
 
 
-type alias Area =
-    { --view : Mapview,
-      localCP : List CPdata
-    , effect : List PureCPdata
-    , --The index of the area. Start from **1**.
-      no : Int
-    }
 
 
 type alias CRdata =
@@ -49,8 +42,7 @@ type alias HelpText =
 
 
 type alias GameData =
-    { area : List Area
-    , globalCP : List CPdata
+    {  globalCP : List CPdata
     , allCR : List CRdata
     , helpText : List HelpText
     }
@@ -74,14 +66,6 @@ initCPdata =
     }
 
 
-initArea : Area
-initArea =
-    { localCP = [ initCPdata ]
-    , effect = [ initPureCPdata ]
-    , no = 0
-    }
-
-
 initCRdata : CRdata
 initCRdata =
     { location = 0
@@ -91,4 +75,4 @@ initCRdata =
 
 initGameData : GameData
 initGameData =
-    GameData [ initArea ] [ initCPdata ] [ initCRdata ] [ initHelpText ]
+    GameData   [ initCPdata ] [ initCRdata ] [ initHelpText ]
