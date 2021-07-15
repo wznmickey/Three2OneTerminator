@@ -94,9 +94,22 @@ initGameData =
 update_Gamedata : GameData -> GameData
 update_Gamedata oldGmae =
   oldGmae
+  |> update_CR_CP
+  |> update_Area_CP
   |> update_CP_CP
+
 
 
 update_CP_CP : GameData -> GameData
 update_CP_CP gameData =
+ gameData
+
+
+update_CR_CP : GameData -> GameData
+update_CR_CP gameData =
+ gameData
+
+
+update_Area_CP : GameData -> GameData
+update_Area_CP gameData =
  gameData
