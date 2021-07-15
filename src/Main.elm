@@ -6,12 +6,14 @@ import GameData exposing (GameData, initGameData)
 import Html exposing (..)
 import Html.Attributes as HtmlAttr exposing (..)
 import Http
-import Browser.Events exposing (onAnimationFrameDelta)
+import Browser.Events exposing (onAnimationFrameDelta,onClick)
 import Msg exposing (..)
 import Svg exposing (Svg)
 import Svg.Attributes as SvgAttr
-
+import Json.Decode as D
 import Area exposing (..)
+import Browser.Events exposing (onClick)
+
 
 type alias Model =
     { data : GameData
@@ -28,7 +30,7 @@ type alias Model =
 
 initModel : Model
 initModel =
-    Model initGameData Start "modInfo" (init_AreaS 9)
+    Model initGameData Start "modInfo" (init_AreaS 4)
 
 
 init : () -> ( Model, Cmd Msg )
@@ -56,7 +58,8 @@ view model =
             [ SvgAttr.width "500"
             , SvgAttr.height "500"
             ] 
-            (viewAreas model.area)
+            (viewAreas model.area )
+            , (List. map (view_GlobalData) model.data.allCP)
         ] 
         
         
@@ -81,7 +84,8 @@ update msg model =
 
 subscriptions : Model -> Sub Msg
 subscriptions model =
-    Sub.batch [ onAnimationFrameDelta Tick]
+    Sub.batch [ onAnimationFrameDelta Tick
+                ]
 
 
 main =
