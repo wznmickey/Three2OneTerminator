@@ -1,17 +1,17 @@
 module Main exposing (main)
 
-import View exposing (..)
+import Area exposing (..)
 import Browser exposing (element)
+import Browser.Events exposing (onAnimationFrameDelta)
 import GameData exposing (GameData, initGameData)
 import Html exposing (..)
 import Html.Attributes as HtmlAttr exposing (..)
 import Http
-import Browser.Events exposing (onAnimationFrameDelta)
 import Msg exposing (..)
 import Svg exposing (Svg)
 import Svg.Attributes as SvgAttr
+import View exposing (..)
 
-import Area exposing (..)
 
 type alias Model =
     { data : GameData
@@ -19,11 +19,6 @@ type alias Model =
     , modInfo : String
     , area : List Area
     }
-
-
-
-
-
 
 
 initModel : Model
@@ -41,8 +36,6 @@ init result =
     )
 
 
-
-
 view : Model -> Html Msg
 view model =
     div
@@ -55,12 +48,9 @@ view model =
         [ Svg.svg
             [ SvgAttr.width "500"
             , SvgAttr.height "500"
-            ] 
+            ]
             (viewAreas model.area)
-        ] 
-        
-        
-
+        ]
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -73,15 +63,17 @@ update msg model =
 
                 _ ->
                     ( { model | modInfo = "error" }, Cmd.none )
+
         Tick float ->
             ( model, Cmd.none )
+
         _ ->
             ( model, Cmd.none )
 
 
 subscriptions : Model -> Sub Msg
 subscriptions model =
-    Sub.batch [ onAnimationFrameDelta Tick]
+    Sub.batch [ onAnimationFrameDelta Tick ]
 
 
 main =

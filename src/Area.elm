@@ -1,6 +1,11 @@
 --unit area
+
+
 module Area exposing (..)
-import GameData exposing (CPdata,PureCPdata,initCPdata,initPureCPdata)
+
+import GameData exposing (CPdata, PureCPdata, initCPdata, initPureCPdata)
+
+
 type alias Area =
     { --view : Mapview,
       localCP : List CPdata
@@ -9,22 +14,25 @@ type alias Area =
       no : Int
     , areaColor : String
     }
+
+
 init_Area : Int -> Area
-init_Area areaNumber=
+init_Area areaNumber =
     { localCP = [ initCPdata ]
     , effect = [ initPureCPdata ]
     , no = areaNumber
-    ,areaColor = "pink"
+    , areaColor = "pink"
     }
 
-init_AreaS : Int -> List Area 
+
+init_AreaS : Int -> List Area
 init_AreaS areaNumber =
-   let 
-      firstArea = [(init_Area areaNumber)]
+    let
+        firstArea =
+            [ init_Area areaNumber ]
     in
     if areaNumber == 1 then
-      firstArea
-    else firstArea ++ init_AreaS (areaNumber - 1) 
-    
-        
+        firstArea
 
+    else
+        firstArea ++ init_AreaS (areaNumber - 1)
