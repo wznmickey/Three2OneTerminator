@@ -96,6 +96,10 @@ initGameData =
 
 changeCP2CR : Int -> Int
 changeCP2CR =
-    { CPdata = CRdata+1
+    { 
+    if CPdata < 10 then
+        CPdata = CRdata+1
+    else if CPdata >= 10 then
+        CPdata = CRdata+2
     }
 
