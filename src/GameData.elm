@@ -5,7 +5,11 @@ type CPtype
     = Local
     | Global
 
-
+type alias GameData =
+    { allCP : List CPdata
+    , allCR : List CRdata
+    , helpText : List HelpText
+    }
 
 
 type alias CRdata =
@@ -43,11 +47,7 @@ type alias HelpText =
     }
 
 
-type alias GameData =
-    {  globalCP : List CPdata
-    , allCR : List CRdata
-    , helpText : List HelpText
-    }
+
 
 
 initHelpText : HelpText
@@ -64,7 +64,7 @@ initCPdata : CPdata
 initCPdata =
     { pure = initPureCPdata
     , effect = [ initPureCPdata ]
-    , typeCP = Local
+    , typeCP = Global
     }
 
 
@@ -79,4 +79,4 @@ initCRdata =
 
 initGameData : GameData
 initGameData =
-    GameData   [ initCPdata ] [ initCRdata ] [ initHelpText ]
+    GameData   ([ initCPdata ] ++ [ initCPdata ]) [ initCRdata ] [ initHelpText ]

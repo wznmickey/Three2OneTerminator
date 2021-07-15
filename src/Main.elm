@@ -59,7 +59,8 @@ view model =
             , SvgAttr.height "500"
             ] 
             (viewAreas model.area )
-            , (List. map (view_GlobalData) model.data.allCP)
+            , (view_GlobalData model.data.allCP)
+            -- model.data.allCP
         ] 
         
         

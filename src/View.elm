@@ -11,6 +11,8 @@ import Html exposing (div)
 import Html.Attributes exposing (style)
 import GameData exposing (PureCPdata)
 import GameData exposing (CPtype(..))
+import Json.Decode exposing (string)
+import Debug exposing (toString)
 
 
 viewUnitArea :  Area -> Svg Msg
@@ -37,36 +39,42 @@ viewAreas areaS =
 
 
 
-view_GlobalData : CPdata ->  Html Msg
+view_GlobalData : List CPdata ->  Html Msg
 view_GlobalData dispData  =
 
     div
         [ style "color" "pink"
         , style "font-family" "Helvetica, Arial, sans-serif"
-        , style "font-size" "10px"
+        , style "font-size" "20px"
         , style "font-weight" "bold"
         , style "line-height" "10"
         , style "position" "absolute"
-        , style "left" "1000px"
+        , style "left" "0"
         , style "top" "0"
         , style "width" "400px"
         , style "height" "400px"
-        , style "display"
-            (
-             if dispData.typeCP == Global then
-                "block"
-             else "none"
-            )
         ]
-        [text (dispData.pure.name ++ ": " ++ (String.fromFloat dispData.pure.data) ++ "/p" )  ]
+        [text (combine_Cpdata_toString(filter_GlobalData dispData))  ]
       
 filter_GlobalData : List CPdata -> List CPdata
-filter_GlobalData cpGlobal =
-    List.filter (\a ->
+filter_GlobalData cpAll =
+    List.filter (
+                \a ->
                     case a.typeCP of
                         Global ->
                                 True
                         Local ->
                                 False 
                 )  
-                cpGlobal
+                cpAll
+
+combine_Cpdata_toString : List CPdata ->  String
+combine_Cpdata_toString cpTocombine =
+    (List.map (
+        \a-> 
+            a.pure.name ++ ": " ++ (String.fromFloat a.pure.data)
+    ) cpTocombine)|> toString
+
+
+
+
