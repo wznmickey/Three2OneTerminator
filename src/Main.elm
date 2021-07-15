@@ -78,7 +78,7 @@ update msg model =
                 _ ->
                     ( { model | modInfo = "error" }, Cmd.none )
         Tick float ->
-            ( model, Cmd.none )
+            (  model, Cmd.none )--update_Gamedata
         _ ->
             ( model, Cmd.none )
 
@@ -96,3 +96,7 @@ main =
         , update = update
         , subscriptions = subscriptions
         }
+
+-- update_Gamedata : Model -> Model
+-- update_Gamedata oldModel = 
+--      oldModel.data

@@ -50,6 +50,7 @@ type alias HelpText =
 
 
 
+
 initHelpText : HelpText
 initHelpText =
     { name = "init", text = "init" }
@@ -70,7 +71,15 @@ initCPdata =
 
 initCRdata : CRdata
 initCRdata =
-    { city = 0
+    { city = 1
+    , effect = [ initPureCPdata ]
+    , name = "init"
+    , location = (0,0)
+    }
+
+initCRdata_4test : CRdata
+initCRdata_4test =
+    { city = 2
     , effect = [ initPureCPdata ]
     , name = "init"
     , location = (0,0)
@@ -80,3 +89,6 @@ initCRdata =
 initGameData : GameData
 initGameData =
     GameData   ([ initCPdata ] ++ [ initCPdata ]) [ initCRdata ] [ initHelpText ]
+
+
+-- changeCR_fromCP : 

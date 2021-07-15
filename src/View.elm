@@ -70,10 +70,15 @@ filter_GlobalData cpAll =
 
 combine_Cpdata_toString : List CPdata ->  String
 combine_Cpdata_toString cpTocombine =
-    (List.map (
+    List.foldl (\x a -> x ++ a) "" 
+    (
+        (List.map (
         \a-> 
-            a.pure.name ++ ": " ++ (String.fromFloat a.pure.data)
-    ) cpTocombine)|> toString
+            a.pure.name ++ ": " ++ (String.fromFloat a.pure.data) ++ " "
+        ) 
+        cpTocombine
+        )
+    )
 
 
 
