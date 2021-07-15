@@ -45,15 +45,15 @@
             "effect": [
                 {
                     "name": "CP1",
-                    "value": 0
+                    "value": 4
                 },
                 {
                     "name": "CP2",
-                    "value": 0
+                    "value": 5
                 },
                 {
                     "name": "CP3",
-                    "value": 0
+                    "value": 6
                 }
             ]
         }
