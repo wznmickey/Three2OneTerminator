@@ -7,15 +7,15 @@
             "effect": [
                 {
                     "name": "CP1",
-                    "value": 0
-                },
-                {
-                    "name": "CP2",
                     "value": 1
                 },
                 {
+                    "name": "CP2",
+                    "value": 2
+                },
+                {
                     "name": "CP3",
-                    "value": -1
+                    "value": 3
                 }
             ]
         },
@@ -69,11 +69,11 @@
                 },
                 {
                     "name": "CP2",
-                    "value": 0
+                    "value": 2
                 },
                 {
                     "name": "CP3",
-                    "value": 0
+                    "value": 3
                 }
             ]
         },
@@ -87,11 +87,11 @@
                 },
                 {
                     "name": "CP2",
-                    "value": 0
+                    "value": 2
                 },
                 {
                     "name": "CP3",
-                    "value": 0
+                    "value": 3
                 }
             ]
         }
