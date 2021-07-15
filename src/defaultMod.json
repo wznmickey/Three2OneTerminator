@@ -2,20 +2,20 @@
     "CP": [
         {
             "name": "CP1",
-            "initValue": 1,
+            "initValue": 0,
             "type": "Local",
             "effect": [
                 {
                     "name": "CP1",
-                    "value": 1
+                    "value": 0
                 },
                 {
                     "name": "CP2",
-                    "value": 2
+                    "value": 1
                 },
                 {
                     "name": "CP3",
-                    "value": 3
+                    "value": -1
                 }
             ]
         },
@@ -45,15 +45,34 @@
             "effect": [
                 {
                     "name": "CP1",
-                    "value": 4
+                    "value": 0
                 },
                 {
                     "name": "CP2",
-                    "value": 5
+                    "value": 0
                 },
                 {
                     "name": "CP3",
-                    "value": 6
+                    "value": 12
+                }
+            ]
+        },
+        {
+            "name": "CP4",
+            "initValue": -5,
+            "type": "Global",
+            "effect": [
+                {
+                    "name": "CP1",
+                    "value": 0
+                },
+                {
+                    "name": "CP2",
+                    "value": 0
+                },
+                {
+                    "name": "CP3",
+                    "value": 12
                 }
             ]
         }
@@ -69,11 +88,11 @@
                 },
                 {
                     "name": "CP2",
-                    "value": 2
+                    "value": 0
                 },
                 {
                     "name": "CP3",
-                    "value": 3
+                    "value": 0
                 }
             ]
         },
@@ -87,11 +106,11 @@
                 },
                 {
                     "name": "CP2",
-                    "value": 2
+                    "value": 0
                 },
                 {
                     "name": "CP3",
-                    "value": 3
+                    "value": 0
                 }
             ]
         }
@@ -99,31 +118,24 @@
     "area": [
         {
             "name": "A1",
-            // A1 Named Gotham 
-            // Central position. Boast more critical resources initially. Competence of policy-makers gives a higher default CP
-            // The efflux of CR to other areas offers that area a greater increase in CP as apparently with the same so-called CR, CR in critical areas is even more critical.
             "location": 1,
             "effect": [
                 {
                     "name": "CP1",
-                    "value": 16
+                    "value": 0
                 },
                 {
                     "name": "CP2",
-                    "value": 13
+                    "value": 0
                 },
                 {
                     "name": "CP3",
-                    "value": 11
+                    "value": 0
                 }
             ]
         },
         {
             "name": "A2",
-            //A2 Named Bombay
-            //Relatively advanced. CP Ranked only second to A1. Geographical located a bit next to A1.
-            //Nevertheless, due to the huge drain of over-population on CR, CR is consumed much faster and init CR is lower.
-            //The efflux of CR to other areas also gives a high level of increase in CP, only second to A1.
             "location": 2,
             "effect": [
                 {
@@ -132,25 +144,21 @@
                 },
                 {
                     "name": "CP2",
-                    "value": 8
+                    "value": 0
                 },
                 {
                     "name": "CP3",
-                    "value": 9
+                    "value": 1.2
                 }
             ]
         },
         {
             "name": "A3",
-            //A3 named Gassville
-            //Blessed with exceptional advantaged consitions. Located in the most fertile Southern-Eastern area in the graph(Maybe plot some gold mine)
-            //Unfortunately under the charge of a greedy official, leading to LOW init CP despite exceedingly high CR(highest)
-            //The governer's parsimony renders the given CR less efficient. THE boost on others' CP is also LOW!
             "location": 3,
             "effect": [
                 {
                     "name": "CP1",
-                    "value": 4
+                    "value": 0
                 },
                 {
                     "name": "CP2",
@@ -158,45 +166,28 @@
                 },
                 {
                     "name": "CP3",
-                    "value": 2
+                    "value": 0
                 }
             ]
         },
         {
             "name": "A4",
-            //A4 named Burnley
-            //Located at really deserted and remote part of the graph. (Maybe top left corner)
-            //Meagre natural resources. Lowest init CP.
-            //The most diligent citizens and the most competent Leader, 
-            //which in turn gives the highest CP and the most effective CR to other cities' CP
             "location": 4,
             "effect": [
                 {
                     "name": "CP1",
-                    "value": 25
+                    "value": 0
                 },
                 {
                     "name": "CP2",
-                    "value": 23
+                    "value": 0
                 },
                 {
                     "name": "CP3",
-                    "value": 26
+                    "value": 0
                 }
             ]
         }
 
     ]
 }
-//Conclusion for the initial status of CP and CR for 4 areas
-//CP Rank：1.A4     2.A1     3.A2      4.A3
-//CR Rank：1.A3     2.A1     3.A2      4.A4
-//The CR to CP transmission effiency Rank: 1.A4     2.A2     3.A1      4.A3
-
-//P.S The CR to CP transmission effiency could be made significantly higher between A1 and A2 dur to the geographical adjacency.
-
-
-
-
-
-
