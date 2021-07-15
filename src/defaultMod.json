@@ -53,7 +53,26 @@
                 },
                 {
                     "name": "CP3",
+                    "value": 12
+                }
+            ]
+        },
+        {
+            "name": "CP4",
+            "initValue": -5,
+            "type": "Global",
+            "effect": [
+                {
+                    "name": "CP1",
                     "value": 0
+                },
+                {
+                    "name": "CP2",
+                    "value": 0
+                },
+                {
+                    "name": "CP3",
+                    "value": 12
                 }
             ]
         }

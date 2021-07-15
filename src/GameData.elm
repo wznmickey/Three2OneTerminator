@@ -76,3 +76,16 @@ initCRdata =
 initGameData : GameData
 initGameData =
     GameData [ initCPdata ] [ initCRdata ] [ initHelpText ]
+
+{-- This part of code can not be compiled. The name and the coding seems not fit. Reserve it for further developing.
+changeCP2CR : Int -> Int
+changeCP2CR =
+    { 
+    if CPdata < 10 then
+        CPdata = CRdata+1
+        CRdata = CRdata-1
+    else if CPdata >= 10 then
+        CPdata = CRdata+2
+        CRdata = CRdata-2
+    }
+--}
