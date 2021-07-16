@@ -123,20 +123,21 @@ combineCPdata2String cpTocombine =
 
 view_Areadata : Dict String Area -> Int -> Html Msg
 view_Areadata area onview =
-    let        areaInfo = (checkArea onview area).localCP
+    let        areaInfo = (checkArea onview area).name
+               areaNum =  (checkArea onview area).no
     in
     div
         [ style "color" "pink"
         , style "font-size" "20px"
         , style "font-weight" "bold"
         , style "position" "absolute"
-        , style "left" "0"
-        , style "top" "0"
+        , style "left" "1000px"
+        , style "top" "1000"
         , style "width" "400px"
         , style "height" "400px"
         , style "white-space" "pre-line"
         ]
-        [ text "1111"]
+        [ text (areaInfo ++ (String.fromInt areaNum))]
 
 
 
