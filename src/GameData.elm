@@ -49,7 +49,7 @@ dGameData =
     map5 GameData
         (field
             "CP"
-            dCPdata
+            decoder_CPdata
         )
         (field
             "globalCP"
@@ -57,15 +57,15 @@ dGameData =
         )
         (field
             "CR"
-            dCRdata
+            decoder_CRdata
         )
         (field
             "area"
-            dArea
+            decoder_Area
         )
         (field
             "helpText"
-            dHelpText
+            decoder_HelpText
         )
 
 

@@ -1,4 +1,4 @@
-module CPdata exposing (CPdata, dCPdata, initCPdata)
+module CPdata exposing (CPdata, decoder_CPdata, initCPdata)
 
 import CPtype exposing (..)
 import Dict exposing (Dict)
@@ -31,8 +31,8 @@ initCPdata =
     }
 
 
-dCPdata : Decoder (Dict.Dict String CPdata)
-dCPdata =
+decoder_CPdata : Decoder (Dict.Dict String CPdata)
+decoder_CPdata =
     map (Dict.map infoToCPdata) (dict infoDecoder)
 
 

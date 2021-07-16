@@ -45,8 +45,8 @@ initArea =
     }
 
 
-dArea : Decoder (Dict.Dict String Area)
-dArea =
+decoder_Area : Decoder (Dict.Dict String Area)
+decoder_Area =
     map (Dict.map infoToArea) (dict infoDecoder)
 
 

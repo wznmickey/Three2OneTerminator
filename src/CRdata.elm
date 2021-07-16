@@ -33,8 +33,8 @@ initCRdata =
     }
 
 
-dCRdata : Decoder (Dict.Dict String CRdata)
-dCRdata =
+decoder_CRdata : Decoder (Dict.Dict String CRdata)
+decoder_CRdata =
     map (Dict.map infoToCRdata) (dict infoDecoder)
 
 
