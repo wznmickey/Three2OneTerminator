@@ -53,7 +53,7 @@ dGameData =
         )
         (field
             "globalCP"
-            dPureCPdata
+            decoder_PureCPdata
         )
         (field
             "CR"

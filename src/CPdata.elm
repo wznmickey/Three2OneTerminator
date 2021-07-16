@@ -45,7 +45,7 @@ type alias Info =
 infoDecoder : Decoder Info
 infoDecoder =
     map2 Info
-        (field "effect" dPureCPdata)
+        (field "effect" decoder_PureCPdata)
         (field "type" dCPtype)
 
 

@@ -48,7 +48,7 @@ infoDecoder : Decoder Info
 infoDecoder =
     map2 Info
         (field "location" string)
-        (field "effect" dPureCPdata)
+        (field "effect" decoder_PureCPdata)
 
 
 infoToCRdata : String -> Info -> CRdata

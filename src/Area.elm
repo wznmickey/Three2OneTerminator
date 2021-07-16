@@ -60,8 +60,8 @@ type alias Info =
 infoDecoder : Decoder Info
 infoDecoder =
     map3 Info
-        (field "init" dPureCPdata)
-        (field "effect" dPureCPdata)
+        (field "init" decoder_PureCPdata)
+        (field "effect" decoder_PureCPdata)
         (field "location" int)
 
 
