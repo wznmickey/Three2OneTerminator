@@ -57,6 +57,7 @@ view model =
             (viewAreas (Dict.values model.data.area))
         , viewGlobalData (Dict.values model.data.globalCP) model.data.infoCP
         , view_Areadata (model.data.area) model.onviewArea
+        , disp_Onview model.onviewArea
         ]
 
 

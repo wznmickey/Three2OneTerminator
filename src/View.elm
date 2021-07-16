@@ -139,7 +139,21 @@ view_Areadata area onview =
         ]
         [ text (areaInfo ++ (String.fromInt areaNum))]
 
-
+disp_Onview :  Int -> Html Msg
+disp_Onview onview =
+    
+    div
+        [ style "color" "pink"
+        , style "font-size" "20px"
+        , style "font-weight" "bold"
+        , style "position" "absolute"
+        , style "left" "1000px"
+        , style "top" "100px"
+        , style "width" "400px"
+        , style "height" "400px"
+        , style "white-space" "pre-line"
+        ]
+        [ text ("onview is " ++ (String.fromInt onview))]
 
 combine_LocalCPdata2String : List PureCPdata -> String
 combine_LocalCPdata2String cpTocombine =
