@@ -9,8 +9,8 @@ import HelpText exposing (initHelpText)
 import Html exposing (..)
 import Html.Attributes as HtmlAttr exposing (..)
 import Http
-import LoadMod exposing (loadMod)
-import Msg exposing (..)
+import Loadmod exposing (loadMod)
+import Msg exposing (Msg(..),State(..))
 import String exposing (..)
 import Svg exposing (Svg)
 import Svg.Attributes as SvgAttr
@@ -22,19 +22,20 @@ type alias Model =
     , state : State
     , modInfo : String
     , loadInfo : String
+    , onviewArea : Int
     }
 
 
 initModel : Model
 initModel =
-    Model initGameData Start "modInfo" "Init"
+    Model initGameData Start "modInfo" "Init" 1
 
 
 init : () -> ( Model, Cmd Msg )
 init result =
     ( initModel
     , Http.get
-        { url = "/defaultMod.json"
+        { url = "/src/defaultMod.json"
         , expect = Http.expectString GotText
         }
     )
@@ -55,6 +56,7 @@ view model =
             ]
             (viewAreas (Dict.values model.data.area))
         , viewGlobalData (Dict.values model.data.globalCP) model.data.infoCP
+        , view_Areadata (model.data.area) model.onviewArea
         ]
 
 
@@ -69,6 +71,9 @@ update msg model =
                 _ ->
                     ( { model | modInfo = "error" }, Cmd.none )
 
+        Clickon areaNum ->
+                    ( { model | onviewArea = areaNum }, Cmd.none)
+            
         _ ->
             ( model, Cmd.none )
 
