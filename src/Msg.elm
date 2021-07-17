@@ -1,4 +1,4 @@
-module Msg exposing (Msg(..),State(..))
+module Msg exposing (Msg(..), State(..))
 
 import Browser.Events exposing (Visibility, onClick)
 import GameData exposing (..)
@@ -18,5 +18,5 @@ type Msg
     = ToState State
     | GotText (Result Http.Error String)
     | Tick Float
-    | Clickon  String
+    | Clickon String
     | Clickout

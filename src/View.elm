@@ -4,31 +4,29 @@ import Area exposing (..)
 import CPdata exposing (..)
 import CPtype exposing (..)
 import Debug exposing (toString)
-import Dict exposing (Dict)
+import Dict exposing (Dict, get)
 import GameData exposing (..)
 import Html exposing (Html, div)
 import Html.Attributes exposing (style)
-import Json.Decode exposing (string)
-import Msg exposing (Msg)
+import Json.Decode exposing (Error, string)
+import Msg exposing (Msg(..))
 import PureCPdata exposing (..)
 import Svg exposing (Svg, text)
 import Svg.Attributes as SvgAttr
 import Svg.Events as SvgEvent
-import Msg exposing (Msg(..))
-import Dict exposing (get)
-import Json.Decode exposing (Error)
-import Area exposing (initArea)
+
+
 viewUnitArea : Area -> Svg Msg
 viewUnitArea unitArea =
     let
+        name =
+            unitArea.name
 
-        name = unitArea.name
         xpos =
             Tuple.first (init_AreaPos unitArea.no)
 
         ypos =
             Tuple.second (init_AreaPos unitArea.no)
-
     in
     Svg.rect
         [ SvgAttr.width (String.fromFloat 75 ++ "px")
@@ -40,8 +38,6 @@ viewUnitArea unitArea =
         , SvgEvent.onClick (Clickon name)
         ]
         [ text (String.fromInt unitArea.no) ]
-
-
 
 
 init_AreaPos : Int -> ( Int, Int )
@@ -74,7 +70,6 @@ init_CRpos areaNumber =
         ( 50, 100 )
 
 
-
 viewAreas : List Area -> List (Svg Msg)
 viewAreas areaS =
     List.map viewUnitArea areaS
@@ -93,7 +88,7 @@ viewGlobalData pure dict =
         , style "height" "400px"
         , style "white-space" "pre-line"
         ]
-        [ text ("Global Control Point: \n" ++ (combineCPdata2String (filterGlobalData pure dict))) ]
+        [ text ("Global Control Point: \n" ++ combineCPdata2String (filterGlobalData pure dict)) ]
 
 
 filterGlobalData : List PureCPdata -> Dict String CPdata -> List PureCPdata
@@ -121,10 +116,15 @@ combineCPdata2String cpTocombine =
             cpTocombine
         )
 
+
 view_Areadata : Dict String Area -> String -> Html Msg
 view_Areadata area onview =
-    let        areaInfo = (checkArea onview area).name
-               areaNum =  (checkArea onview area).no
+    let
+        areaInfo =
+            (checkArea onview area).name
+
+        areaNum =
+            (checkArea onview area).no
     in
     div
         [ style "color" "pink"
@@ -136,12 +136,12 @@ view_Areadata area onview =
         , style "width" "400px"
         , style "height" "400px"
         , style "white-space" "pre-line"
-        ] 
-        [ text (combineCPdata2String (Dict.values (checkArea onview area).localCP))]
+        ]
+        [ text (combineCPdata2String (Dict.values (checkArea onview area).localCP)) ]
 
-disp_Onview :  String -> Html Msg
+
+disp_Onview : String -> Html Msg
 disp_Onview onview =
-    
     div
         [ style "color" "pink"
         , style "font-size" "20px"
@@ -153,7 +153,8 @@ disp_Onview onview =
         , style "height" "400px"
         , style "white-space" "pre-line"
         ]
-        [ text ("onview is " ++ (onview))]
+        [ text ("onview is " ++ onview) ]
+
 
 combine_LocalCPdata2String : List PureCPdata -> String
 combine_LocalCPdata2String cpTocombine =
@@ -166,14 +167,16 @@ combine_LocalCPdata2String cpTocombine =
             cpTocombine
         )
 
-checkArea : String -> Dict String Area -> Area 
+
+checkArea : String -> Dict String Area -> Area
 checkArea areaName areaS =
-   case  Dict.get (areaName) areaS of 
+    case Dict.get areaName areaS of
         Just areaThis ->
             areaThis
+
         Nothing ->
             initArea
-    
+
 
 
 --  --view : Mapview,

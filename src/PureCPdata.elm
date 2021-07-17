@@ -1,10 +1,7 @@
 module PureCPdata exposing (PureCPdata, decoder_PureCPdata, initPureCPdata)
 
 import Dict exposing (Dict)
-import Json.Decode exposing (Decoder)
-import Json.Decode exposing (map)
-import Json.Decode exposing (dict)
-import Json.Decode exposing (float)
+import Json.Decode exposing (Decoder, dict, float, map)
 
 
 type alias PureCPdata =

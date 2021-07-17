@@ -10,7 +10,7 @@ import Html exposing (..)
 import Html.Attributes as HtmlAttr exposing (..)
 import Http
 import Loadmod exposing (loadMod)
-import Msg exposing (Msg(..),State(..))
+import Msg exposing (Msg(..), State(..))
 import String exposing (..)
 import Svg exposing (Svg)
 import Svg.Attributes as SvgAttr
@@ -56,7 +56,7 @@ view model =
             ]
             (viewAreas (Dict.values model.data.area))
         , viewGlobalData (Dict.values model.data.globalCP) model.data.infoCP
-        , view_Areadata (model.data.area) model.onviewArea
+        , view_Areadata model.data.area model.onviewArea
         , disp_Onview model.onviewArea
         ]
 
@@ -73,8 +73,8 @@ update msg model =
                     ( { model | modInfo = "error" }, Cmd.none )
 
         Clickon areaNum ->
-                    ( { model | onviewArea = areaNum }, Cmd.none)
-            
+            ( { model | onviewArea = areaNum }, Cmd.none )
+
         _ ->
             ( model, Cmd.none )
 
