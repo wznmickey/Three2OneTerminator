@@ -34,7 +34,7 @@ init : () -> ( Model, Cmd Msg )
 init result =
     ( initModel
     , Http.get
-        { url = "/defaultMod.json"
+        { url = "/src/defaultMod.json"
         , expect = Http.expectString GotText
         }
     )
