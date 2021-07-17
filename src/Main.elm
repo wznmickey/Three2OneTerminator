@@ -9,7 +9,7 @@ import HelpText exposing (initHelpText)
 import Html exposing (..)
 import Html.Attributes as HtmlAttr exposing (..)
 import Http
-import Loadmod exposing (loadMod)
+import LoadMod exposing (loadMod)
 import Msg exposing (Msg(..), State(..))
 import String exposing (..)
 import Svg exposing (Svg)
