@@ -18,5 +18,5 @@ type Msg
     = ToState State
     | GotText (Result Http.Error String)
     | Tick Float
-    | Clickon  Int
+    | Clickon  String
     | Clickout

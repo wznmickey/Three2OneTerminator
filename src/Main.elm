@@ -22,13 +22,13 @@ type alias Model =
     , state : State
     , modInfo : String
     , loadInfo : String
-    , onviewArea : Int
+    , onviewArea : String
     }
 
 
 initModel : Model
 initModel =
-    Model initGameData Start "modInfo" "Init" 1
+    Model initGameData Start "modInfo" "Init" "init"
 
 
 init : () -> ( Model, Cmd Msg )

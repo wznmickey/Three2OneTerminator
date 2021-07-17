@@ -22,7 +22,7 @@ viewUnitArea : Area -> Svg Msg
 viewUnitArea unitArea =
     let
 
-        num = unitArea.no
+        name = unitArea.name
         xpos =
             Tuple.first (init_AreaPos unitArea.no)
 
@@ -37,7 +37,7 @@ viewUnitArea unitArea =
         , SvgAttr.y (String.fromInt ypos ++ "px")
         , SvgAttr.fill unitArea.areaColor
         , SvgAttr.stroke "white"
-        , SvgEvent.onClick (Clickon num)
+        , SvgEvent.onClick (Clickon name)
         ]
         [ text (String.fromInt unitArea.no) ]
 
@@ -121,7 +121,7 @@ combineCPdata2String cpTocombine =
             cpTocombine
         )
 
-view_Areadata : Dict String Area -> Int -> Html Msg
+view_Areadata : Dict String Area -> String -> Html Msg
 view_Areadata area onview =
     let        areaInfo = (checkArea onview area).name
                areaNum =  (checkArea onview area).no
@@ -136,10 +136,10 @@ view_Areadata area onview =
         , style "width" "400px"
         , style "height" "400px"
         , style "white-space" "pre-line"
-        ]
-        [ text (areaInfo ++ (String.fromInt areaNum))]
+        ] 
+        [ text (combineCPdata2String (Dict.values (checkArea onview area).localCP))]
 
-disp_Onview :  Int -> Html Msg
+disp_Onview :  String -> Html Msg
 disp_Onview onview =
     
     div
@@ -153,7 +153,7 @@ disp_Onview onview =
         , style "height" "400px"
         , style "white-space" "pre-line"
         ]
-        [ text ("onview is " ++ (String.fromInt onview))]
+        [ text ("onview is " ++ (onview))]
 
 combine_LocalCPdata2String : List PureCPdata -> String
 combine_LocalCPdata2String cpTocombine =
@@ -166,9 +166,9 @@ combine_LocalCPdata2String cpTocombine =
             cpTocombine
         )
 
-checkArea : Int -> Dict String Area -> Area 
-checkArea areaNum areaS =
-   case  Dict.get (String.fromInt areaNum) areaS of 
+checkArea : String -> Dict String Area -> Area 
+checkArea areaName areaS =
+   case  Dict.get (areaName) areaS of 
         Just areaThis ->
             areaThis
         Nothing ->
