@@ -1,4 +1,4 @@
-module Loadmod exposing (loadMod)
+module LoadMod exposing (loadMod)
 
 import Area exposing (..)
 import GameData exposing (..)
