@@ -33,8 +33,8 @@ initCRdata =
     }
 
 
-dCRdata : Decoder (Dict.Dict String CRdata)
-dCRdata =
+decoder_CRdata : Decoder (Dict.Dict String CRdata)
+decoder_CRdata =
     map (Dict.map infoToCRdata) (dict infoDecoder)
 
 
@@ -48,7 +48,7 @@ infoDecoder : Decoder Info
 infoDecoder =
     map2 Info
         (field "location" string)
-        (field "effect" dPureCPdata)
+        (field "effect" decoder_PureCPdata)
 
 
 infoToCRdata : String -> Info -> CRdata

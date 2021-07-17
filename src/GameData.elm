@@ -49,23 +49,23 @@ dGameData =
     map5 GameData
         (field
             "CP"
-            dCPdata
+            decoder_CPdata
         )
         (field
             "globalCP"
-            dPureCPdata
+            decoder_PureCPdata
         )
         (field
             "CR"
-            dCRdata
+            decoder_CRdata
         )
         (field
             "area"
-            dArea
+            decoder_Area
         )
         (field
             "helpText"
-            dHelpText
+            decoder_HelpText
         )
 
 
@@ -73,6 +73,9 @@ getCPdataByName : ( String, Dict String CPdata ) -> CPdata
 getCPdataByName ( name, dict ) =
     Maybe.withDefault initCPdata (Dict.get name dict)
 
+getPureCPdataByName : ( String, Dict String PureCPdata ) -> PureCPdata
+getPureCPdataByName ( name, dict ) =
+    Maybe.withDefault initPureCPdata (Dict.get name dict)
 
 
 {--This part of code can not be compiled. The name and the coding seems not fit. Reserve it for further developing.

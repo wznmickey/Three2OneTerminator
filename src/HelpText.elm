@@ -16,6 +16,6 @@ initHelpText =
     { name = "init", text = "init" }
 
 
-dHelpText : Decoder (Dict.Dict String HelpText)
-dHelpText =
+decoder_HelpText : Decoder (Dict.Dict String HelpText)
+decoder_HelpText =
     map (Dict.map (\name value -> HelpText name value)) (dict string)

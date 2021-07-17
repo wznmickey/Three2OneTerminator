@@ -4,28 +4,29 @@ import Area exposing (..)
 import CPdata exposing (..)
 import CPtype exposing (..)
 import Debug exposing (toString)
-import Dict exposing (Dict)
+import Dict exposing (Dict, get)
 import GameData exposing (..)
 import Html exposing (Html, div)
 import Html.Attributes exposing (style)
-import Json.Decode exposing (string)
-import Msg exposing (Msg)
+import Json.Decode exposing (Error, string)
+import Msg exposing (Msg(..))
 import PureCPdata exposing (..)
 import Svg exposing (Svg, text)
 import Svg.Attributes as SvgAttr
+import Svg.Events as SvgEvent
 
 
 viewUnitArea : Area -> Svg Msg
 viewUnitArea unitArea =
     let
+        name =
+            unitArea.name
+
         xpos =
             Tuple.first (init_AreaPos unitArea.no)
 
         ypos =
             Tuple.second (init_AreaPos unitArea.no)
-
-        --ypos =
-        --    (unitArea.no - 1) // 3
     in
     Svg.rect
         [ SvgAttr.width (String.fromFloat 75 ++ "px")
@@ -34,32 +35,28 @@ viewUnitArea unitArea =
         , SvgAttr.y (String.fromInt ypos ++ "px")
         , SvgAttr.fill unitArea.areaColor
         , SvgAttr.stroke "white"
+        , SvgEvent.onClick (Clickon name)
         ]
         [ text (String.fromInt unitArea.no) ]
 
 
-
--- viewCR :  Area -> Svg Msg
--- viewCR unitArea =
---     let
---      areaXpos = Tuple.first (unitArea.areaPos)
---      areaYpos = Tuple.second (unitArea.areaPos)
---      xpos = Tuple.first (unitArea.areaPos)
---      ypos = Tuple.second (unitArea.areaPos)
---     in
---      Svg.rect
---         [ SvgAttr.width (String.fromFloat 75 ++ "px")
---         , SvgAttr.height (String.fromFloat 75 ++ "px")
---         , SvgAttr.x (String.fromInt ( xpos ) ++ "px")
---         , SvgAttr.y (String.fromInt ( ypos ) ++ "px")
---         , SvgAttr.fill unitArea.areaColor
---         , SvgAttr.stroke "white"
---         ]
---         [text (String.fromInt unitArea.no)]
-
-
 init_AreaPos : Int -> ( Int, Int )
 init_AreaPos areaNumber =
+    if areaNumber == 1 then
+        ( 200, 250 )
+
+    else if areaNumber == 2 then
+        ( 280, 200 )
+
+    else if areaNumber == 3 then
+        ( 350, 300 )
+
+    else
+        ( 50, 100 )
+
+
+init_CRpos : Int -> ( Int, Int )
+init_CRpos areaNumber =
     if areaNumber == 1 then
         ( 200, 250 )
 
@@ -87,11 +84,9 @@ viewGlobalData pure dict =
         , style "position" "absolute"
         , style "left" "0"
         , style "top" "0"
-        , style "width" "400px"
-        , style "height" "400px"
         , style "white-space" "pre-line"
         ]
-        [ text (combineCPdata2String (filterGlobalData pure dict)) ]
+        [ text ("Global Control Point: \n" ++ combineCPdata2String (filterGlobalData pure dict)) ]
 
 
 filterGlobalData : List PureCPdata -> Dict String CPdata -> List PureCPdata
@@ -118,3 +113,73 @@ combineCPdata2String cpTocombine =
             )
             cpTocombine
         )
+
+
+view_Areadata : Dict String Area -> String -> Html Msg
+view_Areadata area onview =
+    let
+        areaInfo =
+            (checkArea onview area).name
+
+        areaNum =
+            (checkArea onview area).no
+    in
+    div
+        [ style "color" "pink"
+        , style "font-size" "20px"
+        , style "font-weight" "bold"
+        , style "position" "absolute"
+        , style "left" "70vw"
+        , style "top" "10vh"
+        , style "width" "20vw"
+        , style "white-space" "pre-line"
+        ]
+        [ text (combineCPdata2String (Dict.values (checkArea onview area).localCP)) ]
+
+
+disp_Onview : String -> Html Msg
+disp_Onview onview =
+    div
+        [ style "color" "pink"
+        , style "font-size" "20px"
+        , style "font-weight" "bold"
+        , style "position" "absolute"
+        , style "left" "70vw"
+        , style "top" "5vh"
+        , style "width" "20vw"
+        , style "white-space" "pre-line"
+        ]
+        [ text ("onview is " ++ onview) ]
+
+
+combine_LocalCPdata2String : List PureCPdata -> String
+combine_LocalCPdata2String cpTocombine =
+    List.foldl (\x a -> x ++ a)
+        "Local Control Point"
+        (List.map
+            (\a ->
+                a.name ++ ": " ++ String.fromFloat a.data ++ "\n"
+            )
+            cpTocombine
+        )
+
+
+checkArea : String -> Dict String Area -> Area
+checkArea areaName areaS =
+    case Dict.get areaName areaS of
+        Just areaThis ->
+            areaThis
+
+        Nothing ->
+            initArea
+
+
+
+--  --view : Mapview,
+--       name : "none"
+--     , localCP : Dict String PureCPdata
+--     , effect : Dict String PureCPdata
+--     , --The index of the area. Start from **1**.
+--       no : Int
+--     , areaColor : String
+--     }

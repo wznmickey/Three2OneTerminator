@@ -45,8 +45,8 @@ initArea =
     }
 
 
-dArea : Decoder (Dict.Dict String Area)
-dArea =
+decoder_Area : Decoder (Dict.Dict String Area)
+decoder_Area =
     map (Dict.map infoToArea) (dict infoDecoder)
 
 
@@ -60,8 +60,8 @@ type alias Info =
 infoDecoder : Decoder Info
 infoDecoder =
     map3 Info
-        (field "init" dPureCPdata)
-        (field "effect" dPureCPdata)
+        (field "init" decoder_PureCPdata)
+        (field "effect" decoder_PureCPdata)
         (field "location" int)
 
 

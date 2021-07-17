@@ -1,7 +1,7 @@
-module PureCPdata exposing (PureCPdata, dPureCPdata, initPureCPdata)
+module PureCPdata exposing (PureCPdata, decoder_PureCPdata, initPureCPdata)
 
 import Dict exposing (Dict)
-import Json.Decode exposing (..)
+import Json.Decode exposing (Decoder, dict, float, map)
 
 
 type alias PureCPdata =
@@ -22,6 +22,6 @@ initPureCPdata =
     { name = "init", data = 0 }
 
 
-dPureCPdata : Decoder (Dict.Dict String PureCPdata)
-dPureCPdata =
+decoder_PureCPdata : Decoder (Dict.Dict String PureCPdata)
+decoder_PureCPdata =
     map (Dict.map (\name value -> PureCPdata name value)) (dict float)
