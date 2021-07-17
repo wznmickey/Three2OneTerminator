@@ -4,7 +4,7 @@ import Area exposing (..)
 import Browser exposing (element)
 import Browser.Events exposing (onAnimationFrameDelta, onClick)
 import Dict exposing (Dict)
-import GameData exposing (GameData, initGameData)
+import GameData exposing (GameData, initGameData,getPureCPdataByName)
 import HelpText exposing (initHelpText)
 import Html exposing (..)
 import Html.Attributes as HtmlAttr exposing (..)
@@ -15,7 +15,9 @@ import String exposing (..)
 import Svg exposing (Svg)
 import Svg.Attributes as SvgAttr
 import View exposing (..)
-
+import CRdata exposing (CRdata)
+import PureCPdata exposing (PureCPdata)
+import CPdata exposing(..)
 
 type alias Model =
     { data : GameData
@@ -91,3 +93,24 @@ main =
         , update = update
         , subscriptions = subscriptions
         }
+
+effectCP :  Dict String PureCPdata -> Dict String PureCPdata -> Dict String PureCPdata -> (Dict String PureCPdata,Dict String PureCPdata)
+effectCP  effect global local =
+    (dictEffectCP effect global,dictEffectCP effect global)
+
+
+dictEffectCP : Dict String PureCPdata -> Dict String PureCPdata -> Dict String PureCPdata
+dictEffectCP effect before =
+    Dict.map (getEffect effect) before
+
+getEffect : Dict String PureCPdata-> String -> PureCPdata -> PureCPdata
+getEffect effect key before =
+    if (before.name==key) then
+        valueEffectCP (getPureCPdataByName (key,effect)) before 
+    else 
+        before
+
+valueEffectCP : PureCPdata -> PureCPdata -> PureCPdata
+valueEffectCP effect before =
+    {before|data=before.data+effect.data}
+
