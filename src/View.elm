@@ -84,8 +84,6 @@ viewGlobalData pure dict =
         , style "position" "absolute"
         , style "left" "0"
         , style "top" "0"
-        , style "width" "400px"
-        , style "height" "400px"
         , style "white-space" "pre-line"
         ]
         [ text ("Global Control Point: \n" ++ combineCPdata2String (filterGlobalData pure dict)) ]
@@ -131,10 +129,9 @@ view_Areadata area onview =
         , style "font-size" "20px"
         , style "font-weight" "bold"
         , style "position" "absolute"
-        , style "left" "1000px"
-        , style "top" "1000"
-        , style "width" "400px"
-        , style "height" "400px"
+        , style "left" "70vw"
+        , style "top" "10vh"
+        , style "width" "20vw"
         , style "white-space" "pre-line"
         ]
         [ text (combineCPdata2String (Dict.values (checkArea onview area).localCP)) ]
@@ -147,10 +144,9 @@ disp_Onview onview =
         , style "font-size" "20px"
         , style "font-weight" "bold"
         , style "position" "absolute"
-        , style "left" "1000px"
-        , style "top" "100px"
-        , style "width" "400px"
-        , style "height" "400px"
+        , style "left" "70vw"
+        , style "top" "5vh"
+        , style "width" "20vw"
         , style "white-space" "pre-line"
         ]
         [ text ("onview is " ++ onview) ]
