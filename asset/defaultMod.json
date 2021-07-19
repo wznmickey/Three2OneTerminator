@@ -3,109 +3,109 @@
         "CP1": {
             "type": "Local",
             "effect": {
-                "CP1": 0,
-                "CP2": 1,
-                "CP3": 1,
-                "CP4": 1
+                "Danger": 0,
+                "Citizen trust": 1,
+                "External safety": 1,
+                "Disposable Money": 1
             }
         },
         "CP2": {
             "type": "Global",
             "effect": {
-                "CP1": 1,
-                "CP2": 0,
-                "CP3": -1,
-                "CP4": -1
+                "Danger": 0,
+                "Citizen trust": 1,
+                "External safety": 1,
+                "Disposable Money": 1
             }
         },
         "CP3": {
             "type": "Global",
             "effect": {
-                "CP1": 0,
-                "CP2": 0,
-                "CP3": 12,
-                "CP4": -1
+                "Danger": 0,
+                "Citizen trust": 1,
+                "External safety": 1,
+                "Disposable Money": 1
             }
         },
         "CP4": {
             "type": "Global",
             "effect": {
-                "CP1": 0,
-                "CP2": 0,
-                "CP3": 12,
-                "CP4": -1
+                "Danger": 0,
+                "Citizen trust": 1,
+                "External safety": 1,
+                "Disposable Money": 1
             }
         }
     },
     "globalCP": {
-        "CP2": 100,
-        "CP3": -50,
-        "CP4": 20
+        "CP2": 10,
+        "CP3": -5,
+        "CP4": 2
     },
     "CR": {
         "CR1": {
-            "location": "A1",
+            "location": "Gotham",
             "effect": {
-                "CP1": 1,
-                "CP2": 0,
-                "CP3": 0,
-                "CP4": -1
+                "Danger": 0,
+                "Citizen trust": 1,
+                "External safety": 1,
+                "Disposable Money": 1
             }
         },
         "CR2": {
-            "location": "A2",
+            "location": "BomBay",
             "effect": {
-                "CP1": 1,
-                "CP2": 0,
-                "CP3": 0,
-                "CP4": -1
+                "Danger": 0,
+                "Citizen trust": 1,
+                "External safety": 1,
+                "Disposable Money": 1
             }
         }
     },
     "area": {
-        "A1": {
+        "Gotham": {
             "location": 1,
             "effect": {
-                "CP1": 0,
-                "CP2": 0,
-                "CP3": 0,
-                "CP4": -1
+                "Danger": 0,
+                "Citizen trust": 1,
+                "External safety": 1,
+                "Disposable Money": 1
             },
             "init": {
                 "CP1": 0
             }
         },
-        "A2": {
+        "BomBay": {
             "location": 2,
             "effect": {
-                "CP1": 10,
-                "CP2": 0,
-                "CP3": 1.2,
-                "CP4": -1
+                "Danger": 0,
+                "Citizen trust": 1,
+                "External safety": 1,
+                "Disposable Money": 1
             },
             "init": {
                 "CP1": 0
             }
         },
-        "A3": {
+        "GassVille": {
             "location": 3,
             "effect": {
-                "CP1": 0,
-                "CP2": -2.3,
-                "CP3": 0,
-                "CP4": -1
+                "Danger": 0,
+                "Citizen trust": 1,
+                "External safety": 1,
+                "Disposable Money": 1
             },
             "init": {
                 "CP1": 0
             }
         },
-        "A4": {
+        "Burnley": {
             "location": 4,
             "effect": {
-                "CP1": 0,
-                "CP2": 0,
-                "CP3": 0,
-                "CP4": -1
+                "Danger": 0,
+                "Citizen trust": 1,
+                "External safety": 1,
+                "Disposable Money": 1
             },
             "init": {
                 "CP1": 0
@@ -113,15 +113,15 @@
         }
     },
     "helpText": {
-        "CP1": "CP1",
-        "CP2": "CP2",
-        "CP3": "CP3",
-        "CP4": "CP4",
+        "Danger": "Danger",
+        "Citizen trust": "Citizen trust",
+        "External safety": "External safety",
+        "Disposable Money": "Disposable Money",
         "CR1": "CR1",
         "CR2": "CR2",
-        "A1": "A1",
-        "A2": "A2",
-        "A3": "A3",
-        "A4": "A4"
+        "Gotham": "Gotham",
+        "BomBay": "BomBay",
+        "GassVille": "GassVille",
+        "Burnley": "Burnley"
     }
 }
