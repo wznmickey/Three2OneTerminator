@@ -29,8 +29,8 @@ viewUnitArea unitArea =
             Tuple.second (init_AreaPos unitArea.no)
     in
     Svg.rect
-        [ SvgAttr.width (String.fromFloat 75 ++ "px")
-        , SvgAttr.height (String.fromFloat 75 ++ "px")
+        [ SvgAttr.width (String.fromFloat 150 ++ "px")
+        , SvgAttr.height (String.fromFloat 150 ++ "px")
         , SvgAttr.x (String.fromInt xpos ++ "px")
         , SvgAttr.y (String.fromInt ypos ++ "px")
         , SvgAttr.fill unitArea.areaColor
@@ -43,16 +43,16 @@ viewUnitArea unitArea =
 init_AreaPos : Int -> ( Int, Int )
 init_AreaPos areaNumber =
     if areaNumber == 1 then
-        ( 200, 250 )
+        ( 400, 400 )
 
     else if areaNumber == 2 then
-        ( 280, 200 )
+        ( 650, 550 )
 
     else if areaNumber == 3 then
-        ( 350, 300 )
+        ( 600, 300 )
 
     else
-        ( 50, 100 )
+        ( 100, 200 )
 
 
 init_CRpos : Int -> ( Int, Int )

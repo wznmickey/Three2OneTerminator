@@ -51,15 +51,15 @@ init result =
 view : Model -> Html Msg
 view model =
     div
-        [ HtmlAttr.style "width" "500"
-        , HtmlAttr.style "height" "500"
+        [ HtmlAttr.style "width" "1000"
+        , HtmlAttr.style "height" "1000"
         , HtmlAttr.style "left" "0"
         , HtmlAttr.style "top" "0"
         , HtmlAttr.style "text-align" "center"
         ]
         [ Svg.svg
-            [ SvgAttr.width "500"
-            , SvgAttr.height "500"
+            [ SvgAttr.width "1000"
+            , SvgAttr.height "1000"
             ]
             (viewAreas (Dict.values model.data.area))
         , viewGlobalData (Dict.values model.data.globalCP) model.data.infoCP
