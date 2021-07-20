@@ -61,7 +61,7 @@ view model =
             [ SvgAttr.width "1000"
             , SvgAttr.height "1000"
             ]
-            (viewAreas (Dict.values model.data.area) ++  viewUnitCR (100,100))
+            (viewAreas (Dict.values model.data.area) ++ viewCRs (Dict.values model.data.allCR))
         , viewGlobalData (Dict.values model.data.globalCP) model.data.infoCP
         , view_Areadata model.data.area model.onviewArea
         , disp_Onview model.onviewArea

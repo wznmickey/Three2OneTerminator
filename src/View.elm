@@ -162,18 +162,21 @@ checkArea areaName areaS =
         Nothing ->
             initArea
 
+viewCRs : List CRdata -> List (Svg Msg)
+viewCRs cRS =
+    List.map viewUnitCR cRS
 
-viewUnitCR : (Int,Int) -> List (Svg Msg)
-viewUnitCR pos =
+viewUnitCR : CRdata -> Svg Msg
+viewUnitCR cRpos =
     let
 
         xpos =
-            Tuple.first (pos)
+            Tuple.first (get_CRpos cRpos)
 
         ypos =
-            Tuple.second (pos)
+            Tuple.second (get_CRpos cRpos)
     in
-    [
+    
         Svg.circle
         [ 
         SvgAttr.cx (String.fromInt xpos ++ "px")
@@ -184,32 +187,32 @@ viewUnitCR pos =
         -- , SvgEvent.onClick (Clickon name)
         ]
         []
-    ]
     
+
 
 get_CRpos : CRdata -> (Int,Int)
 get_CRpos crData = 
     case crData.location of 
         "A1"->
-            (get_CRpos_inCRtype crData.name (init_AreaPos 1) )
+            (get_CRpos_inCRtype crData.name 1  )
         "A2"->
-            (get_CRpos_inCRtype crData.name (init_AreaPos 2) )
+            (get_CRpos_inCRtype crData.name 2  )
         "A3"->
-            (get_CRpos_inCRtype crData.name (init_AreaPos 3) )
+            (get_CRpos_inCRtype crData.name 3  )
         "A4"->
-            (get_CRpos_inCRtype crData.name (init_AreaPos 4) )
+            (get_CRpos_inCRtype crData.name 4  )
         _->
             (1,1)
 
-get_CRpos_inCRtype : String -> (Int,Int) -> (Int, Int)
+get_CRpos_inCRtype : String -> Int -> (Int, Int)
 get_CRpos_inCRtype crType crAreapos = 
     let
 
         xpos =
-            Tuple.first (crAreapos)
+            Tuple.first (init_AreaPos crAreapos)
 
         ypos =
-            Tuple.second (crAreapos)
+            Tuple.second (init_AreaPos crAreapos)
     in
     case crType of
     "CR1"->
