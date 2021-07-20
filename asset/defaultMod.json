@@ -1,36 +1,36 @@
 {
     "CP": {
-        "CP1": {
+        "Health threat": {
             "type": "Local",
             "effect": {
-                "Danger": 0,
+                "Health threat": 0,
                 "Citizen trust": 1,
                 "External safety": 1,
                 "Disposable Money": 1
             }
         },
-        "CP2": {
+        "Citizen trust": {
             "type": "Global",
             "effect": {
-                "Danger": 0,
+                "Health threat": 0,
                 "Citizen trust": 1,
                 "External safety": 1,
                 "Disposable Money": 1
             }
         },
-        "CP3": {
+        "External safety": {
             "type": "Global",
             "effect": {
-                "Danger": 0,
+                "Health threat": 0,
                 "Citizen trust": 1,
                 "External safety": 1,
                 "Disposable Money": 1
             }
         },
-        "CP4": {
+        "Disposable Money": {
             "type": "Global",
             "effect": {
-                "Danger": 0,
+                "Health threat": 0,
                 "Citizen trust": 1,
                 "External safety": 1,
                 "Disposable Money": 1
@@ -38,15 +38,15 @@
         }
     },
     "globalCP": {
-        "CP2": 10,
-        "CP3": -5,
-        "CP4": 2
+        "Citizen trust": 10,
+        "External safety": -5,
+        "Disposable Money": 2
     },
     "CR": {
         "CR1": {
             "location": "Gotham",
             "effect": {
-                "Danger": 0,
+                "Health threat": 0,
                 "Citizen trust": 1,
                 "External safety": 1,
                 "Disposable Money": 1
@@ -55,7 +55,7 @@
         "CR2": {
             "location": "BomBay",
             "effect": {
-                "Danger": 0,
+                "Health threat": 0,
                 "Citizen trust": 1,
                 "External safety": 1,
                 "Disposable Money": 1
@@ -66,54 +66,54 @@
         "Gotham": {
             "location": 1,
             "effect": {
-                "Danger": 0,
+                "Health threat": 0,
                 "Citizen trust": 1,
                 "External safety": 1,
                 "Disposable Money": 1
             },
             "init": {
-                "CP1": 0
+                "Health threat": 0
             }
         },
         "BomBay": {
             "location": 2,
             "effect": {
-                "Danger": 0,
+                "Health threat": 0,
                 "Citizen trust": 1,
                 "External safety": 1,
                 "Disposable Money": 1
             },
             "init": {
-                "CP1": 0
+                "Health threat": 0
             }
         },
         "GassVille": {
             "location": 3,
             "effect": {
-                "Danger": 0,
+                "Health threat": 0,
                 "Citizen trust": 1,
                 "External safety": 1,
                 "Disposable Money": 1
             },
             "init": {
-                "CP1": 0
+                "Health threat": 0
             }
         },
         "Burnley": {
             "location": 4,
             "effect": {
-                "Danger": 0,
+                "Health threat": 0,
                 "Citizen trust": 1,
                 "External safety": 1,
                 "Disposable Money": 1
             },
             "init": {
-                "CP1": 0
+                "Health threat": 0
             }
         }
     },
     "helpText": {
-        "Danger": "Danger",
+        "Health threat": "Health threat",
         "Citizen trust": "Citizen trust",
         "External safety": "External safety",
         "Disposable Money": "Disposable Money",
