@@ -42,7 +42,7 @@ init : () -> ( Model, Cmd Msg )
 init result =
     ( initModel
     , Http.get
-        { url = "asset/defaultMod.json"
+        { url = "../asset/defaultMod.json"
         , expect = Http.expectString GotText
         }
     )
@@ -61,10 +61,11 @@ view model =
             [ SvgAttr.width "1000"
             , SvgAttr.height "1000"
             ]
-            (viewAreas (Dict.values model.data.area))
+            (viewAreas (Dict.values model.data.area) ++  viewUnitCR (100,100))
         , viewGlobalData (Dict.values model.data.globalCP) model.data.infoCP
         , view_Areadata model.data.area model.onviewArea
         , disp_Onview model.onviewArea
+        
         ]
 
 

@@ -14,6 +14,7 @@ import PureCPdata exposing (..)
 import Svg exposing (Svg, text)
 import Svg.Attributes as SvgAttr
 import Svg.Events as SvgEvent
+import CRdata exposing (CRdata)
 
 
 viewUnitArea : Area -> Svg Msg
@@ -55,19 +56,7 @@ init_AreaPos areaNumber =
         ( 100, 200 )
 
 
-init_CRpos : Int -> ( Int, Int )
-init_CRpos areaNumber =
-    if areaNumber == 1 then
-        ( 200, 250 )
-
-    else if areaNumber == 2 then
-        ( 280, 200 )
-
-    else if areaNumber == 3 then
-        ( 350, 300 )
-
-    else
-        ( 50, 100 )
+-- 
 
 
 viewAreas : List Area -> List (Svg Msg)
@@ -172,6 +161,39 @@ checkArea areaName areaS =
 
         Nothing ->
             initArea
+
+
+viewUnitCR : (Int,Int) -> List (Svg Msg)
+viewUnitCR pos =
+    let
+
+        xpos =
+            Tuple.first (pos)
+
+        ypos =
+            Tuple.second (pos)
+    in
+    [
+        Svg.circle
+        [ 
+        SvgAttr.cx (String.fromInt xpos ++ "px")
+        , SvgAttr.cy (String.fromInt ypos ++ "px")
+        , SvgAttr.r (String.fromFloat 10 ++ "px")
+        , SvgAttr.fill "black"
+        , SvgAttr.stroke "red"
+        -- , SvgEvent.onClick (Clickon name)
+        ]
+        []
+    ]
+    
+
+
+-- viewCRs_onArea : Area -> Dict String CRdata ->List CList (Svg Msg)
+-- viewCRs_onArea  areaS cRs=
+--     List.map viewUnitCR areaS
+
+
+
 
 
 
