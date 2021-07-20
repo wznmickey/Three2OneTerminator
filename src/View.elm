@@ -187,6 +187,40 @@ viewUnitCR pos =
     ]
     
 
+get_CRpos : CRdata -> (Int,Int)
+get_CRpos crData = 
+    case crData.location of 
+        "A1"->
+            (get_CRpos_inCRtype crData.name (init_AreaPos 1) )
+        "A2"->
+            (get_CRpos_inCRtype crData.name (init_AreaPos 2) )
+        "A3"->
+            (get_CRpos_inCRtype crData.name (init_AreaPos 3) )
+        "A4"->
+            (get_CRpos_inCRtype crData.name (init_AreaPos 4) )
+        _->
+            (1,1)
+
+get_CRpos_inCRtype : String -> (Int,Int) -> (Int, Int)
+get_CRpos_inCRtype crType crAreapos = 
+    let
+
+        xpos =
+            Tuple.first (crAreapos)
+
+        ypos =
+            Tuple.second (crAreapos)
+    in
+    case crType of
+    "CR1"->
+        (xpos + 20 , ypos + 20)
+    "CR2"->
+        (xpos + 50 , ypos + 50)
+    _->
+        (0,0) 
+
+
+
 
 -- viewCRs_onArea : Area -> Dict String CRdata ->List CList (Svg Msg)
 -- viewCRs_onArea  areaS cRs=
