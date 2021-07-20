@@ -14,6 +14,7 @@ import PureCPdata exposing (..)
 import Svg exposing (Svg, text)
 import Svg.Attributes as SvgAttr
 import Svg.Events as SvgEvent
+import CRdata exposing (CRdata)
 
 
 viewUnitArea : Area -> Svg Msg
@@ -29,8 +30,8 @@ viewUnitArea unitArea =
             Tuple.second (init_AreaPos unitArea.no)
     in
     Svg.rect
-        [ SvgAttr.width (String.fromFloat 75 ++ "px")
-        , SvgAttr.height (String.fromFloat 75 ++ "px")
+        [ SvgAttr.width (String.fromFloat 150 ++ "px")
+        , SvgAttr.height (String.fromFloat 150 ++ "px")
         , SvgAttr.x (String.fromInt xpos ++ "px")
         , SvgAttr.y (String.fromInt ypos ++ "px")
         , SvgAttr.fill unitArea.areaColor
@@ -43,31 +44,19 @@ viewUnitArea unitArea =
 init_AreaPos : Int -> ( Int, Int )
 init_AreaPos areaNumber =
     if areaNumber == 1 then
-        ( 200, 250 )
+        ( 400, 400 )
 
     else if areaNumber == 2 then
-        ( 280, 200 )
+        ( 650, 550 )
 
     else if areaNumber == 3 then
-        ( 350, 300 )
+        ( 600, 300 )
 
     else
-        ( 50, 100 )
+        ( 100, 200 )
 
 
-init_CRpos : Int -> ( Int, Int )
-init_CRpos areaNumber =
-    if areaNumber == 1 then
-        ( 200, 250 )
-
-    else if areaNumber == 2 then
-        ( 280, 200 )
-
-    else if areaNumber == 3 then
-        ( 350, 300 )
-
-    else
-        ( 50, 100 )
+-- 
 
 
 viewAreas : List Area -> List (Svg Msg)
@@ -172,6 +161,76 @@ checkArea areaName areaS =
 
         Nothing ->
             initArea
+
+viewCRs : List CRdata -> List (Svg Msg)
+viewCRs cRS =
+    List.map viewUnitCR cRS
+
+viewUnitCR : CRdata -> Svg Msg
+viewUnitCR cRpos =
+    let
+
+        xpos =
+            Tuple.first (get_CRpos cRpos)
+
+        ypos =
+            Tuple.second (get_CRpos cRpos)
+    in
+    
+        Svg.circle
+        [ 
+        SvgAttr.cx (String.fromInt xpos ++ "px")
+        , SvgAttr.cy (String.fromInt ypos ++ "px")
+        , SvgAttr.r (String.fromFloat 10 ++ "px")
+        , SvgAttr.fill "yellow"
+        , SvgAttr.stroke "red"
+        -- , SvgEvent.onClick (Clickon name)
+        ]
+        []
+    
+
+
+get_CRpos : CRdata -> (Int,Int)
+get_CRpos crData = 
+    case crData.location of 
+        "Gotham"->
+            (get_CRpos_inCRtype crData.name 1  )
+        "BomBay"->
+            (get_CRpos_inCRtype crData.name 2  )
+        "GassVille"->
+            (get_CRpos_inCRtype crData.name 3  )
+        "Burnley"->
+            (get_CRpos_inCRtype crData.name 4  )
+        _->
+            (1,1)
+
+get_CRpos_inCRtype : String -> Int -> (Int, Int)
+get_CRpos_inCRtype crType crAreapos = 
+    let
+
+        xpos =
+            Tuple.first (init_AreaPos crAreapos)
+
+        ypos =
+            Tuple.second (init_AreaPos crAreapos)
+    in
+    case crType of
+    "CR1"->
+        (xpos + 20 , ypos + 20)
+    "CR2"->
+        (xpos + 50 , ypos + 50)
+    _->
+        (0,0) 
+
+
+
+
+-- viewCRs_onArea : Area -> Dict String CRdata ->List CList (Svg Msg)
+-- viewCRs_onArea  areaS cRs=
+--     List.map viewUnitCR areaS
+
+
+
 
 
 
