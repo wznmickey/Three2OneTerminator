@@ -193,13 +193,13 @@ viewUnitCR cRpos =
 get_CRpos : CRdata -> (Int,Int)
 get_CRpos crData = 
     case crData.location of 
-        "A1"->
+        "Gotham"->
             (get_CRpos_inCRtype crData.name 1  )
-        "A2"->
+        "BomBay"->
             (get_CRpos_inCRtype crData.name 2  )
-        "A3"->
+        "GassVille"->
             (get_CRpos_inCRtype crData.name 3  )
-        "A4"->
+        "Burnley"->
             (get_CRpos_inCRtype crData.name 4  )
         _->
             (1,1)
