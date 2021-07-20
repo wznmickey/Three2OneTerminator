@@ -44,7 +44,7 @@
     },
     "CR": {
         "CR1": {
-            "location": "A1",
+            "location": "A2",
             "effect": {
                 "CP1": 1,
                 "CP2": 0,

@@ -182,7 +182,7 @@ viewUnitCR cRpos =
         SvgAttr.cx (String.fromInt xpos ++ "px")
         , SvgAttr.cy (String.fromInt ypos ++ "px")
         , SvgAttr.r (String.fromFloat 10 ++ "px")
-        , SvgAttr.fill "black"
+        , SvgAttr.fill "yellow"
         , SvgAttr.stroke "red"
         -- , SvgEvent.onClick (Clickon name)
         ]
