@@ -4,6 +4,8 @@ Game Name: Terminator.
 
 Developed by Three 2 One @ SliverFocs.
 
+![image text](https://focs.ji.sjtu.edu.cn/git/SilverFOCS-21/p2team13/src/branch/lqa-beta1/asset/logo.svg)
+
 
 Coding
 
