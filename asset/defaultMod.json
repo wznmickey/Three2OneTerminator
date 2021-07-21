@@ -1,5 +1,5 @@
 {
-    "ControlPoint": {
+    "CP": {
         "Health threat drop": {
             "type": "Local",
             "effect": {
@@ -42,7 +42,7 @@
         "External safety": 5,
         "Disposable Money": 2
     },
-    "CriticalResource": {
+    "CR": {
         "Material Support1": {
             "location": "Gotham",
             "effect": {
