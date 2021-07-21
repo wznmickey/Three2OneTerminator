@@ -19,7 +19,7 @@ type alias PureCPdata =
 
 initPureCPdata : PureCPdata
 initPureCPdata =
-    { name = "init", data = 0 }
+    { name = "HygienicStatus", data = 0 }
 
 
 decoder_PureCPdata : Decoder (Dict.Dict String PureCPdata)
