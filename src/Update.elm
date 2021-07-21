@@ -37,7 +37,8 @@ getEffect effect key before =
 
 valueEffectCP : PureCPdata -> PureCPdata -> PureCPdata
 valueEffectCP effect before =
-    { before | data = before.data + effect.data }
+    --For debug { before | data = (Debug.log "before" before.data) + (Debug.log "add" effect.data) }
+    { before | data =  before.data+ effect.data }
 
 
 
@@ -126,7 +127,7 @@ eachAreaCPchange global i a =
         ( newGlobal, local ) =
             effectCP newArea.effect global newArea.localCP
     in
-    ( Array.map ((\y x -> { x | localCP = y }) local) a, newGlobal )
+    ( Array.set i (((\y x -> { x | localCP =  y }) local) newArea) a, newGlobal )
 
 
 

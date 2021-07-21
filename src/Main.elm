@@ -116,8 +116,8 @@ update msg model =
                     { model | time = model.time + time }
 
                 newmodel2 =
-                    if (newmodel1.time >= 1000) then
-                        { newmodel1 | data = updateData newmodel1.data, time = newmodel1.time - 1000 }
+                    if (newmodel1.time >= 1500) then
+                        { newmodel1 | data = updateData newmodel1.data, time = newmodel1.time - 1500 }
 
                     else
                         newmodel1
