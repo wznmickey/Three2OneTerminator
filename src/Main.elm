@@ -41,7 +41,7 @@ type alias Model =
 
 wholeURL : String
 wholeURL =
-    "../asset/defaultMod.json"
+    "asset/defaultMod.json"
 
 
 initModel : Model
