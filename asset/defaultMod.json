@@ -62,7 +62,7 @@
             }
         },
         "Material Support3": {
-            "location": "Gassville",
+            "location": "GassVille",
             "effect": {
                 "Health threat drop": 1,
                 "Citizen trust": 1,

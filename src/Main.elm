@@ -40,7 +40,7 @@ type alias Model =
 
 wholeURL : String
 wholeURL =
-    "asset/defaultMod.json"
+    "../asset/defaultMod.json"
 
 
 initModel : Model
@@ -61,8 +61,8 @@ init result =
 view : Model -> Html Msg
 view model =
     div
-        [ HtmlAttr.style "width" "100vw"
-        , HtmlAttr.style "height" "100vh"
+        [ HtmlAttr.style "width" "95vw"
+        , HtmlAttr.style "height" "95vh"
         , HtmlAttr.style "left" "0"
         , HtmlAttr.style "top" "0"
         , HtmlAttr.style "text-align" "center"
@@ -75,7 +75,9 @@ view model =
         , viewGlobalData (Dict.values model.data.globalCP) model.data.infoCP
         , view_Areadata model.data.area model.onviewArea
         , disp_Onview model.onviewArea
-        , button [ HtmlEvent.onClick (Msg.UploadFile FileRequested) ] [ text "Load Mod" ]
+        , button [ HtmlEvent.onClick (Msg.UploadFile FileRequested) ] [ text "Load Mod" ],
+         text (Debug.toString model.data.area)
+
         ]
 
 
