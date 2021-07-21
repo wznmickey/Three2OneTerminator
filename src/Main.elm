@@ -41,7 +41,7 @@ type alias Model =
 
 wholeURL : String
 wholeURL =
-    "../asset/defaultMod.json"
+    "asset/defaultMod.json"
 
 
 initModel : Model
@@ -76,9 +76,7 @@ view model =
         , viewGlobalData (Dict.values model.data.globalCP) model.data.infoCP
         , view_Areadata model.data.area model.onviewArea
         , disp_Onview model.onviewArea
-        , button [ HtmlEvent.onClick (Msg.UploadFile FileRequested) ] [ text "Load Mod" ],
-         text (Debug.toString model.data.area)
-
+        , button [ HtmlEvent.onClick (Msg.UploadFile FileRequested) ] [ text "Load Mod" ]
         ]
 
 
