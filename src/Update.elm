@@ -3,7 +3,8 @@ module Update exposing (..)
 import Area exposing (Area, initArea)
 import Array exposing (Array)
 import CPdata exposing (CPdata)
-import CRdata exposing (CRdata)
+import CPtype exposing (CPtype(..))
+import CRdata exposing (CRdata, initCRdata)
 import Dict exposing (Dict)
 import For exposing (for_outer)
 import GameData exposing (GameData, getCPdataByName, getPureCPdataByName)
@@ -53,7 +54,55 @@ updateData data =
 
 
 
---change local cp according to area
+--change cp according to CR
+
+
+changeCR2CP : Dict String CRdata -> Dict String PureCPdata -> Dict String Area -> ( Dict String Area, Dict String PureCPdata )
+changeCR2CP cr global area =
+    let
+        arrayCR =
+            Array.map (\( x, y ) -> y) (Array.fromList (Dict.toList cr))
+
+        ( dontcare, ( updatedArea, updatedGlobal ) ) =
+            for_outer 0 (Dict.size cr) eachChangeCR2CP ( arrayCR, ( global, area ) )
+    in
+    (  updatedGlobal,updatedArea)
+
+
+eachChangeCR2CP : ( Dict String PureCPdata, Dict String Area ) -> Int -> Array CRdata -> ( Array CRdata, ( Dict String PureCPdata, Dict String Area ) )
+eachChangeCR2CP ( global, area ) i cr =
+    let
+        certainCR =
+            Maybe.withDefault initCRdata (Array.get i cr)
+
+        certainArea =
+            Maybe.withDefault initArea (Dict.get certainCR.name area)
+
+        ( updatedArea, updatedGlobal ) =
+            certainChangeCR2CP global certainArea certainCR
+        updatedAllArea =
+            Dict.update certainCR.name ((\x y->x) (Just updatedArea)) area
+    in
+    ( cr, ( updatedGlobal, updatedAllArea ) )
+
+
+certainChangeCR2CP : Dict String PureCPdata -> Area -> CRdata -> ( Area, Dict String PureCPdata )
+certainChangeCR2CP global area certainCR =
+    let
+        localCP =
+            area.localCP
+
+        effect =
+            certainCR.effect
+
+        ( newGlobal, newLocal ) =
+            effectCP effect global localCP
+    in
+    ( { area | localCP = newLocal }, newGlobal )
+
+
+
+--change cp according to area
 
 
 areaCPchange : Dict String Area -> Dict String PureCPdata -> ( Dict String Area, Dict String PureCPdata )
