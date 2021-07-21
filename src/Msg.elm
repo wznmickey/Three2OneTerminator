@@ -30,3 +30,4 @@ type Msg
     | Tick Float
     | Clickon Element
     | UploadFile FileStatus
+    | None

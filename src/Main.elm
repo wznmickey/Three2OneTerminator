@@ -3,7 +3,7 @@ module Main exposing (main)
 import Area exposing (..)
 import Array exposing (..)
 import Browser exposing (element)
-import Browser.Events exposing (onAnimationFrameDelta, onClick)
+import Browser.Events exposing (onAnimationFrameDelta, onClick, onKeyDown)
 import CPdata exposing (..)
 import CPtype exposing (CPtype(..))
 import CRdata exposing (CRdata)
@@ -26,7 +26,7 @@ import Svg.Attributes as SvgAttr
 import Task
 import View exposing (..)
 import Update exposing (..)
-
+import Json.Decode as Decode
 
 type alias Model =
     { data : GameData
@@ -41,7 +41,7 @@ type alias Model =
 
 wholeURL : String
 wholeURL =
-    "asset/defaultMod.json"
+    "../asset/defaultMod.json"
 
 
 initModel : Model
@@ -76,31 +76,35 @@ view model =
         , viewGlobalData (Dict.values model.data.globalCP) model.data.infoCP
         , view_Areadata model.data.area model.onviewArea
         , disp_Onview model.onviewArea
-        , button [ HtmlEvent.onClick (Msg.UploadFile FileRequested) ] [ text "Load Mod" ],
-         text (Debug.toString model.data.area)
-
+        , show_PauseInfo
+        , button [ HtmlEvent.onClick (Msg.UploadFile FileRequested) ] [ text "Load Mod" ]
         ]
+        
+
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
-    case msg of
-        GotText result ->
-            case result of
+    if msg == ChangeState then
+            ( { model | state = (change_GameState model) }, Cmd.none )
+    else 
+        if model.state == Start then
+          case msg of
+            GotText result ->
+              case result of
                 Ok fullText ->
-                    ( { model | modInfo = fullText, data = Tuple.first (loadMod fullText), loadInfo = Tuple.second (loadMod fullText) }, Cmd.none )
-
+                 ( { model | modInfo = fullText, data = Tuple.first (loadMod fullText), loadInfo = Tuple.second (loadMod fullText) }, Cmd.none )
                 _ ->
-                    ( { model | modInfo = "error" }, Cmd.none )
+                 ( { model | modInfo = "error" }, Cmd.none )
 
-        Clickon (Msg.Area name) ->
-            ( { model | onviewArea = name } |> changeCR name, Cmd.none )
+            Clickon (Msg.Area name) ->
+                     ( { model | onviewArea = name } |> changeCR name, Cmd.none )
 
-        Clickon (Msg.CR name) ->
-            ( { model | onMovingCR = Just name }, Cmd.none )
+            Clickon (Msg.CR name) ->
+                    ( { model | onMovingCR = Just name }, Cmd.none )
 
-        UploadFile fileStatus ->
-            case fileStatus of
+            UploadFile fileStatus ->
+                case fileStatus of
                 FileRequested ->
                     ( model, Cmd.map UploadFile (Select.file [ "text/json" ] FileSelected) )
 
@@ -110,8 +114,8 @@ update msg model =
                 FileLoaded content ->
                     ( { model | modInfo = content, data = Tuple.first (loadMod content), loadInfo = Tuple.second (loadMod content) }, Cmd.none )
 
-        Tick time ->
-            let
+            Tick time ->
+             let
                 newmodel1 =
                     { model | time = model.time + time }
 
@@ -120,16 +124,35 @@ update msg model =
                 
                 -- newmodel3=
                 --     { model | data = changeCP_byCP newmodel2.data }
-            in
-            ( newmodel2, Cmd.none )
+             in
+                ( newmodel2, Cmd.none )
+        
+            _ ->
+                (model, Cmd.none )
 
-        _ ->
-            ( model, Cmd.none )
+    else ( model, Cmd.none )
+
+change_GameState: Model -> State
+change_GameState model =
+    if model.state == Pause then
+        Start
+    else  Pause
 
 
 subscriptions : Model -> Sub Msg
 subscriptions model =
-    Sub.batch [ onAnimationFrameDelta Tick ]
+    Sub.batch [ onAnimationFrameDelta Tick 
+        , onKeyDown (Decode.map keyPress keyCode)
+        ]
+
+
+keyPress : Int -> Msg
+keyPress i =
+    case i of
+        32 ->
+            ChangeState
+        _->
+            None
 
 
 main =

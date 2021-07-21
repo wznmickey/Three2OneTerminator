@@ -236,6 +236,18 @@ get_CRpos_inCRtype crType crAreapos =
             ( 0, 0 )
 
 
+show_PauseInfo : Html Msg
+show_PauseInfo =
+
+    div
+        [ style "color" "pink"
+        , style "position" "absolute"
+        , style "left" "80vw"
+        , style "top" "50vh"
+        , style "width" "20vw"
+        , style "white-space" "pre-line"
+        ]
+        [ text ("press space to continue/pause") ]
 
 -- viewCRs_onArea : Area -> Dict String CRdata ->List CList (Svg Msg)
 -- viewCRs_onArea  areaS cRs=
