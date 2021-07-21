@@ -25,7 +25,7 @@ type FileStatus
     | FileLoaded String 
 
 type Msg
-    = ToState State
+    = ChangeState
     | GotText (Result Http.Error String)
     | Tick Float
     | Clickon Element
