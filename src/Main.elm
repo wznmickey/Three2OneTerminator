@@ -77,6 +77,8 @@ view model =
         , view_Areadata model.data.area model.onviewArea
         , disp_Onview model.onviewArea
         , button [ HtmlEvent.onClick (Msg.UploadFile FileRequested) ] [ text "Load Mod" ]
+
+        , text (Debug.toString (model.time))
         ]
 
 
@@ -114,7 +116,11 @@ update msg model =
                     { model | time = model.time + time }
 
                 newmodel2 =
-                    { model | data = updateData newmodel1.data }
+                    if (newmodel1.time >= 1000) then
+                        { newmodel1 | data = updateData newmodel1.data, time = newmodel1.time - 1000 }
+
+                    else
+                        newmodel1
 
                 -- newmodel3=
                 --     { model | data = changeCP_byCP newmodel2.data }
