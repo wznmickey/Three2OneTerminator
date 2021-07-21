@@ -34,6 +34,11 @@ type alias Model =
     }
 
 
+wholeURL : String
+wholeURL =
+    "asset/defaultMod.json"
+
+
 initModel : Model
 initModel =
     Model initGameData Start "modInfo" "Init" "init" 0 Nothing
@@ -43,7 +48,7 @@ init : () -> ( Model, Cmd Msg )
 init result =
     ( initModel
     , Http.get
-        { url = "asset/defaultMod.json"
+        { url = wholeURL
         , expect = Http.expectString GotText
         }
     )

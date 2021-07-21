@@ -15,6 +15,7 @@ import PureCPdata exposing (..)
 import Svg exposing (Svg, text)
 import Svg.Attributes as SvgAttr
 import Svg.Events as SvgEvent
+import Round exposing(round)
 
 
 viewUnitArea : Area -> Svg Msg
@@ -99,7 +100,7 @@ combineCPdata2String cpTocombine =
         ""
         (List.map
             (\a ->
-                a.name ++ ": " ++ String.fromFloat a.data ++ "\n"
+                a.name ++ ": " ++ Round.round 2 a.data ++ "\n"
             )
             cpTocombine
         )
@@ -148,7 +149,7 @@ combine_LocalCPdata2String cpTocombine =
         "Local Control Point"
         (List.map
             (\a ->
-                a.name ++ ": " ++ String.fromFloat a.data ++ "\n"
+                a.name ++ ": " ++ Round.round 2 a.data ++ "\n"
             )
             cpTocombine
         )
