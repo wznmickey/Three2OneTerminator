@@ -12,7 +12,7 @@
         "Citizen trust": {
             "type": "Global",
             "effect": {
-                "Health threat drop": 2,
+                "Health threat drop": 0,
                 "Citizen trust": 0,
                 "External safety": 4,
                 "Disposable Money": 2
@@ -21,7 +21,7 @@
         "External safety": {
             "type": "Global",
             "effect": {
-                "Health threat drop": 5,
+                "Health threat drop": 0,
                 "Citizen trust": 4,
                 "External safety": 0,
                 "Disposable Money": 1
@@ -30,7 +30,7 @@
         "Disposable Money": {
             "type": "Global",
             "effect": {
-                "Health threat drop": 3,
+                "Health threat drop": 0,
                 "Citizen trust": 2,
                 "External safety": 1,
                 "Disposable Money": 0
@@ -134,8 +134,8 @@
     "helpText": {
         "Health threat drop": "The disalarmed Health threat, to which increase of Disposable Money is most conducive",
         "Citizen trust": "The trust citizens in an area has on its governer, to which increase of External Safety is most conducive",
-        "External safety": "The safety guaranteed of the personnel and material inflow, to which drop of health threat is most conducive",
-        "Disposable Money": "The financial aid the government can offer to the medical institute, to which drop of health threat is most conducive",
+        "External safety": "The safety guaranteed of the personnel and material inflow, to which Disposable Money is most conducive",
+        "Disposable Money": "The financial aid the government can offer to the medical institute, to which Citizen trust is most conducive",
         "Material Support1": "The original maximum capacity of material support area 1 can offer to others",
         "Material Support2": "The original maximum capacity of material support area 2 can offer to others",
         "Material Support3": "The original maximum capacity of material support area 3 can offer to others",
