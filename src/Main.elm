@@ -203,7 +203,7 @@ changeCR newArea model =
                 newData =
                     { data | allCR = moveCR model.data.allCR x newArea }
             in
-            { model | data = newData }
+            { model | data = newData,onMovingCR=Nothing }
 
         Nothing ->
             model
