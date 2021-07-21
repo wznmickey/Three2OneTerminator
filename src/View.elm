@@ -3,6 +3,7 @@ module View exposing (..)
 import Area exposing (..)
 import CPdata exposing (..)
 import CPtype exposing (..)
+import CRdata exposing (CRdata)
 import Debug exposing (toString)
 import Dict exposing (Dict, get)
 import GameData exposing (..)
@@ -14,7 +15,6 @@ import PureCPdata exposing (..)
 import Svg exposing (Svg, text)
 import Svg.Attributes as SvgAttr
 import Svg.Events as SvgEvent
-import CRdata exposing (CRdata)
 
 
 viewUnitArea : Area -> Svg Msg
@@ -36,7 +36,7 @@ viewUnitArea unitArea =
         , SvgAttr.y (String.fromInt ypos ++ "px")
         , SvgAttr.fill unitArea.areaColor
         , SvgAttr.stroke "white"
-        , SvgEvent.onClick (Clickon name)
+        , SvgEvent.onClick (Clickon (Msg.Area name))
         ]
         [ text (String.fromInt unitArea.no) ]
 
@@ -56,7 +56,8 @@ init_AreaPos areaNumber =
         ( 100, 200 )
 
 
--- 
+
+--
 
 
 viewAreas : List Area -> List (Svg Msg)
@@ -162,13 +163,17 @@ checkArea areaName areaS =
         Nothing ->
             initArea
 
+
 viewCRs : List CRdata -> List (Svg Msg)
 viewCRs cRS =
     List.map viewUnitCR cRS
 
+
 viewUnitCR : CRdata -> Svg Msg
 viewUnitCR cRpos =
     let
+        name =
+            cRpos.name
 
         xpos =
             Tuple.first (get_CRpos cRpos)
@@ -176,38 +181,39 @@ viewUnitCR cRpos =
         ypos =
             Tuple.second (get_CRpos cRpos)
     in
-    
-        Svg.circle
-        [ 
-        SvgAttr.cx (String.fromInt xpos ++ "px")
+    Svg.circle
+        [ SvgAttr.cx (String.fromInt xpos ++ "px")
         , SvgAttr.cy (String.fromInt ypos ++ "px")
         , SvgAttr.r (String.fromFloat 10 ++ "px")
         , SvgAttr.fill "yellow"
         , SvgAttr.stroke "red"
-        -- , SvgEvent.onClick (Clickon name)
+        , SvgEvent.onClick (Clickon (Msg.CR name))
         ]
         []
-    
 
 
-get_CRpos : CRdata -> (Int,Int)
-get_CRpos crData = 
-    case crData.location of 
-        "Gotham"->
-            (get_CRpos_inCRtype crData.name 1  )
-        "BomBay"->
-            (get_CRpos_inCRtype crData.name 2  )
-        "GassVille"->
-            (get_CRpos_inCRtype crData.name 3  )
-        "Burnley"->
-            (get_CRpos_inCRtype crData.name 4  )
-        _->
-            (1,1)
+get_CRpos : CRdata -> ( Int, Int )
+get_CRpos crData =
+    case crData.location of
+        "Gotham" ->
+            get_CRpos_inCRtype crData.name 1
 
-get_CRpos_inCRtype : String -> Int -> (Int, Int)
-get_CRpos_inCRtype crType crAreapos = 
+        "BomBay" ->
+            get_CRpos_inCRtype crData.name 2
+
+        "GassVille" ->
+            get_CRpos_inCRtype crData.name 3
+
+        "Burnley" ->
+            get_CRpos_inCRtype crData.name 4
+
+        _ ->
+            ( 1, 1 )
+
+
+get_CRpos_inCRtype : String -> Int -> ( Int, Int )
+get_CRpos_inCRtype crType crAreapos =
     let
-
         xpos =
             Tuple.first (init_AreaPos crAreapos)
 
@@ -215,25 +221,20 @@ get_CRpos_inCRtype crType crAreapos =
             Tuple.second (init_AreaPos crAreapos)
     in
     case crType of
-    "CR1"->
-        (xpos + 20 , ypos + 20)
-    "CR2"->
-        (xpos + 50 , ypos + 50)
-    _->
-        (0,0) 
+        "CR1" ->
+            ( xpos + 20, ypos + 20 )
 
+        "CR2" ->
+            ( xpos + 50, ypos + 50 )
+
+        _ ->
+            ( 0, 0 )
 
 
 
 -- viewCRs_onArea : Area -> Dict String CRdata ->List CList (Svg Msg)
 -- viewCRs_onArea  areaS cRs=
 --     List.map viewUnitCR areaS
-
-
-
-
-
-
 --  --view : Mapview,
 --       name : "none"
 --     , localCP : Dict String PureCPdata

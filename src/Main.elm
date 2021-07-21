@@ -30,12 +30,13 @@ type alias Model =
     , loadInfo : String
     , onviewArea : String
     , time : Float
+    , onMovingCR : Maybe String
     }
 
 
 initModel : Model
 initModel =
-    Model initGameData Start "modInfo" "Init" "init" 0
+    Model initGameData Start "modInfo" "Init" "init" 0 Nothing
 
 
 init : () -> ( Model, Cmd Msg )
@@ -51,21 +52,20 @@ init result =
 view : Model -> Html Msg
 view model =
     div
-        [ HtmlAttr.style "width" "1000"
-        , HtmlAttr.style "height" "1000"
+        [ HtmlAttr.style "width" "100vw"
+        , HtmlAttr.style "height" "100vh"
         , HtmlAttr.style "left" "0"
         , HtmlAttr.style "top" "0"
         , HtmlAttr.style "text-align" "center"
         ]
         [ Svg.svg
-            [ SvgAttr.width "1000"
-            , SvgAttr.height "1000"
+            [ SvgAttr.width "100%"
+            , SvgAttr.height "100%"
             ]
             (viewAreas (Dict.values model.data.area) ++ viewCRs (Dict.values model.data.allCR))
         , viewGlobalData (Dict.values model.data.globalCP) model.data.infoCP
         , view_Areadata model.data.area model.onviewArea
         , disp_Onview model.onviewArea
-        
         ]
 
 
@@ -80,8 +80,11 @@ update msg model =
                 _ ->
                     ( { model | modInfo = "error" }, Cmd.none )
 
-        Clickon areaNum ->
-            ( { model | onviewArea = areaNum }, Cmd.none )
+        Clickon (Msg.Area name) ->
+            ( { model | onviewArea = name } |> changeCR name, Cmd.none )
+
+        Clickon (Msg.CR name) ->
+            ( { model | onMovingCR = Just name }, Cmd.none )
 
         Tick time ->
             let
@@ -166,3 +169,35 @@ eachAreaCPchange global i a =
             effectCP newArea.effect global newArea.localCP
     in
     ( Array.map ((\y x -> { x | localCP = y }) local) a, newGlobal )
+
+
+changeCR : String -> Model -> Model
+changeCR newArea model =
+    case model.onMovingCR of
+        Just x ->
+            let
+                data =
+                    model.data
+
+                newData =
+                    { data | allCR = moveCR model.data.allCR x newArea }
+            in
+            { model | data = newData }
+
+        Nothing ->
+            model
+
+
+moveCR : Dict String CRdata -> String -> String -> Dict String CRdata
+moveCR before from to =
+    Dict.update from (setCRlocation to) before
+
+
+setCRlocation : String -> Maybe CRdata -> Maybe CRdata
+setCRlocation to from =
+    case from of
+        Just fromArea ->
+            Maybe.Just { fromArea | location = to }
+
+        _ ->
+            from
