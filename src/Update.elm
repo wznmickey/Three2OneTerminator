@@ -81,7 +81,7 @@ changeCR2CP cr global area =
             Array.map (\( x, y ) -> y) (Array.fromList (Dict.toList cr))
 
         ( dontcare, ( updatedArea, updatedGlobal ) ) =
-            for_outer 0 (Dict.size cr) eachChangeCR2CP ( arrayCR, ( global, area ) )
+            for_outer 0 ((Dict.size cr)-1) eachChangeCR2CP ( arrayCR, ( global, area ) )
     in
     ( updatedGlobal, updatedArea )
 
@@ -93,7 +93,7 @@ eachChangeCR2CP ( global, area ) i cr =
             Maybe.withDefault initCRdata (Array.get i cr)
 
         certainArea =
-            Maybe.withDefault initArea (Dict.get certainCR.name area)
+            Maybe.withDefault initArea (Dict.get (Debug.log "1" certainCR.location) area)
 
         ( updatedArea, updatedGlobal ) =
             certainChangeCR2CP global certainArea certainCR
@@ -130,7 +130,7 @@ areaCPchange area global =
             Array.map (\( x, y ) -> y) (Array.fromList (Dict.toList area))
 
         ( afterAreaArray, afterGlobal ) =
-            for_outer 0 (Dict.size area) eachAreaCPchange ( pureArea, global )
+            for_outer 0 ((Dict.size area)-1) eachAreaCPchange ( pureArea, global )
     in
     ( Dict.fromList (List.map (\x -> ( x.name, x )) (Array.toList afterAreaArray)), afterGlobal )
 
