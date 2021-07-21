@@ -116,7 +116,10 @@ update msg model =
                     { model | time = model.time + time }
 
                 newmodel2 =
-                    { model | data = updateData model.data }
+                    { model | data = updateData newmodel1.data }
+                
+                -- newmodel3=
+                --     { model | data = changeCP_byCP newmodel2.data }
             in
             ( newmodel2, Cmd.none )
 
