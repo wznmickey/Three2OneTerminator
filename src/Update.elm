@@ -38,7 +38,7 @@ getEffect effect key before =
 valueEffectCP : PureCPdata -> PureCPdata -> PureCPdata
 valueEffectCP effect before =
     --For debug { before | data = (Debug.log "before" before.data) + (Debug.log "add" effect.data) }
-    { before | data =  before.data+ effect.data }
+    { before | data = before.data + effect.data }
 
 
 
@@ -47,9 +47,25 @@ valueEffectCP effect before =
 
 updateData : GameData -> GameData
 updateData data =
+    data
+        |> updateDataArea
+        |> updateDataCR
+
+
+updateDataArea : GameData -> GameData
+updateDataArea data =
     let
         ( newArea, newGlobal ) =
             areaCPchange data.area data.globalCP
+    in
+    { data | area = newArea, globalCP = newGlobal }
+
+
+updateDataCR : GameData -> GameData
+updateDataCR data =
+    let
+        (  newArea ,newGlobal) =
+            changeCR2CP data.allCR data.globalCP data.area
     in
     { data | area = newArea, globalCP = newGlobal }
 
@@ -67,7 +83,7 @@ changeCR2CP cr global area =
         ( dontcare, ( updatedArea, updatedGlobal ) ) =
             for_outer 0 (Dict.size cr) eachChangeCR2CP ( arrayCR, ( global, area ) )
     in
-    (  updatedGlobal,updatedArea)
+    ( updatedGlobal, updatedArea )
 
 
 eachChangeCR2CP : ( Dict String PureCPdata, Dict String Area ) -> Int -> Array CRdata -> ( Array CRdata, ( Dict String PureCPdata, Dict String Area ) )
@@ -81,8 +97,9 @@ eachChangeCR2CP ( global, area ) i cr =
 
         ( updatedArea, updatedGlobal ) =
             certainChangeCR2CP global certainArea certainCR
+
         updatedAllArea =
-            Dict.update certainCR.name ((\x y->x) (Just updatedArea)) area
+            Dict.update certainCR.name ((\x y -> x) (Just updatedArea)) area
     in
     ( cr, ( updatedGlobal, updatedAllArea ) )
 
@@ -127,7 +144,7 @@ eachAreaCPchange global i a =
         ( newGlobal, local ) =
             effectCP newArea.effect global newArea.localCP
     in
-    ( Array.set i (((\y x -> { x | localCP =  y }) local) newArea) a, newGlobal )
+    ( Array.set i ((\y x -> { x | localCP = y }) local newArea) a, newGlobal )
 
 
 
