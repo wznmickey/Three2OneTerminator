@@ -91,7 +91,7 @@
                 "Disposable Money": 2
             },
             "init": {
-                "Material Support1": 20
+                "Health threat drop": 20
             }
         },
         "BomBay": {
@@ -103,7 +103,7 @@
                 "Disposable Money": 9
             },
             "init": {
-                "Material Support1": 12
+                "Health threat drop": 12
             }
         },
         "GassVille": {
@@ -115,7 +115,7 @@
                 "Disposable Money": 1
             },
             "init": {
-                "Material Support1": 30
+                "Health threat drop": 30
             }
         },
         "Burnley": {
@@ -127,7 +127,7 @@
                 "Disposable Money": 15
             },
             "init": {
-                "Material Support1": 5
+                "Health threat drop": 5
             }
         }
     },
