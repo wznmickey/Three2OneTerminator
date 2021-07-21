@@ -25,6 +25,7 @@ import Svg exposing (Svg)
 import Svg.Attributes as SvgAttr
 import Task
 import View exposing (..)
+import Update exposing (..)
 
 
 type alias Model =
@@ -40,7 +41,7 @@ type alias Model =
 
 wholeURL : String
 wholeURL =
-    "asset/defaultMod.json"
+    "../asset/defaultMod.json"
 
 
 initModel : Model
@@ -61,8 +62,8 @@ init result =
 view : Model -> Html Msg
 view model =
     div
-        [ HtmlAttr.style "width" "100vw"
-        , HtmlAttr.style "height" "100vh"
+        [ HtmlAttr.style "width" "95vw"
+        , HtmlAttr.style "height" "95vh"
         , HtmlAttr.style "left" "0"
         , HtmlAttr.style "top" "0"
         , HtmlAttr.style "text-align" "center"
@@ -75,7 +76,9 @@ view model =
         , viewGlobalData (Dict.values model.data.globalCP) model.data.infoCP
         , view_Areadata model.data.area model.onviewArea
         , disp_Onview model.onviewArea
-        , button [ HtmlEvent.onClick (Msg.UploadFile FileRequested) ] [ text "Load Mod" ]
+        , button [ HtmlEvent.onClick (Msg.UploadFile FileRequested) ] [ text "Load Mod" ],
+         text (Debug.toString model.data.area)
+
         ]
 
 
@@ -113,7 +116,10 @@ update msg model =
                     { model | time = model.time + time }
 
                 newmodel2 =
-                    { model | data = updateData model.data }
+                    { model | data = updateData newmodel1.data }
+                
+                -- newmodel3=
+                --     { model | data = changeCP_byCP newmodel2.data }
             in
             ( newmodel2, Cmd.none )
 
@@ -135,61 +141,7 @@ main =
         }
 
 
-effectCP : Dict String PureCPdata -> Dict String PureCPdata -> Dict String PureCPdata -> ( Dict String PureCPdata, Dict String PureCPdata )
-effectCP effect global local =
-    ( dictEffectCP effect global, dictEffectCP effect local )
 
-
-dictEffectCP : Dict String PureCPdata -> Dict String PureCPdata -> Dict String PureCPdata
-dictEffectCP effect before =
-    Dict.map (getEffect effect) before
-
-
-getEffect : Dict String PureCPdata -> String -> PureCPdata -> PureCPdata
-getEffect effect key before =
-    if before.name == key then
-        valueEffectCP (getPureCPdataByName ( key, effect )) before
-
-    else
-        before
-
-
-valueEffectCP : PureCPdata -> PureCPdata -> PureCPdata
-valueEffectCP effect before =
-    { before | data = before.data + effect.data }
-
-
-updateData : GameData -> GameData
-updateData data =
-    let
-        ( newArea, newGlobal ) =
-            areaCPchange data.area data.globalCP
-    in
-    { data | area = newArea, globalCP = newGlobal }
-
-
-areaCPchange : Dict String Area -> Dict String PureCPdata -> ( Dict String Area, Dict String PureCPdata )
-areaCPchange area global =
-    let
-        pureArea =
-            Array.map (\( x, y ) -> y) (Array.fromList (Dict.toList area))
-
-        ( afterAreaArray, afterGlobal ) =
-            for_outer 0 (Dict.size area) eachAreaCPchange ( pureArea, global )
-    in
-    ( Dict.fromList (List.map (\x -> ( x.name, x )) (Array.toList afterAreaArray)), afterGlobal )
-
-
-eachAreaCPchange : Dict String PureCPdata -> Int -> Array Area -> ( Array Area, Dict String PureCPdata )
-eachAreaCPchange global i a =
-    let
-        newArea =
-            Maybe.withDefault initArea (Array.get i a)
-
-        ( newGlobal, local ) =
-            effectCP newArea.effect global newArea.localCP
-    in
-    ( Array.map ((\y x -> { x | localCP = y }) local) a, newGlobal )
 
 
 changeCR : String -> Model -> Model
@@ -209,16 +161,3 @@ changeCR newArea model =
             model
 
 
-moveCR : Dict String CRdata -> String -> String -> Dict String CRdata
-moveCR before from to =
-    Dict.update from (setCRlocation to) before
-
-
-setCRlocation : String -> Maybe CRdata -> Maybe CRdata
-setCRlocation to from =
-    case from of
-        Just fromArea ->
-            Maybe.Just { fromArea | location = to }
-
-        _ ->
-            from
