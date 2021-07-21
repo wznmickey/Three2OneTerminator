@@ -77,7 +77,7 @@ viewGlobalData pure dict =
         , style "top" "0"
         , style "white-space" "pre-line"
         ]
-        [ text ("Global Control PoFloat: \n" ++ combineCPdata2String (filterGlobalData pure dict)) ]
+        [ text ("Global Control Points: \n" ++ combineCPdata2String (filterGlobalData pure dict)) ]
 
 
 filterGlobalData : List PureCPdata -> Dict String CPdata -> List PureCPdata
@@ -144,7 +144,7 @@ disp_Onview onview =
 combine_LocalCPdata2String : List PureCPdata -> String
 combine_LocalCPdata2String cpTocombine =
     List.foldl (\x a -> x ++ a)
-        "Local Control PoFloat"
+        "Local Control Points"
         (List.map
             (\a ->
                 a.name ++ ": " ++ Round.round 2 a.data ++ "\n"
