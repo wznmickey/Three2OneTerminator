@@ -8,18 +8,22 @@ import CPdata exposing (..)
 import CPtype exposing (CPtype(..))
 import CRdata exposing (CRdata)
 import Dict exposing (Dict)
+import File exposing (File)
+import File.Select as Select
 import For exposing (..)
 import GameData exposing (GameData, getPureCPdataByName, initGameData)
 import HelpText exposing (initHelpText)
 import Html exposing (..)
 import Html.Attributes as HtmlAttr exposing (..)
+import Html.Events as HtmlEvent exposing (..)
 import Http
 import LoadMod exposing (loadMod)
-import Msg exposing (Msg(..), State(..))
+import Msg exposing (FileStatus(..), Msg(..), State(..))
 import PureCPdata exposing (PureCPdata)
 import String exposing (..)
 import Svg exposing (Svg)
 import Svg.Attributes as SvgAttr
+import Task
 import View exposing (..)
 
 
@@ -71,6 +75,7 @@ view model =
         , viewGlobalData (Dict.values model.data.globalCP) model.data.infoCP
         , view_Areadata model.data.area model.onviewArea
         , disp_Onview model.onviewArea
+        , button [ HtmlEvent.onClick (Msg.UploadFile FileRequested) ] [ text "Load Mod" ]
         ]
 
 
@@ -90,6 +95,17 @@ update msg model =
 
         Clickon (Msg.CR name) ->
             ( { model | onMovingCR = Just name }, Cmd.none )
+
+        UploadFile fileStatus ->
+            case fileStatus of
+                FileRequested ->
+                    ( model, Cmd.map UploadFile (Select.file [ "text/json" ] FileSelected) )
+
+                FileSelected file ->
+                    ( model, Cmd.map UploadFile (Task.perform FileLoaded (File.toString file)) )
+
+                FileLoaded content ->
+                    ( { model | modInfo = content, data = Tuple.first (loadMod content), loadInfo = Tuple.second (loadMod content) }, Cmd.none )
 
         Tick time ->
             let
