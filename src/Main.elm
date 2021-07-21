@@ -24,8 +24,8 @@ import String exposing (..)
 import Svg exposing (Svg)
 import Svg.Attributes as SvgAttr
 import Task
-import View exposing (..)
 import Update exposing (..)
+import View exposing (..)
 
 
 type alias Model =
@@ -115,7 +115,7 @@ update msg model =
 
                 newmodel2 =
                     { model | data = updateData newmodel1.data }
-                
+
                 -- newmodel3=
                 --     { model | data = changeCP_byCP newmodel2.data }
             in
@@ -139,9 +139,6 @@ main =
         }
 
 
-
-
-
 changeCR : String -> Model -> Model
 changeCR newArea model =
     case model.onMovingCR of
@@ -153,9 +150,7 @@ changeCR newArea model =
                 newData =
                     { data | allCR = moveCR model.data.allCR x newArea }
             in
-            { model | data = newData,onMovingCR=Nothing }
+            { model | data = newData, onMovingCR = Nothing }
 
         Nothing ->
             model
-
-

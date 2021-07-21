@@ -1,10 +1,11 @@
-module Msg exposing (Msg(..), State(..),Element(..),FileStatus(..))
+module Msg exposing (Element(..), FileStatus(..), Msg(..), State(..))
 
 import Browser.Events exposing (Visibility, onClick)
+import File exposing (..)
 import GameData exposing (..)
 import Html exposing (time)
 import Http
-import File exposing(..)
+
 
 type State
     = Start
@@ -13,14 +14,17 @@ type State
     | Pause
     | End
 
-type Element 
+
+type Element
     = CR String
     | Area String
+
 
 type FileStatus
     = FileRequested
     | FileSelected File
-    | FileLoaded String 
+    | FileLoaded String
+
 
 type Msg
     = ToState State
