@@ -101,13 +101,13 @@ view model =
 
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
-    -- if 
-    --     model.state == End && msg /= Restart then 
-    --     ( model, Cmd.none )
-    -- else if 
-    -- model.state == End && msg == Restart then 
-    -- ( initModel, Cmd.none)
-    -- else 
+    if 
+        model.state == End && msg /= Restart then 
+        ( model, Cmd.none )
+    else if 
+    model.state == End && msg == Restart then 
+    ( initModel, Cmd.none)
+    else 
         if msg == ChangeState then
             ( { model | state = (change_Pause model) }, Cmd.none )
         else if model.state == Start then
