@@ -1,4 +1,4 @@
-module Msg exposing (Element(..), FileStatus(..), Msg(..), State(..),KeyInfo(..))
+module Msg exposing (Element(..), FileStatus(..), KeyInfo(..), Msg(..), State(..))
 
 import Browser.Events exposing (Visibility, onClick)
 import File exposing (..)
@@ -14,10 +14,12 @@ type State
     | Pause
     | End
 
+
 type KeyInfo
     = Space
     | R
     | NotCare
+
 
 type Element
     = CR String

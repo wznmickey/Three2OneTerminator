@@ -60,30 +60,21 @@ init result =
     )
 
 
-view : Model -> Html Msg
-view model =
-    div
-        [ HtmlAttr.style "width" "95vw"
-        , HtmlAttr.style "height" "95vh"
-        , HtmlAttr.style "left" "0"
-        , HtmlAttr.style "top" "0"
-        , HtmlAttr.style "text-align" "center"
+subscriptions : Model -> Sub Msg
+subscriptions model =
+    Sub.batch
+        [ onAnimationFrameDelta Tick
+        , onKeyDown (Decode.map keyPress keyCode)
         ]
-        [ Svg.svg
-            [ SvgAttr.width "100%"
-            , SvgAttr.height "100%"
-            ]
-            (viewAreas (Dict.values model.data.area) ++ viewCRs (Dict.values model.data.allCR))
-        , viewGlobalData (Dict.values model.data.globalCP) model.data.infoCP
-        , view_Areadata model.data.area model.onviewArea
-        , disp_Onview model.onviewArea
-        , button [ HtmlEvent.onClick (Msg.UploadFile FileRequested) ] [ text "Load Mod" ]
-        , text (Debug.toString model.data.area)
-        , text (Debug.toString model.time)
-        , text (Debug.toString model.state)
-        , show_PauseInfo
-        , show_DeadInfo model
-        ]
+
+
+main =
+    Browser.element
+        { init = init
+        , view = view
+        , update = update
+        , subscriptions = subscriptions
+        }
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -92,7 +83,8 @@ update msg model =
         GotText result ->
             case result of
                 Ok fullText ->
-                         { model | modInfo = fullText, data = Tuple.first (loadMod fullText), loadInfo = Tuple.second (loadMod fullText)} |> update (ToState Running)
+                    { model | modInfo = fullText, data = Tuple.first (loadMod fullText), loadInfo = Tuple.second (loadMod fullText) } |> update (ToState Running)
+
                 _ ->
                     ( { model | modInfo = "error" }, Cmd.none )
 
@@ -119,7 +111,7 @@ update msg model =
                     ( model, Cmd.map UploadFile (Task.perform FileLoaded (File.toString file)) )
 
                 FileLoaded content ->
-                     { model | modInfo = content, data = Tuple.first (loadMod content), loadInfo = Tuple.second (loadMod content) }|> update (ToState Running)
+                    { model | modInfo = content, data = Tuple.first (loadMod content), loadInfo = Tuple.second (loadMod content) } |> update (ToState Running)
 
         Tick time ->
             if model.state == Msg.Running then
@@ -157,19 +149,6 @@ update msg model =
             ( { model | state = newState }, Cmd.none )
 
 
-
-switchPause : Model -> Msg
-switchPause model =
-    if model.state == Pause then
-        ToState Running
-
-    else if model.state == Running then
-        ToState Pause
-
-    else
-        ToState model.state
-
-
 check_Dead : Model -> State
 check_Dead model =
     let
@@ -183,67 +162,27 @@ check_Dead model =
         model.state
 
 
-subscriptions : Model -> Sub Msg
-subscriptions model =
-    Sub.batch
-        [ onAnimationFrameDelta Tick
-        , onKeyDown (Decode.map keyPress keyCode)
-        ]
-
-
-keyPress : Int -> Msg
-keyPress input =
-    let
-        i =
-            Debug.log "Receive Key" input
-    in
-    case i of
-        32 ->
-            KeyPress Space
-
-        82 ->
-            KeyPress R
-
-        _ ->
-            KeyPress NotCare
-
-
-main =
-    Browser.element
-        { init = init
-        , view = view
-        , update = update
-        , subscriptions = subscriptions
-        }
-
-
-changeCR : String -> Model -> Model
-changeCR newArea model =
-    case model.onMovingCR of
-        Just x ->
-            let
-                data =
-                    model.data
-
-                newData =
-                    { data | allCR = moveCR model.data.allCR x newArea }
-            in
-            { model | data = newData, onMovingCR = Nothing }
-
-        Nothing ->
-            model
-
-
-show_DeadInfo : Model -> Html Msg
-show_DeadInfo model =
+view : Model -> Html Msg
+view model =
     div
-        [ style "color" "pink"
-        , HtmlAttr.style "font-size" "large"
-        , style "width" "20vw"
+        [ HtmlAttr.style "width" "95vw"
+        , HtmlAttr.style "height" "95vh"
+        , HtmlAttr.style "left" "0"
+        , HtmlAttr.style "top" "0"
+        , HtmlAttr.style "text-align" "center"
         ]
-        [ if model.state == End then
-            text "Mission Failed! Retry the mission of a terminator! Press R to restart"
-
-          else
-            text "Save the world! Terminator!"
+        [ Svg.svg
+            [ SvgAttr.width "100%"
+            , SvgAttr.height "100%"
+            ]
+            (viewAreas (Dict.values model.data.area) ++ viewCRs (Dict.values model.data.allCR))
+        , viewGlobalData (Dict.values model.data.globalCP) model.data.infoCP
+        , view_Areadata model.data.area model.onviewArea
+        , disp_Onview model.onviewArea
+        , button [ HtmlEvent.onClick (Msg.UploadFile FileRequested) ] [ text "Load Mod" ]
+        , text (Debug.toString model.data.area)
+        , text (Debug.toString model.time)
+        , text (Debug.toString model.state)
+        , show_PauseInfo
+        , show_DeadInfo model
         ]

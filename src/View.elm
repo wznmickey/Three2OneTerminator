@@ -12,10 +12,10 @@ import Html.Attributes exposing (style)
 import Json.Decode exposing (Error, string)
 import Msg exposing (Msg(..))
 import PureCPdata exposing (..)
+import Round exposing (round)
 import Svg exposing (Svg, text)
 import Svg.Attributes as SvgAttr
 import Svg.Events as SvgEvent
-import Round exposing(round)
 
 
 viewUnitArea : Area -> Svg Msg
@@ -39,7 +39,6 @@ viewUnitArea unitArea =
         , SvgAttr.stroke "white"
         , SvgEvent.onClick (Clickon (Msg.Area name))
         , SvgAttr.title name
-        
         ]
         [ text (String.fromInt unitArea.no) ]
 
@@ -56,11 +55,7 @@ init_AreaPos areaNumber =
         ( 60, 30 )
 
     else
-        ( 10, 20     )
-
-
-
---
+        ( 10, 20 )
 
 
 viewAreas : List Area -> List (Svg Msg)
@@ -126,7 +121,7 @@ view_Areadata area onview =
         , style "width" "20vw"
         , style "white-space" "pre-line"
         ]
-        [ text (combineCPdata2String (Dict.values (checkArea onview area).localCP))]
+        [ text (combineCPdata2String (Dict.values (checkArea onview area).localCP)) ]
 
 
 disp_Onview : String -> Html Msg
@@ -188,7 +183,6 @@ viewUnitCR cRpos =
         , SvgAttr.r (String.fromFloat 1.5 ++ "vh")
         , SvgAttr.fill "yellow"
         , SvgAttr.stroke "red"
-        
         , SvgEvent.onClick (Clickon (Msg.CR name))
         ]
         []
@@ -241,7 +235,6 @@ get_CRpos_inCRtype crType crAreapos =
 
 show_PauseInfo : Html Msg
 show_PauseInfo =
-
     div
         [ style "color" "pink"
         , style "position" "absolute"
@@ -250,16 +243,19 @@ show_PauseInfo =
         , style "width" "20vw"
         , style "white-space" "pre-line"
         ]
-        [ text ("press space to continue/pause") ]
+        [ text "press space to continue/pause" ]
 
--- viewCRs_onArea : Area -> Dict String CRdata ->List CList (Svg Msg)
--- viewCRs_onArea  areaS cRs=
---     List.map viewUnitCR areaS
---  --view : Mapview,
---       name : "none"
---     , localCP : Dict String PureCPdata
---     , effect : Dict String PureCPdata
---     , --The index of the area. Start from **1**.
---       no : Float
---     , areaColor : String
---     }
+
+show_DeadInfo : Model -> Html Msg
+show_DeadInfo model =
+    div
+        [ style "color" "pink"
+        , HtmlAttr.style "font-size" "large"
+        , style "width" "20vw"
+        ]
+        [ if model.state == End then
+            text "Mission Failed! Retry the mission of a terminator! Press R to restart"
+
+          else
+            text "Save the world! Terminator!"
+        ]

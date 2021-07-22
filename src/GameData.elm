@@ -77,18 +77,3 @@ getCPdataByName ( name, dict ) =
 getPureCPdataByName : ( String, Dict String PureCPdata ) -> PureCPdata
 getPureCPdataByName ( name, dict ) =
     Maybe.withDefault initPureCPdata (Dict.get name dict)
-
-
-
-{--This part of code can not be compiled. The name and the coding seems not fit. Reserve it for further developing.
-changeCP2CR : Int -> Int
-changeCP2CR =
-    { 
-    if CPdata < 10 then
-        CPdata = CRdata+1
-        CRdata = CRdata-1
-    else if CPdata >= 10 then
-        CPdata = CRdata+2
-        CRdata = CRdata-2
-    }
---}

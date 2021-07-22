@@ -9,7 +9,20 @@ import Dict exposing (Dict)
 import For exposing (for_outer)
 import GameData exposing (GameData, getCPdataByName, getPureCPdataByName)
 import Html exposing (ol)
+import Msg exposing (Msg(..), State(..))
 import PureCPdata exposing (PureCPdata)
+
+
+switchPause : State -> Msg
+switchPause state =
+    if state == Pause then
+        ToState Running
+
+    else if state == Running then
+        ToState Pause
+
+    else
+        ToState state
 
 
 
@@ -64,7 +77,7 @@ updateDataArea data =
 updateDataCR : GameData -> GameData
 updateDataCR data =
     let
-        (  newArea ,newGlobal) =
+        ( newArea, newGlobal ) =
             changeCR2CP data.allCR data.globalCP data.area
     in
     { data | area = newArea, globalCP = newGlobal }
@@ -81,7 +94,7 @@ changeCR2CP cr global area =
             Array.map (\( x, y ) -> y) (Array.fromList (Dict.toList cr))
 
         ( dontcare, ( updatedArea, updatedGlobal ) ) =
-            for_outer 0 ((Dict.size cr)-1) eachChangeCR2CP ( arrayCR, ( global, area ) )
+            for_outer 0 (Dict.size cr - 1) eachChangeCR2CP ( arrayCR, ( global, area ) )
     in
     ( updatedGlobal, updatedArea )
 
@@ -130,7 +143,7 @@ areaCPchange area global =
             Array.map (\( x, y ) -> y) (Array.fromList (Dict.toList area))
 
         ( afterAreaArray, afterGlobal ) =
-            for_outer 0 ((Dict.size area)-1) eachAreaCPchange ( pureArea, global )
+            for_outer 0 (Dict.size area - 1) eachAreaCPchange ( pureArea, global )
     in
     ( Dict.fromList (List.map (\x -> ( x.name, x )) (Array.toList afterAreaArray)), afterGlobal )
 
@@ -177,3 +190,37 @@ setCRlocation to from =
 
         _ ->
             from
+
+
+changeCR : String -> Model -> Model
+changeCR newArea model =
+    case model.onMovingCR of
+        Just x ->
+            let
+                data =
+                    model.data
+
+                newData =
+                    { data | allCR = moveCR model.data.allCR x newArea }
+            in
+            { model | data = newData, onMovingCR = Nothing }
+
+        Nothing ->
+            model
+
+
+keyPress : Int -> Msg
+keyPress input =
+    let
+        i =
+            Debug.log "Receive Key" input
+    in
+    case i of
+        32 ->
+            KeyPress Space
+
+        82 ->
+            KeyPress R
+
+        _ ->
+            KeyPress NotCare
