@@ -38,6 +38,8 @@ viewUnitArea unitArea =
         , SvgAttr.fill unitArea.areaColor
         , SvgAttr.stroke "white"
         , SvgEvent.onClick (Clickon (Msg.Area name))
+        , SvgAttr.title name
+        
         ]
         [ text (String.fromInt unitArea.no) ]
 
@@ -186,6 +188,7 @@ viewUnitCR cRpos =
         , SvgAttr.r (String.fromFloat 1.5 ++ "vh")
         , SvgAttr.fill "yellow"
         , SvgAttr.stroke "red"
+        
         , SvgEvent.onClick (Clickon (Msg.CR name))
         ]
         []

@@ -31,3 +31,4 @@ type Msg
     | Clickon Element
     | UploadFile FileStatus
     | None
+    | Restart

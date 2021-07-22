@@ -27,6 +27,7 @@ import Task
 import View exposing (..)
 import Update exposing (..)
 import Json.Decode as Decode
+import Html.Attributes
 
 type alias Model =
     { data : GameData
@@ -72,24 +73,45 @@ view model =
             [ SvgAttr.width "100%"
             , SvgAttr.height "100%"
             ]
-            (viewAreas (Dict.values model.data.area) ++ viewCRs (Dict.values model.data.allCR))
+            (viewAreas (Dict.values model.data.area) ++ viewCRs (Dict.values model.data.allCR) )
         , viewGlobalData (Dict.values model.data.globalCP) model.data.infoCP
         , view_Areadata model.data.area model.onviewArea
         , disp_Onview model.onviewArea
         , show_PauseInfo
+        , show_DeadInfo model
         , button [ HtmlEvent.onClick (Msg.UploadFile FileRequested) ] [ text "Load Mod" ]
         ]
-        
+    
 
+
+-- viewThis : List ( Svg Msg )
+-- viewThis =
+--        [ Svg.text_  
+--         [ SvgAttr.width "100px"
+--         , SvgAttr.height "100px"
+--         , SvgAttr.x "100px"
+--         , SvgAttr.y "100px"
+--         , SvgAttr.fill "red"
+--         , SvgAttr.stroke "white"
+--         , SvgAttr.title "hiiiiiiiiiiii"
+--         ]
+--         [ text "HIIIIIIIII" ]
+--        ]
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
-    if msg == ChangeState then
-            ( { model | state = (change_GameState model) }, Cmd.none )
-    else 
-        if model.state == Start then
-          case msg of
+    -- if 
+    --     model.state == End && msg /= Restart then 
+    --     ( model, Cmd.none )
+    -- else if 
+    -- model.state == End && msg == Restart then 
+    -- ( initModel, Cmd.none)
+    -- else 
+        if msg == ChangeState then
+            ( { model | state = (change_Pause model) }, Cmd.none )
+        else if model.state == Start then
+            case msg of
             GotText result ->
               case result of
                 Ok fullText ->
@@ -120,23 +142,40 @@ update msg model =
                     { model | time = model.time + time }
 
                 newmodel2 =
-                    { model | data = updateData newmodel1.data }
+                    { newmodel1 | data = updateData newmodel1.data }
                 
-                -- newmodel3=
-                --     { model | data = changeCP_byCP newmodel2.data }
+                newmodel3=
+                    { newmodel2 | state = check_Dead newmodel2 }
              in
-                ( newmodel2, Cmd.none )
+                ( newmodel3, Cmd.none )
         
             _ ->
                 (model, Cmd.none )
+        else    (model, Cmd.none )
+            
 
-    else ( model, Cmd.none )
-
-change_GameState: Model -> State
-change_GameState model =
+change_Pause: Model -> State
+change_Pause model =
     if model.state == Pause then
         Start
-    else  Pause
+    else if model.state == Start then
+        Pause
+
+    else 
+        Start
+-- check_Dead : 
+
+
+check_Dead : Model -> State
+check_Dead model =
+ let
+    keyVal = getPureCPdataByName ("Citizen trust", model.data.globalCP)
+ in
+        if keyVal.data <= 0 
+            then 
+             End 
+        else 
+            Start
 
 
 subscriptions : Model -> Sub Msg
@@ -151,6 +190,8 @@ keyPress i =
     case i of
         32 ->
             ChangeState
+        82 ->
+            Restart
         _->
             None
 
@@ -184,3 +225,15 @@ changeCR newArea model =
             model
 
 
+show_DeadInfo : Model -> Html Msg
+show_DeadInfo model = 
+     div
+        [ style "color" "pink"
+        , Html.Attributes.style "font-size" "large"
+        ]
+        [ if model.state == End then
+            text ("Mission Failed! Retry the mission of a terminator!")
+
+          else
+            text ("Save the world! Terminator!")
+        ]
