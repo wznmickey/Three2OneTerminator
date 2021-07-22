@@ -6,8 +6,6 @@ Developed by Three 2 One @ SliverFocs.
 
 ![Team Logo](https://focs.ji.sjtu.edu.cn/git/SilverFOCS-21/p2team13/src/branch/lqa-beta1/asset/logo.svg)
 
-
-
 ## Coding
 
 * Module For for future developing.
