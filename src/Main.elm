@@ -163,7 +163,7 @@ change_Pause model =
 
     else 
         Start
--- check_Dead : 
+
 
 
 check_Dead : Model -> State
@@ -230,9 +230,10 @@ show_DeadInfo model =
      div
         [ style "color" "pink"
         , Html.Attributes.style "font-size" "large"
+        , style "width" "20vw"
         ]
         [ if model.state == End then
-            text ("Mission Failed! Retry the mission of a terminator!")
+            text ("Mission Failed! Retry the mission of a terminator! Press R to restart")
 
           else
             text ("Save the world! Terminator!")
