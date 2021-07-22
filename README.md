@@ -13,6 +13,7 @@ Developed by Three 2 One @ SliverFocs.
 * Good Model organization.
 * Good file organization.
 * Low delay and continuous of Critical Resources and Control Points flowing.
+* High efficiency thanks to the proper use of dict
 
 ## Viewing
 
@@ -30,7 +31,13 @@ Developed by Three 2 One @ SliverFocs.
 * Perfect control points & Critical Resources & Area interactions.
 * being able to judge the time with ticking and display the control points accordingly upon each click.
 
+
+
+
 Good luck and have fun.
+
+
+
 
 All rights reserved 2021.
 
