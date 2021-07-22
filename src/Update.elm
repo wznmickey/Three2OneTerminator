@@ -9,7 +9,7 @@ import Dict exposing (Dict)
 import For exposing (for_outer)
 import GameData exposing (GameData, getCPdataByName, getPureCPdataByName)
 import Html exposing (ol)
-import Msg exposing (Msg(..), State(..))
+import Msg exposing (Element(..), FileStatus(..), KeyInfo(..), Msg(..), State(..))
 import PureCPdata exposing (PureCPdata)
 
 
@@ -190,23 +190,6 @@ setCRlocation to from =
 
         _ ->
             from
-
-
-changeCR : String -> Model -> Model
-changeCR newArea model =
-    case model.onMovingCR of
-        Just x ->
-            let
-                data =
-                    model.data
-
-                newData =
-                    { data | allCR = moveCR model.data.allCR x newArea }
-            in
-            { model | data = newData, onMovingCR = Nothing }
-
-        Nothing ->
-            model
 
 
 keyPress : Int -> Msg
