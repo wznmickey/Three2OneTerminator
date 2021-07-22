@@ -3,7 +3,7 @@ module Main exposing (main)
 import Area exposing (..)
 import Array exposing (..)
 import Browser exposing (element)
-import Browser.Events exposing (onAnimationFrameDelta, onClick)
+import Browser.Events exposing (onAnimationFrameDelta, onClick, onKeyDown)
 import CPdata exposing (..)
 import CPtype exposing (CPtype(..))
 import CRdata exposing (CRdata)
@@ -17,8 +17,9 @@ import Html exposing (..)
 import Html.Attributes as HtmlAttr exposing (..)
 import Html.Events as HtmlEvent exposing (..)
 import Http
+import Json.Decode as Decode
 import LoadMod exposing (loadMod)
-import Msg exposing (FileStatus(..), Msg(..), State(..))
+import Msg exposing (Element(..), FileStatus(..), KeyInfo(..), Msg(..), State(..))
 import PureCPdata exposing (PureCPdata)
 import String exposing (..)
 import Svg exposing (Svg)
@@ -77,8 +78,11 @@ view model =
         , view_Areadata model.data.area model.onviewArea
         , disp_Onview model.onviewArea
         , button [ HtmlEvent.onClick (Msg.UploadFile FileRequested) ] [ text "Load Mod" ]
-        ,text (Debug.toString (model.data.area))
-        , text (Debug.toString (model.time))
+        , text (Debug.toString model.data.area)
+        , text (Debug.toString model.time)
+        , text (Debug.toString model.state)
+        , show_PauseInfo
+        , show_DeadInfo model
         ]
 
 
@@ -88,16 +92,23 @@ update msg model =
         GotText result ->
             case result of
                 Ok fullText ->
-                    ( { model | modInfo = fullText, data = Tuple.first (loadMod fullText), loadInfo = Tuple.second (loadMod fullText) }, Cmd.none )
-
+                         { model | modInfo = fullText, data = Tuple.first (loadMod fullText), loadInfo = Tuple.second (loadMod fullText)} |> update (ToState Running)
                 _ ->
                     ( { model | modInfo = "error" }, Cmd.none )
 
         Clickon (Msg.Area name) ->
-            ( { model | onviewArea = name } |> changeCR name, Cmd.none )
+            if model.state == Msg.Running then
+                ( { model | onviewArea = name } |> changeCR name, Cmd.none )
+
+            else
+                ( model, Cmd.none )
 
         Clickon (Msg.CR name) ->
-            ( { model | onMovingCR = Just name }, Cmd.none )
+            if model.state == Msg.Running then
+                ( { model | onMovingCR = Just name }, Cmd.none )
+
+            else
+                ( model, Cmd.none )
 
         UploadFile fileStatus ->
             case fileStatus of
@@ -108,32 +119,93 @@ update msg model =
                     ( model, Cmd.map UploadFile (Task.perform FileLoaded (File.toString file)) )
 
                 FileLoaded content ->
-                    ( { model | modInfo = content, data = Tuple.first (loadMod content), loadInfo = Tuple.second (loadMod content) }, Cmd.none )
+                     { model | modInfo = content, data = Tuple.first (loadMod content), loadInfo = Tuple.second (loadMod content) }|> update (ToState Running)
 
         Tick time ->
-            let
-                newmodel1 =
-                    { model | time = model.time + time }
+            if model.state == Msg.Running then
+                let
+                    newmodel1 =
+                        { model | time = model.time + time }
 
-                newmodel2 =
-                    if (newmodel1.time >= 1500) then
-                        { newmodel1 | data = updateData newmodel1.data, time = newmodel1.time - 1500 }
+                    newmodel2 =
+                        if newmodel1.time >= 500 then
+                            { newmodel1 | data = updateData newmodel1.data, time = newmodel1.time - 500 }
 
-                    else
-                        newmodel1
+                        else
+                            newmodel1
 
-                -- newmodel3=
-                --     { model | data = changeCP_byCP newmodel2.data }
-            in
-            ( newmodel2, Cmd.none )
+                    newmodel3 =
+                        { newmodel2 | state = check_Dead newmodel2 }
+                in
+                ( newmodel3, Cmd.none )
 
-        _ ->
-            ( model, Cmd.none )
+            else
+                ( model, Cmd.none )
+
+        KeyPress key ->
+            case key of
+                Msg.Space ->
+                    update (switchPause model) model
+
+                Msg.R ->
+                    update (ToState Start) model
+
+                _ ->
+                    ( model, Cmd.none )
+
+        ToState newState ->
+            ( { model | state = newState }, Cmd.none )
+
+
+
+switchPause : Model -> Msg
+switchPause model =
+    if model.state == Pause then
+        ToState Running
+
+    else if model.state == Running then
+        ToState Pause
+
+    else
+        ToState model.state
+
+
+check_Dead : Model -> State
+check_Dead model =
+    let
+        keyVal =
+            getPureCPdataByName ( "Citizen trust", model.data.globalCP )
+    in
+    if keyVal.data <= 0 then
+        End
+
+    else
+        model.state
 
 
 subscriptions : Model -> Sub Msg
 subscriptions model =
-    Sub.batch [ onAnimationFrameDelta Tick ]
+    Sub.batch
+        [ onAnimationFrameDelta Tick
+        , onKeyDown (Decode.map keyPress keyCode)
+        ]
+
+
+keyPress : Int -> Msg
+keyPress input =
+    let
+        i =
+            Debug.log "Receive Key" input
+    in
+    case i of
+        32 ->
+            KeyPress Space
+
+        82 ->
+            KeyPress R
+
+        _ ->
+            KeyPress NotCare
 
 
 main =
@@ -160,3 +232,18 @@ changeCR newArea model =
 
         Nothing ->
             model
+
+
+show_DeadInfo : Model -> Html Msg
+show_DeadInfo model =
+    div
+        [ style "color" "pink"
+        , HtmlAttr.style "font-size" "large"
+        , style "width" "20vw"
+        ]
+        [ if model.state == End then
+            text "Mission Failed! Retry the mission of a terminator! Press R to restart"
+
+          else
+            text "Save the world! Terminator!"
+        ]

@@ -38,6 +38,8 @@ viewUnitArea unitArea =
         , SvgAttr.fill unitArea.areaColor
         , SvgAttr.stroke "white"
         , SvgEvent.onClick (Clickon (Msg.Area name))
+        , SvgAttr.title name
+        
         ]
         [ text (String.fromInt unitArea.no) ]
 
@@ -186,6 +188,7 @@ viewUnitCR cRpos =
         , SvgAttr.r (String.fromFloat 1.5 ++ "vh")
         , SvgAttr.fill "yellow"
         , SvgAttr.stroke "red"
+        
         , SvgEvent.onClick (Clickon (Msg.CR name))
         ]
         []
@@ -236,6 +239,18 @@ get_CRpos_inCRtype crType crAreapos =
             ( 0, 0 )
 
 
+show_PauseInfo : Html Msg
+show_PauseInfo =
+
+    div
+        [ style "color" "pink"
+        , style "position" "absolute"
+        , style "left" "80vw"
+        , style "top" "50vh"
+        , style "width" "20vw"
+        , style "white-space" "pre-line"
+        ]
+        [ text ("press space to continue/pause") ]
 
 -- viewCRs_onArea : Area -> Dict String CRdata ->List CList (Svg Msg)
 -- viewCRs_onArea  areaS cRs=
