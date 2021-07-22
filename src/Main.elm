@@ -137,7 +137,7 @@ update msg model =
         KeyPress key ->
             case key of
                 Msg.Space ->
-                    update (switchPause model) model
+                    update (switchPause model.state) model
 
                 Msg.R ->
                     update (ToState Start) model
@@ -184,5 +184,22 @@ view model =
         , text (Debug.toString model.time)
         , text (Debug.toString model.state)
         , show_PauseInfo
-        , show_DeadInfo model
+        , show_DeadInfo model.state
         ]
+
+
+changeCR : String -> Model -> Model
+changeCR newArea model =
+    case model.onMovingCR of
+        Just x ->
+            let
+                data =
+                    model.data
+
+                newData =
+                    { data | allCR = moveCR model.data.allCR x newArea }
+            in
+            { model | data = newData, onMovingCR = Nothing }
+
+        Nothing ->
+            model

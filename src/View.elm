@@ -10,7 +10,7 @@ import GameData exposing (..)
 import Html exposing (Html, div)
 import Html.Attributes exposing (style)
 import Json.Decode exposing (Error, string)
-import Msg exposing (Msg(..))
+import Msg exposing (Element(..), FileStatus(..), KeyInfo(..), Msg(..), State(..))
 import PureCPdata exposing (..)
 import Round exposing (round)
 import Svg exposing (Svg, text)
@@ -246,14 +246,14 @@ show_PauseInfo =
         [ text "press space to continue/pause" ]
 
 
-show_DeadInfo : Model -> Html Msg
-show_DeadInfo model =
+show_DeadInfo : State -> Html Msg
+show_DeadInfo state =
     div
         [ style "color" "pink"
-        , HtmlAttr.style "font-size" "large"
+        , style "font-size" "large"
         , style "width" "20vw"
         ]
-        [ if model.state == End then
+        [ if state == End then
             text "Mission Failed! Retry the mission of a terminator! Press R to restart"
 
           else
