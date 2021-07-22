@@ -31,7 +31,7 @@ Developed by Three 2 One @ SliverFocs.
 
 Good luck and have fun.
 
-
+All rights reserved 2021.
 
 
 
