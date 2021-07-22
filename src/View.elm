@@ -12,10 +12,10 @@ import Html.Attributes exposing (style)
 import Json.Decode exposing (Error, string)
 import Msg exposing (Msg(..))
 import PureCPdata exposing (..)
+import Round exposing (round)
 import Svg exposing (Svg, text)
 import Svg.Attributes as SvgAttr
 import Svg.Events as SvgEvent
-import Round exposing(round)
 
 
 viewUnitArea : Area -> Svg Msg
@@ -31,34 +31,31 @@ viewUnitArea unitArea =
             Tuple.second (init_AreaPos unitArea.no)
     in
     Svg.rect
-        [ SvgAttr.width (String.fromFloat 150 ++ "px")
-        , SvgAttr.height (String.fromFloat 150 ++ "px")
-        , SvgAttr.x (String.fromInt xpos ++ "px")
-        , SvgAttr.y (String.fromInt ypos ++ "px")
+        [ SvgAttr.width (String.fromFloat 10 ++ "vw")
+        , SvgAttr.height (String.fromFloat 20 ++ "vh")
+        , SvgAttr.x (String.fromFloat xpos ++ "vw")
+        , SvgAttr.y (String.fromFloat ypos ++ "vh")
         , SvgAttr.fill unitArea.areaColor
         , SvgAttr.stroke "white"
         , SvgEvent.onClick (Clickon (Msg.Area name))
+        , SvgAttr.title name
         ]
         [ text (String.fromInt unitArea.no) ]
 
 
-init_AreaPos : Int -> ( Int, Int )
+init_AreaPos : Int -> ( Float, Float )
 init_AreaPos areaNumber =
     if areaNumber == 1 then
-        ( 400, 400 )
+        ( 40, 40 )
 
     else if areaNumber == 2 then
-        ( 650, 550 )
+        ( 65, 55 )
 
     else if areaNumber == 3 then
-        ( 600, 300 )
+        ( 60, 30 )
 
     else
-        ( 100, 200 )
-
-
-
---
+        ( 10, 20 )
 
 
 viewAreas : List Area -> List (Svg Msg)
@@ -77,7 +74,7 @@ viewGlobalData pure dict =
         , style "top" "0"
         , style "white-space" "pre-line"
         ]
-        [ text ("Global Control Point: \n" ++ combineCPdata2String (filterGlobalData pure dict)) ]
+        [ text ("Global Control Points: \n" ++ combineCPdata2String (filterGlobalData pure dict)) ]
 
 
 filterGlobalData : List PureCPdata -> Dict String CPdata -> List PureCPdata
@@ -117,7 +114,6 @@ view_Areadata area onview =
     in
     div
         [ style "color" "pink"
-        , style "font-size" "20px"
         , style "font-weight" "bold"
         , style "position" "absolute"
         , style "left" "70vw"
@@ -132,7 +128,6 @@ disp_Onview : String -> Html Msg
 disp_Onview onview =
     div
         [ style "color" "pink"
-        , style "font-size" "20px"
         , style "font-weight" "bold"
         , style "position" "absolute"
         , style "left" "70vw"
@@ -146,7 +141,7 @@ disp_Onview onview =
 combine_LocalCPdata2String : List PureCPdata -> String
 combine_LocalCPdata2String cpTocombine =
     List.foldl (\x a -> x ++ a)
-        "Local Control Point"
+        "Local Control Points"
         (List.map
             (\a ->
                 a.name ++ ": " ++ Round.round 2 a.data ++ "\n"
@@ -183,9 +178,9 @@ viewUnitCR cRpos =
             Tuple.second (get_CRpos cRpos)
     in
     Svg.circle
-        [ SvgAttr.cx (String.fromInt xpos ++ "px")
-        , SvgAttr.cy (String.fromInt ypos ++ "px")
-        , SvgAttr.r (String.fromFloat 10 ++ "px")
+        [ SvgAttr.cx (String.fromFloat xpos ++ "vw")
+        , SvgAttr.cy (String.fromFloat ypos ++ "vh")
+        , SvgAttr.r (String.fromFloat 1.5 ++ "vh")
         , SvgAttr.fill "yellow"
         , SvgAttr.stroke "red"
         , SvgEvent.onClick (Clickon (Msg.CR name))
@@ -193,7 +188,7 @@ viewUnitCR cRpos =
         []
 
 
-get_CRpos : CRdata -> ( Int, Int )
+get_CRpos : CRdata -> ( Float, Float )
 get_CRpos crData =
     case crData.location of
         "Gotham" ->
@@ -212,7 +207,7 @@ get_CRpos crData =
             ( 1, 1 )
 
 
-get_CRpos_inCRtype : String -> Int -> ( Int, Int )
+get_CRpos_inCRtype : String -> Int -> ( Float, Float )
 get_CRpos_inCRtype crType crAreapos =
     let
         xpos =
@@ -222,25 +217,45 @@ get_CRpos_inCRtype crType crAreapos =
             Tuple.second (init_AreaPos crAreapos)
     in
     case crType of
-        "CR1" ->
-            ( xpos + 20, ypos + 20 )
+        "Material Support1" ->
+            ( xpos + 2, ypos + 3 )
 
-        "CR2" ->
-            ( xpos + 50, ypos + 50 )
+        "Material Support2" ->
+            ( xpos + 5, ypos + 6 )
+
+        "Material Support3" ->
+            ( xpos + 8, ypos + 9 )
+
+        "Material Support4" ->
+            ( xpos + 2, ypos + 9 )
 
         _ ->
             ( 0, 0 )
 
 
+show_PauseInfo : Html Msg
+show_PauseInfo =
+    div
+        [ style "color" "pink"
+        , style "position" "absolute"
+        , style "left" "80vw"
+        , style "top" "50vh"
+        , style "width" "20vw"
+        , style "white-space" "pre-line"
+        ]
+        [ text "press space to continue/pause" ]
 
--- viewCRs_onArea : Area -> Dict String CRdata ->List CList (Svg Msg)
--- viewCRs_onArea  areaS cRs=
---     List.map viewUnitCR areaS
---  --view : Mapview,
---       name : "none"
---     , localCP : Dict String PureCPdata
---     , effect : Dict String PureCPdata
---     , --The index of the area. Start from **1**.
---       no : Int
---     , areaColor : String
---     }
+
+show_DeadInfo : Model -> Html Msg
+show_DeadInfo model =
+    div
+        [ style "color" "pink"
+        , HtmlAttr.style "font-size" "large"
+        , style "width" "20vw"
+        ]
+        [ if model.state == End then
+            text "Mission Failed! Retry the mission of a terminator! Press R to restart"
+
+          else
+            text "Save the world! Terminator!"
+        ]
