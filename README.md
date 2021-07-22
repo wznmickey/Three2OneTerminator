@@ -21,7 +21,7 @@ Developed by Three 2 One @ SliverFocs.
 * Fun to play with. 
 * Control areas in chaos due to the strike of the pandemic all by yourself. 
 * A sense of thrill with trying to save lives with limited resources and meanwhile managing the control points wisely
-* Tne pressure of making moral decicions while balancing the citizens in each area,
+* Tne pressure of making moral decicions while balancing the citizens in each area.
     
 ## Features
 
