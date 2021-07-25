@@ -70,8 +70,8 @@ viewGlobalData pure dict =
         , style "font-size" "20px"
         , style "font-weight" "bold"
         , style "position" "absolute"
-        , style "left" "0"
-        , style "top" "0"
+        , style "left" "2vw"
+        , style "top" "2vh"
         , style "white-space" "pre-line"
         ]
         [ text ("Global Control Points: \n" ++ combineCPdata2String (filterGlobalData pure dict)) ]
@@ -130,6 +130,7 @@ disp_Onview onview =
         [ style "color" "pink"
         , style "font-weight" "bold"
         , style "position" "absolute"
+        , style "font-size" "large"
         , style "left" "70vw"
         , style "top" "5vh"
         , style "width" "20vw"
@@ -238,6 +239,7 @@ show_PauseInfo =
     div
         [ style "color" "pink"
         , style "position" "absolute"
+        , style "font-size" "large"
         , style "left" "80vw"
         , style "top" "50vh"
         , style "width" "20vw"
@@ -249,9 +251,13 @@ show_PauseInfo =
 show_DeadInfo : State -> Html Msg
 show_DeadInfo state =
     div
-        [ style "color" "pink"
-        , style "font-size" "large"
-        , style "width" "20vw"
+        [ style "color" "red"
+        , style "font-size" "20px"
+        , style "font-weight" "bold"
+        , style "position" "absolute"
+        , style "left" "2vw"
+        , style "top" "0vh"
+        , style "white-space" "pre-line"
         ]
         [ if state == End then
             text "Mission Failed! Retry the mission of a terminator! Press R to restart"

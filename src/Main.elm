@@ -180,9 +180,9 @@ view model =
         , view_Areadata model.data.area model.onviewArea
         , disp_Onview model.onviewArea
         , button [ HtmlEvent.onClick (Msg.UploadFile FileRequested) ] [ text "Load Mod" ]
-        , text (Debug.toString model.data.area)
-        , text (Debug.toString model.time)
-        , text (Debug.toString model.state)
+        -- , text (Debug.toString model.data.area)
+        -- , text (Debug.toString model.time)
+        -- , text (Debug.toString model.state)
         , show_PauseInfo
         , show_DeadInfo model.state
         ]
