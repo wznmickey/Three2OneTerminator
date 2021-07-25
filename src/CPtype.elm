@@ -1,6 +1,7 @@
-module CPtype exposing (CPtype(..), dCPtype)
+module CPtype exposing (CPtype(..), dCPtype, encodeCPtype)
 
 import Json.Decode exposing (..)
+import Json.Encode exposing (..)
 
 
 type CPtype
@@ -24,3 +25,13 @@ dString2CPtype string =
 
         _ ->
             Json.Decode.fail ("Invalid type: " ++ string)
+
+
+encodeCPtype : CPtype -> Json.Encode.Value
+encodeCPtype data =
+    case data of
+        Local ->
+            Json.Encode.string "Local"
+
+        Global ->
+            Json.Encode.string "Global"

@@ -2,6 +2,7 @@ module CRdata exposing (..)
 
 import Dict exposing (Dict)
 import Json.Decode exposing (..)
+import Json.Encode exposing (..)
 import PureCPdata exposing (..)
 
 
@@ -35,7 +36,7 @@ initCRdata =
 
 decoder_CRdata : Decoder (Dict.Dict String CRdata)
 decoder_CRdata =
-    map (Dict.map infoToCRdata) (dict infoDecoder)
+    map (Dict.map infoToCRdata) (Json.Decode.dict infoDecoder)
 
 
 type alias Info =
@@ -47,10 +48,15 @@ type alias Info =
 infoDecoder : Decoder Info
 infoDecoder =
     map2 Info
-        (field "location" string)
+        (field "location" Json.Decode.string)
         (field "effect" decoder_PureCPdata)
 
 
 infoToCRdata : String -> Info -> CRdata
 infoToCRdata name { location, effect } =
     CRdata name location effect
+
+
+encodeCRdata : CRdata -> Json.Encode.Value
+encodeCRdata data =
+    Json.Encode.object [ ( "effect", Json.Encode.dict identity encodePureCPdata data.effect ), ( "location", Json.Encode.string data.location ) ]

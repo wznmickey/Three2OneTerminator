@@ -5,6 +5,7 @@ module Area exposing (..)
 
 import Dict exposing (Dict)
 import Json.Decode exposing (..)
+import Json.Encode exposing (..)
 import PureCPdata exposing (..)
 
 
@@ -47,7 +48,7 @@ initArea =
 
 decoder_Area : Decoder (Dict.Dict String Area)
 decoder_Area =
-    map (Dict.map infoToArea) (dict infoDecoder)
+    map (Dict.map infoToArea) (Json.Decode.dict infoDecoder)
 
 
 type alias Info =
@@ -62,9 +63,14 @@ infoDecoder =
     map3 Info
         (field "init" decoder_PureCPdata)
         (field "effect" decoder_PureCPdata)
-        (field "location" int)
+        (field "location" Json.Decode.int)
 
 
 infoToArea : String -> Info -> Area
 infoToArea name { localCP, effect, no } =
     Area name localCP effect no "pink"
+
+
+encodeArea : Area -> Json.Encode.Value
+encodeArea data =
+    Json.Encode.object [ ( "init", Json.Encode.dict identity encodePureCPdata data.localCP ), ( "effect", Json.Encode.dict identity encodePureCPdata data.effect ), ( "location", Json.Encode.int data.no ) ]

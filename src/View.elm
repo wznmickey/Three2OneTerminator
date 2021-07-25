@@ -10,7 +10,7 @@ import GameData exposing (..)
 import Html exposing (Html, div)
 import Html.Attributes exposing (style)
 import Json.Decode exposing (Error, string)
-import Msg exposing (Element(..), FileStatus(..), KeyInfo(..), Msg(..), State(..))
+import Msg exposing (Element(..), FileStatus(..), KeyInfo(..), Msg(..), OnMovingCR, State(..))
 import PureCPdata exposing (..)
 import Round exposing (round)
 import Svg exposing (Svg, text)
@@ -67,11 +67,10 @@ viewGlobalData : List PureCPdata -> Dict String CPdata -> Html Msg
 viewGlobalData pure dict =
     div
         [ style "color" "pink"
-        , style "font-size" "20px"
         , style "font-weight" "bold"
         , style "position" "absolute"
-        , style "left" "0"
-        , style "top" "0"
+        , style "left" "2vw"
+        , style "top" "2vh"
         , style "white-space" "pre-line"
         ]
         [ text ("Global Control Points: \n" ++ combineCPdata2String (filterGlobalData pure dict)) ]
@@ -130,6 +129,7 @@ disp_Onview onview =
         [ style "color" "pink"
         , style "font-weight" "bold"
         , style "position" "absolute"
+        , style "font-size" "large"
         , style "left" "70vw"
         , style "top" "5vh"
         , style "width" "20vw"
@@ -176,16 +176,38 @@ viewUnitCR cRpos =
 
         ypos =
             Tuple.second (get_CRpos cRpos)
+
+        color =
+            get_CRcolor cRpos
     in
     Svg.circle
         [ SvgAttr.cx (String.fromFloat xpos ++ "vw")
         , SvgAttr.cy (String.fromFloat ypos ++ "vh")
         , SvgAttr.r (String.fromFloat 1.5 ++ "vh")
-        , SvgAttr.fill "yellow"
-        , SvgAttr.stroke "red"
-        , SvgEvent.onClick (Clickon (Msg.CR name))
+        , SvgAttr.fill color
+        , SvgAttr.stroke "white"
+        , SvgEvent.onClick (Clickon (Msg.CR { cRname = Just name, formerArea = Just cRpos.location, toArea = Nothing }))
         ]
         []
+
+
+get_CRcolor : CRdata -> String
+get_CRcolor crData =
+    case crData.name of
+        "Material Support1" ->
+            "red"
+
+        "Material Support2" ->
+            "green"
+
+        "Material Support3" ->
+            "blue"
+
+        "Material Support4" ->
+            "yellow"
+
+        _ ->
+            ""
 
 
 get_CRpos : CRdata -> ( Float, Float )
@@ -221,13 +243,13 @@ get_CRpos_inCRtype crType crAreapos =
             ( xpos + 2, ypos + 3 )
 
         "Material Support2" ->
-            ( xpos + 5, ypos + 6 )
+            ( xpos + 5, ypos + 3 )
 
         "Material Support3" ->
-            ( xpos + 8, ypos + 9 )
+            ( xpos + 8, ypos + 3 )
 
         "Material Support4" ->
-            ( xpos + 2, ypos + 9 )
+            ( xpos + 2, ypos + 8 )
 
         _ ->
             ( 0, 0 )
@@ -238,6 +260,7 @@ show_PauseInfo =
     div
         [ style "color" "pink"
         , style "position" "absolute"
+        , style "font-size" "large"
         , style "left" "80vw"
         , style "top" "50vh"
         , style "width" "20vw"
@@ -249,9 +272,13 @@ show_PauseInfo =
 show_DeadInfo : State -> Html Msg
 show_DeadInfo state =
     div
-        [ style "color" "pink"
-        , style "font-size" "large"
-        , style "width" "20vw"
+        [ style "color" "red"
+        , style "font-size" "20px"
+        , style "font-weight" "bold"
+        , style "position" "absolute"
+        , style "left" "2vw"
+        , style "top" "0vh"
+        , style "white-space" "pre-line"
         ]
         [ if state == End then
             text "Mission Failed! Retry the mission of a terminator! Press R to restart"
@@ -259,3 +286,58 @@ show_DeadInfo state =
           else
             text "Save the world! Terminator!"
         ]
+
+
+viewMovingCR : String -> Html Msg
+viewMovingCR info =
+    div
+        [ style "color" "pink"
+        , style "font-weight" "bold"
+        , style "position" "absolute"
+        , style "font-size" "large"
+        , style "left" "0vw"
+        , style "top" "50vh"
+        , style "width" "20vw"
+        , style "white-space" "pre-line"
+        ]
+        [ text info ]
+
+
+combine_onmoveCR2String : OnMovingCR -> String -> String
+combine_onmoveCR2String crInfoTocombine toArea =
+    case crInfoTocombine.cRname of
+        Just name ->
+            case crInfoTocombine.formerArea of
+                Just area ->
+                    "\n Moved "
+                        ++ name
+                        ++ " from "
+                        ++ area
+                        ++ " to "
+                        ++ toArea
+                        ++ " ."
+
+                Nothing ->
+                    ""
+
+        Nothing ->
+            ""
+
+
+combineList_2String : List String -> String
+combineList_2String toCombine =
+    List.foldl (++) "" toCombine
+
+
+filter_CRMovinginfo : List String -> List String
+filter_CRMovinginfo crMovingInfo =
+    if List.length crMovingInfo >= 20 then
+        update_CRMovinginfo crMovingInfo
+
+    else
+        crMovingInfo
+
+
+update_CRMovinginfo : List String -> List String
+update_CRMovinginfo old =
+    List.take 19 old ++ [ "CR MOVED:" ]
