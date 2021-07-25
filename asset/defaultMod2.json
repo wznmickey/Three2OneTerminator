@@ -78,7 +78,7 @@
                 "Interpersonal Popularity": 5,
                 "Self Pursuits Fulfillment": 3
             }
-        }
+        },
         "Energy invested in recreation and resting": {
             "location": "",
             "effect": {
@@ -100,13 +100,13 @@
                 "Self Pursuits Fulfillment": 3
             },
             "init": {
-                "Energy and time invested in academic purposes":20
+                "Energy and time invested in academic purposes":20,
 
-                "Energy and time invested in social contact":10
+                "Energy and time invested in social contact":10,
 
-                "Energy and time invested in romantic activities":5
+                "Energy and time invested in romantic activities":5,
 
-                "Energy and time invested in family life":30
+                "Energy and time invested in family life":30,
 
                 "Energy and time invested in recreation and resting":40
             }
