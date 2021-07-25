@@ -87,10 +87,10 @@ update msg model =
         GotText result ->
             case result of
                 Ok fullText ->
-                    { model | modInfo = fullText, data = Tuple.first (loadMod fullText), loadInfo = Tuple.second (loadMod fullText) } |> update (ToState Running)
+                    { model | modInfo = fullText, data = Tuple.first (loadMod fullText), loadInfo = Tuple.second (loadMod fullText) } |> update (ToState Loading)
 
                 _ ->
-                    ( { model | modInfo = "error" }, Cmd.none )
+                    { model | modInfo = "Error code : 1002", loadInfo = "Error code : 1001" } |> update (ToState Loading)
 
         Clickon (Msg.Area name) ->
             if model.state == Msg.Running then
@@ -133,28 +133,36 @@ update msg model =
                     ( model, Cmd.map UploadFile (Task.perform FileLoaded (File.toString file)) )
 
                 FileLoaded content ->
-                    { model | modInfo = content, data = Tuple.first (loadMod content), loadInfo = Tuple.second (loadMod content) } |> update (ToState Running)
+                    { model | modInfo = content, data = Tuple.first (loadMod content), loadInfo = Tuple.second (loadMod content) } |> update (ToState Loading)
 
         Tick time ->
-            if model.state == Msg.Running then
-                let
-                    newmodel1 =
-                        { model | time = model.time + time }
+            case model.state of
+                Msg.Running ->
+                    let
+                        newmodel1 =
+                            { model | time = model.time + time }
 
-                    newmodel2 =
-                        if newmodel1.time >= 4000 then
-                            { newmodel1 | data = updateData newmodel1.data, time = newmodel1.time - 4000 }
+                        newmodel2 =
+                            if newmodel1.time >= 4000 then
+                                { newmodel1 | data = updateData newmodel1.data, time = newmodel1.time - 4000 }
 
-                        else
-                            newmodel1
+                            else
+                                newmodel1
 
-                    newmodel3 =
-                        { newmodel2 | state = check_Dead newmodel2 }
-                in
-                ( newmodel3, Cmd.none )
+                        newmodel3 =
+                            { newmodel2 | state = check_Dead newmodel2 }
+                    in
+                    ( newmodel3, Cmd.none )
 
-            else
-                ( model, Cmd.none )
+                Msg.Loading ->
+                    if Debug.log "info" model.loadInfo == "Ok" then
+                        model |> update (ToState Running)
+
+                    else
+                        ( model, Cmd.none )
+
+                _ ->
+                    ( model, Cmd.none )
 
         KeyPress key ->
             case key of
@@ -186,42 +194,75 @@ check_Dead model =
 
 view : Model -> Html Msg
 view model =
-    if model.state == Start then
-        div
-            [ HtmlAttr.style "width" "95vw"
-            , HtmlAttr.style "height" "95vh"
-            , HtmlAttr.style "left" "0"
-            , HtmlAttr.style "top" "0"
-            , HtmlAttr.style "text-align" "center"
-            ]
-            [ button [ HtmlEvent.onClick (Msg.UploadFile FileRequested) ] [ text "Upload file" ]
-            , button [ HtmlEvent.onClick (Msg.Clickon LoadDefault) ] [ text "Default starting" ]
-            ]
-
-    else
-        div
-            [ HtmlAttr.style "width" "95vw"
-            , HtmlAttr.style "height" "95vh"
-            , HtmlAttr.style "left" "0"
-            , HtmlAttr.style "top" "0"
-            , HtmlAttr.style "text-align" "center"
-            ]
-            [ Svg.svg
-                [ SvgAttr.width "100%"
-                , SvgAttr.height "100%"
+    case model.state of
+        Start ->
+            div
+                [ HtmlAttr.style "width" "95vw"
+                , HtmlAttr.style "height" "95vh"
+                , HtmlAttr.style "left" "0"
+                , HtmlAttr.style "top" "0"
+                , HtmlAttr.style "text-align" "center"
                 ]
-                (viewAreas (Dict.values model.data.area) ++ viewCRs (Dict.values model.data.allCR))
-            , viewGlobalData (Dict.values model.data.globalCP) model.data.infoCP
-            , view_Areadata model.data.area model.onviewArea
-            , disp_Onview model.onviewArea
+                [ button [ HtmlEvent.onClick (Msg.UploadFile FileRequested) ] [ text "Upload file" ]
+                , button [ HtmlEvent.onClick (Msg.Clickon LoadDefault) ] [ text "Default starting" ]
+                ]
 
-            -- , text (Debug.toString model.data.area)
-            -- , text (Debug.toString model.time)
-            -- , text (Debug.toString model.state)
-            , show_PauseInfo
-            , show_DeadInfo model.state
-            , viewMovingCR (combineList_2String model.cRmovingInfo)
-            ]
+        Loading ->
+            div
+                [ HtmlAttr.style "width" "95vw"
+                , HtmlAttr.style "height" "95vh"
+                , HtmlAttr.style "left" "0"
+                , HtmlAttr.style "top" "0"
+                , HtmlAttr.style "text-align" "center"
+                ]
+                [ text model.loadInfo
+                , button [ HtmlEvent.onClick (Msg.UploadFile FileRequested) ] [ text "Upload file" ]
+                , button [ HtmlEvent.onClick (Msg.Clickon LoadDefault) ] [ text "Default starting" ]
+                ]
+
+        Pause ->
+            div
+                [ HtmlAttr.style "width" "100vw"
+                , HtmlAttr.style "height" "100vh"
+                , HtmlAttr.style "left" "0"
+                , HtmlAttr.style "top" "0"
+                , HtmlAttr.style "text-align" "center"
+                , HtmlAttr.style "background" "brown"
+                ]
+                [ p
+                    [ HtmlAttr.style "top" "50%", HtmlAttr.style "left" "50%", HtmlAttr.style "font-size" "large", HtmlAttr.style "transform" "translate( -50%, -50%)", HtmlAttr.style "position" "absolute" ]
+                    [ text "Pause"
+                    , p []
+                        [ button [ HtmlEvent.onClick (ToState Running) ] [ text "continue" ]
+                        ]
+                    ]
+                ]
+
+        _ ->
+            div
+                [ HtmlAttr.style "width" "95vw"
+                , HtmlAttr.style "height" "95vh"
+                , HtmlAttr.style "left" "0"
+                , HtmlAttr.style "top" "0"
+                , HtmlAttr.style "text-align" "center"
+                ]
+                [ Svg.svg
+                    [ SvgAttr.width "100%"
+                    , SvgAttr.height "100%"
+                    ]
+                    (viewAreas (Dict.values model.data.area) ++ viewCRs (Dict.values model.data.allCR))
+                , viewGlobalData (Dict.values model.data.globalCP) model.data.infoCP
+                , view_Areadata model.data.area model.onviewArea
+                , disp_Onview model.onviewArea
+
+                -- , text (Debug.toString model.data.area)
+                -- , text (Debug.toString model.time)
+                -- , text (Debug.toString model.state)
+                , show_PauseInfo
+                , show_DeadInfo model.state
+                , viewMovingCR (combineList_2String model.cRmovingInfo)
+                , button [ HtmlEvent.onClick (ToState Pause) ] [ text "pause" ]
+                ]
 
 
 changeCR : String -> Model -> Model
