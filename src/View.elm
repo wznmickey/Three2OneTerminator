@@ -68,7 +68,6 @@ viewGlobalData : List PureCPdata -> Dict String CPdata -> Html Msg
 viewGlobalData pure dict =
     div
         [ style "color" "pink"
-        , style "font-size" "20px"
         , style "font-weight" "bold"
         , style "position" "absolute"
         , style "left" "2vw"
