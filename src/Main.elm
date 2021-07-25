@@ -27,6 +27,7 @@ import Svg.Attributes as SvgAttr
 import Task
 import Update exposing (..)
 import View exposing (..)
+import Debug exposing (toString)
 
 
 
@@ -38,7 +39,7 @@ type alias Model =
     , onviewArea : String
     , time : Float
     , onMovingCR : OnMovingCR
-    , cRmovingInfo :  String
+    , cRmovingInfo : List String
     }
 
 
@@ -49,7 +50,7 @@ wholeURL =
 
 initModel : Model
 initModel =
-    Model initGameData Start "modInfo" "Init" "init" 0 init_onMovingCR "CR MOVED"
+    Model initGameData Start "modInfo" "Init" "init" 0 init_onMovingCR ["CR MOVED"]
 
 init_onMovingCR : OnMovingCR
 init_onMovingCR =
@@ -195,7 +196,7 @@ view model =
         -- , text (Debug.toString model.state)
         , show_PauseInfo
         , show_DeadInfo model.state
-        , viewMovingCR model.cRmovingInfo
+        , viewMovingCR (combineList_2String model.cRmovingInfo)
         ]
 
 
@@ -217,7 +218,7 @@ changeCR newArea model =
                     { oldMovingCR | cRname = Nothing }
                 oldInfo = model.cRmovingInfo
             in
-            { model | data = newData, onMovingCR = newmovingCR , cRmovingInfo =  oldInfo ++ combine_onmoveCR2String oldMovingCR newArea }
+            { model | data = newData, onMovingCR = newmovingCR , cRmovingInfo =  combine_onmoveCR2String oldMovingCR newArea :: oldInfo }
 
         Nothing ->
             model

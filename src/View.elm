@@ -178,16 +178,37 @@ viewUnitCR cRpos =
 
         ypos =
             Tuple.second (get_CRpos cRpos)
+
+        color = get_CRcolor cRpos
     in
     Svg.circle
         [ SvgAttr.cx (String.fromFloat xpos ++ "vw")
         , SvgAttr.cy (String.fromFloat ypos ++ "vh")
         , SvgAttr.r (String.fromFloat 1.5 ++ "vh")
-        , SvgAttr.fill "yellow"
-        , SvgAttr.stroke "red"
+        , SvgAttr.fill color
+        , SvgAttr.stroke "white"
         , SvgEvent.onClick (Clickon (Msg.CR { cRname = Just name , formerArea = Just cRpos.location , toArea = Nothing }))
         ]
         []
+
+
+get_CRcolor : CRdata -> String
+get_CRcolor crData =
+    case crData.name of
+        "Material Support1" ->
+            "red"
+
+        "Material Support2" ->
+            "green"
+
+        "Material Support3" ->
+            "blue"
+
+        "Material Support4" ->
+            "yellow"
+
+        _ ->
+            ""
 
 
 get_CRpos : CRdata -> ( Float, Float )
@@ -306,3 +327,7 @@ combine_onmoveCR2String crInfoTocombine toArea=
 
     Nothing ->
         ""
+
+combineList_2String : List String -> String
+combineList_2String toCombine = 
+    List.foldl (++) "" (toCombine)
