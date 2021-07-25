@@ -19,7 +19,7 @@ import Html.Events as HtmlEvent exposing (..)
 import Http
 import Json.Decode as Decode
 import LoadMod exposing (loadMod)
-import Msg exposing (Element(..), FileStatus(..), KeyInfo(..), Msg(..), State(..))
+import Msg exposing (Element(..), FileStatus(..), KeyInfo(..), Msg(..), State(..),OnMovingCR)
 import PureCPdata exposing (PureCPdata)
 import String exposing (..)
 import Svg exposing (Svg)
@@ -29,6 +29,7 @@ import Update exposing (..)
 import View exposing (..)
 
 
+
 type alias Model =
     { data : GameData
     , state : State
@@ -36,7 +37,7 @@ type alias Model =
     , loadInfo : String
     , onviewArea : String
     , time : Float
-    , onMovingCR : Maybe String
+    , onMovingCR : OnMovingCR
     }
 
 
@@ -47,8 +48,11 @@ wholeURL =
 
 initModel : Model
 initModel =
-    Model initGameData Start "modInfo" "Init" "init" 0 Nothing
+    Model initGameData Start "modInfo" "Init" "init" 0 init_onMovingCR
 
+init_onMovingCR : OnMovingCR
+init_onMovingCR =
+    {  cRname = Nothing , formerArea = Nothing , toArea = Nothing }
 
 init : () -> ( Model, Cmd Msg )
 init result =
@@ -95,9 +99,14 @@ update msg model =
             else
                 ( model, Cmd.none )
 
-        Clickon (Msg.CR name) ->
+        Clickon (Msg.CR crInfo) ->
+         let
+            oldMovingCR = model.onMovingCR
+            newcRname = crInfo.cRname 
+            newformerArea = crInfo.formerArea
+         in
             if model.state == Msg.Running then
-                ( { model | onMovingCR = Just name }, Cmd.none )
+                ( { model | onMovingCR = { oldMovingCR | cRname = newcRname , formerArea = newformerArea } }, Cmd.none )
 
             else
                 ( model, Cmd.none )
@@ -190,7 +199,10 @@ view model =
 
 changeCR : String -> Model -> Model
 changeCR newArea model =
-    case model.onMovingCR of
+ let 
+    oldMovingCR = model.onMovingCR
+ in
+    case model.onMovingCR.cRname of
         Just x ->
             let
                 data =
@@ -199,7 +211,7 @@ changeCR newArea model =
                 newData =
                     { data | allCR = moveCR model.data.allCR x newArea }
             in
-            { model | data = newData, onMovingCR = Nothing }
+            { model | data = newData, onMovingCR = {oldMovingCR|cRname = Nothing }}
 
         Nothing ->
             model

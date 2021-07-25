@@ -184,7 +184,7 @@ viewUnitCR cRpos =
         , SvgAttr.r (String.fromFloat 1.5 ++ "vh")
         , SvgAttr.fill "yellow"
         , SvgAttr.stroke "red"
-        , SvgEvent.onClick (Clickon (Msg.CR name))
+        , SvgEvent.onClick (Clickon (Msg.CR { cRname = Just name , formerArea = Just cRpos.location , toArea = Nothing }))
         ]
         []
 
@@ -264,4 +264,5 @@ show_DeadInfo state =
 
           else
             text "Save the world! Terminator!"
+
         ]
