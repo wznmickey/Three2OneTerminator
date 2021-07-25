@@ -6,6 +6,41 @@
 
 - Frame
 
+7/25
+
+Added open line when game starts:
+==============================================================================
+
+You are faced with four areas in chaos under stricken by a horrible pandemic VOPID-141. 
+
+Citizen's lives and the urban resources are at stake!  The whole city is on the verge of destruction.
+
+Appointed as the governor, it's your job to save as many lives as possible.
+
+in the four districts with only limited amount of critical resources and control points.
+
+ Control Points (CP) include the local index exclusive to each district which is the overall drop in health threat level of the virus, 
+
+and the global CPs such as “External Safety”, “Citizen Trust” and “Disposable Money”. 
+
+Different types of CP can generate a distinctive impact on one another, thereby rendering each district relatively safe or not.
+
+The value Critical Resources (CR) demonstrates the maximum capacity of a district to offer material support to others
+
+It are the only factor you can control to maintain the balance of CP.
+
+Click on the yellow dots in the squares and click on another target district to transfer CR within the districts.
+
+The effect on CP also differs from the origin and destination of CR.
+
+Try to protect your CP as best as you can achieve highest drop in health threat! 
+
+The game ends when you make any of the CP decrease to 0!
+
+Good Luck. Now you will take over Gotham, Bombay, GassVilie and Burnley.
+
+========================================================================================
+
 ### Changed
 
 None.
