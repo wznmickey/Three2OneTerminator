@@ -331,3 +331,16 @@ combine_onmoveCR2String crInfoTocombine toArea=
 combineList_2String : List String -> String
 combineList_2String toCombine = 
     List.foldl (++) "" (toCombine)
+
+
+
+
+filter_CRMovinginfo : List String -> List String
+filter_CRMovinginfo crMovingInfo =
+    if List.length crMovingInfo >= 20 then
+        update_CRMovinginfo crMovingInfo
+    else crMovingInfo
+
+update_CRMovinginfo : List String -> List String
+update_CRMovinginfo old =
+     ( List.take 19 old ) ++ ["CR MOVED:"]

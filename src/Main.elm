@@ -50,7 +50,7 @@ wholeURL =
 
 initModel : Model
 initModel =
-    Model initGameData Start "modInfo" "Init" "init" 0 init_onMovingCR ["CR MOVED"]
+    Model initGameData Start "modInfo" "Init" "init" 0 init_onMovingCR ["CR MOVED:"]
 
 init_onMovingCR : OnMovingCR
 init_onMovingCR =
@@ -216,10 +216,13 @@ changeCR newArea model =
                 
                 newmovingCR = 
                     { oldMovingCR | cRname = Nothing }
-                oldInfo = model.cRmovingInfo
-            in
-            { model | data = newData, onMovingCR = newmovingCR , cRmovingInfo =  combine_onmoveCR2String oldMovingCR newArea :: oldInfo }
+                oldInfo = model.cRmovingInfo|> filter_CRMovinginfo
 
-        Nothing ->
+                newInfo = combine_onmoveCR2String oldMovingCR newArea :: oldInfo
+            in
+            { model | data = newData, onMovingCR = newmovingCR , 
+                      cRmovingInfo =  newInfo }
+
+        Nothing ->  
             model
 
