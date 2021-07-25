@@ -164,11 +164,11 @@
 
                 "Energy and time invested in social contact":10,
 
-                "Energy and time invested in romantic activities":5,
+                "Energy and time invested in romantic activities":50,
 
-                "Energy and time invested in family life":30,
+                "Energy and time invested in family life":90,
 
-                "Energy and time invested in recreation and resting":40
+                "Energy and time invested in recreation and resting":100
             }
         }
     },
