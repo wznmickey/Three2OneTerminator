@@ -124,6 +124,9 @@ update msg model =
                 }
             )
 
+        Clickon Msg.Restart ->
+            model |> update (UploadFile (FileLoaded model.modInfo))
+
         UploadFile fileStatus ->
             case fileStatus of
                 FileRequested ->
@@ -234,6 +237,7 @@ view model =
                     [ text "Pause"
                     , p []
                         [ button [ HtmlEvent.onClick (ToState Running) ] [ text "continue" ]
+                        , button [ HtmlEvent.onClick (Msg.Clickon Restart) ] [ text "Restart" ]
                         ]
                     ]
                 ]

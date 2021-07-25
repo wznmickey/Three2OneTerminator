@@ -29,6 +29,7 @@ type Element
     = CR OnMovingCR
     | Area String
     | LoadDefault
+    | Restart
 
 
 type FileStatus
