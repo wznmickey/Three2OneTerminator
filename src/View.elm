@@ -221,13 +221,13 @@ get_CRpos_inCRtype crType crAreapos =
             ( xpos + 2, ypos + 3 )
 
         "Material Support2" ->
-            ( xpos + 5, ypos + 6 )
+            ( xpos + 5, ypos + 3 )
 
         "Material Support3" ->
-            ( xpos + 8, ypos + 9 )
+            ( xpos + 8, ypos + 3 )
 
         "Material Support4" ->
-            ( xpos + 2, ypos + 9 )
+            ( xpos + 2, ypos + 8 )
 
         _ ->
             ( 0, 0 )
