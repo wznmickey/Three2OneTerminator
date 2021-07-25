@@ -1,15 +1,18 @@
-module Msg exposing (Element(..), FileStatus(..), KeyInfo(..), Msg(..), State(..), OnMovingCR)
+module Msg exposing (Element(..), FileStatus(..), KeyInfo(..), Msg(..), OnMovingCR, State(..))
 
 import Browser.Events exposing (Visibility, onClick)
 import File exposing (..)
 import GameData exposing (..)
 import Html exposing (time)
 import Http
-type alias OnMovingCR = 
-    { cRname : Maybe String 
-      , formerArea : Maybe String
-      , toArea : Maybe String
+
+
+type alias OnMovingCR =
+    { cRname : Maybe String
+    , formerArea : Maybe String
+    , toArea : Maybe String
     }
+
 
 type State
     = Start
@@ -30,6 +33,7 @@ type Element
     | Area String
     | LoadDefault
     | Restart
+    | Download
 
 
 type FileStatus
@@ -45,4 +49,3 @@ type Msg
     | Clickon Element
     | UploadFile FileStatus
     | KeyPress KeyInfo
-

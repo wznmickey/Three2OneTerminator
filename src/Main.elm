@@ -26,6 +26,7 @@ import String exposing (..)
 import Svg exposing (Svg)
 import Svg.Attributes as SvgAttr
 import Task
+import ToSaving exposing (..)
 import Update exposing (..)
 import View exposing (..)
 
@@ -122,6 +123,11 @@ update msg model =
                 { url = wholeURL
                 , expect = Http.expectString GotText
                 }
+            )
+
+        Clickon Msg.Download ->
+            ( model
+            , save model.data
             )
 
         Clickon Msg.Restart ->
@@ -238,6 +244,7 @@ view model =
                     , p []
                         [ button [ HtmlEvent.onClick (ToState Running) ] [ text "continue" ]
                         , button [ HtmlEvent.onClick (Msg.Clickon Restart) ] [ text "Restart" ]
+                        , button [ HtmlEvent.onClick (Msg.Clickon Download) ] [ text "download" ]
                         ]
                     ]
                 ]

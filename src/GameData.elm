@@ -6,6 +6,7 @@ import CRdata exposing (..)
 import Dict exposing (Dict)
 import HelpText exposing (..)
 import Json.Decode exposing (..)
+import Json.Encode exposing (..)
 import PureCPdata exposing (..)
 
 
@@ -15,7 +16,6 @@ type alias GameData =
     , allCR : Dict String CRdata
     , area : Dict String Area
     , helpText : Dict String HelpText
-    
     }
 
 
@@ -68,7 +68,6 @@ dGameData =
             "helpText"
             decoder_HelpText
         )
-        
 
 
 getCPdataByName : ( String, Dict String CPdata ) -> CPdata
@@ -79,3 +78,8 @@ getCPdataByName ( name, dict ) =
 getPureCPdataByName : ( String, Dict String PureCPdata ) -> PureCPdata
 getPureCPdataByName ( name, dict ) =
     Maybe.withDefault initPureCPdata (Dict.get name dict)
+
+
+encodeGameData : GameData -> Json.Encode.Value
+encodeGameData data =
+    Json.Encode.object [ ( "CP", Json.Encode.dict identity encodeCPdata data.infoCP ), ( "globalCP", Json.Encode.dict identity encodePureCPdata data.globalCP ), ( "CR", Json.Encode.dict identity encodeCRdata data.allCR ), ( "area", Json.Encode.dict identity encodeArea data.area ), ( "helpText", Json.Encode.dict identity encodeHelpText data.helpText ) ]

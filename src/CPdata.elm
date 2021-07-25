@@ -1,8 +1,10 @@
-module CPdata exposing (CPdata, decoder_CPdata, initCPdata)
+module CPdata exposing (CPdata, decoder_CPdata, encodeCPdata, initCPdata)
 
 import CPtype exposing (..)
 import Dict exposing (Dict)
+import Html exposing (object)
 import Json.Decode exposing (..)
+import Json.Encode exposing (..)
 import PureCPdata exposing (..)
 
 
@@ -33,7 +35,7 @@ initCPdata =
 
 decoder_CPdata : Decoder (Dict.Dict String CPdata)
 decoder_CPdata =
-    map (Dict.map infoToCPdata) (dict infoDecoder)
+    map (Dict.map infoToCPdata) (Json.Decode.dict infoDecoder)
 
 
 type alias Info =
@@ -52,3 +54,9 @@ infoDecoder =
 infoToCPdata : String -> Info -> CPdata
 infoToCPdata name { effect, typeCP } =
     CPdata name effect typeCP
+
+
+encodeCPdata : CPdata -> Json.Encode.Value 
+encodeCPdata data =
+     Json.Encode.object [ ( "effect", Json.Encode.dict identity encodePureCPdata data.effect ), ( "type", encodeCPtype data.typeCP ) ] 
+

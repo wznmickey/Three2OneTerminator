@@ -10,13 +10,12 @@ import GameData exposing (..)
 import Html exposing (Html, div)
 import Html.Attributes exposing (style)
 import Json.Decode exposing (Error, string)
-import Msg exposing (Element(..), FileStatus(..), KeyInfo(..), Msg(..), State(..))
+import Msg exposing (Element(..), FileStatus(..), KeyInfo(..), Msg(..), OnMovingCR, State(..))
 import PureCPdata exposing (..)
 import Round exposing (round)
 import Svg exposing (Svg, text)
 import Svg.Attributes as SvgAttr
 import Svg.Events as SvgEvent
-import Msg exposing (OnMovingCR)
 
 
 viewUnitArea : Area -> Svg Msg
@@ -178,7 +177,8 @@ viewUnitCR cRpos =
         ypos =
             Tuple.second (get_CRpos cRpos)
 
-        color = get_CRcolor cRpos
+        color =
+            get_CRcolor cRpos
     in
     Svg.circle
         [ SvgAttr.cx (String.fromFloat xpos ++ "vw")
@@ -186,7 +186,7 @@ viewUnitCR cRpos =
         , SvgAttr.r (String.fromFloat 1.5 ++ "vh")
         , SvgAttr.fill color
         , SvgAttr.stroke "white"
-        , SvgEvent.onClick (Clickon (Msg.CR { cRname = Just name , formerArea = Just cRpos.location , toArea = Nothing }))
+        , SvgEvent.onClick (Clickon (Msg.CR { cRname = Just name, formerArea = Just cRpos.location, toArea = Nothing }))
         ]
         []
 
@@ -285,8 +285,8 @@ show_DeadInfo state =
 
           else
             text "Save the world! Terminator!"
-
         ]
+
 
 viewMovingCR : String -> Html Msg
 viewMovingCR info =
@@ -302,44 +302,42 @@ viewMovingCR info =
         ]
         [ text info ]
 
-        
+
 combine_onmoveCR2String : OnMovingCR -> String -> String
-combine_onmoveCR2String crInfoTocombine toArea=
-  case crInfoTocombine.cRname of 
+combine_onmoveCR2String crInfoTocombine toArea =
+    case crInfoTocombine.cRname of
+        Just name ->
+            case crInfoTocombine.formerArea of
+                Just area ->
+                    "\n Moved "
+                        ++ name
+                        ++ " from "
+                        ++ area
+                        ++ " to "
+                        ++ toArea
+                        ++ " ."
 
-    Just name ->
+                Nothing ->
+                    ""
 
-     case crInfoTocombine.formerArea of 
+        Nothing ->
+            ""
 
-      Just area ->
-
-        "\n Moved "
-        ++ name
-        ++ " from "
-        ++ area
-        ++ " to "
-        ++ toArea
-        ++ " ."
-
-      Nothing ->
-        ""
-
-    Nothing ->
-        ""
 
 combineList_2String : List String -> String
-combineList_2String toCombine = 
-    List.foldl (++) "" (toCombine)
-
-
+combineList_2String toCombine =
+    List.foldl (++) "" toCombine
 
 
 filter_CRMovinginfo : List String -> List String
 filter_CRMovinginfo crMovingInfo =
     if List.length crMovingInfo >= 20 then
         update_CRMovinginfo crMovingInfo
-    else crMovingInfo
+
+    else
+        crMovingInfo
+
 
 update_CRMovinginfo : List String -> List String
 update_CRMovinginfo old =
-     ( List.take 19 old ) ++ ["CR MOVED:"]
+    List.take 19 old ++ [ "CR MOVED:" ]
