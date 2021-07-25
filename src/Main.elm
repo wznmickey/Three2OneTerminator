@@ -38,6 +38,7 @@ type alias Model =
     , onviewArea : String
     , time : Float
     , onMovingCR : OnMovingCR
+    , cRmovingInfo :  String
     }
 
 
@@ -48,7 +49,7 @@ wholeURL =
 
 initModel : Model
 initModel =
-    Model initGameData Start "modInfo" "Init" "init" 0 init_onMovingCR
+    Model initGameData Start "modInfo" "Init" "init" 0 init_onMovingCR "CR MOVED"
 
 init_onMovingCR : OnMovingCR
 init_onMovingCR =
@@ -194,6 +195,7 @@ view model =
         -- , text (Debug.toString model.state)
         , show_PauseInfo
         , show_DeadInfo model.state
+        , viewMovingCR model.cRmovingInfo
         ]
 
 
@@ -210,8 +212,13 @@ changeCR newArea model =
 
                 newData =
                     { data | allCR = moveCR model.data.allCR x newArea }
+                
+                newmovingCR = 
+                    { oldMovingCR | cRname = Nothing }
+                oldInfo = model.cRmovingInfo
             in
-            { model | data = newData, onMovingCR = {oldMovingCR|cRname = Nothing }}
+            { model | data = newData, onMovingCR = newmovingCR , cRmovingInfo =  oldInfo ++ combine_onmoveCR2String oldMovingCR newArea }
 
         Nothing ->
             model
+

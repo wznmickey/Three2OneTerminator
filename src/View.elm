@@ -16,6 +16,7 @@ import Round exposing (round)
 import Svg exposing (Svg, text)
 import Svg.Attributes as SvgAttr
 import Svg.Events as SvgEvent
+import Msg exposing (OnMovingCR)
 
 
 viewUnitArea : Area -> Svg Msg
@@ -266,3 +267,42 @@ show_DeadInfo state =
             text "Save the world! Terminator!"
 
         ]
+
+viewMovingCR : String -> Html Msg
+viewMovingCR info =
+    div
+        [ style "color" "pink"
+        , style "font-weight" "bold"
+        , style "position" "absolute"
+        , style "font-size" "large"
+        , style "left" "0vw"
+        , style "top" "50vh"
+        , style "width" "20vw"
+        , style "white-space" "pre-line"
+        ]
+        [ text info ]
+
+        
+combine_onmoveCR2String : OnMovingCR -> String -> String
+combine_onmoveCR2String crInfoTocombine toArea=
+  case crInfoTocombine.cRname of 
+
+    Just name ->
+
+     case crInfoTocombine.formerArea of 
+
+      Just area ->
+
+        "\n Moved "
+        ++ name
+        ++ " from "
+        ++ area
+        ++ " to "
+        ++ toArea
+        ++ " ."
+
+      Nothing ->
+        ""
+
+    Nothing ->
+        ""

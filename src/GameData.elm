@@ -15,6 +15,7 @@ type alias GameData =
     , allCR : Dict String CRdata
     , area : Dict String Area
     , helpText : Dict String HelpText
+    
     }
 
 
@@ -67,6 +68,7 @@ dGameData =
             "helpText"
             decoder_HelpText
         )
+        
 
 
 getCPdataByName : ( String, Dict String CPdata ) -> CPdata
