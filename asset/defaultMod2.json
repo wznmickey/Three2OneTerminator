@@ -94,7 +94,7 @@
         "VG100/101": {
             "location": 1,
             "effect": {
-                "Gore Course Term GPA": 0,
+                "Gore Course Term GPA": 1,
                 "Science literacy and capabilty": 2,
                 "Interpersonal Popularity": 5,
                 "Self Pursuits Fulfillment": 3
@@ -114,7 +114,7 @@
         "VV255/285": {
             "location": 2,
             "effect": {
-                "Gore Course Term GPA": 0,
+                "Gore Course Term GPA": 1,
                 "Science literacy and capabilty": 2,
                 "Interpersonal Popularity": 5,
                 "Self Pursuits Fulfillment": 3
