@@ -28,6 +28,7 @@ type KeyInfo
 type Element
     = CR OnMovingCR
     | Area String
+    | LoadDefault
 
 
 type FileStatus

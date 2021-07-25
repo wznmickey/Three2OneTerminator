@@ -7,6 +7,7 @@ import Browser.Events exposing (onAnimationFrameDelta, onClick, onKeyDown)
 import CPdata exposing (..)
 import CPtype exposing (CPtype(..))
 import CRdata exposing (CRdata)
+import Debug exposing (toString)
 import Dict exposing (Dict)
 import File exposing (File)
 import File.Select as Select
@@ -19,7 +20,7 @@ import Html.Events as HtmlEvent exposing (..)
 import Http
 import Json.Decode as Decode
 import LoadMod exposing (loadMod)
-import Msg exposing (Element(..), FileStatus(..), KeyInfo(..), Msg(..), State(..),OnMovingCR)
+import Msg exposing (Element(..), FileStatus(..), KeyInfo(..), Msg(..), OnMovingCR, State(..))
 import PureCPdata exposing (PureCPdata)
 import String exposing (..)
 import Svg exposing (Svg)
@@ -27,8 +28,6 @@ import Svg.Attributes as SvgAttr
 import Task
 import Update exposing (..)
 import View exposing (..)
-import Debug exposing (toString)
-
 
 
 type alias Model =
@@ -50,19 +49,18 @@ wholeURL =
 
 initModel : Model
 initModel =
-    Model initGameData Start "modInfo" "Init" "init" 0 init_onMovingCR ["CR MOVED:"]
+    Model initGameData Start "modInfo" "Init" "init" 0 init_onMovingCR [ "CR MOVED:" ]
+
 
 init_onMovingCR : OnMovingCR
 init_onMovingCR =
-    {  cRname = Nothing , formerArea = Nothing , toArea = Nothing }
+    { cRname = Nothing, formerArea = Nothing, toArea = Nothing }
+
 
 init : () -> ( Model, Cmd Msg )
 init result =
     ( initModel
-    , Http.get
-        { url = wholeURL
-        , expect = Http.expectString GotText
-        }
+    , Cmd.none
     )
 
 
@@ -102,16 +100,29 @@ update msg model =
                 ( model, Cmd.none )
 
         Clickon (Msg.CR crInfo) ->
-         let
-            oldMovingCR = model.onMovingCR
-            newcRname = crInfo.cRname 
-            newformerArea = crInfo.formerArea
-         in
+            let
+                oldMovingCR =
+                    model.onMovingCR
+
+                newcRname =
+                    crInfo.cRname
+
+                newformerArea =
+                    crInfo.formerArea
+            in
             if model.state == Msg.Running then
-                ( { model | onMovingCR = { oldMovingCR | cRname = newcRname , formerArea = newformerArea } }, Cmd.none )
+                ( { model | onMovingCR = { oldMovingCR | cRname = newcRname, formerArea = newformerArea } }, Cmd.none )
 
             else
                 ( model, Cmd.none )
+
+        Clickon Msg.LoadDefault ->
+            ( model
+            , Http.get
+                { url = wholeURL
+                , expect = Http.expectString GotText
+                }
+            )
 
         UploadFile fileStatus ->
             case fileStatus of
@@ -175,36 +186,50 @@ check_Dead model =
 
 view : Model -> Html Msg
 view model =
-    div
-        [ HtmlAttr.style "width" "95vw"
-        , HtmlAttr.style "height" "95vh"
-        , HtmlAttr.style "left" "0"
-        , HtmlAttr.style "top" "0"
-        , HtmlAttr.style "text-align" "center"
-        ]
-        [ Svg.svg
-            [ SvgAttr.width "100%"
-            , SvgAttr.height "100%"
+    if model.state == Start then
+        div
+            [ HtmlAttr.style "width" "95vw"
+            , HtmlAttr.style "height" "95vh"
+            , HtmlAttr.style "left" "0"
+            , HtmlAttr.style "top" "0"
+            , HtmlAttr.style "text-align" "center"
             ]
-            (viewAreas (Dict.values model.data.area) ++ viewCRs (Dict.values model.data.allCR))
-        , viewGlobalData (Dict.values model.data.globalCP) model.data.infoCP
-        , view_Areadata model.data.area model.onviewArea
-        , disp_Onview model.onviewArea
-        , button [ HtmlEvent.onClick (Msg.UploadFile FileRequested) ] [ text "Load Mod" ]
-        -- , text (Debug.toString model.data.area)
-        -- , text (Debug.toString model.time)
-        -- , text (Debug.toString model.state)
-        , show_PauseInfo
-        , show_DeadInfo model.state
-        , viewMovingCR (combineList_2String model.cRmovingInfo)
-        ]
+            [ button [ HtmlEvent.onClick (Msg.UploadFile FileRequested) ] [ text "Upload file" ]
+            , button [ HtmlEvent.onClick (Msg.Clickon LoadDefault) ] [ text "Default starting" ]
+            ]
+
+    else
+        div
+            [ HtmlAttr.style "width" "95vw"
+            , HtmlAttr.style "height" "95vh"
+            , HtmlAttr.style "left" "0"
+            , HtmlAttr.style "top" "0"
+            , HtmlAttr.style "text-align" "center"
+            ]
+            [ Svg.svg
+                [ SvgAttr.width "100%"
+                , SvgAttr.height "100%"
+                ]
+                (viewAreas (Dict.values model.data.area) ++ viewCRs (Dict.values model.data.allCR))
+            , viewGlobalData (Dict.values model.data.globalCP) model.data.infoCP
+            , view_Areadata model.data.area model.onviewArea
+            , disp_Onview model.onviewArea
+
+            -- , text (Debug.toString model.data.area)
+            -- , text (Debug.toString model.time)
+            -- , text (Debug.toString model.state)
+            , show_PauseInfo
+            , show_DeadInfo model.state
+            , viewMovingCR (combineList_2String model.cRmovingInfo)
+            ]
 
 
 changeCR : String -> Model -> Model
 changeCR newArea model =
- let 
-    oldMovingCR = model.onMovingCR
- in
+    let
+        oldMovingCR =
+            model.onMovingCR
+    in
     case model.onMovingCR.cRname of
         Just x ->
             let
@@ -213,16 +238,21 @@ changeCR newArea model =
 
                 newData =
                     { data | allCR = moveCR model.data.allCR x newArea }
-                
-                newmovingCR = 
+
+                newmovingCR =
                     { oldMovingCR | cRname = Nothing }
-                oldInfo = model.cRmovingInfo|> filter_CRMovinginfo
 
-                newInfo = combine_onmoveCR2String oldMovingCR newArea :: oldInfo
+                oldInfo =
+                    model.cRmovingInfo |> filter_CRMovinginfo
+
+                newInfo =
+                    combine_onmoveCR2String oldMovingCR newArea :: oldInfo
             in
-            { model | data = newData, onMovingCR = newmovingCR , 
-                      cRmovingInfo =  newInfo }
+            { model
+                | data = newData
+                , onMovingCR = newmovingCR
+                , cRmovingInfo = newInfo
+            }
 
-        Nothing ->  
+        Nothing ->
             model
-
