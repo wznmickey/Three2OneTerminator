@@ -12,7 +12,7 @@
         "Science literacy and capabilty": {
             "type": "Global",
             "effect": {
-                "Gore Course Term GPA": 0,
+                "Gore Course Term GPA": 1,
                 "Science literacy and capabilty": 2,
                 "Interpersonal Popularity": 5,
                 "Self Pursuits Fulfillment": 3
