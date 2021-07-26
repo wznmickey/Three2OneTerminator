@@ -12,19 +12,19 @@
         "Science literacy and capabilty": {
             "type": "Local",
             "effect": {
-                "Gore Course Term GPA": 1,
-                "Science literacy and capabilty": 2,
-                "Interpersonal Popularity": 5,
-                "Self Pursuits Fulfillment": 3
+                "Gore Course Term GPA": 1.3,
+                "Science literacy and capabilty": 1,
+                "Interpersonal Popularity": 5.4,
+                "Self Pursuits Fulfillment": 3.7
             }
         },
         "Interpersonal Popularity": {
             "type": "Local",
             "effect": {
-                "Gore Course Term GPA": 1,
-                "Science literacy and capabilty": 2,
-                "Interpersonal Popularity": 5,
-                "Self Pursuits Fulfillment": 3
+                "Gore Course Term GPA": 1.7,
+                "Science literacy and capabilty": 2.4,
+                "Interpersonal Popularity": 1,
+                "Self Pursuits Fulfillment": 3.9
             }
         },
         "Self Pursuits Fulfillment": {
@@ -33,7 +33,7 @@
                 "Gore Course Term GPA": 1,
                 "Science literacy and capabilty": 2,
                 "Interpersonal Popularity": 5,
-                "Self Pursuits Fulfillment": 3
+                "Self Pursuits Fulfillment": 1
             }
         }
     },
@@ -95,7 +95,7 @@
                 "Self Pursuits Fulfillment": 3
             },
             "init": {
-                "Gore Course Term GPA": 1,
+                "Gore Course Term GPA": 4,
                 "Science literacy and capabilty": 2,
                 "Interpersonal Popularity": 5,
                 "Self Pursuits Fulfillment": 3
@@ -104,13 +104,13 @@
         "Mathematics": {
             "location": 2,
             "effect": {
-                "Gore Course Term GPA": 1,
+                "Gore Course Term GPA": 4,
                 "Science literacy and capabilty": 2,
                 "Interpersonal Popularity": 5,
                 "Self Pursuits Fulfillment": 3
             },
             "init": {
-                "Gore Course Term GPA": 1,
+                "Gore Course Term GPA": 4,
                 "Science literacy and capabilty": 2,
                 "Interpersonal Popularity": 5,
                 "Self Pursuits Fulfillment": 3
@@ -125,7 +125,7 @@
                 "Self Pursuits Fulfillment": 3
             },
             "init": {
-                "Gore Course Term GPA": 1,
+                "Gore Course Term GPA": 4,
                 "Science literacy and capabilty": 2,
                 "Interpersonal Popularity": 5,
                 "Self Pursuits Fulfillment": 3
