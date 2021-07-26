@@ -37,11 +37,6 @@
             }
         }
     },
-    "globalCP": {
-        "Science literacy and capabilty": 10,
-        "Interpersonal Popularity": 5,
-        "Self Pursuits Fulfillment": 5
-    },
     "CR": {
         "Energy invested in academic purposes": {
             "location": "Academia",
@@ -100,15 +95,10 @@
                 "Self Pursuits Fulfillment": 3
             },
             "init": {
-                "Energy and time invested in academic purposes":20,
-
-                "Energy and time invested in social contact":10,
-
-                "Energy and time invested in romantic activities":5,
-
-                "Energy and time invested in family life":30,
-
-                "Energy and time invested in recreation and resting":40
+                "Gore Course Term GPA": 1,
+                "Science literacy and capabilty": 2,
+                "Interpersonal Popularity": 5,
+                "Self Pursuits Fulfillment": 3
             }
         },
         "Mathematics": {
@@ -120,15 +110,10 @@
                 "Self Pursuits Fulfillment": 3
             },
             "init": {
-                "Energy and time invested in academic purposes":20,
-
-                "Energy and time invested in social contact":10,
-
-                "Energy and time invested in romantic activities":5,
-
-                "Energy and time invested in family life":30,
-
-                "Energy and time invested in recreation and resting":40
+                "Gore Course Term GPA": 1,
+                "Science literacy and capabilty": 2,
+                "Interpersonal Popularity": 5,
+                "Self Pursuits Fulfillment": 3
             }
         },
         "Physics": {
@@ -140,15 +125,10 @@
                 "Self Pursuits Fulfillment": 3
             },
             "init": {
-                "Energy and time invested in academic purposes":20,
-
-                "Energy and time invested in social contact":10,
-
-                "Energy and time invested in romantic activities":5,
-
-                "Energy and time invested in family life":30,
-
-                "Energy and time invested in recreation and resting":40
+                "Gore Course Term GPA": 1,
+                "Science literacy and capabilty": 2,
+                "Interpersonal Popularity": 5,
+                "Self Pursuits Fulfillment": 3
             }
         },
         "Physics lab & Extracurricular Life": {
@@ -160,15 +140,10 @@
                 "Self Pursuits Fulfillment": 3
             },
             "init": {
-                "Energy and time invested in academic purposes":20,
-
-                "Energy and time invested in social contact":10,
-
-                "Energy and time invested in romantic activities":50,
-
-                "Energy and time invested in family life":90,
-
-                "Energy and time invested in recreation and resting":100
+                 "Gore Course Term GPA": 1,
+                "Science literacy and capabilty": 2,
+                "Interpersonal Popularity": 5,
+                "Self Pursuits Fulfillment": 3
             }
         }
     },
