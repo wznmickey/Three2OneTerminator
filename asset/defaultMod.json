@@ -88,7 +88,7 @@
                 "Health threat drop": 4.3,
                 "Citizen trust": 2.5,
                 "External safety": 3.3,
-                "Disposable Money": 2.9
+                "Disposable Money": -2.9
             },
             "init": {
                 "Health threat drop": 20.4
@@ -99,7 +99,7 @@
             "effect": {
                 "Health threat drop": 8.4,
                 "Citizen trust": 6.2,
-                "External safety": 8.4,
+                "External safety": -8.4,
                 "Disposable Money": 9.6
             },
             "init": {
@@ -110,7 +110,7 @@
             "location": 3,
             "effect": {
                 "Health threat drop": 1.1,
-                "Citizen trust": 1.2,
+                "Citizen trust": -1.2,
                 "External safety": 2.3,
                 "Disposable Money": 1.6
             },
@@ -123,7 +123,7 @@
             "effect": {
                 "Health threat drop": 13.6,
                 "Citizen trust": 12.4,
-                "External safety": 14.4,
+                "External safety": -14.4,
                 "Disposable Money": 15.6
             },
             "init": {
