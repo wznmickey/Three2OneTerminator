@@ -71,7 +71,7 @@
             }
         },
         "Energy invested in family life": {
-            "location": "",
+            "location": "Family",
             "effect": {
                 "Gore Course Term GPA": 1,
                 "Science literacy and capabilty": 2,
@@ -80,7 +80,7 @@
             }
         },
         "Energy invested in recreation and resting": {
-            "location": "",
+            "location": "Joy",
             "effect": {
                 "Gore Course Term GPA": 1,
                 "Science literacy and capabilty": 2,
@@ -91,7 +91,7 @@
     },
     
     "area": {
-        "VG100/101": {
+        "Engineering": {
             "location": 1,
             "effect": {
                 "Gore Course Term GPA": 1,
@@ -111,7 +111,7 @@
                 "Energy and time invested in recreation and resting":40
             }
         },
-        "VV255/285": {
+        "Mathematics": {
             "location": 2,
             "effect": {
                 "Gore Course Term GPA": 1,
@@ -131,7 +131,7 @@
                 "Energy and time invested in recreation and resting":40
             }
         },
-        "VP150/160": {
+        "Physics": {
             "location": 3,
             "effect": {
                 "Gore Course Term GPA": 1,
@@ -151,7 +151,7 @@
                 "Energy and time invested in recreation and resting":40
             }
         },
-        "VP141 & Extracurricular Life": {
+        "Physics lab & Extracurricular Life": {
             "location": 4,
             "effect": {
                 "Gore Course Term GPA": 1,
@@ -191,13 +191,13 @@
         
         "Energy and time invested in recreation and resting":"Time spent in Gaming, sports,workout,chilling,chatting,watching Tv shows and films all counts",
         
-        "VV255/256": "A component of your term life regarding maths studying",
+        "Mathematics": "A component of your term life regarding maths studying",
         
-        "VP150/160": "A component of your term life regarding physics studying",
+        "Physics": "A component of your term life regarding physics studying",
         
-        "VG100/101": "A component of your term life regarding your internship at Silverfocs or other componies",
+        "Engineering": "A component of your term life regarding your internship at Silverfocs or other componies",
         
-        "VP141 & Extracurricular Life": "A component of your term life regarding fun lab report writing and Extracurricular activities"
+        "Physics lab & Extracurricular Life": "A component of your term life regarding fun lab report writing and Extracurricular activities"
         
     }
 }
