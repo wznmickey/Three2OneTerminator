@@ -35,7 +35,11 @@
                 "Interpersonal Popularity": 5,
                 "Self Pursuits Fulfillment": 1
             }
-        }
+        },
+        "globalCP": {
+        "Citizen trust": 10,
+        "External safety": 5,
+        "Disposable Money": 2
     },
     "CR": {
         "Energy invested in academic purposes": {
