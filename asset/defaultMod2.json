@@ -10,7 +10,7 @@
             }
         },
         "Science literacy and capabilty": {
-            "type": "Global",
+            "type": "Local",
             "effect": {
                 "Gore Course Term GPA": 1,
                 "Science literacy and capabilty": 2,
@@ -19,7 +19,7 @@
             }
         },
         "Interpersonal Popularity": {
-            "type": "Global",
+            "type": "Local",
             "effect": {
                 "Gore Course Term GPA": 1,
                 "Science literacy and capabilty": 2,
@@ -28,7 +28,7 @@
             }
         },
         "Self Pursuits Fulfillment": {
-            "type": "Global",
+            "type": "Local",
             "effect": {
                 "Gore Course Term GPA": 1,
                 "Science literacy and capabilty": 2,
