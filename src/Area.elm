@@ -10,8 +10,8 @@ import PureCPdata exposing (..)
 
 
 type alias Area =
-    { --view : Mapview,
-      name : String
+    { view : String
+    , name : String
     , localCP : Dict String PureCPdata
     , effect : Dict String PureCPdata
     , --The index of the area. Start from **1**.
@@ -43,6 +43,7 @@ initArea =
     , effect = Dict.singleton newEffect.name newEffect
     , no = newNo
     , areaColor = newAreaColor
+    , view = ""
     }
 
 
@@ -54,23 +55,26 @@ decoder_Area =
 type alias Info =
     { localCP : Dict String PureCPdata
     , effect : Dict String PureCPdata
-    , no : Int
+    , no : Int,
+    view: String
     }
 
 
 infoDecoder : Decoder Info
 infoDecoder =
-    map3 Info
+    map4 Info
         (field "init" decoder_PureCPdata)
         (field "effect" decoder_PureCPdata)
         (field "location" Json.Decode.int)
+        (field "path" Json.Decode.string)
+
 
 
 infoToArea : String -> Info -> Area
-infoToArea name { localCP, effect, no } =
-    Area name localCP effect no "pink"
+infoToArea name { localCP, effect, no ,view} =
+    Area view name localCP effect no  "pink"
 
 
 encodeArea : Area -> Json.Encode.Value
 encodeArea data =
-    Json.Encode.object [ ( "init", Json.Encode.dict identity encodePureCPdata data.localCP ), ( "effect", Json.Encode.dict identity encodePureCPdata data.effect ), ( "location", Json.Encode.int data.no ) ]
+    Json.Encode.object [ ( "init", Json.Encode.dict identity encodePureCPdata data.localCP ), ( "effect", Json.Encode.dict identity encodePureCPdata data.effect ), ( "location", Json.Encode.int data.no ),( "path", Json.Encode.string data.view ) ]
