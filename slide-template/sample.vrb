@@ -1,0 +1,6 @@
+\frametitle{}
+\begin{columns}[b]\begin {column}{\paperwidth } 
+
+	\tikz[remember picture, overlay]\node at (current page.center) {\href{run:trailer.mp4}{\XeTeXLinkBox{\includegraphics[width=\paperwidth,keepaspectratio]{trailer}}}};
+
+\beamerclosesubstitutedenvironement {framem}
