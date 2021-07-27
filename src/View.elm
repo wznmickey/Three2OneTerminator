@@ -23,24 +23,14 @@ viewUnitArea unitArea =
     let
         name =
             unitArea.name
-
-        xpos =
-            Tuple.first (init_AreaPos unitArea.no)
-
-        ypos =
-            Tuple.second (init_AreaPos unitArea.no)
     in
-    Svg.rect
-        [ SvgAttr.width (String.fromFloat 10 ++ "vw")
-        , SvgAttr.height (String.fromFloat 20 ++ "vh")
-        , SvgAttr.x (String.fromFloat xpos ++ "vw")
-        , SvgAttr.y (String.fromFloat ypos ++ "vh")
-        , SvgAttr.fill unitArea.areaColor
-        , SvgAttr.stroke "white"
+    Svg.path
+        [ SvgAttr.d unitArea.view
+        , SvgAttr.fill "Red"
+        , SvgAttr.stroke "Black"
         , SvgEvent.onClick (Clickon (Msg.Area name))
-        , SvgAttr.title name
         ]
-        [ text (String.fromInt unitArea.no) ]
+        []
 
 
 init_AreaPos : Int -> ( Float, Float )
@@ -160,30 +150,27 @@ checkArea areaName areaS =
             initArea
 
 
-viewCRs : List CRdata -> List (Svg Msg)
-viewCRs cRS =
-    List.map viewUnitCR cRS
+viewCRs : Dict String Area -> List CRdata -> List (Svg Msg)
+viewCRs dict cRS =
+    List.map (viewUnitCR dict) cRS
 
 
-viewUnitCR : CRdata -> Svg Msg
-viewUnitCR cRpos =
+viewUnitCR : Dict String Area -> CRdata -> Svg Msg
+viewUnitCR dict cRpos =
     let
         name =
             cRpos.name
 
-        xpos =
-            Tuple.first (get_CRpos cRpos)
-
-        ypos =
-            Tuple.second (get_CRpos cRpos)
+        ( xpos, ypos ) =
+            (Maybe.withDefault initArea (Dict.get name dict)).center
 
         color =
             get_CRcolor cRpos
     in
     Svg.circle
-        [ SvgAttr.cx (String.fromFloat xpos ++ "vw")
-        , SvgAttr.cy (String.fromFloat ypos ++ "vh")
-        , SvgAttr.r (String.fromFloat 1.5 ++ "vh")
+        [ SvgAttr.cx (String.fromFloat xpos)
+        , SvgAttr.cy (String.fromFloat ypos)
+        , SvgAttr.r (String.fromFloat 0.5 ++ "vh")
         , SvgAttr.fill color
         , SvgAttr.stroke "white"
         , SvgEvent.onClick (Clickon (Msg.CR { cRname = Just name, formerArea = Just cRpos.location, toArea = Nothing }))

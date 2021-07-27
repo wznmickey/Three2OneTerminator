@@ -92,7 +92,9 @@
             "init": {
                 "Health threat drop": 20.4
             },
-            "path": "M56 95 L 67 100 L 59 126 L 60 135 L 56 140 L 10 102 Z"
+            "path": "M56 95 L 67 100 L 59 126 L 60 135 L 56 140 L 10 102 Z",
+            "centerX": 50,
+            "centerY": 100
         },
         "BomBay": {
             "location": 2,
@@ -105,7 +107,9 @@
             "init": {
                 "Health threat drop": 12.7
             },
-            "path": "M80 30 L 132 40 L 138 120 L 100 100 L 59 126 L 67 100 L 56 95 Z"
+            "path": "M80 30 L 132 40 L 138 120 L 100 100 L 59 126 L 67 100 L 56 95 Z",
+            "centerX": 70,
+            "centerY": 100
         },
         "GassVille": {
             "location": 3,
@@ -118,7 +122,9 @@
             "init": {
                 "Health threat drop": 30.7
             },
-            "path": "M56 140 L 60 135 L 59 126 L 100 100 L 138 120 L 130 136 L 136 150 L 105 135 Z"
+            "path": "M56 140 L 60 135 L 59 126 L 100 100 L 138 120 L 130 136 L 136 145 L 105 135 Z",
+            "centerX": 145,
+            "centerY": 145
         },
         "Burnley": {
             "location": 4,
@@ -131,7 +137,9 @@
             "init": {
                 "Health threat drop": 5.3
             },
-            "path": "M10 10 L 30 20  L 45 15 L 80 30 L 56 95 L 10 102 L 25 56 Z"
+            "path": "M10 10 L 30 20  L 45 15 L 80 30 L 56 95 L 10 102 L 25 56 Z",
+            "centerX": 20,
+            "centerY": 20
         }
     },
     "helpText": {

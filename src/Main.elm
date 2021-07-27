@@ -257,18 +257,28 @@ view model =
                 , HtmlAttr.style "top" "0"
                 , HtmlAttr.style "text-align" "center"
                 ]
-                [ Svg.svg
-                    [ SvgAttr.width "100%"
-                    , SvgAttr.height "100%"
+                [ div
+                    [ HtmlAttr.style "width" "50vw"
+                    , HtmlAttr.style "height" "50vh"
+                    , HtmlAttr.style "transform" "translate(-50%,-50%)"
+                    , HtmlAttr.style "left" "50%"
+                    , HtmlAttr.style "top" "50%",
+                    HtmlAttr.style "position" "absolute"
                     ]
-                    (viewAreas (Dict.values model.data.area) ++ viewCRs (Dict.values model.data.allCR))
+                    [ Svg.svg
+                        [ SvgAttr.width "100%"
+                        , SvgAttr.height "100%"
+                        , SvgAttr.viewBox "0 0 150 150"
+                        ]
+                        (viewAreas (Dict.values model.data.area) ++ (viewCRs model.data.area (Dict.values model.data.allCR)))
+                    ]
                 , viewGlobalData (Dict.values model.data.globalCP) model.data.infoCP
                 , view_Areadata model.data.area model.onviewArea
                 , disp_Onview model.onviewArea
 
-                -- , text (Debug.toString model.data.area)
+                --, text (Debug.toString model.data.area)
                 -- , text (Debug.toString model.time)
-                -- , text (Debug.toString model.state)
+                , text (Debug.toString model.data.area)
                 , show_PauseInfo
                 , show_DeadInfo model.state
                 , viewMovingCR (combineList_2String model.cRmovingInfo)
