@@ -1,4 +1,0 @@
-\babel@toc {USenglish}{}
-\beamer@sectionintoc {1}{Multiple images on a slide}{2}{0}{1}
-\beamer@sectionintoc {2}{Make a character speak}{8}{0}{2}
-\beamer@sectionintoc {3}{Embedding documents}{13}{0}{3}
