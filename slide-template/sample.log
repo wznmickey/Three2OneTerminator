@@ -1,10 +1,10 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020/W32TeX) (preloaded format=pdflatex 2020.9.27)  27 JUL 2021 10:38
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020/W32TeX) (preloaded format=pdflatex 2020.9.27)  27 JUL 2021 10:53
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
  %&-line parsing enabled.
-**d:/sjtu/umsjtu/dayi_lesson/vg100-2021/management/workshops/w6-latex/slide-template/sample.tex
-(d:/SJTU/UMSJTU/DaYi_lesson/VG100-2021/management/workshops/w6-latex/slide-template/sample.tex
+**d:/sjtu/umsjtu/dayi_lesson/vg100-2021/p2/p2team13/slide-template/sample.tex
+(d:/SJTU/UMSJTU/DaYi_lesson/VG100-2021/p2/p2team13/slide-template/sample.tex
 LaTeX2e <2020-02-02> patch level 5
 L3 programming layer <2020-03-06> (c:/texlive/2020/texmf-dist/tex/latex/beamer/beamer.cls
 Document Class: beamer 2019/09/29 v3.57 A class for typesetting presentations
@@ -498,7 +498,7 @@ Package: amsthm 2017/10/31 v2.20.4
 ) (c:/texlive/2020/texmf-dist/tex/latex/beamer/beamerbasethemes.sty)) (c:/texlive/2020/texmf-dist/tex/latex/beamer/beamerthemedefault.sty (c:/texlive/2020/texmf-dist/tex/latex/beamer/beamerfontthemedefault.sty) (c:/texlive/2020/texmf-dist/tex/latex/beamer/beamercolorthemedefault.sty) (c:/texlive/2020/texmf-dist/tex/latex/beamer/beamerinnerthemedefault.sty
 \beamer@dima=\dimen275
 \beamer@dimb=\dimen276
-) (c:/texlive/2020/texmf-dist/tex/latex/beamer/beamerouterthemedefault.sty))) (d:/sjtu/umsjtu/dayi_lesson/vg100-2021/management/workshops/w6-latex/slide-template/sfocs-slides.sty
+) (c:/texlive/2020/texmf-dist/tex/latex/beamer/beamerouterthemedefault.sty))) (d:/sjtu/umsjtu/dayi_lesson/vg100-2021/p2/p2team13/slide-template/sfocs-slides.sty
 Package: sfocs-slides 2021/04/03 SilverFOCS theme for lslides
  (c:/texlive/2020/texmf-dist/tex/latex/xkeyval/xkeyval.sty
 Package: xkeyval 2014/12/03 v2.7a package option processing (HA)
@@ -955,7 +955,11 @@ Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 (hyperref)                removing `math shift' on input line 5.
 
-(d:/sjtu/umsjtu/dayi_lesson/vg100-2021/management/workshops/w6-latex/slide-template/sample.aux)
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\includegraphics' on input line 9.
+
+(d:/sjtu/umsjtu/dayi_lesson/vg100-2021/p2/p2team13/slide-template/sample.aux)
 \openout1 = `sample.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 9.
@@ -1040,7 +1044,7 @@ Package: refcount 2019/12/15 v3.6 Data extraction from label references (HO)
 LaTeX Info: Redefining \ref on input line 9.
 LaTeX Info: Redefining \pageref on input line 9.
 LaTeX Info: Redefining \nameref on input line 9.
- (d:/sjtu/umsjtu/dayi_lesson/vg100-2021/management/workshops/w6-latex/slide-template/sample.out) (d:/sjtu/umsjtu/dayi_lesson/vg100-2021/management/workshops/w6-latex/slide-template/sample.out)
+ (d:/sjtu/umsjtu/dayi_lesson/vg100-2021/p2/p2team13/slide-template/sample.out) (d:/sjtu/umsjtu/dayi_lesson/vg100-2021/p2/p2team13/slide-template/sample.out)
 \@outlinefile=\write5
 \openout5 = `sample.out'.
 
@@ -1058,7 +1062,7 @@ Dictionary: translator-numbers-dictionary, Language: English
 Dictionary: translator-theorem-dictionary, Language: English 
 ) ABD: EverySelectfont initializing macros
 LaTeX Info: Redefining \selectfont on input line 9.
- (d:/sjtu/umsjtu/dayi_lesson/vg100-2021/management/workshops/w6-latex/slide-template/sample.nav)
+ (d:/sjtu/umsjtu/dayi_lesson/vg100-2021/p2/p2team13/slide-template/sample.nav)
 <joystick.pdf, id=49, 512.91524pt x 492.76868pt>
 File: joystick.pdf Graphic file (type pdf)
 <use joystick.pdf>
@@ -1070,6 +1074,11 @@ LaTeX Font Info:    Font shape `OT1/cmbr/b/n' in size <38> not available
 (Font)              Font shape `OT1/cmbr/bx/n' tried instead on input line 11.
 LaTeX Font Info:    Font shape `OT1/cmbr/m/it' in size <20> not available
 (Font)              Font shape `OT1/cmbr/m/sl' tried instead on input line 11.
+<img/name.png, id=51, 3011.25pt x 718.685pt>
+File: img/name.png Graphic file (type png)
+<use img/name.png>
+Package pdftex.def Info: img/name.png  used on input line 11.
+(pdftex.def)             Requested size: 130.0pt x 31.02347pt.
 LaTeX Font Info:    Trying to load font information for OML+cmbrm on input line 11.
  (c:/texlive/2020/texmf-dist/tex/latex/cmbright/omlcmbrm.fd
 File: omlcmbrm.fd 2005/04/13 v8.1 (WaS)
@@ -1079,21 +1088,26 @@ LaTeX Font Info:    Trying to load font information for OMS+cmbrs on input line 
 File: omscmbrs.fd 2005/04/13 v8.1 (WaS)
 ) [1
 
-{c:/texlive/2020/texmf-var/fonts/map/pdftex/updmap/pdftex.map} <d:/sjtu/umsjtu/dayi_lesson/vg100-2021/management/workshops/w6-latex/slide-template/joystick.pdf>] [2
+{c:/texlive/2020/texmf-var/fonts/map/pdftex/updmap/pdftex.map} <d:/sjtu/umsjtu/dayi_lesson/vg100-2021/p2/p2team13/slide-template/joystick.pdf> <d:/sjtu/umsjtu/dayi_lesson/vg100-2021/p2/p2team13/slide-template/img/name.png>]
+File: img/name.png Graphic file (type png)
+<use img/name.png>
+Package pdftex.def Info: img/name.png  used on input line 13.
+(pdftex.def)             Requested size: 130.0pt x 31.02347pt.
+ [2
 
 ]
-<img/candle1.png, id=234, 563.10374pt x 516.93124pt>
+<img/candle1.png, id=237, 563.10374pt x 516.93124pt>
 File: img/candle1.png Graphic file (type png)
 <use img/candle1.png>
 Package pdftex.def Info: img/candle1.png  used on input line 38.
 (pdftex.def)             Requested size: 138.69626pt x 127.32625pt.
-<img/candle2.png, id=236, 563.10374pt x 516.93124pt>
+<img/candle2.png, id=238, 563.10374pt x 516.93124pt>
 File: img/candle2.png Graphic file (type png)
 <use img/candle2.png>
 Package pdftex.def Info: img/candle2.png  used on input line 38.
 (pdftex.def)             Requested size: 138.69626pt x 127.32625pt.
 \imageheight=\dimen318
-<SF-head.pdf, id=237, 40.82076pt x 35.9927pt>
+<SF-head.pdf, id=239, 40.82076pt x 35.9927pt>
 File: SF-head.pdf Graphic file (type pdf)
 <use SF-head.pdf>
 Package pdftex.def Info: SF-head.pdf  used on input line 38.
@@ -1108,7 +1122,7 @@ Package pdftex.def Info: SF-head.pdf  used on input line 38.
 (pdftex.def)             Requested size: 17.07182pt x 15.05257pt.
  [3
 
- <d:/sjtu/umsjtu/dayi_lesson/vg100-2021/management/workshops/w6-latex/slide-template/SF-head.pdf> <d:/sjtu/umsjtu/dayi_lesson/vg100-2021/management/workshops/w6-latex/slide-template/img/candle1.png> <d:/sjtu/umsjtu/dayi_lesson/vg100-2021/management/workshops/w6-latex/slide-template/img/candle2.png>]
+ <d:/sjtu/umsjtu/dayi_lesson/vg100-2021/p2/p2team13/slide-template/SF-head.pdf> <d:/sjtu/umsjtu/dayi_lesson/vg100-2021/p2/p2team13/slide-template/img/candle1.png> <d:/sjtu/umsjtu/dayi_lesson/vg100-2021/p2/p2team13/slide-template/img/candle2.png>]
 File: img/candle1.png Graphic file (type png)
 <use img/candle1.png>
 Package pdftex.def Info: img/candle1.png  used on input line 62.
@@ -1117,7 +1131,7 @@ File: img/candle2.png Graphic file (type png)
 <use img/candle2.png>
 Package pdftex.def Info: img/candle2.png  used on input line 62.
 (pdftex.def)             Requested size: 92.4613pt x 84.88287pt.
-<img/candle3.png, id=266, 563.10374pt x 516.93124pt>
+<img/candle3.png, id=268, 563.10374pt x 516.93124pt>
 File: img/candle3.png Graphic file (type png)
 <use img/candle3.png>
 Package pdftex.def Info: img/candle3.png  used on input line 62.
@@ -1137,7 +1151,7 @@ Package pdftex.def Info: SF-head.pdf  used on input line 62.
 (pdftex.def)             Requested size: 17.07182pt x 15.05257pt.
  [4
 
- <d:/sjtu/umsjtu/dayi_lesson/vg100-2021/management/workshops/w6-latex/slide-template/img/candle3.png>]
+ <d:/sjtu/umsjtu/dayi_lesson/vg100-2021/p2/p2team13/slide-template/img/candle3.png>]
 File: img/candle1.png Graphic file (type png)
 <use img/candle1.png>
 Package pdftex.def Info: img/candle1.png  used on input line 81.
@@ -1217,17 +1231,22 @@ Package pdftex.def Info: SF-head.pdf  used on input line 98.
 (pdftex.def)             Requested size: 17.07182pt x 15.05257pt.
  [7
 
-] [8
+]
+File: img/name.png Graphic file (type png)
+<use img/name.png>
+Package pdftex.def Info: img/name.png  used on input line 100.
+(pdftex.def)             Requested size: 130.0pt x 31.02347pt.
+ [8
 
 ]
-<img/sonia.png, id=307, 652.4375pt x 652.4375pt>
+<img/sonia.png, id=309, 652.4375pt x 652.4375pt>
 File: img/sonia.png Graphic file (type png)
 <use img/sonia.png>
 Package pdftex.def Info: img/sonia.png  used on input line 119.
 (pdftex.def)             Requested size: 130.48518pt x 130.48518pt.
  [9
 
- <d:/sjtu/umsjtu/dayi_lesson/vg100-2021/management/workshops/w6-latex/slide-template/img/sonia.png>]
+ <d:/sjtu/umsjtu/dayi_lesson/vg100-2021/p2/p2team13/slide-template/img/sonia.png>]
 File: img/sonia.png Graphic file (type png)
 <use img/sonia.png>
 Package pdftex.def Info: img/sonia.png  used on input line 119.
@@ -1257,7 +1276,12 @@ Package pdftex.def Info: SF-head.pdf  used on input line 135.
 (pdftex.def)             Requested size: 17.07182pt x 15.05257pt.
  [12
 
-] [13
+]
+File: img/name.png Graphic file (type png)
+<use img/name.png>
+Package pdftex.def Info: img/name.png  used on input line 137.
+(pdftex.def)             Requested size: 130.0pt x 31.02347pt.
+ [13
 
 ]
 \imageheight=\dimen324
@@ -1278,8 +1302,8 @@ Package pdftex.def Info: SF-head.pdf  used on input line 149.
 ]
 \openout4 = `sample.vrb'.
 
- (d:/sjtu/umsjtu/dayi_lesson/vg100-2021/management/workshops/w6-latex/slide-template/sample.vrb
-<img/trailer.jpg, id=350, 1027.84pt x 578.16pt>
+ (d:/sjtu/umsjtu/dayi_lesson/vg100-2021/p2/p2team13/slide-template/sample.vrb
+<img/trailer.jpg, id=352, 1027.84pt x 578.16pt>
 File: img/trailer.jpg Graphic file (type jpg)
 <use img/trailer.jpg>
 Package pdftex.def Info: img/trailer.jpg  used on input line 4.
@@ -1291,7 +1315,7 @@ Overfull \hbox (9.70886pt too wide) detected at line 6
 
 ) [15
 
- <d:/sjtu/umsjtu/dayi_lesson/vg100-2021/management/workshops/w6-latex/slide-template/img/trailer.jpg>]
+ <d:/sjtu/umsjtu/dayi_lesson/vg100-2021/p2/p2team13/slide-template/img/trailer.jpg>]
 \imageheight=\dimen325
 File: SF-head.pdf Graphic file (type pdf)
 <use SF-head.pdf>
@@ -1309,13 +1333,13 @@ Package pdftex.def Info: SF-head.pdf  used on input line 173.
 
 ] [17
 
- <d:/sjtu/umsjtu/dayi_lesson/vg100-2021/management/workshops/w6-latex/slide-template/poster.jpg>] [18
+ <d:/sjtu/umsjtu/dayi_lesson/vg100-2021/p2/p2team13/slide-template/poster.jpg>] [18
 
- <d:/sjtu/umsjtu/dayi_lesson/vg100-2021/management/workshops/w6-latex/slide-template/poster.jpg>] [19
+ <d:/sjtu/umsjtu/dayi_lesson/vg100-2021/p2/p2team13/slide-template/poster.jpg>] [19
 
- <d:/sjtu/umsjtu/dayi_lesson/vg100-2021/management/workshops/w6-latex/slide-template/poster.jpg>] [20
+ <d:/sjtu/umsjtu/dayi_lesson/vg100-2021/p2/p2team13/slide-template/poster.jpg>] [20
 
- <d:/sjtu/umsjtu/dayi_lesson/vg100-2021/management/workshops/w6-latex/slide-template/poster.jpg>]
+ <d:/sjtu/umsjtu/dayi_lesson/vg100-2021/p2/p2team13/slide-template/poster.jpg>]
 \imageheight=\dimen326
 File: SF-head.pdf Graphic file (type pdf)
 <use SF-head.pdf>
@@ -1347,25 +1371,25 @@ Package pdftex.def Info: SF-head.pdf  used on input line 206.
 ]
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 208.
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 208.
- (d:/sjtu/umsjtu/dayi_lesson/vg100-2021/management/workshops/w6-latex/slide-template/sample.aux)
+ (d:/sjtu/umsjtu/dayi_lesson/vg100-2021/p2/p2team13/slide-template/sample.aux)
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 208.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 208.
 Package rerunfilecheck Info: File `sample.out' has not changed.
 (rerunfilecheck)             Checksum: 38F1C402A6E0D26E0F1C2DAA3A219951;172.
  ) 
 Here is how much of TeX's memory you used:
- 25851 strings out of 482503
- 529017 string characters out of 5950824
- 827037 words of memory out of 5000000
- 40790 multiletter control sequences out of 15000+600000
+ 25858 strings out of 482503
+ 528748 string characters out of 5950824
+ 826138 words of memory out of 5000000
+ 40797 multiletter control sequences out of 15000+600000
  547540 words of font info for 79 fonts, out of 8000000 for 9000
  36 hyphenation exceptions out of 8191
- 58i,12n,92p,1070b,1413s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 58i,12n,92p,1052b,1413s stack positions out of 5000i,500n,10000p,200000b,80000s
 <c:/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmss8.pfb><c:/texlive/2020/texmf-dist/fonts/type1/public/hfbright/hfbr10.pfb><c:/texlive/2020/texmf-dist/fonts/type1/public/hfbright/hfbr17.pfb><c:/texlive/2020/texmf-dist/fonts/type1/public/hfbright/hfbr8.pfb><c:/texlive/2020/texmf-dist/fonts/type1/public/hfbright/hfbrbx10.pfb><c:/texlive/2020/texmf-dist/fonts/type1/public/hfbright/hfbrsy10.pfb><c:/texlive/2020/texmf-dist/fonts/type1/public/hfbright/hftl10.pfb>
-Output written on d:/sjtu/umsjtu/dayi_lesson/vg100-2021/management/workshops/w6-latex/slide-template/sample.pdf (22 pages, 4320743 bytes).
+Output written on d:/sjtu/umsjtu/dayi_lesson/vg100-2021/p2/p2team13/slide-template/sample.pdf (22 pages, 4846852 bytes).
 PDF statistics:
- 439 PDF objects out of 1000 (max. 8388607)
+ 441 PDF objects out of 1000 (max. 8388607)
  308 compressed objects within 4 object streams
  54 named destinations out of 1000 (max. 500000)
- 272 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 277 words of extra memory for PDF output out of 10000 (max. 10000000)
 
