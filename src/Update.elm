@@ -112,7 +112,7 @@ eachChangeCR2CP ( global, area ) i cr =
             certainChangeCR2CP global certainArea certainCR
 
         updatedAllArea =
-            Dict.update certainCR.name ((\x y -> x) (Just updatedArea)) area
+            Dict.update certainCR.location ((\x y -> x) (Just updatedArea)) area
     in
     ( cr, ( updatedGlobal, updatedAllArea ) )
 

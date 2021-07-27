@@ -162,7 +162,7 @@ viewUnitCR dict cRpos =
             cRpos.name
 
         ( xpos, ypos ) =
-            (Maybe.withDefault initArea (Dict.get name dict)).center
+            (Maybe.withDefault initArea (Dict.get cRpos.location dict)).center
 
         color =
             get_CRcolor cRpos
