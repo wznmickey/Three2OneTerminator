@@ -298,7 +298,7 @@ changeCR newArea model =
                     model.cRmovingInfo |> filter_CRMovinginfo
 
                 newInfo =
-                    combine_onmoveCR2String oldMovingCR newArea :: oldInfo
+                    ( new_CRmovingInfo oldMovingCR newArea oldInfo )
             in
             { model
                 | data = newData

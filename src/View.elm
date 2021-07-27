@@ -294,7 +294,6 @@ viewMovingCR info =
         [ style "color" "pink"
         , style "font-weight" "bold"
         , style "position" "absolute"
-        , style "font-size" "large"
         , style "left" "0vw"
         , style "top" "50vh"
         , style "width" "20vw"
@@ -331,7 +330,7 @@ combineList_2String toCombine =
 
 filter_CRMovinginfo : List String -> List String
 filter_CRMovinginfo crMovingInfo =
-    if List.length crMovingInfo >= 20 then
+    if List.length crMovingInfo >= 8 then
         update_CRMovinginfo crMovingInfo
 
     else
@@ -340,4 +339,11 @@ filter_CRMovinginfo crMovingInfo =
 
 update_CRMovinginfo : List String -> List String
 update_CRMovinginfo old =
-    List.take 19 old ++ [ "CR MOVED:" ]
+    List.take 7 old ++ [ "CR MOVED:" ]
+
+
+new_CRmovingInfo : OnMovingCR -> String -> List String -> List String
+new_CRmovingInfo oldMovingCR newArea oldInfo =
+    if Maybe.withDefault "" oldMovingCR.formerArea == newArea then
+        oldInfo
+    else combine_onmoveCR2String oldMovingCR newArea :: oldInfo
