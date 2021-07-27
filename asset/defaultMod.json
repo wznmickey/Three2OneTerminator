@@ -3,37 +3,37 @@
         "Health threat drop": {
             "type": "Local",
             "effect": {
-                "Health threat drop": 0,
-                "Citizen trust": 2,
-                "External safety": 5,
-                "Disposable Money": 3
+                "Health threat drop": 1,
+                "Citizen trust": 1.2,
+                "External safety": 1.5,
+                "Disposable Money": 1.7
             }
         },
         "Citizen trust": {
             "type": "Global",
             "effect": {
-                "Health threat drop": 0,
-                "Citizen trust": 0,
-                "External safety": 4,
-                "Disposable Money": 2
+                "Health threat drop": 1,
+                "Citizen trust": 1,
+                "External safety": 1.6,
+                "Disposable Money": 1.4
             }
         },
         "External safety": {
             "type": "Global",
             "effect": {
-                "Health threat drop": 0,
-                "Citizen trust": 4,
-                "External safety": 0,
-                "Disposable Money": 1
+                "Health threat drop": 1,
+                "Citizen trust": 1.6,
+                "External safety": 1.1,
+                "Disposable Money": 1.3
             }
         },
         "Disposable Money": {
             "type": "Global",
             "effect": {
-                "Health threat drop": 0,
-                "Citizen trust": 2,
-                "External safety": 1,
-                "Disposable Money": 0
+                "Health threat drop": 1,
+                "Citizen trust": 1.4,
+                "External safety": 1.3,
+                "Disposable Money": 1
             }
         }
     },
@@ -85,64 +85,64 @@
         "Gotham": {
             "location": 1,
             "effect": {
-                "Health threat drop": 4,
-                "Citizen trust": 2,
-                "External safety": 3,
-                "Disposable Money": 2
+                "Health threat drop": 4.3,
+                "Citizen trust": 2.5,
+                "External safety": 3.3,
+                "Disposable Money": -2.9
             },
             "init": {
-                "Health threat drop": 20
+                "Health threat drop": 20.4
             }
         },
         "BomBay": {
             "location": 2,
             "effect": {
-                "Health threat drop": 7,
-                "Citizen trust": 6,
-                "External safety": 8,
-                "Disposable Money": 9
+                "Health threat drop": 8.4,
+                "Citizen trust": 6.2,
+                "External safety": -8.4,
+                "Disposable Money": 9.6
             },
             "init": {
-                "Health threat drop": 12
+                "Health threat drop": 12.7
             }
         },
         "GassVille": {
             "location": 3,
             "effect": {
-                "Health threat drop": 1,
-                "Citizen trust": 1,
-                "External safety": 1,
-                "Disposable Money": 1
+                "Health threat drop": 1.1,
+                "Citizen trust": -1.2,
+                "External safety": 2.3,
+                "Disposable Money": 1.6
             },
             "init": {
-                "Health threat drop": 30
+                "Health threat drop": 30.7
             }
         },
         "Burnley": {
             "location": 4,
             "effect": {
-                "Health threat drop": 13,
-                "Citizen trust": 12,
-                "External safety": 14,
-                "Disposable Money": 15
+                "Health threat drop": 13.6,
+                "Citizen trust": 12.4,
+                "External safety": -14.4,
+                "Disposable Money": 15.6
             },
             "init": {
-                "Health threat drop": 5
+                "Health threat drop": 5.3
             }
         }
     },
     "helpText": {
         "Health threat drop": "The disalarmed Health threat, to which increase of Disposable Money is most conducive",
-        "Citizen trust": "The trust citizens in an area has on its governer, to which increase of External Safety is most conducive",
+        "Citizen trust": "The faith citizens in an area have in its governer, to which increase of External Safety is most conducive",
         "External safety": "The safety guaranteed of the personnel and material inflow, to which Disposable Money is most conducive",
         "Disposable Money": "The financial aid the government can offer to the medical institute, to which Citizen trust is most conducive",
-        "Material Support1": "The original maximum capacity of material support area 1 can offer to others",
-        "Material Support2": "The original maximum capacity of material support area 2 can offer to others",
-        "Material Support3": "The original maximum capacity of material support area 3 can offer to others",
-        "Material Support4": "The original maximum capacity of material support area 4 can offer to others",
-        "Gotham": "The capital located in the central area, with second init material and third material to control points transformation efficiency",
-        "BomBay": "The satillite town of the capital, with third init material and second material to control points transformation efficiency",
-        "GassVille": "southeast coastal metropolis, with highest init material but lowest material to control points transformation efficiency",
-        "Burnley": "Northwest deserted area, with lowest init material but highest material to control points transformation efficiency"
+        "Material Support1": "The initial maximum capacity of material support area 1 can offer to others",
+        "Material Support2": "The initial maximum capacity of material support area 2 can offer to others",
+        "Material Support3": "The initial maximum capacity of material support area 3 can offer to others",
+        "Material Support4": "The initiall maximum capacity of material support area 4 can offer to others",
+        "Gotham": "The capital located in the central area, with second init CR and third material to control points transformation efficiency",
+        "BomBay": "The satillite town of the capital, with third init CR and second material to control points transformation efficiency",
+        "GassVille": "southeast coastal metropolis, with highest init CR but lowest material to control points transformation efficiency",
+        "Burnley": "Northwest deserted area, with lowest init CR but highest material to control points transformation efficiency"
     }
 }
