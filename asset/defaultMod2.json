@@ -51,7 +51,7 @@
             }
         },
         "social contact": {
-            "location": "Core subjects",
+            "location": "Core courses",
             "effect": {
                 "Core Course Term GPA": 1,
                 "Science literacy and capabilty": 2,
@@ -61,7 +61,7 @@
         },
 
         "family life": {
-            "location": "Engineering",
+            "location": "Preliminary courses",
             "effect": {
                 "Core Course Term GPA": 1,
                 "Science literacy and capabilty": 2,
@@ -81,7 +81,7 @@
     },
     
     "area": {
-        "Engineering": {
+        "Preliminary courses": {
             "location": 1,
             "effect": {
                 "Core Course Term GPA": 1.3,
@@ -95,7 +95,7 @@
                 "Self Pursuits Fulfillment": 3
             }
         },
-        "Core subjects": {
+        "Core courses": {
             "location": 2,
             "effect": {
                 "Core Course Term GPA": 1.2,
@@ -157,9 +157,9 @@
         
         "Humanistic courses": "A component of your term life regarding maths studying",
         
-        "Core subjects": "A component of your term life regarding physics studying",
+        "Core courses": "A component of your term life regarding physics studying",
         
-        "Engineering": "A component of your term life regarding your internship at Silverfocs or other componies",
+        "Preliminary courses": "A component of your term life regarding your internship at Silverfocs or other componies",
         
         "Extracurricular Life": "A component of your term life regarding fun lab report writing and Extracurricular activities"
         
