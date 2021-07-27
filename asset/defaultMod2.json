@@ -4,12 +4,12 @@
             "type": "Global",
             "effect": {
                 "Core Course Term GPA": 1,
-                "Science literacy and capabiliity": 1.3,
+                "Science literacy and capability": 1.3,
                 "Interpersonal Popularity": 1.4,
                 "Self Pursuits Fulfillment": 1.8
             }
         },
-        "Science literacy and capabilty": {
+        "Science literacy and capability": {
             "type": "Local",
             "effect": {
                 "Core Course Term GPA": 1,
