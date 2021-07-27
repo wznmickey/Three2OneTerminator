@@ -67,6 +67,7 @@ Try to protect your CP as best as you can achieve highest drop in health threat.
 The game ends when you make any of the CP decrease to 0.
 
 Good Luck. Now you will take over Gotham, Bombay, GassVilie and Burnley.
+
 ================================================================================
 
 The on screen instrusctions as the game proceeds
