@@ -44,7 +44,7 @@
     },
     "CR": {
         "Material Support1": {
-            "location": "Gotham",
+            "location": "LosSantos",
             "effect": {
                 "Health threat drop": 4,
                 "Citizen trust": 2,
@@ -53,7 +53,7 @@
             }
         },
         "Material Support2": {
-            "location": "BomBay",
+            "location": "SanAndreas",
             "effect": {
                 "Health threat drop": 7,
                 "Citizen trust": 6,
@@ -62,7 +62,7 @@
             }
         },
         "Material Support3": {
-            "location": "GassVille",
+            "location": "LibertyCity",
             "effect": {
                 "Health threat drop": 1,
                 "Citizen trust": 1,
@@ -71,7 +71,7 @@
             }
         },
         "Material Support4": {
-            "location": "Burnley",
+            "location": "ViceCity",
             "effect": {
                 "Health threat drop": 13,
                 "Citizen trust": 12,
@@ -82,7 +82,7 @@
     },
     
     "area": {
-        "Gotham": {
+        "LosSantos": {
             "location": 1,
             "effect": {
                 "Health threat drop": 4,
@@ -94,7 +94,7 @@
                 "Health threat drop": 20
             }
         },
-        "BomBay": {
+        "SanAndreas": {
             "location": 2,
             "effect": {
                 "Health threat drop": 7,
@@ -106,7 +106,7 @@
                 "Health threat drop": 12
             }
         },
-        "GassVille": {
+        "LibertyCity": {
             "location": 3,
             "effect": {
                 "Health threat drop": 1,
@@ -118,7 +118,7 @@
                 "Health threat drop": 30
             }
         },
-        "Burnley": {
+        "ViceCity": {
             "location": 4,
             "effect": {
                 "Health threat drop": 13,
@@ -140,9 +140,9 @@
         "Material Support2": "The original maximum capacity of material support area 2 can offer to others",
         "Material Support3": "The original maximum capacity of material support area 3 can offer to others",
         "Material Support4": "The original maximum capacity of material support area 4 can offer to others",
-        "Gotham": "The capital located in the central area, with second init material and third material to control points transformation efficiency",
-        "BomBay": "The satillite town of the capital, with third init material and second material to control points transformation efficiency",
-        "GassVille": "southeast coastal metropolis, with highest init material but lowest material to control points transformation efficiency",
-        "Burnley": "Northwest deserted area, with lowest init material but highest material to control points transformation efficiency"
+        "LosSantos": "The capital located in the central area, with second init material and third material to control points transformation efficiency",
+        "SanAndreas": "The satillite town of the capital, with third init material and second material to control points transformation efficiency",
+        "LibertyCity": "southeast coastal metropolis, with highest init material but lowest material to control points transformation efficiency",
+        "ViceCity": "Northwest deserted area, with lowest init material but highest material to control points transformation efficiency"
     }
 }

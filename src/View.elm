@@ -213,16 +213,16 @@ get_CRcolor crData =
 get_CRpos : CRdata -> ( Float, Float )
 get_CRpos crData =
     case crData.location of
-        "Gotham" ->
+        "LosSantos" ->
             get_CRpos_inCRtype crData.name 1
 
-        "BomBay" ->
+        "SanAndreas" ->
             get_CRpos_inCRtype crData.name 2
 
-        "GassVille" ->
+        "LibertyCity" ->
             get_CRpos_inCRtype crData.name 3
 
-        "Burnley" ->
+        "ViceCity" ->
             get_CRpos_inCRtype crData.name 4
 
         _ ->
