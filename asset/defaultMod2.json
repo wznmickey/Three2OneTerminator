@@ -42,7 +42,7 @@
     },
     "CR": {
         "academic purposes": {
-            "location": "Mathematics",
+            "location": "Humanistic courses",
             "effect": {
                 "Core Course Term GPA": 1,
                 "Science literacy and capabilty": 2,
@@ -51,7 +51,7 @@
             }
         },
         "social contact": {
-            "location": "Physics",
+            "location": "Core subjects",
             "effect": {
                 "Core Course Term GPA": 1,
                 "Science literacy and capabilty": 2,
@@ -70,7 +70,7 @@
             }
         },
         "recreation and resting": {
-            "location": "Physics lab & Extracurricular Life",
+            "location": "Extracurricular Life",
             "effect": {
                 "Core Course Term GPA": 1,
                 "Science literacy and capabilty": 2,
@@ -95,7 +95,7 @@
                 "Self Pursuits Fulfillment": 3
             }
         },
-        "Mathematics": {
+        "Core subjects": {
             "location": 2,
             "effect": {
                 "Core Course Term GPA": 1.2,
@@ -109,7 +109,7 @@
                 "Self Pursuits Fulfillment": 3
             }
         },
-        "Physics": {
+        "Humanistic course": {
             "location": 3,
             "effect": {
                 "Core Course Term GPA": 1.2,
@@ -123,7 +123,7 @@
                 "Self Pursuits Fulfillment": 3
             }
         },
-        "Physics lab & Extracurricular Life": {
+        "Extracurricular Life": {
             "location": 4,
             "effect": {
                 "Core Course Term GPA": 0.8,
@@ -155,13 +155,13 @@
         
         "recreation and resting":"Time spent in Gaming, sports,workout,chilling,chatting,watching Tv shows and films all counts",
         
-        "Mathematics": "A component of your term life regarding maths studying",
+        "Humanistic courses": "A component of your term life regarding maths studying",
         
-        "Physics": "A component of your term life regarding physics studying",
+        "Core subjects": "A component of your term life regarding physics studying",
         
         "Engineering": "A component of your term life regarding your internship at Silverfocs or other componies",
         
-        "Physics lab & Extracurricular Life": "A component of your term life regarding fun lab report writing and Extracurricular activities"
+        "Extracurricular Life": "A component of your term life regarding fun lab report writing and Extracurricular activities"
         
     }
 }
