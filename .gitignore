@@ -1,2 +1,12 @@
 /elm-stuff/
 /.vscode/
+*.aux
+*.fls
+*.log
+*.nav
+*.out
+*.snm
+*.vrb
+*.toc
+*.synctex.gz
+*.fdb_latexmk

@@ -36,9 +36,9 @@
                 "Self Pursuits Fulfillment": 1
             }
         }
-        },
-        "globalCP": {
-      "Core Course Term GPA": 4
+    },
+    "globalCP": {
+        "Core Course Term GPA": 4
     },
     "CR": {
         "academic purposes": {
@@ -59,7 +59,6 @@
                 "Self Pursuits Fulfillment": 3
             }
         },
-
         "family life": {
             "location": "Preliminary courses",
             "effect": {
@@ -79,7 +78,6 @@
             }
         }
     },
-    
     "area": {
         "Preliminary courses": {
             "location": 1,
@@ -117,7 +115,7 @@
                 "Interpersonal Popularity": 5,
                 "Self Pursuits Fulfillment": 3
             },
-            "init":{
+            "init": {
                 "Science literacy and capability": 2,
                 "Interpersonal Popularity": 5,
                 "Self Pursuits Fulfillment": 3
@@ -140,28 +138,16 @@
     },
     "helpText": {
         "Self Pursuits Fulfillment": "An all-around evaluation of how much you have fulfilled your pursuits or overcome your shortcomings in all aspects",
-        
         "Science literacy and capability": "Index showing how much you have benefited from the engineering courses and displayed good quality in scientific terms",
-        
         "Interpersonal Popularity and commitment": "How well you handled your friendship, professional cooperation and romantic relationship with your partner if any",
-        
         "Core Course Term GPA": "Literally the GPA or ranking you have achieved in a specific course over the term",
-        
         "academic purposes": "Attending lectures, studying the course contents, preparing for exams",
-        
-        "social contact":"Joining activities on and off campus, meeting new friends or getting to know professional figures for your future.",
-                
-        "family life":"Going back home to visit your family if there's opportunity, contacting parents or choosing gift for gamily members.",
-        
-        "recreation and resting":"Time spent in Gaming, sports,workout,chilling,chatting,watching Tv shows and films all counts",
-        
+        "social contact": "Joining activities on and off campus, meeting new friends or getting to know professional figures for your future.",
+        "family life": "Going back home to visit your family if there's opportunity, contacting parents or choosing gift for gamily members.",
+        "recreation and resting": "Time spent in Gaming, sports,workout,chilling,chatting,watching Tv shows and films all counts",
         "Humanistic courses": "A component of your term life regarding Humanistic courses studying",
-        
         "Core courses": "A component of your term life regarding Core courses studying such as mathematics or engineering-related courses",
-        
         "Preliminary courses": "A component of your term life regarding your internship at Silverfocs or other companies",
-        
         "Extracurricular Life": "A component of your term life regarding Extracurricular activities"
-        
     }
 }
