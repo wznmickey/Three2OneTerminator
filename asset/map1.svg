@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <path d="M10 10 L 30 20  L 45 15 L 80 30 L 56 95 L 10 102 L 25 56 Z" fill="transparent" stroke="black"/>
+ <path d="M80 30 L 132 40 L 138 120 L 100 100 L 59 126 L 67 100 L 56 95 Z" fill="transparent" stroke="black"/>
+ <path d="M56 95 L 67 100 L 59 126 L 60 135 L 56 140 L 10 102 Z" fill="transparent" stroke="black"/>
+ <path d="M56 140 L 60 135 L 59 126 L 100 100 L 138 120 L 130 136 L 136 150 L 105 135 Z" fill="transparent" stroke="black"/>
+</svg>
