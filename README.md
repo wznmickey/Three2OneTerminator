@@ -40,7 +40,7 @@ Developed by Three 2 One @ SliverFocs.
 Added open line when game starts:
 ==============================================================================
 
-You are faced with four areas in chaos under stricken by a horrible pandemic VOPID-141. 
+You are faced with four areas in chaos under stricken by a horrible pandemic COVIP-2019. 
 
 Citizen's lives and the urban resources are at stake! The whole city is on the verge of destruction.
 
@@ -62,9 +62,9 @@ Click on the yellow dots in the squares and click on another target district to 
 
 The effect on CP differs from the attributes of the origin and destination of CR.
 
-Try to protect your CP as best as you can achieve highest drop in health threat! 
+Try to protect your CP as best as you can achieve highest drop in health threat.
 
-The game ends when you make any of the CP decrease to 0!
+The game ends when you make any of the CP decrease to 0.
 
 Good Luck. Now you will take over Gotham, Bombay, GassVilie and Burnley.
 ================================================================================
@@ -86,13 +86,11 @@ Unfortunately, due to a long period of misgovernment and its improper import&Exp
 
 Finally, Burnley is in the most deserted and least developed Northwest corner thus with the lowest initial CP.
 
-However, the good news is that thanks to the diligence of its citizens hence the premium exports, its efficiency of changing other area’s CP with its exported CR is far ahead!
+However, the good news is that thanks to the diligence of its citizens hence the premium exports, its efficiency of changing other area’s CP with its exported CR is far ahead.
 
-Remember: transferred CR both increase and DECREASE the CP in each area at a certain different ratio, which bring the potential risk of a huge drain on a district’s CP while making others surge!
+Remember: transferred CR both increase and DECREASE the CP in each area at a certain different ratio, which bring the potential risk of a huge drain on a district’s CP while making others surge.
 
 The occurrence conditions of this risk is left to you to discover, and whether to play it safe to take the risk, it’s all up to you!
-
-Either way, really try to balance the value of CP&CR in each district and be discreet with your moral choices and sacrifices!
 
 Try to survive as long as possible, baby let the game begin!
 
