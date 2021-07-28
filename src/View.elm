@@ -29,14 +29,15 @@ viewUnitArea ( cp, max, min ) unitArea =
         name =
             unitArea.name
 
-        red =
-            String.fromFloat (100 + Basics.min 255 ((Maybe.withDefault initPureCPdata (Dict.get cp unitArea.localCP)).data / (max - min) * 155))
+        other = 
+            String.fromFloat (255- Basics.min 255 ((Maybe.withDefault initPureCPdata (Dict.get cp unitArea.localCP)).data / (max - min) * 255))
+
     in
     Svg.path
         [ SvgAttr.d
             unitArea.view
         , SvgAttr.fill
-            ("rgb(" ++ red ++ ",0,0)")
+            ("rgb(" ++ "255" ++ ","++other++","++other++")")
         , SvgAttr.stroke
             "Black"
         , SvgAttr.strokeLinejoin
@@ -298,12 +299,12 @@ viewUnitCR dict cRpos =
                 )
             , SvgAttr.r
                 (String.fromFloat
-                    5
+                    4.5
                 )
             , SvgAttr.fill
                 color
             , SvgAttr.stroke
-                "white"
+                "black"
             , SvgAttr.strokeWidth
                 "0.5"
             ]
@@ -320,7 +321,7 @@ viewUnitCR dict cRpos =
                 (String.fromFloat
                     (ypos
                         + Tuple.second
-                            cRpos.place
+                            cRpos.place+1
                     )
                 )
             , SvgAttr.fontSize "3"
