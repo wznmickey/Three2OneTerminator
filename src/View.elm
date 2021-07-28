@@ -217,11 +217,11 @@ combine_onmoveCR2String crInfoTocombine toArea =
         Just name ->
             case crInfoTocombine.formerArea of
                 Just area ->
-                    "\n Moved "
+                    "\n"
                         ++ name
-                        ++ " from "
+                        ++ " : "
                         ++ area
-                        ++ " to "
+                        ++ " -> "
                         ++ toArea
                         ++ " ."
 
