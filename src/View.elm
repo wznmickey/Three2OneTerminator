@@ -263,44 +263,65 @@ viewUnitCR dict cRpos =
         color =
             cRpos.color
     in
-    Svg.circle
-        [ SvgAttr.cx
-            (String.fromFloat
-                (xpos
-                    + Tuple.first
-                        cRpos.place
+    Svg.g []
+        [ Svg.circle
+            [ SvgAttr.cx
+                (String.fromFloat
+                    (xpos
+                        + Tuple.first
+                            cRpos.place
+                    )
                 )
-            )
-        , SvgAttr.cy
-            (String.fromFloat
-                (ypos
-                    + Tuple.second
-                        cRpos.place
+            , SvgAttr.cy
+                (String.fromFloat
+                    (ypos
+                        + Tuple.second
+                            cRpos.place
+                    )
                 )
-            )
-        , SvgAttr.r
-            (String.fromFloat
-                3
-            )
-        , SvgAttr.fill
-            color
-        , SvgAttr.stroke
-            "white"
-        , SvgEvent.onClick
-            (Clickon
-                (Msg.CR
-                    { cRname =
-                        Just name
-                    , formerArea =
-                        Just
-                            cRpos.location
-                    , toArea =
-                        Nothing
-                    }
+            , SvgAttr.r
+                (String.fromFloat
+                    5
                 )
-            )
+            , SvgAttr.fill
+                color
+            , SvgAttr.stroke
+                "white"
+            , SvgEvent.onClick
+                (Clickon
+                    (Msg.CR
+                        { cRname =
+                            Just name
+                        , formerArea =
+                            Just
+                                cRpos.location
+                        , toArea =
+                            Nothing
+                        }
+                    )
+                )
+            ]
+            []
+        , Svg.text_
+            [ SvgAttr.x
+                (String.fromFloat
+                    (xpos
+                        + Tuple.first
+                            cRpos.place
+                    )
+                )
+            , SvgAttr.y
+                (String.fromFloat
+                    (ypos
+                        + Tuple.second
+                            cRpos.place
+                    )
+                )
+            , SvgAttr.fontSize "3"
+            , SvgAttr.textAnchor "middle"
+            ]
+            [ text name ]
         ]
-        []
 
 
 show_PauseInfo : Html Msg
