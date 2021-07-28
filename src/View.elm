@@ -263,7 +263,21 @@ viewUnitCR dict cRpos =
         color =
             cRpos.color
     in
-    Svg.g []
+    Svg.g
+        [ SvgEvent.onClick
+            (Clickon
+                (Msg.CR
+                    { cRname =
+                        Just name
+                    , formerArea =
+                        Just
+                            cRpos.location
+                    , toArea =
+                        Nothing
+                    }
+                )
+            )
+        ]
         [ Svg.circle
             [ SvgAttr.cx
                 (String.fromFloat
@@ -287,19 +301,6 @@ viewUnitCR dict cRpos =
                 color
             , SvgAttr.stroke
                 "white"
-            , SvgEvent.onClick
-                (Clickon
-                    (Msg.CR
-                        { cRname =
-                            Just name
-                        , formerArea =
-                            Just
-                                cRpos.location
-                        , toArea =
-                            Nothing
-                        }
-                    )
-                )
             ]
             []
         , Svg.text_
@@ -320,7 +321,7 @@ viewUnitCR dict cRpos =
             , SvgAttr.fontSize "3"
             , SvgAttr.textAnchor "middle"
             ]
-            [ text name ]
+            [ text (String.left 2 name) ]
         ]
 
 

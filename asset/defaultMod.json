@@ -43,7 +43,7 @@
         "Disposable Money": 2
     },
     "CR": {
-        "Material Support1": {
+        "Doctor": {
             "location": "Gotham",
             "effect": {
                 "Health threat drop": 4,
@@ -55,7 +55,7 @@
             "placeY": -5,
             "color": "yellow"
         },
-        "Material Support2": {
+        "Police": {
             "location": "BomBay",
             "effect": {
                 "Health threat drop": 7,
@@ -67,7 +67,7 @@
             "placeY": -5,
             "color": "red"
         },
-        "Material Support3": {
+        "Medicine": {
             "location": "GassVille",
             "effect": {
                 "Health threat drop": 1,
@@ -77,9 +77,9 @@
             },
             "placeX": 5,
             "placeY": 5,
-            "color": "blue"
+            "color": "rgb(125,130,198)"
         },
-        "Material Support4": {
+        "Volunteer": {
             "location": "Burnley",
             "effect": {
                 "Health threat drop": 13,
@@ -150,8 +150,8 @@
                 "Health threat drop": 5.3
             },
             "path": "M10 10 L 30 20  L 45 15 L 80 30 L 56 95 L 10 102 L 25 56 Z",
-            "centerX": 30,
-            "centerY": 30
+            "centerX": 35,
+            "centerY": 33
         }
     },
     "helpText": {
@@ -159,10 +159,10 @@
         "Citizen trust": "The faith citizens in an area have in its governor, to which increase of External Safety is most conducive",
         "External safety": "The safety guaranteed of the personnel and material inflow, to which Disposable Money is most conducive",
         "Disposable Money": "The financial aid the government can offer to the medical institute, to which Citizen trust is most conducive",
-        "Material Support1": "The initial maximum capacity of material support area 1 can offer to others",
-        "Material Support2": "The initial maximum capacity of material support area 2 can offer to others",
-        "Material Support3": "The initial maximum capacity of material support area 3 can offer to others",
-        "Material Support4": "The initial maximum capacity of material support area 4 can offer to others",
+        "Doctor": "The initial maximum capacity of material support area 1 can offer to others",
+        "Police": "The initial maximum capacity of material support area 2 can offer to others",
+        "Medicine": "The initial maximum capacity of material support area 3 can offer to others",
+        "Volunteer": "The initial maximum capacity of material support area 4 can offer to others",
         "Gotham": "The capital located in the central area, with second init CR and third material to control points transformation efficiency",
         "BomBay": "The satellite town of the capital, with third init CR and second material to control points transformation efficiency",
         "GassVille": "southeast coastal metropolis, with highest init CR but lowest material to control points transformation efficiency",
