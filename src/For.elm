@@ -15,7 +15,15 @@ for_outer i n f ( x, o ) =
         ( x, o )
 
     else
-        for_outer (i + 1) n f (f o i x)
+        for_outer
+            (i + 1)
+            n
+            f
+            (f
+                o
+                i
+                x
+            )
 
 
 
@@ -28,4 +36,11 @@ for_no_outer i n f x =
         x
 
     else
-        for_no_outer (i + 1) n f (f i x)
+        for_no_outer
+            (i + 1)
+            n
+            f
+            (f
+                i
+                x
+            )

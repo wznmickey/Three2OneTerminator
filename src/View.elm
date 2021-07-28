@@ -18,69 +18,112 @@ import Svg.Attributes as SvgAttr
 import Svg.Events as SvgEvent
 
 
-viewUnitArea : Area -> Svg Msg
-viewUnitArea unitArea =
+pink : String
+pink =
+    "rgb(157, 99, 110)"
+
+
+viewUnitArea : ( String, Float, Float ) -> Area -> Svg Msg
+viewUnitArea ( cp, max, min ) unitArea =
     let
         name =
             unitArea.name
 
-        xpos =
-            Tuple.first (init_AreaPos unitArea.no)
-
-        ypos =
-            Tuple.second (init_AreaPos unitArea.no)
+        other =
+            String.fromFloat
+                (255
+                    - Basics.min
+                        255
+                        ((Maybe.withDefault
+                            initPureCPdata
+                            (Dict.get
+                                cp
+                                unitArea.localCP
+                            )
+                         ).data
+                            / (max - min)
+                            * 255
+                        )
+                )
     in
-    Svg.rect
-        [ SvgAttr.width (String.fromFloat 10 ++ "vw")
-        , SvgAttr.height (String.fromFloat 20 ++ "vh")
-        , SvgAttr.x (String.fromFloat xpos ++ "vw")
-        , SvgAttr.y (String.fromFloat ypos ++ "vh")
-        , SvgAttr.fill unitArea.areaColor
-        , SvgAttr.stroke "white"
-        , SvgEvent.onClick (Clickon (Msg.Area name))
-        , SvgAttr.title name
+    Svg.path
+        [ SvgAttr.d
+            unitArea.view
+        , SvgAttr.fill
+            ("rgb("
+                ++ "255"
+                ++ ","
+                ++ other
+                ++ ","
+                ++ other
+                ++ ")"
+            )
+        , SvgAttr.stroke
+            "Black"
+        , SvgAttr.strokeLinejoin
+            "round"
+        , SvgAttr.strokeLinecap
+            "round"
+        , SvgEvent.onClick
+            (Clickon
+                (Msg.Area
+                    name
+                )
+            )
         ]
-        [ text (String.fromInt unitArea.no) ]
+        []
 
 
-init_AreaPos : Int -> ( Float, Float )
-init_AreaPos areaNumber =
-    if areaNumber == 1 then
-        ( 40, 40 )
-
-    else if areaNumber == 2 then
-        ( 65, 55 )
-
-    else if areaNumber == 3 then
-        ( 60, 30 )
-
-    else
-        ( 10, 20 )
-
-
-viewAreas : List Area -> List (Svg Msg)
-viewAreas areaS =
-    List.map viewUnitArea areaS
+viewAreas : ( String, Float, Float ) -> List Area -> List (Svg Msg)
+viewAreas ( cp, max, min ) areaS =
+    List.map
+        (viewUnitArea ( cp, max, min ))
+        areaS
 
 
 viewGlobalData : List PureCPdata -> Dict String CPdata -> Html Msg
 viewGlobalData pure dict =
     div
-        [ style "color" "pink"
-        , style "font-weight" "bold"
-        , style "position" "absolute"
-        , style "left" "2vw"
-        , style "top" "2vh"
-        , style "white-space" "pre-line"
+        [ style
+            "color"
+            pink
+        , style
+            "font-weight"
+            "bold"
+        , style
+            "position"
+            "absolute"
+        , style
+            "left"
+            "2vw"
+        , style
+            "top"
+            "5vh"
+        , style
+            "white-space"
+            "pre-line"
         ]
-        [ text ("Global Control Points: \n" ++ combineCPdata2String (filterGlobalData pure dict)) ]
+        [ text
+            (combineCPdata2String
+                (filterGlobalData
+                    pure
+                    dict
+                )
+            )
+        ]
 
 
 filterGlobalData : List PureCPdata -> Dict String CPdata -> List PureCPdata
 filterGlobalData cpAll dict =
     List.filter
         (\a ->
-            case (getCPdataByName ( a.name, dict )).typeCP of
+            case
+                (getCPdataByName
+                    ( a.name
+                    , dict
+                    )
+                ).typeCP
+            of
                 Global ->
                     True
 
@@ -92,11 +135,24 @@ filterGlobalData cpAll dict =
 
 combineCPdata2String : List PureCPdata -> String
 combineCPdata2String cpTocombine =
-    List.foldl (\x a -> x ++ a)
+    List.foldl
+        (\x a ->
+            x
+                ++ a
+        )
         ""
         (List.map
             (\a ->
-                a.name ++ ": " ++ Round.round 2 a.data ++ "\n"
+                if a.name == "init" then
+                    ""
+
+                else
+                    a.name
+                        ++ ": "
+                        ++ Round.round
+                            2
+                            a.data
+                        ++ "\n"
             )
             cpTocombine
         )
@@ -106,53 +162,97 @@ view_Areadata : Dict String Area -> String -> Html Msg
 view_Areadata area onview =
     let
         areaInfo =
-            (checkArea onview area).name
+            (checkArea
+                onview
+                area
+            ).name
 
         areaNum =
-            (checkArea onview area).no
+            (checkArea
+                onview
+                area
+            ).no
     in
     div
-        [ style "color" "pink"
-        , style "font-weight" "bold"
-        , style "position" "absolute"
-        , style "left" "70vw"
-        , style "top" "10vh"
-        , style "width" "20vw"
-        , style "white-space" "pre-line"
+        [ style
+            "color"
+            pink
+        , style
+            "font-weight"
+            "bold"
+        , style
+            "position"
+            "absolute"
+        , style
+            "left"
+            "70vw"
+        , style
+            "top"
+            "10vh"
+        , style
+            "width"
+            "20vw"
+        , style
+            "white-space"
+            "pre-line"
         ]
-        [ text (combineCPdata2String (Dict.values (checkArea onview area).localCP)) ]
+        [ text
+            (combineCPdata2String
+                (Dict.values
+                    (checkArea
+                        onview
+                        area
+                    ).localCP
+                )
+            )
+        ]
 
 
 disp_Onview : String -> Html Msg
 disp_Onview onview =
     div
-        [ style "color" "pink"
-        , style "font-weight" "bold"
-        , style "position" "absolute"
-        , style "font-size" "large"
-        , style "left" "70vw"
-        , style "top" "5vh"
-        , style "width" "20vw"
-        , style "white-space" "pre-line"
+        [ style
+            "color"
+            pink
+        , style
+            "font-weight"
+            "bold"
+        , style
+            "position"
+            "absolute"
+        , style
+            "font-size"
+            "large"
+        , style
+            "left"
+            "70vw"
+        , style
+            "top"
+            "5vh"
+        , style
+            "width"
+            "20vw"
+        , style
+            "white-space"
+            "pre-line"
         ]
-        [ text ("onview is " ++ onview) ]
+        [ text
+            (if onview == "init" then
+                ""
 
-
-combine_LocalCPdata2String : List PureCPdata -> String
-combine_LocalCPdata2String cpTocombine =
-    List.foldl (\x a -> x ++ a)
-        "Local Control Points"
-        (List.map
-            (\a ->
-                a.name ++ ": " ++ Round.round 2 a.data ++ "\n"
+             else
+                onview
             )
-            cpTocombine
-        )
+        ]
 
 
 checkArea : String -> Dict String Area -> Area
 checkArea areaName areaS =
-    case Dict.get areaName areaS of
+    case
+        Dict.get
+            areaName
+            areaS
+    of
         Just areaThis ->
             areaThis
 
@@ -160,147 +260,191 @@ checkArea areaName areaS =
             initArea
 
 
-viewCRs : List CRdata -> List (Svg Msg)
-viewCRs cRS =
-    List.map viewUnitCR cRS
+viewCRs : Dict String Area -> List CRdata -> List (Svg Msg)
+viewCRs dict cRS =
+    List.map
+        (viewUnitCR
+            dict
+        )
+        cRS
 
 
-viewUnitCR : CRdata -> Svg Msg
-viewUnitCR cRpos =
+viewUnitCR : Dict String Area -> CRdata -> Svg Msg
+viewUnitCR dict cRpos =
     let
         name =
             cRpos.name
 
-        xpos =
-            Tuple.first (get_CRpos cRpos)
-
-        ypos =
-            Tuple.second (get_CRpos cRpos)
+        ( xpos, ypos ) =
+            (Maybe.withDefault
+                initArea
+                (Dict.get
+                    cRpos.location
+                    dict
+                )
+            ).center
 
         color =
-            get_CRcolor cRpos
+            cRpos.color
     in
-    Svg.circle
-        [ SvgAttr.cx (String.fromFloat xpos ++ "vw")
-        , SvgAttr.cy (String.fromFloat ypos ++ "vh")
-        , SvgAttr.r (String.fromFloat 1.5 ++ "vh")
-        , SvgAttr.fill color
-        , SvgAttr.stroke "white"
-        , SvgEvent.onClick (Clickon (Msg.CR { cRname = Just name, formerArea = Just cRpos.location, toArea = Nothing }))
+    Svg.g
+        [ SvgEvent.onClick
+            (Clickon
+                (Msg.CR
+                    { cRname =
+                        Just name
+                    , formerArea =
+                        Just
+                            cRpos.location
+                    , toArea =
+                        Nothing
+                    }
+                )
+            )
         ]
-        []
-
-
-get_CRcolor : CRdata -> String
-get_CRcolor crData =
-    case crData.name of
-        "Material Support1" ->
-            "red"
-
-        "Material Support2" ->
-            "green"
-
-        "Material Support3" ->
-            "blue"
-
-        "Material Support4" ->
-            "yellow"
-
-        _ ->
-            ""
-
-
-get_CRpos : CRdata -> ( Float, Float )
-get_CRpos crData =
-    case crData.location of
-        "Gotham" ->
-            get_CRpos_inCRtype crData.name 1
-
-        "BomBay" ->
-            get_CRpos_inCRtype crData.name 2
-
-        "GassVille" ->
-            get_CRpos_inCRtype crData.name 3
-
-        "Burnley" ->
-            get_CRpos_inCRtype crData.name 4
-
-        _ ->
-            ( 1, 1 )
-
-
-get_CRpos_inCRtype : String -> Int -> ( Float, Float )
-get_CRpos_inCRtype crType crAreapos =
-    let
-        xpos =
-            Tuple.first (init_AreaPos crAreapos)
-
-        ypos =
-            Tuple.second (init_AreaPos crAreapos)
-    in
-    case crType of
-        "Material Support1" ->
-            ( xpos + 2, ypos + 3 )
-
-        "Material Support2" ->
-            ( xpos + 5, ypos + 3 )
-
-        "Material Support3" ->
-            ( xpos + 8, ypos + 3 )
-
-        "Material Support4" ->
-            ( xpos + 2, ypos + 8 )
-
-        _ ->
-            ( 0, 0 )
+        [ Svg.circle
+            [ SvgAttr.cx
+                (String.fromFloat
+                    (xpos
+                        + Tuple.first
+                            cRpos.place
+                    )
+                )
+            , SvgAttr.cy
+                (String.fromFloat
+                    (ypos
+                        + Tuple.second
+                            cRpos.place
+                    )
+                )
+            , SvgAttr.r
+                (String.fromFloat
+                    4.5
+                )
+            , SvgAttr.fill
+                color
+            , SvgAttr.stroke
+                "black"
+            , SvgAttr.strokeWidth
+                "0.5"
+            ]
+            []
+        , Svg.text_
+            [ SvgAttr.x
+                (String.fromFloat
+                    (xpos
+                        + Tuple.first
+                            cRpos.place
+                    )
+                )
+            , SvgAttr.y
+                (String.fromFloat
+                    (ypos
+                        + Tuple.second
+                            cRpos.place
+                        + 1
+                    )
+                )
+            , SvgAttr.fontSize "3"
+            , SvgAttr.textAnchor "middle"
+            ]
+            [ text (String.left 2 name) ]
+        ]
 
 
 show_PauseInfo : Html Msg
 show_PauseInfo =
     div
-        [ style "color" "pink"
-        , style "position" "absolute"
-        , style "font-size" "large"
-        , style "left" "80vw"
-        , style "top" "50vh"
-        , style "width" "20vw"
-        , style "white-space" "pre-line"
+        [ style
+            "color"
+            pink
+        , style
+            "position"
+            "absolute"
+        , style
+            "font-size"
+            "large"
+        , style
+            "left"
+            "75vw"
+        , style
+            "top"
+            "90vh"
+        , style
+            "width"
+            "20vw"
+        , style
+            "white-space"
+            "pre-line"
         ]
-        [ text "press space to continue/pause" ]
+        [ text
+            "press Space to pause"
+        ]
 
 
 show_DeadInfo : State -> Html Msg
 show_DeadInfo state =
     div
-        [ style "color" "red"
-        , style "font-size" "20px"
-        , style "font-weight" "bold"
-        , style "position" "absolute"
-        , style "left" "2vw"
-        , style "top" "0vh"
-        , style "white-space" "pre-line"
+        [ style
+            "color"
+            "red"
+        , style
+            "font-size"
+            "20px"
+        , style
+            "font-weight"
+            "bold"
+        , style
+            "position"
+            "absolute"
+        , style
+            "left"
+            "2vw"
+        , style
+            "top"
+            "0vh"
+        , style
+            "white-space"
+            "pre-line"
         ]
         [ if state == End then
-            text "Mission Failed! Retry the mission of a terminator! Press R to restart"
+            text
+                "Mission Failed! Retry the mission of a terminator! Press R to restart"
 
           else
-            text "Save the world! Terminator!"
+            text
+                "Save the world! Terminator!"
         ]
 
 
 viewMovingCR : String -> Html Msg
 viewMovingCR info =
     div
-        [ style "color" "pink"
-        , style "font-weight" "bold"
-        , style "position" "absolute"
-        , style "font-size" "large"
-        , style "left" "0vw"
-        , style "top" "50vh"
-        , style "width" "20vw"
-        , style "white-space" "pre-line"
+        [ style
+            "color"
+            pink
+        , style
+            "font-weight"
+            "bold"
+        , style
+            "position"
+            "absolute"
+        , style
+            "left"
+            "0vw"
+        , style
+            "top"
+            "50vh"
+        , style
+            "width"
+            "20vw"
+        , style
+            "white-space"
+            "pre-line"
         ]
-        [ text info ]
+        [ text
+            info
+        ]
 
 
 combine_onmoveCR2String : OnMovingCR -> String -> String
@@ -309,13 +453,16 @@ combine_onmoveCR2String crInfoTocombine toArea =
         Just name ->
             case crInfoTocombine.formerArea of
                 Just area ->
-                    "\n Moved "
-                        ++ name
-                        ++ " from "
-                        ++ area
-                        ++ " to "
-                        ++ toArea
-                        ++ " ."
+                    if area == toArea then
+                        ""
+
+                    else
+                        "\n"
+                            ++ name
+                            ++ " : "
+                            ++ area
+                            ++ " -> "
+                            ++ toArea
 
                 Nothing ->
                     ""
@@ -326,13 +473,17 @@ combine_onmoveCR2String crInfoTocombine toArea =
 
 combineList_2String : List String -> String
 combineList_2String toCombine =
-    List.foldl (++) "" toCombine
+    List.foldl
+        (++)
+        ""
+        toCombine
 
 
 filter_CRMovinginfo : List String -> List String
 filter_CRMovinginfo crMovingInfo =
-    if List.length crMovingInfo >= 20 then
-        update_CRMovinginfo crMovingInfo
+    if List.length crMovingInfo >= 5 then
+        update_CRMovinginfo
+            crMovingInfo
 
     else
         crMovingInfo
@@ -340,4 +491,7 @@ filter_CRMovinginfo crMovingInfo =
 
 update_CRMovinginfo : List String -> List String
 update_CRMovinginfo old =
-    List.take 19 old ++ [ "CR MOVED:" ]
+    List.take
+        4
+        old
+        ++ [ "CR MOVED:" ]

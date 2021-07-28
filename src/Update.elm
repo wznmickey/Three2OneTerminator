@@ -16,13 +16,16 @@ import PureCPdata exposing (PureCPdata)
 switchPause : State -> Msg
 switchPause state =
     if state == Pause then
-        ToState Running
+        ToState
+            Running
 
     else if state == Running then
-        ToState Pause
+        ToState
+            Pause
 
     else
-        ToState state
+        ToState
+            state
 
 
 
@@ -31,18 +34,34 @@ switchPause state =
 
 effectCP : Dict String PureCPdata -> Dict String PureCPdata -> Dict String PureCPdata -> ( Dict String PureCPdata, Dict String PureCPdata )
 effectCP effect global local =
-    ( dictEffectCP effect global, dictEffectCP effect local )
+    ( dictEffectCP
+        effect
+        global
+    , dictEffectCP
+        effect
+        local
+    )
 
 
 dictEffectCP : Dict String PureCPdata -> Dict String PureCPdata -> Dict String PureCPdata
 dictEffectCP effect before =
-    Dict.map (getEffect effect) before
+    Dict.map
+        (getEffect
+            effect
+        )
+        before
 
 
 getEffect : Dict String PureCPdata -> String -> PureCPdata -> PureCPdata
 getEffect effect key before =
     if before.name == key then
-        valueEffectCP (getPureCPdataByName ( key, effect )) before
+        valueEffectCP
+            (getPureCPdataByName
+                ( key
+                , effect
+                )
+            )
+            before
 
     else
         before
@@ -51,7 +70,10 @@ getEffect effect key before =
 valueEffectCP : PureCPdata -> PureCPdata -> PureCPdata
 valueEffectCP effect before =
     --For debug { before | data = (Debug.log "before" before.data) + (Debug.log "add" effect.data) }
-    { before | data = before.data + effect.data }
+    { before
+        | data =
+            before.data + effect.data
+    }
 
 
 
@@ -69,18 +91,33 @@ updateDataArea : GameData -> GameData
 updateDataArea data =
     let
         ( newArea, newGlobal ) =
-            areaCPchange data.area data.globalCP
+            areaCPchange
+                data.area
+                data.globalCP
     in
-    { data | area = newArea, globalCP = newGlobal }
+    { data
+        | area =
+            newArea
+        , globalCP =
+            newGlobal
+    }
 
 
 updateDataCR : GameData -> GameData
 updateDataCR data =
     let
         ( newArea, newGlobal ) =
-            changeCR2CP data.allCR data.globalCP data.area
+            changeCR2CP
+                data.allCR
+                data.globalCP
+                data.area
     in
-    { data | area = newArea, globalCP = newGlobal }
+    { data
+        | area =
+            newArea
+        , globalCP =
+            newGlobal
+    }
 
 
 
@@ -91,10 +128,27 @@ changeCR2CP : Dict String CRdata -> Dict String PureCPdata -> Dict String Area -
 changeCR2CP cr global area =
     let
         arrayCR =
-            Array.map (\( x, y ) -> y) (Array.fromList (Dict.toList cr))
+            Array.map
+                (\( x, y ) ->
+                    y
+                )
+                (Array.fromList
+                    (Dict.toList
+                        cr
+                    )
+                )
 
         ( dontcare, ( updatedArea, updatedGlobal ) ) =
-            for_outer 0 (Dict.size cr - 1) eachChangeCR2CP ( arrayCR, ( global, area ) )
+            for_outer
+                0
+                (Dict.size
+                    cr
+                    - 1
+                )
+                eachChangeCR2CP
+                ( arrayCR
+                , ( global, area )
+                )
     in
     ( updatedGlobal, updatedArea )
 
@@ -103,16 +157,35 @@ eachChangeCR2CP : ( Dict String PureCPdata, Dict String Area ) -> Int -> Array C
 eachChangeCR2CP ( global, area ) i cr =
     let
         certainCR =
-            Maybe.withDefault initCRdata (Array.get i cr)
+            Maybe.withDefault
+                initCRdata
+                (Array.get
+                    i
+                    cr
+                )
 
         certainArea =
-            Maybe.withDefault initArea (Dict.get (Debug.log "1" certainCR.location) area)
+            Maybe.withDefault
+                initArea
+                (Dict.get (Debug.log "1" certainCR.location) area)
 
         ( updatedArea, updatedGlobal ) =
-            certainChangeCR2CP global certainArea certainCR
+            certainChangeCR2CP
+                global
+                certainArea
+                certainCR
 
         updatedAllArea =
-            Dict.update certainCR.name ((\x y -> x) (Just updatedArea)) area
+            Dict.update
+                certainCR.location
+                ((\x y ->
+                    x
+                 )
+                    (Just
+                        updatedArea
+                    )
+                )
+                area
     in
     ( cr, ( updatedGlobal, updatedAllArea ) )
 
@@ -127,9 +200,16 @@ certainChangeCR2CP global area certainCR =
             certainCR.effect
 
         ( newGlobal, newLocal ) =
-            effectCP effect global localCP
+            effectCP effect
+                global
+                localCP
     in
-    ( { area | localCP = newLocal }, newGlobal )
+    ( { area
+        | localCP =
+            newLocal
+      }
+    , newGlobal
+    )
 
 
 
@@ -140,24 +220,71 @@ areaCPchange : Dict String Area -> Dict String PureCPdata -> ( Dict String Area,
 areaCPchange area global =
     let
         pureArea =
-            Array.map (\( x, y ) -> y) (Array.fromList (Dict.toList area))
+            Array.map
+                (\( x, y ) ->
+                    y
+                )
+                (Array.fromList
+                    (Dict.toList
+                        area
+                    )
+                )
 
         ( afterAreaArray, afterGlobal ) =
-            for_outer 0 (Dict.size area - 1) eachAreaCPchange ( pureArea, global )
+            for_outer
+                0
+                (Dict.size area - 1)
+                eachAreaCPchange
+                ( pureArea
+                , global
+                )
     in
-    ( Dict.fromList (List.map (\x -> ( x.name, x )) (Array.toList afterAreaArray)), afterGlobal )
+    ( Dict.fromList
+        (List.map
+            (\x ->
+                ( x.name
+                , x
+                )
+            )
+            (Array.toList
+                afterAreaArray
+            )
+        )
+    , afterGlobal
+    )
 
 
 eachAreaCPchange : Dict String PureCPdata -> Int -> Array Area -> ( Array Area, Dict String PureCPdata )
 eachAreaCPchange global i a =
     let
         newArea =
-            Maybe.withDefault initArea (Array.get i a)
+            Maybe.withDefault
+                initArea
+                (Array.get
+                    i
+                    a
+                )
 
         ( newGlobal, local ) =
-            effectCP newArea.effect global newArea.localCP
+            effectCP
+                newArea.effect
+                global
+                newArea.localCP
     in
-    ( Array.set i ((\y x -> { x | localCP = y }) local newArea) a, newGlobal )
+    ( Array.set
+        i
+        ((\y x ->
+            { x
+                | localCP =
+                    y
+            }
+         )
+            local
+            newArea
+        )
+        a
+    , newGlobal
+    )
 
 
 
@@ -179,14 +306,23 @@ eachAreaCPchange global i a =
 
 moveCR : Dict String CRdata -> String -> String -> Dict String CRdata
 moveCR before from to =
-    Dict.update from (setCRlocation to) before
+    Dict.update
+        from
+        (setCRlocation
+            to
+        )
+        before
 
 
 setCRlocation : String -> Maybe CRdata -> Maybe CRdata
 setCRlocation to from =
     case from of
         Just fromArea ->
-            Maybe.Just { fromArea | location = to }
+            Maybe.Just
+                { fromArea
+                    | location =
+                        to
+                }
 
         _ ->
             from
@@ -196,14 +332,18 @@ keyPress : Int -> Msg
 keyPress input =
     let
         i =
-            Debug.log "Receive Key" input
+            Debug.log "Receive Key"
+                input
     in
     case i of
         32 ->
-            KeyPress Space
+            KeyPress
+                Space
 
         82 ->
-            KeyPress R
+            KeyPress
+                R
 
         _ ->
-            KeyPress NotCare
+            KeyPress
+                NotCare

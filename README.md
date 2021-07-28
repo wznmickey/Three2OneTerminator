@@ -6,7 +6,7 @@ Game Name: Terminator.
 
 Developed by Three 2 One @ SliverFocs.
 
-![US](./assets/logo.svg)
+![US](./asset/logo.svg)
 
 ## Coding
 

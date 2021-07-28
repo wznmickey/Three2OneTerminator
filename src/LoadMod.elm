@@ -9,11 +9,18 @@ loadMod : String -> ( GameData, String )
 loadMod st =
     let
         ans =
-            decodeString dGameData st
+            decodeString
+                dGameData
+                st
     in
     case ans of
         Ok x ->
-            ( x, "Ok" )
+            ( x
+            , "Ok"
+            )
 
         Err x ->
-            ( initGameData, Json.Decode.errorToString x )
+            ( initGameData
+            , Json.Decode.errorToString
+                x
+            )

@@ -20,14 +20,29 @@ type alias PureCPdata =
 
 initPureCPdata : PureCPdata
 initPureCPdata =
-    { name = "init", data = 0 }
+    { name =
+        "init"
+    , data =
+        0
+    }
 
 
 decoder_PureCPdata : Decoder (Dict.Dict String PureCPdata)
 decoder_PureCPdata =
-    map (Dict.map (\name value -> PureCPdata name value)) (dict Json.Decode.float)
+    map
+        (Dict.map
+            (\name value ->
+                PureCPdata
+                    name
+                    value
+            )
+        )
+        (dict
+            Json.Decode.float
+        )
 
 
 encodePureCPdata : PureCPdata -> Json.Encode.Value
 encodePureCPdata data =
-    Json.Encode.float data.data
+    Json.Encode.float
+        data.data

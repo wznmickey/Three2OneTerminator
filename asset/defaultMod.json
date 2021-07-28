@@ -43,44 +43,55 @@
         "Disposable Money": 2
     },
     "CR": {
-        "Material Support1": {
+        "Doctor": {
             "location": "Gotham",
             "effect": {
                 "Health threat drop": 4,
                 "Citizen trust": 2,
                 "External safety": 3,
                 "Disposable Money": 2
-            }
+            },
+            "placeX": 5,
+            "placeY": -5,
+            "color": "yellow"
         },
-        "Material Support2": {
+        "Police": {
             "location": "BomBay",
             "effect": {
                 "Health threat drop": 7,
                 "Citizen trust": 6,
                 "External safety": 8,
                 "Disposable Money": 9
-            }
+            },
+            "placeX": -5,
+            "placeY": -5,
+            "color": "red"
         },
-        "Material Support3": {
+        "Medicine": {
             "location": "GassVille",
             "effect": {
                 "Health threat drop": 1,
                 "Citizen trust": 1,
                 "External safety": 1,
                 "Disposable Money": 1
-            }
+            },
+            "placeX": 5,
+            "placeY": 5,
+            "color": "rgb(125,130,198)"
         },
-        "Material Support4": {
+        "Volunteer": {
             "location": "Burnley",
             "effect": {
                 "Health threat drop": 13,
                 "Citizen trust": 12,
                 "External safety": 14,
                 "Disposable Money": 15
-            }
+            },
+            "placeX": -5,
+            "placeY": 5,
+            "color": "green"
         }
     },
-    
     "area": {
         "Gotham": {
             "location": 1,
@@ -92,7 +103,10 @@
             },
             "init": {
                 "Health threat drop": 20.4
-            }
+            },
+            "path": "M56 95 L 67 100 L 59 126 L 60 135 L 56 140 L 10 102 Z",
+            "centerX": 47,
+            "centerY": 113
         },
         "BomBay": {
             "location": 2,
@@ -104,7 +118,10 @@
             },
             "init": {
                 "Health threat drop": 12.7
-            }
+            },
+            "path": "M80 30 L 132 40 L 138 120 L 100 100 L 59 126 L 67 100 L 56 95 Z",
+            "centerX": 80,
+            "centerY": 90
         },
         "GassVille": {
             "location": 3,
@@ -116,7 +133,10 @@
             },
             "init": {
                 "Health threat drop": 30.7
-            }
+            },
+            "path": "M56 140 L 60 135 L 59 126 L 100 100 L 138 120 L 130 136 L 136 145 L 105 135 Z",
+            "centerX": 110,
+            "centerY": 120
         },
         "Burnley": {
             "location": 4,
@@ -128,21 +148,32 @@
             },
             "init": {
                 "Health threat drop": 5.3
-            }
+            },
+            "path": "M10 10 L 30 20  L 45 15 L 80 30 L 56 95 L 10 102 L 25 56 Z",
+            "centerX": 35,
+            "centerY": 33
         }
     },
     "helpText": {
-        "Health threat drop": "The disalarmed Health threat, to which increase of Disposable Money is most conducive",
-        "Citizen trust": "The faith citizens in an area have in its governer, to which increase of External Safety is most conducive",
+        "Health threat drop": "The disarmed Health threat, to which increase of Disposable Money is most conducive",
+        "Citizen trust": "The faith citizens in an area have in its governor, to which increase of External Safety is most conducive",
         "External safety": "The safety guaranteed of the personnel and material inflow, to which Disposable Money is most conducive",
         "Disposable Money": "The financial aid the government can offer to the medical institute, to which Citizen trust is most conducive",
-        "Material Support1": "The initial maximum capacity of material support area 1 can offer to others",
-        "Material Support2": "The initial maximum capacity of material support area 2 can offer to others",
-        "Material Support3": "The initial maximum capacity of material support area 3 can offer to others",
-        "Material Support4": "The initiall maximum capacity of material support area 4 can offer to others",
+        "Doctor": "The initial maximum capacity of material support area 1 can offer to others",
+        "Police": "The initial maximum capacity of material support area 2 can offer to others",
+        "Medicine": "The initial maximum capacity of material support area 3 can offer to others",
+        "Volunteer": "The initial maximum capacity of material support area 4 can offer to others",
         "Gotham": "The capital located in the central area, with second init CR and third material to control points transformation efficiency",
-        "BomBay": "The satillite town of the capital, with third init CR and second material to control points transformation efficiency",
+        "BomBay": "The satellite town of the capital, with third init CR and second material to control points transformation efficiency",
         "GassVille": "southeast coastal metropolis, with highest init CR but lowest material to control points transformation efficiency",
         "Burnley": "Northwest deserted area, with lowest init CR but highest material to control points transformation efficiency"
+    },
+    "winningMsg": {
+        "localCP": "Health threat drop",
+        "GlobalCP": "Disposable Money",
+        "winning": 100000,
+        "losing": 0,
+        "max" : 1000,
+        "min": 0
     }
 }

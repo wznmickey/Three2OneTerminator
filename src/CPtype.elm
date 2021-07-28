@@ -11,27 +11,36 @@ type CPtype
 
 dCPtype : Decoder CPtype
 dCPtype =
-    Json.Decode.string |> Json.Decode.andThen dString2CPtype
+    Json.Decode.string
+        |> Json.Decode.andThen
+            dString2CPtype
 
 
 dString2CPtype : String -> Decoder CPtype
 dString2CPtype string =
     case string of
         "Local" ->
-            Json.Decode.succeed Local
+            Json.Decode.succeed
+                Local
 
         "Global" ->
-            Json.Decode.succeed Global
+            Json.Decode.succeed
+                Global
 
         _ ->
-            Json.Decode.fail ("Invalid type: " ++ string)
+            Json.Decode.fail
+                ("Invalid type: "
+                    ++ string
+                )
 
 
 encodeCPtype : CPtype -> Json.Encode.Value
 encodeCPtype data =
     case data of
         Local ->
-            Json.Encode.string "Local"
+            Json.Encode.string
+                "Local"
 
         Global ->
-            Json.Encode.string "Global"
+            Json.Encode.string
+                "Global"
