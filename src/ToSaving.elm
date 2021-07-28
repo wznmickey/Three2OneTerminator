@@ -7,9 +7,14 @@ import Json.Encode exposing (..)
 
 saveString : GameData -> String
 saveString data =
-    Json.Encode.encode 4 (encodeGameData data)
+    Json.Encode.encode
+        4
+        (encodeGameData data)
 
 
 save : GameData -> Cmd msg
 save data =
-    Download.string "download.json" "text/json" (saveString data)
+    Download.string
+        "download.json"
+        "text/json"
+        (saveString data)

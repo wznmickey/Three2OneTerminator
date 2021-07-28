@@ -30,17 +30,28 @@ initCRdata =
         newEffect =
             initPureCPdata
     in
-    { name = newName
-    , location = newLocation
-    , effect = Dict.singleton newEffect.name newEffect
-    , place = ( 0, 0 )
-    , color = "white"
+    { name =
+        newName
+    , location =
+        newLocation
+    , effect =
+        Dict.singleton newEffect.name newEffect
+    , place =
+        ( 0, 0 )
+    , color =
+        "white"
     }
 
 
 decoder_CRdata : Decoder (Dict.Dict String CRdata)
 decoder_CRdata =
-    map (Dict.map infoToCRdata) (Json.Decode.dict infoDecoder)
+    map
+        (Dict.map
+            infoToCRdata
+        )
+        (Json.Decode.dict
+            infoDecoder
+        )
 
 
 type alias Info =
@@ -55,18 +66,65 @@ type alias Info =
 infoDecoder : Decoder Info
 infoDecoder =
     map5 Info
-        (field "location" Json.Decode.string)
-        (field "effect" decoder_PureCPdata)
-        (field "placeX" Json.Decode.float)
-        (field "placeY" Json.Decode.float)
-        (field "color" Json.Decode.string)
+        (field
+            "location"
+            Json.Decode.string
+        )
+        (field
+            "effect"
+            decoder_PureCPdata
+        )
+        (field
+            "placeX"
+            Json.Decode.float
+        )
+        (field
+            "placeY"
+            Json.Decode.float
+        )
+        (field
+            "color"
+            Json.Decode.string
+        )
 
 
 infoToCRdata : String -> Info -> CRdata
 infoToCRdata name { location, effect, x, y, color } =
-    CRdata name location effect ( x, y ) color
+    CRdata
+        name
+        location
+        effect
+        ( x, y )
+        color
 
 
 encodeCRdata : CRdata -> Json.Encode.Value
 encodeCRdata data =
-    Json.Encode.object [ ( "effect", Json.Encode.dict identity encodePureCPdata data.effect ), ( "location", Json.Encode.string data.location ), ( "placeX", Json.Encode.float (Tuple.first data.place) ), ( "placeY", Json.Encode.float (Tuple.second data.place) ), ( "color", Json.Encode.string data.color ) ]
+    Json.Encode.object
+        [ ( "effect"
+          , Json.Encode.dict
+                identity
+                encodePureCPdata
+                data.effect
+          )
+        , ( "location"
+          , Json.Encode.string
+                data.location
+          )
+        , ( "placeX"
+          , Json.Encode.float
+                (Tuple.first
+                    data.place
+                )
+          )
+        , ( "placeY"
+          , Json.Encode.float
+                (Tuple.second
+                    data.place
+                )
+          )
+        , ( "color"
+          , Json.Encode.string
+                data.color
+          )
+        ]

@@ -50,12 +50,26 @@ wholeURL =
 
 initModel : Model
 initModel =
-    Model initGameData Start "modInfo" "Init" "init" 0 init_onMovingCR [ "CR MOVED:" ]
+    Model
+        initGameData
+        Start
+        "modInfo"
+        "Init"
+        "init"
+        0
+        init_onMovingCR
+        [ "CR MOVED:" ]
 
 
 init_onMovingCR : OnMovingCR
 init_onMovingCR =
-    { cRname = Nothing, formerArea = Nothing, toArea = Nothing }
+    { cRname =
+        Nothing
+    , formerArea =
+        Nothing
+    , toArea =
+        Nothing
+    }
 
 
 init : () -> ( Model, Cmd Msg )
@@ -68,17 +82,26 @@ init result =
 subscriptions : Model -> Sub Msg
 subscriptions model =
     Sub.batch
-        [ onAnimationFrameDelta Tick
-        , onKeyDown (Decode.map keyPress keyCode)
+        [ onAnimationFrameDelta
+            Tick
+        , onKeyDown
+            (Decode.map
+                keyPress
+                keyCode
+            )
         ]
 
 
 main =
     Browser.element
-        { init = init
-        , view = view
-        , update = update
-        , subscriptions = subscriptions
+        { init =
+            init
+        , view =
+            view
+        , update =
+            update
+        , subscriptions =
+            subscriptions
         }
 
 
@@ -88,17 +111,52 @@ update msg model =
         GotText result ->
             case result of
                 Ok fullText ->
-                    { model | modInfo = fullText, data = Tuple.first (loadMod fullText), loadInfo = Tuple.second (loadMod fullText) } |> update (ToState Loading)
+                    { model
+                        | modInfo =
+                            fullText
+                        , data =
+                            Tuple.first
+                                (loadMod
+                                    fullText
+                                )
+                        , loadInfo =
+                            Tuple.second
+                                (loadMod
+                                    fullText
+                                )
+                    }
+                        |> update
+                            (ToState
+                                Loading
+                            )
 
                 _ ->
-                    { model | modInfo = "Error code : 1002", loadInfo = "Error code : 1001" } |> update (ToState Loading)
+                    { model
+                        | modInfo =
+                            "Error code : 1002"
+                        , loadInfo =
+                            "Error code : 1001"
+                    }
+                        |> update
+                            (ToState
+                                Loading
+                            )
 
         Clickon (Msg.Area name) ->
             if model.state == Msg.Running then
-                ( { model | onviewArea = name } |> changeCR name, Cmd.none )
+                ( { model
+                    | onviewArea =
+                        name
+                  }
+                    |> changeCR
+                        name
+                , Cmd.none
+                )
 
             else
-                ( model, Cmd.none )
+                ( model
+                , Cmd.none
+                )
 
         Clickon (Msg.CR crInfo) ->
             let
@@ -112,87 +170,176 @@ update msg model =
                     crInfo.formerArea
             in
             if model.state == Msg.Running then
-                ( { model | onMovingCR = { oldMovingCR | cRname = newcRname, formerArea = newformerArea } }, Cmd.none )
+                ( { model
+                    | onMovingCR =
+                        { oldMovingCR
+                            | cRname =
+                                newcRname
+                            , formerArea =
+                                newformerArea
+                        }
+                  }
+                , Cmd.none
+                )
 
             else
-                ( model, Cmd.none )
+                ( model
+                , Cmd.none
+                )
 
         Clickon Msg.LoadDefault ->
             ( model
             , Http.get
-                { url = wholeURL
-                , expect = Http.expectString GotText
+                { url =
+                    wholeURL
+                , expect =
+                    Http.expectString GotText
                 }
             )
 
         Clickon Msg.Download ->
             ( model
-            , save model.data
+            , save
+                model.data
             )
 
         Clickon Msg.Restart ->
-            model |> update (UploadFile (FileLoaded model.modInfo))
+            model
+                |> update
+                    (UploadFile
+                        (FileLoaded
+                            model.modInfo
+                        )
+                    )
 
         UploadFile fileStatus ->
             case fileStatus of
                 FileRequested ->
-                    ( model, Cmd.map UploadFile (Select.file [ "text/json" ] FileSelected) )
+                    ( model
+                    , Cmd.map
+                        UploadFile
+                        (Select.file
+                            [ "text/json" ]
+                            FileSelected
+                        )
+                    )
 
                 FileSelected file ->
-                    ( model, Cmd.map UploadFile (Task.perform FileLoaded (File.toString file)) )
+                    ( model
+                    , Cmd.map
+                        UploadFile
+                        (Task.perform
+                            FileLoaded
+                            (File.toString file)
+                        )
+                    )
 
                 FileLoaded content ->
-                    { model | modInfo = content, data = Tuple.first (loadMod content), loadInfo = Tuple.second (loadMod content) } |> update (ToState Loading)
+                    { model
+                        | modInfo =
+                            content
+                        , data =
+                            Tuple.first
+                                (loadMod
+                                    content
+                                )
+                        , loadInfo =
+                            Tuple.second
+                                (loadMod
+                                    content
+                                )
+                    }
+                        |> update
+                            (ToState
+                                Loading
+                            )
 
         Tick time ->
             case model.state of
                 Msg.Running ->
                     let
                         newmodel1 =
-                            { model | time = model.time + time }
+                            { model
+                                | time =
+                                    model.time + time
+                            }
 
                         newmodel2 =
                             if newmodel1.time >= 4000 then
-                                { newmodel1 | data = updateData newmodel1.data, time = newmodel1.time - 4000 }
+                                { newmodel1
+                                    | data =
+                                        updateData newmodel1.data
+                                    , time =
+                                        newmodel1.time - 4000
+                                }
 
                             else
                                 newmodel1
 
                         newmodel3 =
-                            { newmodel2 | state = check_Dead newmodel2 }
+                            { newmodel2
+                                | state =
+                                    check_Dead newmodel2
+                            }
                     in
                     ( newmodel3, Cmd.none )
 
                 Msg.Loading ->
                     if Debug.log "info" model.loadInfo == "Ok" then
-                        model |> update (ToState Running)
+                        model
+                            |> update
+                                (ToState
+                                    Running
+                                )
 
                     else
-                        ( model, Cmd.none )
+                        ( model
+                        , Cmd.none
+                        )
 
                 _ ->
-                    ( model, Cmd.none )
+                    ( model
+                    , Cmd.none
+                    )
 
         KeyPress key ->
             case key of
                 Msg.Space ->
-                    update (switchPause model.state) model
+                    update
+                        (switchPause
+                            model.state
+                        )
+                        model
 
                 Msg.R ->
-                    update (ToState Start) model
+                    update
+                        (ToState
+                            Start
+                        )
+                        model
 
                 _ ->
-                    ( model, Cmd.none )
+                    ( model
+                    , Cmd.none
+                    )
 
         ToState newState ->
-            ( { model | state = newState }, Cmd.none )
+            ( { model
+                | state =
+                    newState
+              }
+            , Cmd.none
+            )
 
 
 check_Dead : Model -> State
 check_Dead model =
     let
         keyVal =
-            getPureCPdataByName ( "Citizen trust", model.data.globalCP )
+            getPureCPdataByName
+                ( "Citizen trust"
+                , model.data.globalCP
+                )
     in
     if keyVal.data <= 0 then
         End
@@ -206,83 +353,233 @@ view model =
     case model.state of
         Start ->
             div
-                [ HtmlAttr.style "width" "95vw"
-                , HtmlAttr.style "height" "95vh"
-                , HtmlAttr.style "left" "0"
-                , HtmlAttr.style "top" "0"
-                , HtmlAttr.style "text-align" "center"
+                [ HtmlAttr.style
+                    "width"
+                    "95vw"
+                , HtmlAttr.style
+                    "height"
+                    "95vh"
+                , HtmlAttr.style
+                    "left"
+                    "0"
+                , HtmlAttr.style
+                    "top"
+                    "0"
+                , HtmlAttr.style
+                    "text-align"
+                    "center"
                 ]
-                [ button [ HtmlEvent.onClick (Msg.UploadFile FileRequested) ] [ text "Upload file" ]
-                , button [ HtmlEvent.onClick (Msg.Clickon LoadDefault) ] [ text "Default starting" ]
+                [ button
+                    [ HtmlEvent.onClick
+                        (Msg.UploadFile
+                            FileRequested
+                        )
+                    ]
+                    [ text
+                        "Upload file"
+                    ]
+                , button
+                    [ HtmlEvent.onClick
+                        (Msg.Clickon
+                            LoadDefault
+                        )
+                    ]
+                    [ text "Default starting" ]
                 ]
 
         Loading ->
             div
-                [ HtmlAttr.style "width" "95vw"
-                , HtmlAttr.style "height" "95vh"
-                , HtmlAttr.style "left" "0"
-                , HtmlAttr.style "top" "0"
-                , HtmlAttr.style "text-align" "center"
+                [ HtmlAttr.style
+                    "width"
+                    "95vw"
+                , HtmlAttr.style
+                    "height"
+                    "95vh"
+                , HtmlAttr.style
+                    "left"
+                    "0"
+                , HtmlAttr.style
+                    "top"
+                    "0"
+                , HtmlAttr.style
+                    "text-align"
+                    "center"
                 ]
-                [ text model.loadInfo
-                , button [ HtmlEvent.onClick (Msg.UploadFile FileRequested) ] [ text "Upload file" ]
-                , button [ HtmlEvent.onClick (Msg.Clickon LoadDefault) ] [ text "Default starting" ]
+                [ text
+                    model.loadInfo
+                , button
+                    [ HtmlEvent.onClick
+                        (Msg.UploadFile
+                            FileRequested
+                        )
+                    ]
+                    [ text
+                        "Upload file"
+                    ]
+                , button
+                    [ HtmlEvent.onClick
+                        (Msg.Clickon
+                            LoadDefault
+                        )
+                    ]
+                    [ text
+                        "Default starting"
+                    ]
                 ]
 
         Pause ->
             div
-                [ HtmlAttr.style "width" "100vw"
-                , HtmlAttr.style "height" "100vh"
-                , HtmlAttr.style "left" "0"
-                , HtmlAttr.style "top" "0"
-                , HtmlAttr.style "text-align" "center"
-                , HtmlAttr.style "background" "brown"
+                [ HtmlAttr.style
+                    "width"
+                    "100vw"
+                , HtmlAttr.style
+                    "height"
+                    "100vh"
+                , HtmlAttr.style
+                    "left"
+                    "0"
+                , HtmlAttr.style
+                    "top"
+                    "0"
+                , HtmlAttr.style
+                    "text-align"
+                    "center"
+                , HtmlAttr.style
+                    "background"
+                    "brown"
                 ]
                 [ p
-                    [ HtmlAttr.style "top" "50%", HtmlAttr.style "left" "50%", HtmlAttr.style "font-size" "large", HtmlAttr.style "transform" "translate( -50%, -50%)", HtmlAttr.style "position" "absolute" ]
+                    [ HtmlAttr.style
+                        "top"
+                        "50%"
+                    , HtmlAttr.style
+                        "left"
+                        "50%"
+                    , HtmlAttr.style
+                        "font-size"
+                        "large"
+                    , HtmlAttr.style
+                        "transform"
+                        "translate( -50%, -50%)"
+                    , HtmlAttr.style
+                        "position"
+                        "absolute"
+                    ]
                     [ text "Pause"
                     , p []
-                        [ button [ HtmlEvent.onClick (ToState Running) ] [ text "continue" ]
-                        , button [ HtmlEvent.onClick (Msg.Clickon Restart) ] [ text "Restart" ]
-                        , button [ HtmlEvent.onClick (Msg.Clickon Download) ] [ text "download" ]
+                        [ button
+                            [ HtmlEvent.onClick
+                                (ToState
+                                    Running
+                                )
+                            ]
+                            [ text "continue" ]
+                        , button
+                            [ HtmlEvent.onClick
+                                (Msg.Clickon
+                                    Restart
+                                )
+                            ]
+                            [ text "Restart" ]
+                        , button
+                            [ HtmlEvent.onClick
+                                (Msg.Clickon
+                                    Download
+                                )
+                            ]
+                            [ text "download" ]
                         ]
                     ]
                 ]
 
         _ ->
             div
-                [ HtmlAttr.style "width" "95vw"
-                , HtmlAttr.style "height" "95vh"
-                , HtmlAttr.style "left" "0"
-                , HtmlAttr.style "top" "0"
-                , HtmlAttr.style "text-align" "center"
+                [ HtmlAttr.style
+                    "width"
+                    "95vw"
+                , HtmlAttr.style
+                    "height"
+                    "95vh"
+                , HtmlAttr.style
+                    "left"
+                    "0"
+                , HtmlAttr.style
+                    "top"
+                    "0"
+                , HtmlAttr.style
+                    "text-align"
+                    "center"
                 ]
                 [ div
-                    [ HtmlAttr.style "width" "50vw"
-                    , HtmlAttr.style "height" "50vh"
-                    , HtmlAttr.style "transform" "translate(-50%,-50%)"
-                    , HtmlAttr.style "left" "50%"
-                    , HtmlAttr.style "top" "50%",
-                    HtmlAttr.style "position" "absolute"
+                    [ HtmlAttr.style
+                        "width"
+                        "50vw"
+                    , HtmlAttr.style
+                        "height"
+                        "50vh"
+                    , HtmlAttr.style
+                        "transform"
+                        "translate(-50%,-50%)"
+                    , HtmlAttr.style
+                        "left"
+                        "50%"
+                    , HtmlAttr.style
+                        "top"
+                        "50%"
+                    , HtmlAttr.style
+                        "position"
+                        "absolute"
                     ]
                     [ Svg.svg
-                        [ SvgAttr.width "100%"
-                        , SvgAttr.height "100%"
-                        , SvgAttr.viewBox "0 0 150 150"
+                        [ SvgAttr.width
+                            "100%"
+                        , SvgAttr.height
+                            "100%"
+                        , SvgAttr.viewBox
+                            "0 0 150 150"
                         ]
-                        (viewAreas (Dict.values model.data.area) ++ (viewCRs model.data.area (Dict.values model.data.allCR)))
+                        (viewAreas
+                            (Dict.values model.data.area)
+                            ++ viewCRs
+                                model.data.area
+                                (Dict.values
+                                    model.data.allCR
+                                )
+                        )
                     ]
-                , viewGlobalData (Dict.values model.data.globalCP) model.data.infoCP
-                , view_Areadata model.data.area model.onviewArea
-                , disp_Onview model.onviewArea
+                , viewGlobalData
+                    (Dict.values
+                        model.data.globalCP
+                    )
+                    model.data.infoCP
+                , view_Areadata
+                    model.data.area
+                    model.onviewArea
+                , disp_Onview
+                    model.onviewArea
 
                 --, text (Debug.toString model.data.area)
                 -- , text (Debug.toString model.time)
-                , text (Debug.toString model.data.area)
+                , text
+                    (Debug.toString
+                        model.data.area
+                    )
                 , show_PauseInfo
-                , show_DeadInfo model.state
-                , viewMovingCR (combineList_2String model.cRmovingInfo)
-                , button [ HtmlEvent.onClick (ToState Pause) ] [ text "pause" ]
+                , show_DeadInfo
+                    model.state
+                , viewMovingCR
+                    (combineList_2String
+                        model.cRmovingInfo
+                    )
+                , button
+                    [ HtmlEvent.onClick
+                        (ToState
+                            Pause
+                        )
+                    ]
+                    [ text
+                        "pause"
+                    ]
                 ]
 
 
@@ -299,21 +596,37 @@ changeCR newArea model =
                     model.data
 
                 newData =
-                    { data | allCR = moveCR model.data.allCR x newArea }
+                    { data
+                        | allCR =
+                            moveCR
+                                model.data.allCR
+                                x
+                                newArea
+                    }
 
                 newmovingCR =
-                    { oldMovingCR | cRname = Nothing }
+                    { oldMovingCR
+                        | cRname =
+                            Nothing
+                    }
 
                 oldInfo =
-                    model.cRmovingInfo |> filter_CRMovinginfo
+                    model.cRmovingInfo
+                        |> filter_CRMovinginfo
 
                 newInfo =
-                    combine_onmoveCR2String oldMovingCR newArea :: oldInfo
+                    combine_onmoveCR2String
+                        oldMovingCR
+                        newArea
+                        :: oldInfo
             in
             { model
-                | data = newData
-                , onMovingCR = newmovingCR
-                , cRmovingInfo = newInfo
+                | data =
+                    newData
+                , onMovingCR =
+                    newmovingCR
+                , cRmovingInfo =
+                    newInfo
             }
 
         Nothing ->

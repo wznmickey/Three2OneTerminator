@@ -14,14 +14,29 @@ type alias HelpText =
 
 initHelpText : HelpText
 initHelpText =
-    { name = "init", text = "init" }
+    { name =
+        "init"
+    , text =
+        "init"
+    }
 
 
 decoder_HelpText : Decoder (Dict.Dict String HelpText)
 decoder_HelpText =
-    map (Dict.map (\name value -> HelpText name value)) (dict string)
+    map
+        (Dict.map
+            (\name value ->
+                HelpText
+                    name
+                    value
+            )
+        )
+        (dict
+            string
+        )
 
 
 encodeHelpText : HelpText -> Json.Encode.Value
 encodeHelpText data =
-    Json.Encode.string data.text
+    Json.Encode.string
+        data.text
