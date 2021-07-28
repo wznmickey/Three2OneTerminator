@@ -48,10 +48,10 @@ runningHtmlMsg model =
     div
         [ HtmlAttr.style
             "width"
-            "95vw"
+            "100vw"
         , HtmlAttr.style
             "height"
-            "95vh"
+            "100vh"
         , HtmlAttr.style
             "left"
             "0"
@@ -61,14 +61,17 @@ runningHtmlMsg model =
         , HtmlAttr.style
             "text-align"
             "center"
+        , HtmlAttr.style
+            "background"
+            "blue"
         ]
         [ div
             [ HtmlAttr.style
                 "width"
-                "50vw"
+                "70vw"
             , HtmlAttr.style
                 "height"
-                "50vh"
+                "70vh"
             , HtmlAttr.style
                 "transform"
                 "translate(-50%,-50%)"
