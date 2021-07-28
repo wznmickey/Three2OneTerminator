@@ -18,6 +18,11 @@ import Svg.Attributes as SvgAttr
 import Svg.Events as SvgEvent
 
 
+pink : String
+pink =
+    "rgb(157, 99, 110)"
+
+
 viewUnitArea : ( String, Float, Float ) -> Area -> Svg Msg
 viewUnitArea ( cp, max, min ) unitArea =
     let
@@ -25,15 +30,19 @@ viewUnitArea ( cp, max, min ) unitArea =
             unitArea.name
 
         red =
-            String.fromFloat ( 100 + (Basics.min 255 ((Maybe.withDefault initPureCPdata (Dict.get cp unitArea.localCP)).data / (max - min) * 155)))
+            String.fromFloat (100 + Basics.min 255 ((Maybe.withDefault initPureCPdata (Dict.get cp unitArea.localCP)).data / (max - min) * 155))
     in
     Svg.path
         [ SvgAttr.d
             unitArea.view
         , SvgAttr.fill
-            ("rgb("++red ++ ",0,0)")
+            ("rgb(" ++ red ++ ",0,0)")
         , SvgAttr.stroke
             "Black"
+        , SvgAttr.strokeLinejoin
+            "round"
+        , SvgAttr.strokeLinecap
+            "round"
         , SvgEvent.onClick
             (Clickon
                 (Msg.Area
@@ -56,7 +65,7 @@ viewGlobalData pure dict =
     div
         [ style
             "color"
-            "pink"
+            pink
         , style
             "font-weight"
             "bold"
@@ -68,18 +77,17 @@ viewGlobalData pure dict =
             "2vw"
         , style
             "top"
-            "2vh"
+            "5vh"
         , style
             "white-space"
             "pre-line"
         ]
         [ text
-            ("Global Control Points: \n"
-                ++ combineCPdata2String
-                    (filterGlobalData
-                        pure
-                        dict
-                    )
+            (combineCPdata2String
+                (filterGlobalData
+                    pure
+                    dict
+                )
             )
         ]
 
@@ -114,12 +122,16 @@ combineCPdata2String cpTocombine =
         ""
         (List.map
             (\a ->
-                a.name
-                    ++ ": "
-                    ++ Round.round
-                        2
-                        a.data
-                    ++ "\n"
+                if a.name == "init" then
+                    ""
+
+                else
+                    a.name
+                        ++ ": "
+                        ++ Round.round
+                            2
+                            a.data
+                        ++ "\n"
             )
             cpTocombine
         )
@@ -143,7 +155,7 @@ view_Areadata area onview =
     div
         [ style
             "color"
-            "pink"
+            pink
         , style
             "font-weight"
             "bold"
@@ -180,7 +192,7 @@ disp_Onview onview =
     div
         [ style
             "color"
-            "pink"
+            pink
         , style
             "font-weight"
             "bold"
@@ -204,25 +216,13 @@ disp_Onview onview =
             "pre-line"
         ]
         [ text
-            ("onview is "
-                ++ onview
+            (if onview == "init" then
+                ""
+
+             else
+                onview
             )
         ]
-
-
-combine_LocalCPdata2String : List PureCPdata -> String
-combine_LocalCPdata2String cpTocombine =
-    List.foldl
-        (\x a ->
-            x ++ a
-        )
-        "Local Control Points"
-        (List.map
-            (\a ->
-                a.name ++ ": " ++ Round.round 2 a.data ++ "\n"
-            )
-            cpTocombine
-        )
 
 
 checkArea : String -> Dict String Area -> Area
@@ -304,6 +304,8 @@ viewUnitCR dict cRpos =
                 color
             , SvgAttr.stroke
                 "white"
+            , SvgAttr.strokeWidth
+                "0.5"
             ]
             []
         , Svg.text_
@@ -333,7 +335,7 @@ show_PauseInfo =
     div
         [ style
             "color"
-            "pink"
+            pink
         , style
             "position"
             "absolute"
@@ -342,10 +344,10 @@ show_PauseInfo =
             "large"
         , style
             "left"
-            "80vw"
+            "75vw"
         , style
             "top"
-            "50vh"
+            "90vh"
         , style
             "width"
             "20vw"
@@ -398,7 +400,7 @@ viewMovingCR info =
     div
         [ style
             "color"
-            "pink"
+            pink
         , style
             "font-weight"
             "bold"
@@ -429,12 +431,16 @@ combine_onmoveCR2String crInfoTocombine toArea =
         Just name ->
             case crInfoTocombine.formerArea of
                 Just area ->
-                    "\n"
-                        ++ name
-                        ++ " : "
-                        ++ area
-                        ++ " -> "
-                        ++ toArea
+                    if area == toArea then
+                        ""
+
+                    else
+                        "\n"
+                            ++ name
+                            ++ " : "
+                            ++ area
+                            ++ " -> "
+                            ++ toArea
 
                 Nothing ->
                     ""

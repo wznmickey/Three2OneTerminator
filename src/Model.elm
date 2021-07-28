@@ -63,7 +63,7 @@ runningHtmlMsg model =
             "center"
         , HtmlAttr.style
             "background"
-            "blue"
+            "rgb(0,191,255)"
         ]
         [ div
             [ HtmlAttr.style
@@ -119,10 +119,10 @@ runningHtmlMsg model =
 
         --, text (Debug.toString model.data.area)
         -- , text (Debug.toString model.time)
-        , text
-            (Debug.toString
-                model.data.area
-            )
+        --, text
+        --    (Debug.toString
+        --        model.data.area
+        --    )
         , show_PauseInfo
         , show_DeadInfo
             model.state
