@@ -124,8 +124,12 @@ pauseHtmlMsg =
             , HtmlAttr.style
                 "position"
                 "absolute"
+            , HtmlAttr.style
+                "white-space"
+                "pre-line"
             ]
             [ text "Pause"
+            , text "\nPress Space to continue\nPress R to restart"
             , p []
                 [ button
                     [ HtmlEvent.onClick
@@ -140,7 +144,7 @@ pauseHtmlMsg =
                             Restart
                         )
                     ]
-                    [ text "Restart" ]
+                    [ text "restart" ]
                 , button
                     [ HtmlEvent.onClick
                         (Msg.Clickon

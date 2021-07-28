@@ -29,15 +29,35 @@ viewUnitArea ( cp, max, min ) unitArea =
         name =
             unitArea.name
 
-        other = 
-            String.fromFloat (255- Basics.min 255 ((Maybe.withDefault initPureCPdata (Dict.get cp unitArea.localCP)).data / (max - min) * 255))
-
+        other =
+            String.fromFloat
+                (255
+                    - Basics.min
+                        255
+                        ((Maybe.withDefault
+                            initPureCPdata
+                            (Dict.get
+                                cp
+                                unitArea.localCP
+                            )
+                         ).data
+                            / (max - min)
+                            * 255
+                        )
+                )
     in
     Svg.path
         [ SvgAttr.d
             unitArea.view
         , SvgAttr.fill
-            ("rgb(" ++ "255" ++ ","++other++","++other++")")
+            ("rgb("
+                ++ "255"
+                ++ ","
+                ++ other
+                ++ ","
+                ++ other
+                ++ ")"
+            )
         , SvgAttr.stroke
             "Black"
         , SvgAttr.strokeLinejoin
@@ -321,7 +341,8 @@ viewUnitCR dict cRpos =
                 (String.fromFloat
                     (ypos
                         + Tuple.second
-                            cRpos.place+1
+                            cRpos.place
+                        + 1
                     )
                 )
             , SvgAttr.fontSize "3"
@@ -357,7 +378,7 @@ show_PauseInfo =
             "pre-line"
         ]
         [ text
-            "press space to continue/pause"
+            "press Space to pause"
         ]
 
 
