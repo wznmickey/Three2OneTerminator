@@ -1,4 +1,4 @@
-module Msg exposing (Element(..), FileStatus(..), KeyInfo(..), Msg(..), OnMovingCR, State(..))
+module Msg exposing (Element(..), FileStatus(..), KeyInfo(..), Msg(..), OnMovingCR, State(..), init_onMovingCR)
 
 import File exposing (..)
 import Http
@@ -8,6 +8,17 @@ type alias OnMovingCR =
     { cRname : Maybe String
     , formerArea : Maybe String
     , toArea : Maybe String
+    }
+
+
+init_onMovingCR : OnMovingCR
+init_onMovingCR =
+    { cRname =
+        Nothing
+    , formerArea =
+        Nothing
+    , toArea =
+        Nothing
     }
 
 
