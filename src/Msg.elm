@@ -1,9 +1,6 @@
 module Msg exposing (Element(..), FileStatus(..), KeyInfo(..), Msg(..), OnMovingCR, State(..))
 
-import Browser.Events exposing (Visibility, onClick)
 import File exposing (..)
-import GameData exposing (..)
-import Html exposing (time)
 import Http
 
 

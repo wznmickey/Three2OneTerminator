@@ -2,7 +2,6 @@ module CPdata exposing (CPdata, decoder_CPdata, encodeCPdata, initCPdata)
 
 import CPtype exposing (..)
 import Dict exposing (Dict)
-import Html exposing (object)
 import Json.Decode exposing (..)
 import Json.Encode exposing (..)
 import PureCPdata exposing (..)
