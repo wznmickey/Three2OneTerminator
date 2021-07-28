@@ -115,6 +115,7 @@ runningHtmlMsg model =
 
         --, text (Debug.toString model.data.area)
         -- , text (Debug.toString model.time)
+        
         , text
             (Debug.toString
                 model.data.area

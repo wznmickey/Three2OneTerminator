@@ -17,7 +17,6 @@ type alias Area =
     , effect : Dict String PureCPdata
     , --The index of the area. Start from **1**.
       no : Int
-    , areaColor : String
     }
 
 
@@ -35,9 +34,6 @@ initArea =
 
         newNo =
             0
-
-        newAreaColor =
-            "Pink"
     in
     { name =
         newName
@@ -51,8 +47,6 @@ initArea =
             newEffect
     , no =
         newNo
-    , areaColor =
-        newAreaColor
     , view =
         ""
     , center =
@@ -121,7 +115,6 @@ infoToArea name { localCP, effect, no, view, x, y } =
         localCP
         effect
         no
-        "pink"
 
 
 encodeArea : Area -> Json.Encode.Value

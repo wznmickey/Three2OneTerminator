@@ -4,6 +4,7 @@ import Area exposing (..)
 import CPdata exposing (..)
 import CRdata exposing (..)
 import Dict exposing (Dict)
+import GameInfo exposing (..)
 import HelpText exposing (..)
 import Json.Decode exposing (..)
 import Json.Encode exposing (..)
@@ -16,6 +17,7 @@ type alias GameData =
     , allCR : Dict String CRdata
     , area : Dict String Area
     , helpText : Dict String HelpText
+    , gameInfo : GameInfo
     }
 
 
@@ -36,6 +38,9 @@ initGameData =
 
         newHelpText =
             initHelpText
+
+        newGameInfo =
+            initGameInfo
     in
     { infoCP =
         Dict.singleton
@@ -57,12 +62,13 @@ initGameData =
         Dict.singleton
             newHelpText.name
             newHelpText
+    , gameInfo = newGameInfo
     }
 
 
 dGameData : Decoder GameData
 dGameData =
-    map5 GameData
+    map6 GameData
         (field
             "CP"
             decoder_CPdata
@@ -82,6 +88,10 @@ dGameData =
         (field
             "helpText"
             decoder_HelpText
+        )
+        (field
+            "winningMsg"
+            decoderGameInfo
         )
 
 
@@ -137,5 +147,9 @@ encodeGameData data =
                 identity
                 encodeHelpText
                 data.helpText
+          )
+        , ( "winningMsg"
+          , encodeGameInfo
+                data.gameInfo
           )
         ]

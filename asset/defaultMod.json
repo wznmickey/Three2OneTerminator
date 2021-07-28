@@ -167,5 +167,11 @@
         "BomBay": "The satellite town of the capital, with third init CR and second material to control points transformation efficiency",
         "GassVille": "southeast coastal metropolis, with highest init CR but lowest material to control points transformation efficiency",
         "Burnley": "Northwest deserted area, with lowest init CR but highest material to control points transformation efficiency"
+    },
+    "winningMsg": {
+        "localCP": "Health threat drop",
+        "GlobalCP": "Disposable Money",
+        "winning": 100000,
+        "losing": 0
     }
 }

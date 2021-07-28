@@ -403,9 +403,6 @@ viewMovingCR info =
             "position"
             "absolute"
         , style
-            "font-size"
-            "large"
-        , style
             "left"
             "0vw"
         , style
@@ -435,7 +432,6 @@ combine_onmoveCR2String crInfoTocombine toArea =
                         ++ area
                         ++ " -> "
                         ++ toArea
-                        ++ " ."
 
                 Nothing ->
                     ""
