@@ -33,21 +33,6 @@ viewUnitArea unitArea =
         []
 
 
-init_AreaPos : Int -> ( Float, Float )
-init_AreaPos areaNumber =
-    if areaNumber == 1 then
-        ( 40, 40 )
-
-    else if areaNumber == 2 then
-        ( 65, 55 )
-
-    else if areaNumber == 3 then
-        ( 60, 30 )
-
-    else
-        ( 10, 20 )
-
-
 viewAreas : List Area -> List (Svg Msg)
 viewAreas areaS =
     List.map viewUnitArea areaS
@@ -165,81 +150,17 @@ viewUnitCR dict cRpos =
             (Maybe.withDefault initArea (Dict.get cRpos.location dict)).center
 
         color =
-            get_CRcolor cRpos
+            cRpos.color
     in
     Svg.circle
-        [ SvgAttr.cx (String.fromFloat xpos)
-        , SvgAttr.cy (String.fromFloat ypos)
-        , SvgAttr.r (String.fromFloat 0.5 ++ "vh")
+        [ SvgAttr.cx (String.fromFloat (xpos + Tuple.first cRpos.place))
+        , SvgAttr.cy (String.fromFloat (ypos + Tuple.second cRpos.place))
+        , SvgAttr.r (String.fromFloat 3)
         , SvgAttr.fill color
         , SvgAttr.stroke "white"
         , SvgEvent.onClick (Clickon (Msg.CR { cRname = Just name, formerArea = Just cRpos.location, toArea = Nothing }))
         ]
         []
-
-
-get_CRcolor : CRdata -> String
-get_CRcolor crData =
-    case crData.name of
-        "Material Support1" ->
-            "red"
-
-        "Material Support2" ->
-            "green"
-
-        "Material Support3" ->
-            "blue"
-
-        "Material Support4" ->
-            "yellow"
-
-        _ ->
-            ""
-
-
-get_CRpos : CRdata -> ( Float, Float )
-get_CRpos crData =
-    case crData.location of
-        "Gotham" ->
-            get_CRpos_inCRtype crData.name 1
-
-        "BomBay" ->
-            get_CRpos_inCRtype crData.name 2
-
-        "GassVille" ->
-            get_CRpos_inCRtype crData.name 3
-
-        "Burnley" ->
-            get_CRpos_inCRtype crData.name 4
-
-        _ ->
-            ( 1, 1 )
-
-
-get_CRpos_inCRtype : String -> Int -> ( Float, Float )
-get_CRpos_inCRtype crType crAreapos =
-    let
-        xpos =
-            Tuple.first (init_AreaPos crAreapos)
-
-        ypos =
-            Tuple.second (init_AreaPos crAreapos)
-    in
-    case crType of
-        "Material Support1" ->
-            ( xpos + 2, ypos + 3 )
-
-        "Material Support2" ->
-            ( xpos + 5, ypos + 3 )
-
-        "Material Support3" ->
-            ( xpos + 8, ypos + 3 )
-
-        "Material Support4" ->
-            ( xpos + 2, ypos + 8 )
-
-        _ ->
-            ( 0, 0 )
 
 
 show_PauseInfo : Html Msg
@@ -318,7 +239,7 @@ combineList_2String toCombine =
 
 filter_CRMovinginfo : List String -> List String
 filter_CRMovinginfo crMovingInfo =
-    if List.length crMovingInfo >= 20 then
+    if List.length crMovingInfo >= 5 then
         update_CRMovinginfo crMovingInfo
 
     else
@@ -327,4 +248,4 @@ filter_CRMovinginfo crMovingInfo =
 
 update_CRMovinginfo : List String -> List String
 update_CRMovinginfo old =
-    List.take 19 old ++ [ "CR MOVED:" ]
+    List.take 4 old ++ [ "CR MOVED:" ]

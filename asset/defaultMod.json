@@ -50,7 +50,10 @@
                 "Citizen trust": 2,
                 "External safety": 3,
                 "Disposable Money": 2
-            }
+            },
+            "placeX": 2,
+            "placeY": -2,
+            "color": "yellow"
         },
         "Material Support2": {
             "location": "BomBay",
@@ -59,7 +62,10 @@
                 "Citizen trust": 6,
                 "External safety": 8,
                 "Disposable Money": 9
-            }
+            },
+            "placeX": -2,
+            "placeY": -2,
+            "color": "red"
         },
         "Material Support3": {
             "location": "GassVille",
@@ -68,7 +74,10 @@
                 "Citizen trust": 1,
                 "External safety": 1,
                 "Disposable Money": 1
-            }
+            },
+            "placeX": 2,
+            "placeY": 2,
+            "color": "blue"
         },
         "Material Support4": {
             "location": "Burnley",
@@ -77,7 +86,10 @@
                 "Citizen trust": 12,
                 "External safety": 14,
                 "Disposable Money": 15
-            }
+            },
+            "placeX": -2,
+            "placeY": 2,
+            "color": "green"
         }
     },
     "area": {
@@ -93,8 +105,8 @@
                 "Health threat drop": 20.4
             },
             "path": "M56 95 L 67 100 L 59 126 L 60 135 L 56 140 L 10 102 Z",
-            "centerX": 50,
-            "centerY": 100
+            "centerX": 55,
+            "centerY": 105
         },
         "BomBay": {
             "location": 2,
@@ -109,7 +121,7 @@
             },
             "path": "M80 30 L 132 40 L 138 120 L 100 100 L 59 126 L 67 100 L 56 95 Z",
             "centerX": 70,
-            "centerY": 100
+            "centerY": 90
         },
         "GassVille": {
             "location": 3,
@@ -123,8 +135,8 @@
                 "Health threat drop": 30.7
             },
             "path": "M56 140 L 60 135 L 59 126 L 100 100 L 138 120 L 130 136 L 136 145 L 105 135 Z",
-            "centerX": 145,
-            "centerY": 145
+            "centerX": 120,
+            "centerY": 130
         },
         "Burnley": {
             "location": 4,
@@ -138,8 +150,8 @@
                 "Health threat drop": 5.3
             },
             "path": "M10 10 L 30 20  L 45 15 L 80 30 L 56 95 L 10 102 L 25 56 Z",
-            "centerX": 20,
-            "centerY": 20
+            "centerX": 23,
+            "centerY": 25
         }
     },
     "helpText": {
