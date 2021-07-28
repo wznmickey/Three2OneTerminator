@@ -18,17 +18,20 @@ import Svg.Attributes as SvgAttr
 import Svg.Events as SvgEvent
 
 
-viewUnitArea : Area -> Svg Msg
-viewUnitArea unitArea =
+viewUnitArea : ( String, Float, Float ) -> Area -> Svg Msg
+viewUnitArea ( cp, max, min ) unitArea =
     let
         name =
             unitArea.name
+
+        red =
+            String.fromFloat ( 100 + (Basics.min 255 ((Maybe.withDefault initPureCPdata (Dict.get cp unitArea.localCP)).data / (max - min) * 155)))
     in
     Svg.path
         [ SvgAttr.d
             unitArea.view
         , SvgAttr.fill
-            "Red"
+            ("rgb("++red ++ ",0,0)")
         , SvgAttr.stroke
             "Black"
         , SvgEvent.onClick
@@ -41,10 +44,10 @@ viewUnitArea unitArea =
         []
 
 
-viewAreas : List Area -> List (Svg Msg)
-viewAreas areaS =
+viewAreas : ( String, Float, Float ) -> List Area -> List (Svg Msg)
+viewAreas ( cp, max, min ) areaS =
     List.map
-        viewUnitArea
+        (viewUnitArea ( cp, max, min ))
         areaS
 
 

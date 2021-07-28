@@ -172,6 +172,8 @@
         "localCP": "Health threat drop",
         "GlobalCP": "Disposable Money",
         "winning": 100000,
-        "losing": 0
+        "losing": 0,
+        "max" : 1000,
+        "min": 0
     }
 }

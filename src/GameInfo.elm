@@ -9,6 +9,8 @@ type alias GameInfo =
     , global : String
     , win : Float
     , lose : Float
+    , max : Float
+    , min : Float
     }
 
 
@@ -19,11 +21,13 @@ initGameInfo =
         "init"
         100
         0
+        100
+        0
 
 
 decoderGameInfo : Decoder GameInfo
 decoderGameInfo =
-    map4 GameInfo
+    map6 GameInfo
         (field
             "localCP"
             Json.Decode.string
@@ -38,6 +42,14 @@ decoderGameInfo =
         )
         (field
             "losing"
+            Json.Decode.float
+        )
+        (field
+            "max"
+            Json.Decode.float
+        )
+        (field
+            "min"
             Json.Decode.float
         )
 
@@ -58,6 +70,14 @@ encodeGameInfo data =
                 data.win
           )
         , ( "losing"
+          , Json.Encode.float
+                data.lose
+          )
+        , ( "max"
+          , Json.Encode.float
+                data.win
+          )
+        , ( "min"
           , Json.Encode.float
                 data.lose
           )

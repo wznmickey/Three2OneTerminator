@@ -94,6 +94,10 @@ runningHtmlMsg model =
                     "0 0 150 150"
                 ]
                 (viewAreas
+                    ( model.data.gameInfo.local
+                    , model.data.gameInfo.max
+                    , model.data.gameInfo.min
+                    )
                     (Dict.values model.data.area)
                     ++ viewCRs
                         model.data.area
@@ -115,7 +119,6 @@ runningHtmlMsg model =
 
         --, text (Debug.toString model.data.area)
         -- , text (Debug.toString model.time)
-        
         , text
             (Debug.toString
                 model.data.area
@@ -437,11 +440,11 @@ check_Dead model =
     let
         keyVal =
             getPureCPdataByName
-                ( "Citizen trust"
+                ( model.data.gameInfo.global
                 , model.data.globalCP
                 )
     in
-    if keyVal.data <= 0 then
+    if keyVal.data <= model.data.gameInfo.lose then
         End
 
     else
