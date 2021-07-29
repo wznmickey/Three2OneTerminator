@@ -10,3 +10,4 @@
 *.fls
 /elm-stuff/
 /.vscode/
+*.html
