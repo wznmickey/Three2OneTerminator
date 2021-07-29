@@ -5,7 +5,6 @@ import Browser.Events exposing (onAnimationFrameDelta, onClick, onKeyDown)
 import Browser.Navigation exposing (load)
 import Dict exposing (..)
 import Html exposing (..)
-import Html.Attributes as HtmlAttr exposing (..)
 import Html.Events as HtmlEvent exposing (..)
 import HtmlMsg exposing (..)
 import Json.Decode as Decode
@@ -59,7 +58,7 @@ view model =
                 model.loadInfo
 
         Pause ->
-            pauseHtmlMsg
+            pauseHtmlMsg 
                 (String.concat
                     (List.map (\( x, y ) -> x ++ ":" ++ y.text ++ "\n")
                         (Dict.toList

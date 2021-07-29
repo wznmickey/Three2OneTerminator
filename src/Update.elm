@@ -29,6 +29,17 @@ switchPause state =
             state
 
 
+checkHelp : State -> Msg
+checkHelp state =
+    if state == Running then
+        ToState
+            Pause
+
+    else
+        ToState
+            state
+
+
 
 --change cp according to effect
 
@@ -70,7 +81,7 @@ getEffect effect key before =
 
 valueEffectCP : PureCPdata -> PureCPdata -> PureCPdata
 valueEffectCP effect before =
-    --For debug 
+    --For debug
     --{ before | data = (Debug.log "before" before.data) + (Debug.log "add" effect.data) }
     { before
         | data =
@@ -537,6 +548,10 @@ keyPress input =
         82 ->
             KeyPress
                 R
+
+        72 ->
+            KeyPress
+                H
 
         _ ->
             KeyPress

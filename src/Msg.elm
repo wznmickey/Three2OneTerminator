@@ -34,6 +34,7 @@ type KeyInfo
     = Space
     | R
     | NotCare
+    | H 
 
 
 type Element

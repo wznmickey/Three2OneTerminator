@@ -133,14 +133,36 @@ runningHtmlMsg model =
             (combineList_2String
                 model.cRmovingInfo
             )
-        , button
-            [ HtmlEvent.onClick
-                (ToState
-                    Pause
-                )
+        , div
+            [ HtmlAttr.style
+                "width"
+                "15vw"
+            , HtmlAttr.style
+                "height"
+                "15vh"
+            , HtmlAttr.style
+                "transform"
+                "translate(-50%,-50%)"
+            , HtmlAttr.style
+                "left"
+                "45%"
+            , HtmlAttr.style
+                "top"
+                "10%"
+            , HtmlAttr.style
+                "position"
+                "absolute"
             ]
-            [ text
-                "pause"
+            [ Svg.svg [ SvgAttr.viewBox "-5 0 60 10", SvgAttr.width "100%", SvgAttr.height "100%" ]
+                [ View.button "pause"
+                    (ToState
+                        Pause
+                    ) 0 0 
+                , View.button "help"
+                    (ToState
+                        Pause
+                    ) 30 0
+                ]
             ]
         ]
 
@@ -429,6 +451,11 @@ keyUpdate key model =
                 (Clickon
                     Restart
                 )
+                model
+
+        Msg.H ->
+            update
+                (checkHelp model.state)
                 model
 
         _ ->
