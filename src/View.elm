@@ -98,7 +98,7 @@ viewGlobalData pure dict =
             "2vw"
         , style
             "top"
-            "5vh"
+            "10vh"
         , style
             "white-space"
             "pre-line"
@@ -178,8 +178,8 @@ view_Areadata area onview =
             "color"
             pink
         , style
-            "font-weight"
-            "bold"
+            "text-align"
+            "center"
         , style
             "position"
             "absolute"
@@ -191,10 +191,13 @@ view_Areadata area onview =
             "10vh"
         , style
             "width"
-            "20vw"
+            "27vw"
         , style
             "white-space"
             "pre-line"
+        , style
+            "font-weight"
+            "bold"
         ]
         [ text
             (combineCPdata2String
@@ -215,14 +218,8 @@ disp_Onview onview =
             "color"
             pink
         , style
-            "font-weight"
-            "bold"
-        , style
             "position"
             "absolute"
-        , style
-            "font-size"
-            "large"
         , style
             "left"
             "70vw"
@@ -231,10 +228,16 @@ disp_Onview onview =
             "5vh"
         , style
             "width"
-            "20vw"
+            "27vw"
         , style
             "white-space"
             "pre-line"
+        , style
+            "font-weight"
+            "bold"
+        , style
+            "text-align"
+            "center"
         ]
         [ text
             (if onview == "init" then
@@ -366,13 +369,13 @@ show_PauseInfo =
             "large"
         , style
             "left"
-            "75vw"
+            "70vw"
         , style
             "top"
             "90vh"
         , style
             "width"
-            "20vw"
+            "30vw"
         , style
             "white-space"
             "pre-line"
@@ -402,7 +405,7 @@ show_DeadInfo state =
             "2vw"
         , style
             "top"
-            "0vh"
+            "5vh"
         , style
             "white-space"
             "pre-line"
@@ -434,7 +437,7 @@ viewMovingCR info =
             "0vw"
         , style
             "top"
-            "50vh"
+            "60vh"
         , style
             "width"
             "20vw"

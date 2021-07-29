@@ -86,8 +86,8 @@ loadHtmlMsg loadInfo =
         ]
 
 
-pauseHtmlMsg : Html Msg
-pauseHtmlMsg =
+pauseHtmlMsg : String -> Html Msg
+pauseHtmlMsg st =
     div
         [ HtmlAttr.style
             "width"
@@ -116,9 +116,6 @@ pauseHtmlMsg =
                 "left"
                 "50%"
             , HtmlAttr.style
-                "font-size"
-                "large"
-            , HtmlAttr.style
                 "transform"
                 "translate( -50%, -50%)"
             , HtmlAttr.style
@@ -127,9 +124,15 @@ pauseHtmlMsg =
             , HtmlAttr.style
                 "white-space"
                 "pre-line"
+            , HtmlAttr.style
+                "width"
+                "80vw"
+            , HtmlAttr.style
+                "color"
+                "white"
             ]
-            [ text "Pause"
-            , text "\nPress Space to continue\nPress R to restart"
+            [ text "\nPress Space to continue\nPress R to restart\n"
+            , text st
             , p []
                 [ button
                     [ HtmlEvent.onClick
@@ -155,3 +158,31 @@ pauseHtmlMsg =
                 ]
             ]
         ]
+
+
+storyShow : String -> Html Msg
+storyShow story =
+    div
+        [ HtmlAttr.style
+            "width"
+            "27vw"
+        , HtmlAttr.style
+            "height"
+            "50vh"
+        , HtmlAttr.style
+            "left"
+            "70%"
+        , HtmlAttr.style
+            "top"
+            "20%"
+        , HtmlAttr.style
+            "text-align"
+            "left"
+        , HtmlAttr.style
+            "position"
+            "absolute"
+        , HtmlAttr.style
+            "white-space"
+            "pre-line"
+        ]
+        [ text story ]

@@ -18,57 +18,42 @@ type alias GameData =
     , area : Dict String Area
     , helpText : Dict String HelpText
     , gameInfo : GameInfo
+    , story : List String
     }
 
 
 initGameData : GameData
 initGameData =
-    let
-        newInfoCP =
-            initCPdata
-
-        newGlobalCP =
-            initPureCPdata
-
-        newAllCR =
-            initCRdata
-
-        newArea =
-            initArea
-
-        newHelpText =
-            initHelpText
-
-        newGameInfo =
-            initGameInfo
-    in
     { infoCP =
         Dict.singleton
-            newInfoCP.name
-            newInfoCP
+            initCPdata.name
+            initCPdata
     , globalCP =
         Dict.singleton
-            newGlobalCP.name
-            newGlobalCP
+            initPureCPdata.name
+            initPureCPdata
     , allCR =
         Dict.singleton
-            newAllCR.name
-            newAllCR
+            initCRdata.name
+            initCRdata
     , area =
         Dict.singleton
-            newArea.name
-            newArea
+            initArea.name
+            initArea
     , helpText =
         Dict.singleton
-            newHelpText.name
-            newHelpText
-    , gameInfo = newGameInfo
+            initHelpText.name
+            initHelpText
+    , gameInfo =
+        initGameInfo
+    , story =
+        [ "" ]
     }
 
 
 dGameData : Decoder GameData
 dGameData =
-    map6 GameData
+    map7 GameData
         (field
             "CP"
             decoder_CPdata
@@ -92,6 +77,12 @@ dGameData =
         (field
             "winningMsg"
             decoderGameInfo
+        )
+        (field
+            "story"
+            (Json.Decode.list
+                Json.Decode.string
+            )
         )
 
 
@@ -151,5 +142,10 @@ encodeGameData data =
         , ( "winningMsg"
           , encodeGameInfo
                 data.gameInfo
+          )
+        , ( "story"
+          , Json.Encode.list
+                Json.Encode.string
+                data.story
           )
         ]

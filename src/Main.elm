@@ -3,6 +3,7 @@ module Main exposing (main)
 import Browser exposing (element)
 import Browser.Events exposing (onAnimationFrameDelta, onClick, onKeyDown)
 import Browser.Navigation exposing (load)
+import Dict exposing (..)
 import Html exposing (..)
 import Html.Attributes as HtmlAttr exposing (..)
 import Html.Events as HtmlEvent exposing (..)
@@ -41,7 +42,7 @@ main =
         , view =
             view
         , update =
-            update
+            Model.update
         , subscriptions =
             subscriptions
         }
@@ -59,6 +60,13 @@ view model =
 
         Pause ->
             pauseHtmlMsg
+                (String.concat
+                    (List.map (\( x, y ) -> x ++ ":" ++ y.text ++ "\n")
+                        (Dict.toList
+                            model.data.helpText
+                        )
+                    )
+                )
 
         _ ->
             runningHtmlMsg

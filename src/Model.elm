@@ -1,6 +1,7 @@
 module Model exposing (..)
 
 import Area exposing (..)
+import Array exposing (..)
 import CmdMsg exposing (..)
 import Dict exposing (Dict)
 import GameData exposing (GameData, getPureCPdataByName, initGameData)
@@ -16,6 +17,11 @@ import Svg.Attributes as SvgAttr exposing (restart)
 import ToSaving exposing (..)
 import Update exposing (..)
 import View exposing (..)
+
+
+timeChange : Float
+timeChange =
+    1000
 
 
 type alias Model =
@@ -63,7 +69,7 @@ runningHtmlMsg model =
             "center"
         , HtmlAttr.style
             "background"
-            "rgb(0,191,255)"
+            "rgb(0,191,230)"
         ]
         [ div
             [ HtmlAttr.style
@@ -77,7 +83,7 @@ runningHtmlMsg model =
                 "translate(-50%,-50%)"
             , HtmlAttr.style
                 "left"
-                "50%"
+                "45%"
             , HtmlAttr.style
                 "top"
                 "50%"
@@ -116,13 +122,10 @@ runningHtmlMsg model =
             model.onviewArea
         , disp_Onview
             model.onviewArea
-
-        --, text (Debug.toString model.data.area)
-        -- , text (Debug.toString model.time)
-        --, text
-        --    (Debug.toString
-        --        model.data.area
-        --    )
+        , storyShow
+            (getStory
+                model
+            )
         , show_PauseInfo
         , show_DeadInfo
             model.state
@@ -140,6 +143,15 @@ runningHtmlMsg model =
                 "pause"
             ]
         ]
+
+
+getStory : Model -> String
+getStory model =
+    if model.time <= 5000 then
+        Maybe.withDefault "" (Array.get 0 (Array.fromList model.data.story))
+
+    else
+        Maybe.withDefault (Maybe.withDefault "" (Array.get 0 (Array.fromList model.data.story))) (Array.get 1 (Array.fromList model.data.story))
 
 
 updateGotTextOK : String -> Model -> ( Model, Cmd Msg )
@@ -345,13 +357,13 @@ runningUpdate time model =
             }
 
         newmodel2 =
-            if newmodel1.time >= 4000 then
+            if newmodel1.time >= timeChange then
                 { newmodel1
                     | data =
                         updateData
                             newmodel1.data
                     , time =
-                        newmodel1.time - 4000
+                        newmodel1.time - timeChange
                 }
 
             else
