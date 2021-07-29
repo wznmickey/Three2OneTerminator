@@ -3,37 +3,37 @@
         "Health threat drop": {
             "type": "Local",
             "effect": {
-                "Health threat drop": 1,
-                "Citizen trust": 1.2,
-                "External safety": 1.5,
-                "Disposable Money": 1.7
+                "Health threat drop": 0,
+                "Citizen trust": 0,
+                "External safety": 0,
+                "Disposable Money": 0
             }
         },
         "Citizen trust": {
             "type": "Global",
             "effect": {
-                "Health threat drop": 1,
-                "Citizen trust": 1,
-                "External safety": 1.6,
-                "Disposable Money": 1.4
+                "Health threat drop": 0,
+                "Citizen trust": 0,
+                "External safety": 0,
+                "Disposable Money": 0
             }
         },
         "External safety": {
             "type": "Global",
             "effect": {
-                "Health threat drop": 1,
-                "Citizen trust": 1.6,
-                "External safety": 1.1,
-                "Disposable Money": 1.3
+                "Health threat drop": 0,
+                "Citizen trust": 0,
+                "External safety": 0,
+                "Disposable Money": 0
             }
         },
         "Disposable Money": {
             "type": "Global",
             "effect": {
-                "Health threat drop": 1,
-                "Citizen trust": 1.4,
-                "External safety": 1.3,
-                "Disposable Money": 1
+                "Health threat drop": 0,
+                "Citizen trust": 0,
+                "External safety": 0,
+                "Disposable Money": 0
             }
         }
     },

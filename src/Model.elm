@@ -69,7 +69,7 @@ runningHtmlMsg model =
             "center"
         , HtmlAttr.style
             "background"
-            "rgb(0,191,230)"
+            "rgb(173, 216, 230)"
         ]
         [ div
             [ HtmlAttr.style
