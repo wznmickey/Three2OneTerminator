@@ -12,6 +12,11 @@ import Svg.Events as SvgEvent
 import SvgMsg exposing (..)
 
 
+assetURL : String
+assetURL =
+    "asset/"
+
+
 showButtons : ( Float, Float ) -> ( Float, Float ) -> List ( String, Msg, Float ) -> Html Msg
 showButtons ( w, h ) ( l, t ) x =
     div
@@ -75,10 +80,10 @@ startHtmlMsg =
     div
         [ HtmlAttr.style
             "width"
-            "95vw"
+            "100vw"
         , HtmlAttr.style
             "height"
-            "95vh"
+            "100vh"
         , HtmlAttr.style
             "left"
             "0"
@@ -89,18 +94,56 @@ startHtmlMsg =
             "text-align"
             "center"
         ]
-        [ showButtons
+        [ img
+            [ HtmlAttr.src (assetURL ++ "game.png")
+            , HtmlAttr.style
+                "height"
+                "20vh"
+            , HtmlAttr.style
+            "transform"
+            "translate(-50%,-50%)"
+            ,HtmlAttr.style
+            "top"
+            "15%",
+            HtmlAttr.style
+            "left"
+            "50%",
+            HtmlAttr.style
+            "position"
+            "absolute"
+            ]
+            [],
+            img
+            [ HtmlAttr.src (assetURL ++ "logo.svg")
+            , HtmlAttr.style
+                "height"
+                "30vh"
+            , HtmlAttr.style
+            "transform"
+            "translate(-50%,-50%)"
+            ,HtmlAttr.style
+            "top"
+            "45%",
+            HtmlAttr.style
+            "left"
+            "50%",
+            HtmlAttr.style
+            "position"
+            "absolute"
+            ]
+            []
+        , showButtons
             ( 20, 10 )
             ( 50, 70 )
-            [ ( "Upload file"
+            [ ( "From Mod/Save"
               , Msg.UploadFile
                     FileRequested
-              , 3
+              , 2.4
               )
             , ( "Quick start"
               , Msg.Clickon
                     LoadDefault
-              , 3
+              , 2.4
               )
             ]
         ]
@@ -111,10 +154,10 @@ loadHtmlMsg loadInfo =
     div
         [ HtmlAttr.style
             "width"
-            "95vw"
+            "100vw"
         , HtmlAttr.style
             "height"
-            "95vh"
+            "100vh"
         , HtmlAttr.style
             "left"
             "0"
@@ -130,15 +173,15 @@ loadHtmlMsg loadInfo =
         , showButtons
             ( 20, 10 )
             ( 50, 70 )
-            [ ( "Upload file"
+            [ ( "From Mod/Save"
               , Msg.UploadFile
                     FileRequested
-              , 3
+              , 2.4
               )
             , ( "Quick start"
               , Msg.Clickon
                     LoadDefault
-              , 3
+              , 2.4
               )
             ]
         ]

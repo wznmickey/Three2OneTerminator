@@ -60,7 +60,7 @@ view model =
         Pause ->
             pauseHtmlMsg 
                 (String.concat
-                    (List.map (\( x, y ) -> x ++ ":" ++ y.text ++ "\n")
+                    (List.map (\( x, y ) -> x ++ " : " ++ y.text ++ "\n")
                         (Dict.toList
                             model.data.helpText
                         )

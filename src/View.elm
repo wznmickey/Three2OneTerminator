@@ -23,8 +23,6 @@ pink =
     "rgb(157, 99, 110)"
 
 
-
-
 viewUnitArea : ( String, Float, Float ) -> Area -> Svg Msg
 viewUnitArea ( cp, max, min ) unitArea =
     let

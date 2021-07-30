@@ -40,7 +40,7 @@ button showText msg x y size =
                 )
             , SvgAttr.y
                 (String.fromFloat
-                    (7 + y)
+                    (6.5 + y)
                 )
             , SvgAttr.fontSize
                 (String.fromFloat
