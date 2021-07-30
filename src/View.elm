@@ -434,7 +434,7 @@ viewMovingCR info =
             "absolute"
         , style
             "left"
-            "0vw"
+            "2vw"
         , style
             "top"
             "60vh"
