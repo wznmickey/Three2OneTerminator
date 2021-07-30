@@ -1,0 +1,183 @@
+{
+    "CP": {
+        "Health threat drop": {
+            "type": "Local",
+            "effect": {
+                "Health threat drop": 0,
+                "Citizen trust": 0,
+                "External safety": 0,
+                "Disposable Money": 0
+            }
+        },
+        "Citizen trust": {
+            "type": "Global",
+            "effect": {
+                "Health threat drop": 0,
+                "Citizen trust": 0,
+                "External safety": 0,
+                "Disposable Money": 0
+            }
+        },
+        "External safety": {
+            "type": "Global",
+            "effect": {
+                "Health threat drop": 0,
+                "Citizen trust": 0,
+                "External safety": 0,
+                "Disposable Money": 0
+            }
+        },
+        "Disposable Money": {
+            "type": "Global",
+            "effect": {
+                "Health threat drop": 0,
+                "Citizen trust": 0,
+                "External safety": 0,
+                "Disposable Money": 0
+            }
+        }
+    },
+    "globalCP": {
+        "Citizen trust": 10,
+        "External safety": 5,
+        "Disposable Money": 2
+    },
+    "CR": {
+        "Doctor": {
+            "location": "Gotham",
+            "effect": {
+                "Health threat drop": 4,
+                "Citizen trust": 2,
+                "External safety": 3,
+                "Disposable Money": 2
+            },
+            "placeX": 5,
+            "placeY": -5,
+            "color": "yellow"
+        },
+        "Police": {
+            "location": "BomBay",
+            "effect": {
+                "Health threat drop": 7,
+                "Citizen trust": 6,
+                "External safety": 8,
+                "Disposable Money": 9
+            },
+            "placeX": -5,
+            "placeY": -5,
+            "color": "red"
+        },
+        "Medicine": {
+            "location": "GassVille",
+            "effect": {
+                "Health threat drop": 1,
+                "Citizen trust": 1,
+                "External safety": 1,
+                "Disposable Money": 1
+            },
+            "placeX": 5,
+            "placeY": 5,
+            "color": "rgb(125,130,198)"
+        },
+        "Volunteer": {
+            "location": "Burnley",
+            "effect": {
+                "Health threat drop": 13,
+                "Citizen trust": 12,
+                "External safety": 14,
+                "Disposable Money": 15
+            },
+            "placeX": -5,
+            "placeY": 5,
+            "color": "green"
+        }
+    },
+    "area": {
+        "Gotham": {
+            "location": 1,
+            "effect": {
+                "Health threat drop": 4.3,
+                "Citizen trust": 2.5,
+                "External safety": 3.3,
+                "Disposable Money": -2.9
+            },
+            "init": {
+                "Health threat drop": 20.4
+            },
+            "path": "M56 95 L 67 100 L 59 126 L 60 135 L 56 140 L 10 102 Z",
+            "centerX": 47,
+            "centerY": 113
+        },
+        "BomBay": {
+            "location": 2,
+            "effect": {
+                "Health threat drop": 8.4,
+                "Citizen trust": 6.2,
+                "External safety": -8.4,
+                "Disposable Money": 9.6
+            },
+            "init": {
+                "Health threat drop": 12.7
+            },
+            "path": "M80 30 L 132 40 L 138 120 L 100 100 L 59 126 L 67 100 L 56 95 Z",
+            "centerX": 80,
+            "centerY": 90
+        },
+        "GassVille": {
+            "location": 3,
+            "effect": {
+                "Health threat drop": 1.1,
+                "Citizen trust": -1.2,
+                "External safety": 2.3,
+                "Disposable Money": 1.6
+            },
+            "init": {
+                "Health threat drop": 30.7
+            },
+            "path": "M56 140 L 60 135 L 59 126 L 100 100 L 138 120 L 130 136 L 136 145 L 105 135 Z",
+            "centerX": 110,
+            "centerY": 120
+        },
+        "Burnley": {
+            "location": 4,
+            "effect": {
+                "Health threat drop": 13.6,
+                "Citizen trust": 12.4,
+                "External safety": -14.4,
+                "Disposable Money": 15.6
+            },
+            "init": {
+                "Health threat drop": 5.3
+            },
+            "path": "M10 10 L 30 20  L 45 15 L 80 30 L 56 95 L 10 102 L 25 56 Z",
+            "centerX": 35,
+            "centerY": 33
+        }
+    },
+    "helpText": {
+        "Health threat drop": "The disarmed Health threat, to which increase of Disposable Money is most conducive",
+        "Citizen trust": "The faith citizens in an area have in its governor, to which increase of External Safety is most conducive",
+        "External safety": "The safety guaranteed of the personnel and material inflow, to which Disposable Money is most conducive",
+        "Disposable Money": "The financial aid the government can offer to the medical institute, to which Citizen trust is most conducive",
+        "Doctor": "The initial maximum capacity of material support area 1 can offer to others",
+        "Police": "The initial maximum capacity of material support area 2 can offer to others",
+        "Medicine": "The initial maximum capacity of material support area 3 can offer to others",
+        "Volunteer": "The initial maximum capacity of material support area 4 can offer to others",
+        "Gotham": "The capital located in the central area, with second init CR and third material to control points transformation efficiency",
+        "BomBay": "The satellite town of the capital, with third init CR and second material to control points transformation efficiency",
+        "GassVille": "southeast coastal metropolis, with highest init CR but lowest material to control points transformation efficiency",
+        "Burnley": "Northwest deserted area, with lowest init CR but highest material to control points transformation efficiency",
+        "rule": "The game ends when you make any of the CP decrease to 0."
+    },
+    "winningMsg": {
+        "LocalCP": "Health threat drop",
+        "GlobalCP": "Disposable Money",
+        "winning": 100000,
+        "losing": 0,
+        "max": 1000,
+        "min": 0
+    },
+    "story": [
+        "Gotham is located in the downtown area of the city, just like the capital of a country, highly developed and helpful. Bombay is Gotham's \"Satellite district\", geographically and interactively, thus the CR exchanging between those two district is particularly efficient! GassVille is located in the most developed Southeast coastal area, boasting highest initial CP but has underwent a long period of misgovernment and its improper import&Export policies. Finally, Burnley is in the most deserted and least developed Northwest corner in contrast to the diligence of its citizens hence the premium exports.\n Remember: transferred CR both increase and DECREASE the CP in each area at a certain high or low ratio. The occurrence conditions of this risk is left to you to discover, and whether to play it safe to take the risk, it’s all up to you! Try to survive as long as possible, baby let the game begin!"
+    ]
+}

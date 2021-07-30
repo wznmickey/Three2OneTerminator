@@ -1,0 +1,153 @@
+{
+    "CP": {
+        "Core Course Term GPA": {
+            "type": "Global",
+            "effect": {
+                "Core Course Term GPA": 1,
+                "Science literacy and capability": 1.3,
+                "Interpersonal Popularity": 1.4,
+                "Self Pursuits Fulfillment": 1.8
+            }
+        },
+        "Science literacy and capability": {
+            "type": "Local",
+            "effect": {
+                "Core Course Term GPA": 1,
+                "Science literacy and capability": 1,
+                "Interpersonal Popularity": 5.4,
+                "Self Pursuits Fulfillment": 3.7
+            }
+        },
+        "Interpersonal Popularity": {
+            "type": "Local",
+            "effect": {
+                "Core Course Term GPA": 1,
+                "Science literacy and capability": 2.4,
+                "Interpersonal Popularity": 1,
+                "Self Pursuits Fulfillment": 3.9
+            }
+        },
+        "Self Pursuits Fulfillment": {
+            "type": "Local",
+            "effect": {
+                "Core Course Term GPA": 1,
+                "Science literacy and capability": 2.1,
+                "Interpersonal Popularity": 1.5,
+                "Self Pursuits Fulfillment": 1
+            }
+        }
+    },
+    "globalCP": {
+        "Core Course Term GPA": 4
+    },
+    "CR": {
+        "academic purposes": {
+            "location": "Humanistic courses",
+            "effect": {
+                "Core Course Term GPA": 1,
+                "Science literacy and capability": 2,
+                "Interpersonal Popularity": 5,
+                "Self Pursuits Fulfillment": 3
+            }
+        },
+        "social contact": {
+            "location": "Core courses",
+            "effect": {
+                "Core Course Term GPA": 1,
+                "Science literacy and capability": 2,
+                "Interpersonal Popularity": 5,
+                "Self Pursuits Fulfillment": 3
+            }
+        },
+        "family life": {
+            "location": "Preliminary courses",
+            "effect": {
+                "Core Course Term GPA": 1,
+                "Science literacy and capability": 2,
+                "Interpersonal Popularity": 5,
+                "Self Pursuits Fulfillment": 3
+            }
+        },
+        "recreation and resting": {
+            "location": "Extracurricular Life",
+            "effect": {
+                "Core Course Term GPA": 1,
+                "Science literacy and capability": 2,
+                "Interpersonal Popularity": 5,
+                "Self Pursuits Fulfillment": 3
+            }
+        }
+    },
+    "area": {
+        "Preliminary courses": {
+            "location": 1,
+            "effect": {
+                "Core Course Term GPA": 1.3,
+                "Science literacy and capability": 2,
+                "Interpersonal Popularity": 5,
+                "Self Pursuits Fulfillment": 3
+            },
+            "init": {
+                "Science literacy and capability": 2,
+                "Interpersonal Popularity": 5,
+                "Self Pursuits Fulfillment": 3
+            }
+        },
+        "Core courses": {
+            "location": 2,
+            "effect": {
+                "Core Course Term GPA": 1.2,
+                "Science literacy and capability": 2,
+                "Interpersonal Popularity": 5,
+                "Self Pursuits Fulfillment": 3
+            },
+            "init": {
+                "Science literacy and capability": 2,
+                "Interpersonal Popularity": 5,
+                "Self Pursuits Fulfillment": 3
+            }
+        },
+        "Humanistic courses": {
+            "location": 3,
+            "effect": {
+                "Core Course Term GPA": 1.2,
+                "Science literacy and capability": 2,
+                "Interpersonal Popularity": 5,
+                "Self Pursuits Fulfillment": 3
+            },
+            "init": {
+                "Science literacy and capability": 2,
+                "Interpersonal Popularity": 5,
+                "Self Pursuits Fulfillment": 3
+            }
+        },
+        "Extracurricular Life": {
+            "location": 4,
+            "effect": {
+                "Core Course Term GPA": 0.8,
+                "Science literacy and capability": 2,
+                "Interpersonal Popularity": 5,
+                "Self Pursuits Fulfillment": 3
+            },
+            "init": {
+                "Science literacy and capability": 2,
+                "Interpersonal Popularity": 5,
+                "Self Pursuits Fulfillment": 3
+            }
+        }
+    },
+    "helpText": {
+        "Self Pursuits Fulfillment": "An all-around evaluation of how much you have fulfilled your pursuits or overcome your shortcomings in all aspects",
+        "Science literacy and capability": "Index showing how much you have benefited from the engineering courses and displayed good quality in scientific terms",
+        "Interpersonal Popularity and commitment": "How well you handled your friendship, professional cooperation and romantic relationship with your partner if any",
+        "Core Course Term GPA": "Literally the GPA or ranking you have achieved in a specific course over the term",
+        "academic purposes": "Attending lectures, studying the course contents, preparing for exams",
+        "social contact": "Joining activities on and off campus, meeting new friends or getting to know professional figures for your future.",
+        "family life": "Going back home to visit your family if there's opportunity, contacting parents or choosing gift for gamily members.",
+        "recreation and resting": "Time spent in Gaming, sports,workout,chilling,chatting,watching Tv shows and films all counts",
+        "Humanistic courses": "A component of your term life regarding Humanistic courses studying",
+        "Core courses": "A component of your term life regarding Core courses studying such as mathematics or engineering-related courses",
+        "Preliminary courses": "A component of your term life regarding your internship at Silverfocs or other companies",
+        "Extracurricular Life": "A component of your term life regarding Extracurricular activities"
+    }
+}
