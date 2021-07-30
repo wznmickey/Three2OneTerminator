@@ -5625,7 +5625,7 @@ var $author$project$Model$initModel = A8(
 	'modInfo',
 	'Init',
 	'init',
-	0,
+	_Utils_Tuple2(0, 0),
 	$author$project$Msg$init_onMovingCR,
 	_List_fromArray(
 		['CR MOVED:']));
@@ -6358,12 +6358,12 @@ var $elm$core$List$take = F2(
 	});
 var $author$project$View$update_CRMovinginfo = function (old) {
 	return _Utils_ap(
-		A2($elm$core$List$take, 4, old),
+		A2($elm$core$List$take, 2, old),
 		_List_fromArray(
 			['CR MOVED:']));
 };
 var $author$project$View$filter_CRMovinginfo = function (crMovingInfo) {
-	return ($elm$core$List$length(crMovingInfo) >= 5) ? $author$project$View$update_CRMovinginfo(crMovingInfo) : crMovingInfo;
+	return ($elm$core$List$length(crMovingInfo) >= 3) ? $author$project$View$update_CRMovinginfo(crMovingInfo) : crMovingInfo;
 };
 var $author$project$Update$setCRlocation = F2(
 	function (to, from) {
@@ -8056,12 +8056,14 @@ var $author$project$Model$runningUpdate = F2(
 	function (time, model) {
 		var newmodel1 = _Utils_update(
 			model,
-			{time: model.time + time});
-		var newmodel2 = (_Utils_cmp(newmodel1.time, $author$project$Model$timeChange) > -1) ? _Utils_update(
+			{
+				time: _Utils_Tuple2(model.time.a + time, model.time.b + time)
+			});
+		var newmodel2 = (_Utils_cmp(newmodel1.time.a, $author$project$Model$timeChange) > -1) ? _Utils_update(
 			newmodel1,
 			{
 				data: $author$project$Update$updateData(newmodel1.data),
-				time: newmodel1.time - $author$project$Model$timeChange
+				time: _Utils_Tuple2(newmodel1.time.a - $author$project$Model$timeChange, newmodel1.time.b)
 			}) : newmodel1;
 		var newmodel3 = _Utils_update(
 			newmodel2,
@@ -8422,17 +8424,17 @@ var $author$project$HtmlMsg$pauseHtmlMsg = function (st) {
 				$elm$html$Html$p,
 				_List_fromArray(
 					[
-						A2($elm$html$Html$Attributes$style, 'top', '50%'),
+						A2($elm$html$Html$Attributes$style, 'top', '45%'),
 						A2($elm$html$Html$Attributes$style, 'left', '50%'),
 						A2($elm$html$Html$Attributes$style, 'transform', 'translate( -50%, -50%)'),
 						A2($elm$html$Html$Attributes$style, 'position', 'absolute'),
 						A2($elm$html$Html$Attributes$style, 'white-space', 'pre-line'),
-						A2($elm$html$Html$Attributes$style, 'width', '80vw'),
+						A2($elm$html$Html$Attributes$style, 'width', '90vw'),
 						A2($elm$html$Html$Attributes$style, 'color', 'white')
 					]),
 				_List_fromArray(
 					[
-						$elm$html$Html$text('\nPress Space to continue\nPress R to restart\n'),
+						$elm$html$Html$text('Press Space to continue\nPress R to restart\n'),
 						$elm$html$Html$text(st),
 						A2(
 						$elm$html$Html$p,
@@ -8486,25 +8488,28 @@ var $author$project$View$disp_Onview = function (onview) {
 				(onview === 'init') ? '' : onview)
 			]));
 };
+var $elm$core$Basics$round = _Basics_round;
 var $author$project$Model$getStory = function (model) {
-	return (model.time <= 5000) ? A2(
-		$elm$core$Maybe$withDefault,
-		'',
+	var i = A2(
+		$elm$core$Debug$log,
+		'1',
 		A2(
-			$elm$core$Array$get,
+			$elm$core$Basics$max,
 			0,
-			$elm$core$Array$fromList(model.data.story))) : A2(
+			($elm$core$Basics$round(model.time.b) / 10000) | 0));
+	return A2(
 		$elm$core$Maybe$withDefault,
 		A2(
 			$elm$core$Maybe$withDefault,
 			'',
 			A2(
 				$elm$core$Array$get,
-				0,
+				$elm$core$Array$length(
+					$elm$core$Array$fromList(model.data.story)) - 1,
 				$elm$core$Array$fromList(model.data.story))),
 		A2(
 			$elm$core$Array$get,
-			1,
+			i,
 			$elm$core$Array$fromList(model.data.story)));
 };
 var $author$project$View$show_DeadInfo = function (state) {
@@ -8547,9 +8552,8 @@ var $author$project$HtmlMsg$storyShow = function (story) {
 		_List_fromArray(
 			[
 				A2($elm$html$Html$Attributes$style, 'width', '27vw'),
-				A2($elm$html$Html$Attributes$style, 'height', '50vh'),
 				A2($elm$html$Html$Attributes$style, 'left', '70%'),
-				A2($elm$html$Html$Attributes$style, 'top', '20%'),
+				A2($elm$html$Html$Attributes$style, 'top', '40%'),
 				A2($elm$html$Html$Attributes$style, 'text-align', 'left'),
 				A2($elm$html$Html$Attributes$style, 'position', 'absolute'),
 				A2($elm$html$Html$Attributes$style, 'white-space', 'pre-line')
