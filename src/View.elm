@@ -484,7 +484,7 @@ combineList_2String toCombine =
 
 filter_CRMovinginfo : List String -> List String
 filter_CRMovinginfo crMovingInfo =
-    if List.length crMovingInfo >= 5 then
+    if List.length crMovingInfo >= 3 then
         update_CRMovinginfo
             crMovingInfo
 
@@ -495,6 +495,6 @@ filter_CRMovinginfo crMovingInfo =
 update_CRMovinginfo : List String -> List String
 update_CRMovinginfo old =
     List.take
-        4
+        2
         old
         ++ [ "CR MOVED:" ]

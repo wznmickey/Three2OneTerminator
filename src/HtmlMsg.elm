@@ -100,36 +100,36 @@ startHtmlMsg =
                 "height"
                 "20vh"
             , HtmlAttr.style
-            "transform"
-            "translate(-50%,-50%)"
-            ,HtmlAttr.style
-            "top"
-            "15%",
-            HtmlAttr.style
-            "left"
-            "50%",
-            HtmlAttr.style
-            "position"
-            "absolute"
+                "transform"
+                "translate(-50%,-50%)"
+            , HtmlAttr.style
+                "top"
+                "15%"
+            , HtmlAttr.style
+                "left"
+                "50%"
+            , HtmlAttr.style
+                "position"
+                "absolute"
             ]
-            [],
-            img
+            []
+        , img
             [ HtmlAttr.src (assetURL ++ "logo.svg")
             , HtmlAttr.style
                 "height"
                 "30vh"
             , HtmlAttr.style
-            "transform"
-            "translate(-50%,-50%)"
-            ,HtmlAttr.style
-            "top"
-            "45%",
-            HtmlAttr.style
-            "left"
-            "50%",
-            HtmlAttr.style
-            "position"
-            "absolute"
+                "transform"
+                "translate(-50%,-50%)"
+            , HtmlAttr.style
+                "top"
+                "45%"
+            , HtmlAttr.style
+                "left"
+                "50%"
+            , HtmlAttr.style
+                "position"
+                "absolute"
             ]
             []
         , showButtons
@@ -212,7 +212,7 @@ pauseHtmlMsg st =
         [ p
             [ HtmlAttr.style
                 "top"
-                "50%"
+                "45%"
             , HtmlAttr.style
                 "left"
                 "50%"
@@ -227,12 +227,12 @@ pauseHtmlMsg st =
                 "pre-line"
             , HtmlAttr.style
                 "width"
-                "80vw"
+                "90vw"
             , HtmlAttr.style
                 "color"
                 "white"
             ]
-            [ Html.text "\nPress Space to continue\nPress R to restart\n"
+            [ Html.text "Press Space to continue\nPress R to restart\n"
             , Html.text st
             , p []
                 [ showButtons
@@ -266,14 +266,11 @@ storyShow story =
             "width"
             "27vw"
         , HtmlAttr.style
-            "height"
-            "50vh"
-        , HtmlAttr.style
             "left"
             "70%"
         , HtmlAttr.style
             "top"
-            "20%"
+            "40%"
         , HtmlAttr.style
             "text-align"
             "left"
@@ -282,6 +279,5 @@ storyShow story =
             "absolute"
         , HtmlAttr.style
             "white-space"
-            "pre-line"
-        ]
+            "pre-line"        ]
         [ Html.text story ]

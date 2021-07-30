@@ -163,7 +163,7 @@
         "Police": "The initial maximum capacity of material support area 2 can offer to others",
         "Medicine": "The initial maximum capacity of material support area 3 can offer to others",
         "Volunteer": "The initial maximum capacity of material support area 4 can offer to others",
-        "Gotham": "The capital located in the central area, with second init CR and third material to control points transformation efficiency",
+        "Gotham": "The capital located in the central area, with and third material to control points transformation efficiency",
         "BomBay": "The satellite town of the capital, with third init CR and second material to control points transformation efficiency",
         "GassVille": "southeast coastal metropolis, with highest init CR but lowest material to control points transformation efficiency",
         "Burnley": "Northwest deserted area, with lowest init CR but highest material to control points transformation efficiency",
@@ -178,6 +178,8 @@
         "min": 0
     },
     "story": [
-        "Gotham is located in the downtown area of the city, just like the capital of a country, highly developed and helpful. Bombay is Gotham's \"Satellite district\", geographically and interactively, thus the CR exchanging between those two district is particularly efficient! GassVille is located in the most developed Southeast coastal area, boasting highest initial CP but has underwent a long period of misgovernment and its improper import&Export policies. Finally, Burnley is in the most deserted and least developed Northwest corner in contrast to the diligence of its citizens hence the premium exports.\n Remember: transferred CR both increase and DECREASE the CP in each area at a certain high or low ratio. The occurrence conditions of this risk is left to you to discover, and whether to play it safe to take the risk, it’s all up to you! Try to survive as long as possible, baby let the game begin!"
+        "Gotham is located in the downtown area of the city, just like the capital of a country, highly developed and helpful. Bombay is Gotham's \"Satellite district\", geographically and interactively, thus the CR exchanging between those two district is particularly efficient!",
+        "GassVille is located in the most developed Southeast coastal area, boasting highest initial CP but has underwent a long period of misgovernment and its improper import & Export policies. Finally, Burnley is in the most deserted and least developed Northwest corner in contrast to the diligence of its citizens hence the premium exports.",
+        "Remember: transferred CR both increase and DECREASE the CP in each area at a certain high or low ratio. The occurrence conditions of this risk is left to you to discover, and whether to play it safe to take the risk, it's all up to you! Try to survive as long as possible, baby let the game begin!"
     ]
 }

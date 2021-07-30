@@ -30,7 +30,7 @@ type alias Model =
     , modInfo : String
     , loadInfo : String
     , onviewArea : String
-    , time : Float
+    , time : ( Float, Float )
     , onMovingCR : OnMovingCR
     , cRmovingInfo : List String
     }
@@ -44,7 +44,7 @@ initModel =
         "modInfo"
         "Init"
         "init"
-        0
+        ( 0, 0 )
         init_onMovingCR
         [ "CR MOVED:" ]
 
@@ -136,19 +136,39 @@ runningHtmlMsg model =
         , HtmlMsg.showButtons
             ( 15, 15 )
             ( 45, 10 )
-            [ ( "pause", Msg.ToState Pause,5 )
-            , ( "help", Msg.ToState Pause,5 )
+            [ ( "pause", Msg.ToState Pause, 5 )
+            , ( "help", Msg.ToState Pause, 5 )
             ]
         ]
 
 
 getStory : Model -> String
 getStory model =
-    if model.time <= 5000 then
-        Maybe.withDefault "" (Array.get 0 (Array.fromList model.data.story))
-
-    else
-        Maybe.withDefault (Maybe.withDefault "" (Array.get 0 (Array.fromList model.data.story))) (Array.get 1 (Array.fromList model.data.story))
+    let
+        i =
+            Debug.log "1" (Basics.max 0 (round (Tuple.second (model.time)) // 10000))
+    in
+    Maybe.withDefault
+        (Maybe.withDefault
+            ""
+            (Array.get
+                (Array.length
+                    (Array.fromList
+                        model.data.story
+                    )
+                    - 1
+                )
+                (Array.fromList
+                    model.data.story
+                )
+            )
+        )
+        (Array.get
+            i
+            (Array.fromList
+                model.data.story
+            )
+        )
 
 
 updateGotTextOK : String -> Model -> ( Model, Cmd Msg )
@@ -350,17 +370,17 @@ runningUpdate time model =
         newmodel1 =
             { model
                 | time =
-                    model.time + time
+                    ( Tuple.first model.time + time, Tuple.second model.time + time )
             }
 
         newmodel2 =
-            if newmodel1.time >= timeChange then
+            if Tuple.first newmodel1.time >= timeChange then
                 { newmodel1
                     | data =
                         updateData
                             newmodel1.data
                     , time =
-                        newmodel1.time - timeChange
+                        ( Tuple.first newmodel1.time - timeChange, Tuple.second newmodel1.time )
                 }
 
             else
