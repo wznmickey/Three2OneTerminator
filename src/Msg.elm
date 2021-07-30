@@ -27,14 +27,15 @@ type State
     | Loading
     | Running
     | Pause
-    | End
+    | Lose
+    | Win
 
 
 type KeyInfo
     = Space
     | R
     | NotCare
-    | H 
+    | H
 
 
 type Element

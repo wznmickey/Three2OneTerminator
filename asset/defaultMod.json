@@ -3,53 +3,53 @@
         "Health threat drop": {
             "type": "Local",
             "effect": {
-                "Health threat drop": 0,
-                "Citizen trust": 0,
-                "External safety": 0,
-                "Disposable Money": 0
+                "Health threat drop": 0.02,
+                "Citizen trust": 0.06,
+                "External safety": 0.03,
+                "Disposable Money": -0.03
             }
         },
         "Citizen trust": {
             "type": "Global",
             "effect": {
-                "Health threat drop": 0,
-                "Citizen trust": 0,
-                "External safety": 0,
-                "Disposable Money": 0
+                "Health threat drop": 0.03,
+                "Citizen trust": -0.1,
+                "External safety": 0.03,
+                "Disposable Money": -0.03
             }
         },
         "External safety": {
             "type": "Global",
             "effect": {
-                "Health threat drop": 0,
-                "Citizen trust": 0,
-                "External safety": 0,
-                "Disposable Money": 0
+                "Health threat drop": -0.02,
+                "Citizen trust": -0.06,
+                "External safety": -0.05,
+                "Disposable Money": 0.02
             }
         },
         "Disposable Money": {
             "type": "Global",
             "effect": {
-                "Health threat drop": 0,
-                "Citizen trust": 0,
-                "External safety": 0,
-                "Disposable Money": 0
+                "Health threat drop": -0.05,
+                "Citizen trust": 0.06,
+                "External safety": -0.04,
+                "Disposable Money": -0.03
             }
         }
     },
     "globalCP": {
-        "Citizen trust": 10,
-        "External safety": 5,
-        "Disposable Money": 2
+        "Citizen trust": 140,
+        "External safety": 150,
+        "Disposable Money": 160
     },
     "CR": {
         "Doctor": {
             "location": "Gotham",
             "effect": {
-                "Health threat drop": 4,
-                "Citizen trust": 2,
-                "External safety": 3,
-                "Disposable Money": 2
+                "Health threat drop": 24,
+                "Citizen trust": 38,
+                "External safety": -6,
+                "Disposable Money": 32
             },
             "placeX": 5,
             "placeY": -5,
@@ -58,10 +58,10 @@
         "Police": {
             "location": "BomBay",
             "effect": {
-                "Health threat drop": 7,
-                "Citizen trust": 6,
-                "External safety": 8,
-                "Disposable Money": 9
+                "Health threat drop": 27,
+                "Citizen trust": -4,
+                "External safety": 34,
+                "Disposable Money": 22
             },
             "placeX": -5,
             "placeY": -5,
@@ -70,10 +70,10 @@
         "Medicine": {
             "location": "GassVille",
             "effect": {
-                "Health threat drop": 1,
-                "Citizen trust": 1,
-                "External safety": 1,
-                "Disposable Money": 1
+                "Health threat drop": 22,
+                "Citizen trust": 33,
+                "External safety": 21,
+                "Disposable Money": -5
             },
             "placeX": 5,
             "placeY": 5,
@@ -82,10 +82,10 @@
         "Volunteer": {
             "location": "Burnley",
             "effect": {
-                "Health threat drop": 13,
-                "Citizen trust": 12,
-                "External safety": 14,
-                "Disposable Money": 15
+                "Health threat drop": 32,
+                "Citizen trust": 22,
+                "External safety": 26,
+                "Disposable Money": -5
             },
             "placeX": -5,
             "placeY": 5,
@@ -96,10 +96,10 @@
         "Gotham": {
             "location": 1,
             "effect": {
-                "Health threat drop": 4.3,
-                "Citizen trust": 2.5,
-                "External safety": 3.3,
-                "Disposable Money": -2.9
+                "Health threat drop": -7,
+                "Citizen trust": 3,
+                "External safety": 12,
+                "Disposable Money": -9
             },
             "init": {
                 "Health threat drop": 20.4
@@ -111,10 +111,10 @@
         "BomBay": {
             "location": 2,
             "effect": {
-                "Health threat drop": 8.4,
-                "Citizen trust": 6.2,
-                "External safety": -8.4,
-                "Disposable Money": 9.6
+                "Health threat drop": 12,
+                "Citizen trust": 6,
+                "External safety": -5,
+                "Disposable Money": 9
             },
             "init": {
                 "Health threat drop": 12.7
@@ -126,10 +126,10 @@
         "GassVille": {
             "location": 3,
             "effect": {
-                "Health threat drop": 1.1,
-                "Citizen trust": -1.2,
-                "External safety": 2.3,
-                "Disposable Money": 1.6
+                "Health threat drop": 4,
+                "Citizen trust": -6,
+                "External safety": 9,
+                "Disposable Money": 5
             },
             "init": {
                 "Health threat drop": 30.7
@@ -141,13 +141,13 @@
         "Burnley": {
             "location": 4,
             "effect": {
-                "Health threat drop": 13.6,
-                "Citizen trust": 12.4,
-                "External safety": -14.4,
-                "Disposable Money": 15.6
+                "Health threat drop": 8,
+                "Citizen trust": 6,
+                "External safety": -4,
+                "Disposable Money": 2
             },
             "init": {
-                "Health threat drop": 5.3
+                "Health threat drop": 9.6
             },
             "path": "M10 10 L 30 20  L 45 15 L 80 30 L 56 95 L 10 102 L 25 56 Z",
             "centerX": 35,
@@ -155,25 +155,33 @@
         }
     },
     "helpText": {
-        "Health threat drop": "The disarmed Health threat, to which increase of Disposable Money is most conducive",
-        "Citizen trust": "The faith citizens in an area have in its governor, to which increase of External Safety is most conducive",
-        "External safety": "The safety guaranteed of the personnel and material inflow, to which Disposable Money is most conducive",
-        "Disposable Money": "The financial aid the government can offer to the medical institute, to which Citizen trust is most conducive",
-        "Doctor": "The initial maximum capacity of material support area 1 can offer to others",
-        "Police": "The initial maximum capacity of material support area 2 can offer to others",
-        "Medicine": "The initial maximum capacity of material support area 3 can offer to others",
-        "Volunteer": "The initial maximum capacity of material support area 4 can offer to others",
+        "Health threat drop": "The disarmed Health threat, making disposable money drop due to less fund",
+        "Citizen trust": "The faith citizens in an area have in its governor, citizen trust itself is constantly dropping and making disposable money dropping due to extravagancy",
+        "External safety": "The safety guaranteed of the personnel and material inflow, making citizen trust decrease due to potential unknown inflow",
+        "Disposable Money": "The financial aid the government can offer to the medical institute, slowing down the health threat drop with rise in price of vaccination",
+        "Doctor": "Medical support, making health threat drop but decrease the regional safety for the hazard of personnel inflow",
+        "Police": "For better security but decreasing the citizen trust for potential violent conduct during law enforcement",
+        "Medicine": "Drugs for the sick, but decrease disposable money for sales of medicine.",
+        "Volunteer": "Volunteers who hand out masks, making external safety drop due to hazards of personnel inflow",
         "Gotham": "The capital located in the central area, with and third material to control points transformation efficiency",
-        "BomBay": "The satellite town of the capital, with third init CR and second material to control points transformation efficiency",
-        "GassVille": "southeast coastal metropolis, with highest init CR but lowest material to control points transformation efficiency",
-        "Burnley": "Northwest deserted area, with lowest init CR but highest material to control points transformation efficiency",
-        "rule": "The game ends when you make any of the CP decrease to 0."
+        "BomBay": "The satellite town of the capital, with third initial health threat drop",
+        "GassVille": "southeast coastal metropolis, with highest initial health threat drop",
+        "Burnley": "Northwest deserted district, with lowest initial health threat drop",
+        "rule": "The game ends when you make any of the global or local CP decrease to 0."
     },
     "winningMsg": {
         "LocalCP": "Health threat drop",
-        "GlobalCP": "Disposable Money",
-        "winning": 100000,
-        "losing": 0,
+        "GlobalCP": [
+            "Disposable Money",
+            "Citizen trust",
+            "External safety"
+        ],
+        "winningTime": 100000,
+        "losing": [
+            0,
+            0,
+            0
+        ],
         "max": 1000,
         "min": 0
     },
@@ -181,5 +189,6 @@
         "Gotham is located in the downtown area of the city, just like the capital of a country, highly developed and helpful. Bombay is Gotham's \"Satellite district\", geographically and interactively, thus the CR exchanging between those two district is particularly efficient!",
         "GassVille is located in the most developed Southeast coastal area, boasting highest initial CP but has underwent a long period of misgovernment and its improper import & Export policies. Finally, Burnley is in the most deserted and least developed Northwest corner in contrast to the diligence of its citizens hence the premium exports.",
         "Remember: transferred CR both increase and DECREASE the CP in each area at a certain high or low ratio. The occurrence conditions of this risk is left to you to discover, and whether to play it safe to take the risk, it's all up to you! Try to survive as long as possible, baby let the game begin!"
-    ]
+    ],
+    "time": 0
 }

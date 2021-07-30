@@ -6,9 +6,9 @@ import Json.Encode exposing (..)
 
 type alias GameInfo =
     { local : String
-    , global : String
+    , global : List String
     , win : Float
-    , lose : Float
+    , lose : List Float
     , max : Float
     , min : Float
     }
@@ -18,9 +18,9 @@ initGameInfo : GameInfo
 initGameInfo =
     GameInfo
         "init"
-        "init"
+        [ "init" ]
         100
-        0
+        [ 0 ]
         100
         0
 
@@ -34,15 +34,19 @@ decoderGameInfo =
         )
         (field
             "GlobalCP"
-            Json.Decode.string
+            (Json.Decode.list
+                Json.Decode.string
+            )
         )
         (field
-            "winning"
+            "winningTime"
             Json.Decode.float
         )
         (field
             "losing"
-            Json.Decode.float
+            (Json.Decode.list
+                Json.Decode.float
+            )
         )
         (field
             "max"
@@ -62,23 +66,25 @@ encodeGameInfo data =
                 data.local
           )
         , ( "GlobalCP"
-          , Json.Encode.string
+          , Json.Encode.list
+                Json.Encode.string
                 data.global
           )
-        , ( "winning"
+        , ( "winningTime"
           , Json.Encode.float
                 data.win
           )
         , ( "losing"
-          , Json.Encode.float
+          , Json.Encode.list
+                Json.Encode.float
                 data.lose
           )
         , ( "max"
           , Json.Encode.float
-                data.win
+                data.max
           )
         , ( "min"
           , Json.Encode.float
-                data.lose
+                data.min
           )
         ]

@@ -31,19 +31,20 @@ viewUnitArea ( cp, max, min ) unitArea =
 
         other =
             String.fromFloat
-                (255
-                    - Basics.min
-                        255
-                        ((Maybe.withDefault
-                            initPureCPdata
-                            (Dict.get
-                                cp
-                                unitArea.localCP
-                            )
-                         ).data
-                            / (max - min)
-                            * 255
+                (Basics.min
+                    255
+                    (((Maybe.withDefault
+                        initPureCPdata
+                        (Dict.get
+                            cp
+                            unitArea.localCP
                         )
+                      ).data
+                        - min
+                     )
+                        / (max - min)
+                        * 255
+                    )
                 )
     in
     Svg.path
@@ -410,7 +411,7 @@ show_DeadInfo state =
             "white-space"
             "pre-line"
         ]
-        [ if state == End then
+        [ if state == Lose then
             text
                 "Mission Failed! Retry the mission of a terminator! Press R to restart"
 
