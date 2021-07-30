@@ -71,7 +71,7 @@ view model =
             HtmlMsg.endHtmlMsg "Congratulation! You save the city.\n\n"
 
         Lose ->
-            HtmlMsg.endHtmlMsg "You filed.\n\n"
+            HtmlMsg.endHtmlMsg "You failed.\n\n"
 
         _ ->
             runningHtmlMsg
