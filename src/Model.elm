@@ -146,7 +146,7 @@ getStory : Model -> String
 getStory model =
     let
         i =
-            Debug.log "1" (Basics.max 0 (round (Tuple.second (model.time)) // 10000))
+            Debug.log "Story" (Basics.max 0 (round (Tuple.second model.time) // 10000))
     in
     Maybe.withDefault
         (Maybe.withDefault
@@ -186,6 +186,14 @@ updateGotTextOK fullText model =
                 (loadMod
                     fullText
                 )
+        , time =
+            ( 0
+            , (Tuple.first
+                (loadMod
+                    fullText
+                )
+              ).time
+            )
     }
         |> update
             (ToState
@@ -392,10 +400,24 @@ runningUpdate time model =
                     check_Dead
                         newmodel2
             }
+
+        newmodel4 =
+            { newmodel3
+                | state = checkWin newmodel3
+            }
     in
-    ( newmodel3
+    ( newmodel4
     , Cmd.none
     )
+
+
+checkWin : Model -> State
+checkWin model =
+    if Tuple.second model.time > model.data.gameInfo.win then
+        Win
+
+    else
+        model.state
 
 
 loadingUpdate : Model -> ( Model, Cmd Msg )
@@ -469,20 +491,39 @@ toState newState model =
     )
 
 
+check_DeadLocalCP : Model -> Bool
+check_DeadLocalCP model =
+    let
+        name =
+            model.data.gameInfo.local
+
+        local =
+            List.map (\x -> x.localCP) (Dict.values model.data.area)
+    in
+    List.all (\x -> x == True) (List.map (\x -> (getPureCPdataByName ( name, x )).data > model.data.gameInfo.min) local)
+
+
 check_Dead : Model -> State
 check_Dead model =
     let
         keyVal =
-            getPureCPdataByName
-                ( model.data.gameInfo.global
-                , model.data.globalCP
+            List.map2 (\x y -> ( x.data, y ))
+                (List.map
+                    (\x ->
+                        getPureCPdataByName
+                            ( x
+                            , model.data.globalCP
+                            )
+                    )
+                    model.data.gameInfo.global
                 )
+                model.data.gameInfo.lose
     in
-    if keyVal.data <= model.data.gameInfo.lose then
-        End
+    if List.all (\( x, y ) -> x > y) keyVal && check_DeadLocalCP model then
+        model.state
 
     else
-        model.state
+        Lose
 
 
 changeCR : String -> Model -> Model

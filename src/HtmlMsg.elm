@@ -259,6 +259,72 @@ pauseHtmlMsg st =
         ]
 
 
+endHtmlMsg : String -> Html Msg
+endHtmlMsg st =
+    div
+        [ HtmlAttr.style
+            "width"
+            "100vw"
+        , HtmlAttr.style
+            "height"
+            "100vh"
+        , HtmlAttr.style
+            "left"
+            "0"
+        , HtmlAttr.style
+            "top"
+            "0"
+        , HtmlAttr.style
+            "text-align"
+            "center"
+        , HtmlAttr.style
+            "background"
+            "brown"
+        ]
+        [ p
+            [ HtmlAttr.style
+                "top"
+                "45%"
+            , HtmlAttr.style
+                "left"
+                "50%"
+            , HtmlAttr.style
+                "transform"
+                "translate( -50%, -50%)"
+            , HtmlAttr.style
+                "position"
+                "absolute"
+            , HtmlAttr.style
+                "white-space"
+                "pre-line"
+            , HtmlAttr.style
+                "width"
+                "90vw"
+            , HtmlAttr.style
+                "color"
+                "white"
+            ]
+            [ Html.text st
+            , p []
+                [ showButtons
+                    ( 80, 7 )
+                    ( 50, 110 )
+                    [ ( "restart"
+                      , Msg.Clickon
+                            Restart
+                      , 3.5
+                      )
+                    , ( "download"
+                      , Msg.Clickon
+                            Download
+                      , 3.5
+                      )
+                    ]
+                ]
+            ]
+        ]
+
+
 storyShow : String -> Html Msg
 storyShow story =
     div

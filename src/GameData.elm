@@ -19,6 +19,7 @@ type alias GameData =
     , helpText : Dict String HelpText
     , gameInfo : GameInfo
     , story : List String
+    , time : Float
     }
 
 
@@ -48,12 +49,14 @@ initGameData =
         initGameInfo
     , story =
         [ "" ]
+    , time =
+        0
     }
 
 
 dGameData : Decoder GameData
 dGameData =
-    map7 GameData
+    map8 GameData
         (field
             "CP"
             decoder_CPdata
@@ -83,6 +86,10 @@ dGameData =
             (Json.Decode.list
                 Json.Decode.string
             )
+        )
+        (field
+            "time"
+            Json.Decode.float
         )
 
 
@@ -147,5 +154,9 @@ encodeGameData data =
           , Json.Encode.list
                 Json.Encode.string
                 data.story
+          )
+        , ( "story"
+          , Json.Encode.float
+                data.time
           )
         ]

@@ -58,7 +58,7 @@ view model =
                 model.loadInfo
 
         Pause ->
-            pauseHtmlMsg 
+            pauseHtmlMsg
                 (String.concat
                     (List.map (\( x, y ) -> x ++ " : " ++ y.text ++ "\n")
                         (Dict.toList
@@ -66,6 +66,12 @@ view model =
                         )
                     )
                 )
+
+        Win ->
+            HtmlMsg.endHtmlMsg "Congratulation! You save the city.\n\n"
+
+        Lose ->
+            HtmlMsg.endHtmlMsg "You filed.\n\n"
 
         _ ->
             runningHtmlMsg

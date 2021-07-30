@@ -38,9 +38,9 @@
         }
     },
     "globalCP": {
-        "Citizen trust": 10,
-        "External safety": 5,
-        "Disposable Money": 2
+        "Citizen trust": 50,
+        "External safety": 50,
+        "Disposable Money": 50
     },
     "CR": {
         "Doctor": {
@@ -102,7 +102,7 @@
                 "Disposable Money": -2.9
             },
             "init": {
-                "Health threat drop": 20.4
+                "Health threat drop": 0.1
             },
             "path": "M56 95 L 67 100 L 59 126 L 60 135 L 56 140 L 10 102 Z",
             "centerX": 47,
@@ -171,9 +171,9 @@
     },
     "winningMsg": {
         "LocalCP": "Health threat drop",
-        "GlobalCP": "Disposable Money",
-        "winning": 100000,
-        "losing": 0,
+        "GlobalCP": ["Disposable Money","Citizen trust","External safety"],
+        "winningTime": 10000,
+        "losing": [0,0,0],
         "max": 1000,
         "min": 0
     },
@@ -181,5 +181,6 @@
         "Gotham is located in the downtown area of the city, just like the capital of a country, highly developed and helpful. Bombay is Gotham's \"Satellite district\", geographically and interactively, thus the CR exchanging between those two district is particularly efficient!",
         "GassVille is located in the most developed Southeast coastal area, boasting highest initial CP but has underwent a long period of misgovernment and its improper import & Export policies. Finally, Burnley is in the most deserted and least developed Northwest corner in contrast to the diligence of its citizens hence the premium exports.",
         "Remember: transferred CR both increase and DECREASE the CP in each area at a certain high or low ratio. The occurrence conditions of this risk is left to you to discover, and whether to play it safe to take the risk, it's all up to you! Try to survive as long as possible, baby let the game begin!"
-    ]
+    ],
+    "time" :0
 }
