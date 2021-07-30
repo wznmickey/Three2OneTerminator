@@ -11,7 +11,7 @@ module For exposing (..)
 
 for_outer : Int -> Int -> (outer -> Int -> io -> ( io, outer )) -> ( io, outer ) -> ( io, outer )
 for_outer i n f ( x, o ) =
-    if i >= n then
+    if i > n then
         ( x, o )
 
     else

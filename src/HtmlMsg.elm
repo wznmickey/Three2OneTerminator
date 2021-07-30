@@ -1,9 +1,73 @@
 module HtmlMsg exposing (..)
 
+import Array
+import For exposing (for_outer)
 import Html exposing (..)
 import Html.Attributes as HtmlAttr exposing (..)
 import Html.Events as HtmlEvent exposing (..)
 import Msg exposing (Element(..), FileStatus(..), KeyInfo(..), Msg(..), State(..))
+import Svg exposing (Svg, text)
+import Svg.Attributes as SvgAttr
+import Svg.Events as SvgEvent
+import SvgMsg exposing (..)
+
+
+showButtons : ( Float, Float ) -> ( Float, Float ) -> List ( String, Msg, Float ) -> Html Msg
+showButtons ( w, h ) ( l, t ) x =
+    div
+        [ HtmlAttr.style
+            "width"
+            (String.fromFloat w ++ "vw")
+        , HtmlAttr.style
+            "height"
+            (String.fromFloat h ++ "vh")
+        , HtmlAttr.style
+            "transform"
+            "translate(-50%,-50%)"
+        , HtmlAttr.style
+            "left"
+            (String.fromFloat l ++ "%")
+        , HtmlAttr.style
+            "top"
+            (String.fromFloat t ++ "%")
+        , HtmlAttr.style
+            "position"
+            "absolute"
+        ]
+        [ Svg.svg
+            [ SvgAttr.viewBox
+                ("-5 0 "
+                    ++ String.fromInt (List.length x * 25 + 10)
+                    ++ " 15"
+                )
+            , SvgAttr.width
+                "100%"
+            , SvgAttr.height
+                "100%"
+            ]
+            (Tuple.first
+                (for_outer
+                    0
+                    (List.length x - 1)
+                    (\all i before ->
+                        let
+                            ( st, m, size ) =
+                                Maybe.withDefault ( "", KeyPress NotCare, 0 ) (Array.get i (Array.fromList all))
+                        in
+                        ( SvgMsg.button
+                            st
+                            m
+                            (toFloat (i * 30))
+                            0
+                            size
+                            :: before
+                        , all
+                        )
+                    )
+                    ( [], x )
+                )
+            )
+        ]
 
 
 startHtmlMsg : Html Msg
@@ -25,22 +89,20 @@ startHtmlMsg =
             "text-align"
             "center"
         ]
-        [ button
-            [ HtmlEvent.onClick
-                (Msg.UploadFile
+        [ showButtons
+            ( 20, 10 )
+            ( 50, 70 )
+            [ ( "Upload file"
+              , Msg.UploadFile
                     FileRequested
-                )
-            ]
-            [ text
-                "Upload file"
-            ]
-        , button
-            [ HtmlEvent.onClick
-                (Msg.Clickon
+              , 3
+              )
+            , ( "Quick start"
+              , Msg.Clickon
                     LoadDefault
-                )
+              , 3
+              )
             ]
-            [ text "Default starting" ]
         ]
 
 
@@ -63,25 +125,21 @@ loadHtmlMsg loadInfo =
             "text-align"
             "center"
         ]
-        [ text
+        [ Html.text
             loadInfo
-        , button
-            [ HtmlEvent.onClick
-                (Msg.UploadFile
+        , showButtons
+            ( 20, 10 )
+            ( 50, 70 )
+            [ ( "Upload file"
+              , Msg.UploadFile
                     FileRequested
-                )
-            ]
-            [ text
-                "Upload file"
-            ]
-        , button
-            [ HtmlEvent.onClick
-                (Msg.Clickon
+              , 3
+              )
+            , ( "Quick start"
+              , Msg.Clickon
                     LoadDefault
-                )
-            ]
-            [ text
-                "Default starting"
+              , 3
+              )
             ]
         ]
 
@@ -131,30 +189,28 @@ pauseHtmlMsg st =
                 "color"
                 "white"
             ]
-            [ text "\nPress Space to continue\nPress R to restart\n"
-            , text st
+            [ Html.text "\nPress Space to continue\nPress R to restart\n"
+            , Html.text st
             , p []
-                [ button
-                    [ HtmlEvent.onClick
-                        (ToState
+                [ showButtons
+                    ( 80, 7 )
+                    ( 50, 110 )
+                    [ ( "continue"
+                      , ToState
                             Running
-                        )
-                    ]
-                    [ text "continue" ]
-                , button
-                    [ HtmlEvent.onClick
-                        (Msg.Clickon
+                      , 3.5
+                      )
+                    , ( "restart"
+                      , Msg.Clickon
                             Restart
-                        )
-                    ]
-                    [ text "restart" ]
-                , button
-                    [ HtmlEvent.onClick
-                        (Msg.Clickon
+                      , 3.5
+                      )
+                    , ( "download"
+                      , Msg.Clickon
                             Download
-                        )
+                      , 3.5
+                      )
                     ]
-                    [ text "download" ]
                 ]
             ]
         ]
@@ -185,4 +241,4 @@ storyShow story =
             "white-space"
             "pre-line"
         ]
-        [ text story ]
+        [ Html.text story ]
