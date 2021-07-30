@@ -279,5 +279,6 @@ storyShow story =
             "absolute"
         , HtmlAttr.style
             "white-space"
-            "pre-line"        ]
+            "pre-line"
+        ]
         [ Html.text story ]
