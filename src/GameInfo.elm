@@ -29,7 +29,7 @@ decoderGameInfo : Decoder GameInfo
 decoderGameInfo =
     map6 GameInfo
         (field
-            "localCP"
+            "LocalCP"
             Json.Decode.string
         )
         (field

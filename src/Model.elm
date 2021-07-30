@@ -1,6 +1,7 @@
 module Model exposing (..)
 
 import Area exposing (..)
+import Array exposing (..)
 import CmdMsg exposing (..)
 import Dict exposing (Dict)
 import GameData exposing (GameData, getPureCPdataByName, initGameData)
@@ -18,13 +19,18 @@ import Update exposing (..)
 import View exposing (..)
 
 
+timeChange : Float
+timeChange =
+    1000
+
+
 type alias Model =
     { data : GameData
     , state : State
     , modInfo : String
     , loadInfo : String
     , onviewArea : String
-    , time : Float
+    , time : ( Float, Float )
     , onMovingCR : OnMovingCR
     , cRmovingInfo : List String
     }
@@ -38,7 +44,7 @@ initModel =
         "modInfo"
         "Init"
         "init"
-        0
+        ( 0, 0 )
         init_onMovingCR
         [ "CR MOVED:" ]
 
@@ -63,7 +69,7 @@ runningHtmlMsg model =
             "center"
         , HtmlAttr.style
             "background"
-            "rgb(0,191,255)"
+            "rgb(173, 216, 230)"
         ]
         [ div
             [ HtmlAttr.style
@@ -77,7 +83,7 @@ runningHtmlMsg model =
                 "translate(-50%,-50%)"
             , HtmlAttr.style
                 "left"
-                "50%"
+                "45%"
             , HtmlAttr.style
                 "top"
                 "50%"
@@ -116,13 +122,10 @@ runningHtmlMsg model =
             model.onviewArea
         , disp_Onview
             model.onviewArea
-
-        --, text (Debug.toString model.data.area)
-        -- , text (Debug.toString model.time)
-        --, text
-        --    (Debug.toString
-        --        model.data.area
-        --    )
+        , storyShow
+            (getStory
+                model
+            )
         , show_PauseInfo
         , show_DeadInfo
             model.state
@@ -130,16 +133,42 @@ runningHtmlMsg model =
             (combineList_2String
                 model.cRmovingInfo
             )
-        , button
-            [ HtmlEvent.onClick
-                (ToState
-                    Pause
-                )
-            ]
-            [ text
-                "pause"
+        , HtmlMsg.showButtons
+            ( 15, 15 )
+            ( 45, 10 )
+            [ ( "pause", Msg.ToState Pause, 5 )
+            , ( "help", Msg.ToState Pause, 5 )
             ]
         ]
+
+
+getStory : Model -> String
+getStory model =
+    let
+        i =
+            Debug.log "1" (Basics.max 0 (round (Tuple.second (model.time)) // 10000))
+    in
+    Maybe.withDefault
+        (Maybe.withDefault
+            ""
+            (Array.get
+                (Array.length
+                    (Array.fromList
+                        model.data.story
+                    )
+                    - 1
+                )
+                (Array.fromList
+                    model.data.story
+                )
+            )
+        )
+        (Array.get
+            i
+            (Array.fromList
+                model.data.story
+            )
+        )
 
 
 updateGotTextOK : String -> Model -> ( Model, Cmd Msg )
@@ -341,17 +370,17 @@ runningUpdate time model =
         newmodel1 =
             { model
                 | time =
-                    model.time + time
+                    ( Tuple.first model.time + time, Tuple.second model.time + time )
             }
 
         newmodel2 =
-            if newmodel1.time >= 4000 then
+            if Tuple.first newmodel1.time >= timeChange then
                 { newmodel1
                     | data =
                         updateData
                             newmodel1.data
                     , time =
-                        newmodel1.time - 4000
+                        ( Tuple.first newmodel1.time - timeChange, Tuple.second newmodel1.time )
                 }
 
             else
@@ -417,6 +446,11 @@ keyUpdate key model =
                 (Clickon
                     Restart
                 )
+                model
+
+        Msg.H ->
+            update
+                (checkHelp model.state)
                 model
 
         _ ->

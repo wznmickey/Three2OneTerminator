@@ -98,7 +98,7 @@ viewGlobalData pure dict =
             "2vw"
         , style
             "top"
-            "5vh"
+            "10vh"
         , style
             "white-space"
             "pre-line"
@@ -178,8 +178,8 @@ view_Areadata area onview =
             "color"
             pink
         , style
-            "font-weight"
-            "bold"
+            "text-align"
+            "center"
         , style
             "position"
             "absolute"
@@ -191,10 +191,13 @@ view_Areadata area onview =
             "10vh"
         , style
             "width"
-            "20vw"
+            "27vw"
         , style
             "white-space"
             "pre-line"
+        , style
+            "font-weight"
+            "bold"
         ]
         [ text
             (combineCPdata2String
@@ -215,14 +218,8 @@ disp_Onview onview =
             "color"
             pink
         , style
-            "font-weight"
-            "bold"
-        , style
             "position"
             "absolute"
-        , style
-            "font-size"
-            "large"
         , style
             "left"
             "70vw"
@@ -231,10 +228,16 @@ disp_Onview onview =
             "5vh"
         , style
             "width"
-            "20vw"
+            "27vw"
         , style
             "white-space"
             "pre-line"
+        , style
+            "font-weight"
+            "bold"
+        , style
+            "text-align"
+            "center"
         ]
         [ text
             (if onview == "init" then
@@ -345,7 +348,7 @@ viewUnitCR dict cRpos =
                         + 1
                     )
                 )
-            , SvgAttr.fontSize "3"
+            , SvgAttr.fontSize "4"
             , SvgAttr.textAnchor "middle"
             ]
             [ text (String.left 2 name) ]
@@ -366,19 +369,19 @@ show_PauseInfo =
             "large"
         , style
             "left"
-            "75vw"
+            "70vw"
         , style
             "top"
             "90vh"
         , style
             "width"
-            "20vw"
+            "30vw"
         , style
             "white-space"
             "pre-line"
         ]
         [ text
-            "press Space to pause"
+            "Press Space to pause.\nPress H for help."
         ]
 
 
@@ -402,7 +405,7 @@ show_DeadInfo state =
             "2vw"
         , style
             "top"
-            "0vh"
+            "5vh"
         , style
             "white-space"
             "pre-line"
@@ -431,10 +434,10 @@ viewMovingCR info =
             "absolute"
         , style
             "left"
-            "0vw"
+            "2vw"
         , style
             "top"
-            "50vh"
+            "60vh"
         , style
             "width"
             "20vw"
@@ -481,7 +484,7 @@ combineList_2String toCombine =
 
 filter_CRMovinginfo : List String -> List String
 filter_CRMovinginfo crMovingInfo =
-    if List.length crMovingInfo >= 5 then
+    if List.length crMovingInfo >= 3 then
         update_CRMovinginfo
             crMovingInfo
 
@@ -492,6 +495,6 @@ filter_CRMovinginfo crMovingInfo =
 update_CRMovinginfo : List String -> List String
 update_CRMovinginfo old =
     List.take
-        4
+        2
         old
         ++ [ "CR MOVED:" ]
