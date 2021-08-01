@@ -1,5 +1,13 @@
 module Main exposing (main)
 
+{-| It is the module that contain the other functions to the main function.
+
+# Main
+
+@docs main
+
+-}
+
 import Browser exposing (element)
 import Browser.Events exposing (onAnimationFrameDelta, onClick, onKeyDown)
 import Browser.Navigation exposing (load)
@@ -14,6 +22,8 @@ import Update exposing (..)
 import View exposing (..)
 
 
+{-| This function gives an default Model and Cmd Msg as output for init.
+-}
 init : () -> ( Model, Cmd Msg )
 init result =
     ( initModel
@@ -21,6 +31,8 @@ init result =
     )
 
 
+{-| This function subs onAnimationFrameDelta and onKeyDown events as Sub Msg.
+-}
 subscriptions : Model -> Sub Msg
 subscriptions model =
     Sub.batch
@@ -34,6 +46,15 @@ subscriptions model =
         ]
 
 
+{-| This function is the main function, combining 4 functions to `Browser.element`:
+
+  - `init`
+  - `view`
+  - `update`
+  - `subscriptions`
+
+-}
+main : Program () Model Msg
 main =
     Browser.element
         { init =
@@ -47,6 +68,8 @@ main =
         }
 
 
+{-| This function outputs different view based on the state of the Model.
+-}
 view : Model -> Html Msg
 view model =
     case model.state of

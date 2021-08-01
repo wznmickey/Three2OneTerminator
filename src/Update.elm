@@ -6,7 +6,7 @@ import CPdata exposing (CPdata, initCPdata)
 import CPtype exposing (CPtype(..))
 import CRdata exposing (CRdata, initCRdata)
 import Dict exposing (Dict)
-import For exposing (for_outer)
+import For exposing (for)
 import GameData exposing (GameData, getCPdataByName, getPureCPdataByName)
 import GameInfo exposing (GameInfo)
 import Html exposing (ol)
@@ -221,7 +221,7 @@ changeLocalCP2CP dict area global =
 globalChangeCP2CP : Dict String CPdata -> Dict String Area -> Dict String PureCPdata -> Dict String PureCPdata
 globalChangeCP2CP dict area global =
     Tuple.first
-        (for_outer
+        (for
             0
             (Dict.size
                 area
@@ -273,7 +273,7 @@ eachGlobalChangeCP2CP dict local global =
                 )
     in
     Tuple.first
-        (for_outer 0
+        (for 0
             (Array.length
                 effect
                 - 1
@@ -357,7 +357,7 @@ changeCR2CP cr global area =
                 )
 
         ( dontcare, ( updatedArea, updatedGlobal ) ) =
-            for_outer
+            for
                 0
                 (Dict.size
                     cr
@@ -453,7 +453,7 @@ areaCPchange area global =
                 )
 
         ( afterAreaArray, afterGlobal ) =
-            for_outer
+            for
                 0
                 (Dict.size area - 1)
                 eachAreaCPchange

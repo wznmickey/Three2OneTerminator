@@ -1,7 +1,7 @@
 module HtmlMsg exposing (..)
 
 import Array
-import For exposing (for_outer)
+import For exposing (for)
 import Html exposing (..)
 import Html.Attributes as HtmlAttr exposing (..)
 import Html.Events as HtmlEvent exposing (..)
@@ -51,7 +51,7 @@ showButtons ( w, h ) ( l, t ) x =
                 "100%"
             ]
             (Tuple.first
-                (for_outer
+                (For.for
                     0
                     (List.length x - 1)
                     (\all i before ->
