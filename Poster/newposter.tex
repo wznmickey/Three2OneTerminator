@@ -4,12 +4,13 @@
 \usepackage{lipsum}
 \usepackage{rotating}
 \usebackgroundtemplate{
-		\tikz\node[opacity=1] {\includegraphics[height=\paperheight,width=\paperwidth]{img/pg}};
+		%\tikz\node[opacity=1] {\includegraphics[height=\paperheight,width=\paperwidth]{img/pg}};
 	%\tikz[remember picture,overlay] \fill[game] (current page.north west) rectangle (current page.south east); 
 }
 %
 % sample boxes 
 % 
+\pagecolor{cyan}
 \tcbset{
         framedbox/.style={
 					enhanced, fontupper=\large,left=.75cm,fonttitle=\LARGE,toptitle=.25cm,bottomtitle=.25cm,halign title=center
@@ -185,14 +186,14 @@ Lives are at stake, you need to take fast decisions to balance the safety of all
 	\end{textblock}
 
 %problem with locating
-\begin{tikzpicture}[thick,fill opacity=0.5]
-	
+	\begin{textblock}{10}(35,67)
+		\begin{blankbox}
+			\centering
+			\begin{tikzpicture}[thick,fill opacity=0.8]
 			\includegraphics[ height=570pt]{img/newDemo}
-		
-\end{tikzpicture}
-
-
-
+		\end{tikzpicture}
+		\end{blankbox}
+	\end{textblock}
 	
 \begin{turn}{60}
 	\begin{textblock}{1}(67,3)
