@@ -5605,7 +5605,16 @@ var $author$project$GameInfo$GameInfo = F6(
 	function (local, global, win, lose, max, min) {
 		return {global: global, local: local, lose: lose, max: max, min: min, win: win};
 	});
-var $author$project$GameInfo$initGameInfo = A6($author$project$GameInfo$GameInfo, 'init', 'init', 100, 0, 100, 0);
+var $author$project$GameInfo$initGameInfo = A6(
+	$author$project$GameInfo$GameInfo,
+	'init',
+	_List_fromArray(
+		['init']),
+	100,
+	_List_fromArray(
+		[0]),
+	100,
+	0);
 var $author$project$HelpText$initHelpText = {name: 'init', text: 'init'};
 var $author$project$GameData$initGameData = {
 	allCR: A2($elm$core$Dict$singleton, $author$project$CRdata$initCRdata.name, $author$project$CRdata$initCRdata),
@@ -5615,7 +5624,8 @@ var $author$project$GameData$initGameData = {
 	helpText: A2($elm$core$Dict$singleton, $author$project$HelpText$initHelpText.name, $author$project$HelpText$initHelpText),
 	infoCP: A2($elm$core$Dict$singleton, $author$project$CPdata$initCPdata.name, $author$project$CPdata$initCPdata),
 	story: _List_fromArray(
-		[''])
+		['']),
+	time: 0
 };
 var $author$project$Msg$init_onMovingCR = {cRname: $elm$core$Maybe$Nothing, formerArea: $elm$core$Maybe$Nothing, toArea: $elm$core$Maybe$Nothing};
 var $author$project$Model$initModel = A8(
@@ -6951,33 +6961,6 @@ var $author$project$CRdata$encodeCRdata = function (data) {
 				$elm$json$Json$Encode$string(data.color))
 			]));
 };
-var $author$project$GameInfo$encodeGameInfo = function (data) {
-	return $elm$json$Json$Encode$object(
-		_List_fromArray(
-			[
-				_Utils_Tuple2(
-				'LocalCP',
-				$elm$json$Json$Encode$string(data.local)),
-				_Utils_Tuple2(
-				'GlobalCP',
-				$elm$json$Json$Encode$string(data.global)),
-				_Utils_Tuple2(
-				'winning',
-				$elm$json$Json$Encode$float(data.win)),
-				_Utils_Tuple2(
-				'losing',
-				$elm$json$Json$Encode$float(data.lose)),
-				_Utils_Tuple2(
-				'max',
-				$elm$json$Json$Encode$float(data.win)),
-				_Utils_Tuple2(
-				'min',
-				$elm$json$Json$Encode$float(data.lose))
-			]));
-};
-var $author$project$HelpText$encodeHelpText = function (data) {
-	return $elm$json$Json$Encode$string(data.text);
-};
 var $elm$json$Json$Encode$list = F2(
 	function (func, entries) {
 		return _Json_wrap(
@@ -6987,6 +6970,33 @@ var $elm$json$Json$Encode$list = F2(
 				_Json_emptyArray(_Utils_Tuple0),
 				entries));
 	});
+var $author$project$GameInfo$encodeGameInfo = function (data) {
+	return $elm$json$Json$Encode$object(
+		_List_fromArray(
+			[
+				_Utils_Tuple2(
+				'LocalCP',
+				$elm$json$Json$Encode$string(data.local)),
+				_Utils_Tuple2(
+				'GlobalCP',
+				A2($elm$json$Json$Encode$list, $elm$json$Json$Encode$string, data.global)),
+				_Utils_Tuple2(
+				'winningTime',
+				$elm$json$Json$Encode$float(data.win)),
+				_Utils_Tuple2(
+				'losing',
+				A2($elm$json$Json$Encode$list, $elm$json$Json$Encode$float, data.lose)),
+				_Utils_Tuple2(
+				'max',
+				$elm$json$Json$Encode$float(data.max)),
+				_Utils_Tuple2(
+				'min',
+				$elm$json$Json$Encode$float(data.min))
+			]));
+};
+var $author$project$HelpText$encodeHelpText = function (data) {
+	return $elm$json$Json$Encode$string(data.text);
+};
 var $author$project$GameData$encodeGameData = function (data) {
 	return $elm$json$Json$Encode$object(
 		_List_fromArray(
@@ -7011,7 +7021,10 @@ var $author$project$GameData$encodeGameData = function (data) {
 				$author$project$GameInfo$encodeGameInfo(data.gameInfo)),
 				_Utils_Tuple2(
 				'story',
-				A2($elm$json$Json$Encode$list, $elm$json$Json$Encode$string, data.story))
+				A2($elm$json$Json$Encode$list, $elm$json$Json$Encode$string, data.story)),
+				_Utils_Tuple2(
+				'story',
+				$elm$json$Json$Encode$float(data.time))
 			]));
 };
 var $author$project$ToSaving$saveString = function (data) {
@@ -7066,20 +7079,27 @@ var $author$project$CmdMsg$fileSelect = function (file) {
 			$author$project$Msg$FileLoaded,
 			$elm$file$File$toString(file)));
 };
-var $author$project$GameData$GameData = F7(
-	function (infoCP, globalCP, allCR, area, helpText, gameInfo, story) {
-		return {allCR: allCR, area: area, gameInfo: gameInfo, globalCP: globalCP, helpText: helpText, infoCP: infoCP, story: story};
+var $author$project$GameData$GameData = F8(
+	function (infoCP, globalCP, allCR, area, helpText, gameInfo, story, time) {
+		return {allCR: allCR, area: area, gameInfo: gameInfo, globalCP: globalCP, helpText: helpText, infoCP: infoCP, story: story, time: time};
 	});
 var $elm$json$Json$Decode$float = _Json_decodeFloat;
+var $elm$json$Json$Decode$list = _Json_decodeList;
 var $elm$json$Json$Decode$map6 = _Json_map6;
 var $elm$json$Json$Decode$string = _Json_decodeString;
 var $author$project$GameInfo$decoderGameInfo = A7(
 	$elm$json$Json$Decode$map6,
 	$author$project$GameInfo$GameInfo,
 	A2($elm$json$Json$Decode$field, 'LocalCP', $elm$json$Json$Decode$string),
-	A2($elm$json$Json$Decode$field, 'GlobalCP', $elm$json$Json$Decode$string),
-	A2($elm$json$Json$Decode$field, 'winning', $elm$json$Json$Decode$float),
-	A2($elm$json$Json$Decode$field, 'losing', $elm$json$Json$Decode$float),
+	A2(
+		$elm$json$Json$Decode$field,
+		'GlobalCP',
+		$elm$json$Json$Decode$list($elm$json$Json$Decode$string)),
+	A2($elm$json$Json$Decode$field, 'winningTime', $elm$json$Json$Decode$float),
+	A2(
+		$elm$json$Json$Decode$field,
+		'losing',
+		$elm$json$Json$Decode$list($elm$json$Json$Decode$float)),
 	A2($elm$json$Json$Decode$field, 'max', $elm$json$Json$Decode$float),
 	A2($elm$json$Json$Decode$field, 'min', $elm$json$Json$Decode$float));
 var $elm$json$Json$Decode$keyValuePairs = _Json_decodeKeyValuePairs;
@@ -7246,10 +7266,9 @@ var $author$project$HelpText$decoder_HelpText = A2(
 				return A2($author$project$HelpText$HelpText, name, value);
 			})),
 	$elm$json$Json$Decode$dict($elm$json$Json$Decode$string));
-var $elm$json$Json$Decode$list = _Json_decodeList;
-var $elm$json$Json$Decode$map7 = _Json_map7;
-var $author$project$GameData$dGameData = A8(
-	$elm$json$Json$Decode$map7,
+var $elm$json$Json$Decode$map8 = _Json_map8;
+var $author$project$GameData$dGameData = A9(
+	$elm$json$Json$Decode$map8,
 	$author$project$GameData$GameData,
 	A2($elm$json$Json$Decode$field, 'CP', $author$project$CPdata$decoder_CPdata),
 	A2($elm$json$Json$Decode$field, 'globalCP', $author$project$PureCPdata$decoder_PureCPdata),
@@ -7260,7 +7279,8 @@ var $author$project$GameData$dGameData = A8(
 	A2(
 		$elm$json$Json$Decode$field,
 		'story',
-		$elm$json$Json$Decode$list($elm$json$Json$Decode$string)));
+		$elm$json$Json$Decode$list($elm$json$Json$Decode$string)),
+	A2($elm$json$Json$Decode$field, 'time', $elm$json$Json$Decode$float));
 var $elm$json$Json$Decode$decodeString = _Json_runOnString;
 var $author$project$LoadMod$loadMod = function (st) {
 	var ans = A2($elm$json$Json$Decode$decodeString, $author$project$GameData$dGameData, st);
@@ -7526,7 +7546,40 @@ var $author$project$CmdMsg$loadUpdate = $elm$http$Http$get(
 		expect: $elm$http$Http$expectString($author$project$Msg$GotText),
 		url: $author$project$CmdMsg$wholeURL
 	});
-var $author$project$Msg$End = {$: 'End'};
+var $author$project$Msg$Win = {$: 'Win'};
+var $author$project$Model$checkWin = function (model) {
+	return (_Utils_cmp(model.time.b, model.data.gameInfo.win) > 0) ? $author$project$Msg$Win : model.state;
+};
+var $author$project$Msg$Lose = {$: 'Lose'};
+var $elm$core$List$any = F2(
+	function (isOkay, list) {
+		any:
+		while (true) {
+			if (!list.b) {
+				return false;
+			} else {
+				var x = list.a;
+				var xs = list.b;
+				if (isOkay(x)) {
+					return true;
+				} else {
+					var $temp$isOkay = isOkay,
+						$temp$list = xs;
+					isOkay = $temp$isOkay;
+					list = $temp$list;
+					continue any;
+				}
+			}
+		}
+	});
+var $elm$core$Basics$not = _Basics_not;
+var $elm$core$List$all = F2(
+	function (isOkay, list) {
+		return !A2(
+			$elm$core$List$any,
+			A2($elm$core$Basics$composeL, $elm$core$Basics$not, isOkay),
+			list);
+	});
 var $elm$core$Maybe$withDefault = F2(
 	function (_default, maybe) {
 		if (maybe.$ === 'Just') {
@@ -7544,10 +7597,62 @@ var $author$project$GameData$getPureCPdataByName = function (_v0) {
 		$author$project$PureCPdata$initPureCPdata,
 		A2($elm$core$Dict$get, name, dict));
 };
+var $elm$core$Dict$values = function (dict) {
+	return A3(
+		$elm$core$Dict$foldr,
+		F3(
+			function (key, value, valueList) {
+				return A2($elm$core$List$cons, value, valueList);
+			}),
+		_List_Nil,
+		dict);
+};
+var $author$project$Model$check_DeadLocalCP = function (model) {
+	var name = model.data.gameInfo.local;
+	var local = A2(
+		$elm$core$List$map,
+		function (x) {
+			return x.localCP;
+		},
+		$elm$core$Dict$values(model.data.area));
+	return A2(
+		$elm$core$List$all,
+		function (x) {
+			return x;
+		},
+		A2(
+			$elm$core$List$map,
+			function (x) {
+				return _Utils_cmp(
+					$author$project$GameData$getPureCPdataByName(
+						_Utils_Tuple2(name, x)).data,
+					model.data.gameInfo.min) > 0;
+			},
+			local));
+};
 var $author$project$Model$check_Dead = function (model) {
-	var keyVal = $author$project$GameData$getPureCPdataByName(
-		_Utils_Tuple2(model.data.gameInfo.global, model.data.globalCP));
-	return (_Utils_cmp(keyVal.data, model.data.gameInfo.lose) < 1) ? $author$project$Msg$End : model.state;
+	var keyVal = A3(
+		$elm$core$List$map2,
+		F2(
+			function (x, y) {
+				return _Utils_Tuple2(x.data, y);
+			}),
+		A2(
+			$elm$core$List$map,
+			function (x) {
+				return $author$project$GameData$getPureCPdataByName(
+					_Utils_Tuple2(x, model.data.globalCP));
+			},
+			model.data.gameInfo.global),
+		model.data.gameInfo.lose);
+	return (A2(
+		$elm$core$List$all,
+		function (_v0) {
+			var x = _v0.a;
+			var y = _v0.b;
+			return _Utils_cmp(x, y) > 0;
+		},
+		keyVal) && $author$project$Model$check_DeadLocalCP(model)) ? model.state : $author$project$Msg$Lose;
 };
 var $author$project$Model$timeChange = 1000;
 var $author$project$Update$valueEffectCP = F2(
@@ -7686,9 +7791,9 @@ var $author$project$Update$eachAreaCPchange = F3(
 				a),
 			newGlobal);
 	});
-var $author$project$For$for_outer = F4(
+var $author$project$For$for = F4(
 	function (i, n, f, _v0) {
-		for_outer:
+		_for:
 		while (true) {
 			var x = _v0.a;
 			var o = _v0.b;
@@ -7703,7 +7808,7 @@ var $author$project$For$for_outer = F4(
 				n = $temp$n;
 				f = $temp$f;
 				_v0 = $temp$_v0;
-				continue for_outer;
+				continue _for;
 			}
 		}
 	});
@@ -7799,7 +7904,7 @@ var $author$project$Update$areaCPchange = F2(
 			$elm$core$Array$fromList(
 				$elm$core$Dict$toList(area)));
 		var _v0 = A4(
-			$author$project$For$for_outer,
+			$author$project$For$for,
 			0,
 			$elm$core$Dict$size(area) - 1,
 			$author$project$Update$eachAreaCPchange,
@@ -7847,16 +7952,6 @@ var $author$project$Update$timesCPdata = F2(
 			},
 			a);
 	});
-var $elm$core$Dict$values = function (dict) {
-	return A3(
-		$elm$core$Dict$foldr,
-		F3(
-			function (key, value, valueList) {
-				return A2($elm$core$List$cons, value, valueList);
-			}),
-		_List_Nil,
-		dict);
-};
 var $author$project$Update$eachGlobalCertainCPchangeCP2CP = F3(
 	function (dict, local, nameCP) {
 		return $elm$core$Dict$fromList(
@@ -7893,7 +7988,7 @@ var $author$project$Update$eachGlobalChangeCP2CP = F3(
 						}),
 					local)));
 		return A4(
-			$author$project$For$for_outer,
+			$author$project$For$for,
 			0,
 			$elm$core$Array$length(effect) - 1,
 			$author$project$Update$eachEffectCP,
@@ -7919,7 +8014,7 @@ var $author$project$Update$getCertainArea = F4(
 var $author$project$Update$globalChangeCP2CP = F3(
 	function (dict, area, global) {
 		return A4(
-			$author$project$For$for_outer,
+			$author$project$For$for,
 			0,
 			$elm$core$Dict$size(area) - 1,
 			$author$project$Update$getCertainArea(dict),
@@ -8026,7 +8121,7 @@ var $author$project$Update$changeCR2CP = F3(
 			$elm$core$Array$fromList(
 				$elm$core$Dict$toList(cr)));
 		var _v0 = A4(
-			$author$project$For$for_outer,
+			$author$project$For$for,
 			0,
 			$elm$core$Dict$size(cr) - 1,
 			$author$project$Update$eachChangeCR2CP,
@@ -8070,7 +8165,12 @@ var $author$project$Model$runningUpdate = F2(
 			{
 				state: $author$project$Model$check_Dead(newmodel2)
 			});
-		return _Utils_Tuple2(newmodel3, $elm$core$Platform$Cmd$none);
+		var newmodel4 = _Utils_update(
+			newmodel3,
+			{
+				state: $author$project$Model$checkWin(newmodel3)
+			});
+		return _Utils_Tuple2(newmodel4, $elm$core$Platform$Cmd$none);
 	});
 var $author$project$Update$switchPause = function (state) {
 	return _Utils_eq(state, $author$project$Msg$Pause) ? $author$project$Msg$ToState($author$project$Msg$Running) : (_Utils_eq(state, $author$project$Msg$Running) ? $author$project$Msg$ToState($author$project$Msg$Pause) : $author$project$Msg$ToState(state));
@@ -8199,7 +8299,10 @@ var $author$project$Model$updateGotTextOK = F2(
 				{
 					data: $author$project$LoadMod$loadMod(fullText).a,
 					loadInfo: $author$project$LoadMod$loadMod(fullText).b,
-					modInfo: fullText
+					modInfo: fullText,
+					time: _Utils_Tuple2(
+						0,
+						$author$project$LoadMod$loadMod(fullText).a.time)
 				}));
 	});
 var $author$project$Model$uploadUpdate = F2(
@@ -8220,9 +8323,9 @@ var $author$project$Model$uploadUpdate = F2(
 var $elm$core$String$concat = function (strings) {
 	return A2($elm$core$String$join, '', strings);
 };
-var $author$project$Msg$FileRequested = {$: 'FileRequested'};
-var $author$project$Msg$LoadDefault = {$: 'LoadDefault'};
+var $author$project$Msg$Download = {$: 'Download'};
 var $elm$html$Html$div = _VirtualDom_node('div');
+var $elm$html$Html$p = _VirtualDom_node('p');
 var $elm$svg$Svg$Attributes$fill = _VirtualDom_attribute('fill');
 var $elm$svg$Svg$Attributes$fontSize = _VirtualDom_attribute('font-size');
 var $elm$core$String$fromFloat = _String_fromNumber;
@@ -8344,7 +8447,7 @@ var $author$project$HtmlMsg$showButtons = F3(
 							$elm$svg$Svg$Attributes$height('100%')
 						]),
 					A4(
-						$author$project$For$for_outer,
+						$author$project$For$for,
 						0,
 						$elm$core$List$length(x) - 1,
 						F3(
@@ -8373,6 +8476,61 @@ var $author$project$HtmlMsg$showButtons = F3(
 				]));
 	});
 var $elm$html$Html$text = $elm$virtual_dom$VirtualDom$text;
+var $author$project$HtmlMsg$endHtmlMsg = function (st) {
+	return A2(
+		$elm$html$Html$div,
+		_List_fromArray(
+			[
+				A2($elm$html$Html$Attributes$style, 'width', '100vw'),
+				A2($elm$html$Html$Attributes$style, 'height', '100vh'),
+				A2($elm$html$Html$Attributes$style, 'left', '0'),
+				A2($elm$html$Html$Attributes$style, 'top', '0'),
+				A2($elm$html$Html$Attributes$style, 'text-align', 'center'),
+				A2($elm$html$Html$Attributes$style, 'background', 'brown')
+			]),
+		_List_fromArray(
+			[
+				A2(
+				$elm$html$Html$p,
+				_List_fromArray(
+					[
+						A2($elm$html$Html$Attributes$style, 'top', '45%'),
+						A2($elm$html$Html$Attributes$style, 'left', '50%'),
+						A2($elm$html$Html$Attributes$style, 'transform', 'translate( -50%, -50%)'),
+						A2($elm$html$Html$Attributes$style, 'position', 'absolute'),
+						A2($elm$html$Html$Attributes$style, 'white-space', 'pre-line'),
+						A2($elm$html$Html$Attributes$style, 'width', '90vw'),
+						A2($elm$html$Html$Attributes$style, 'color', 'white')
+					]),
+				_List_fromArray(
+					[
+						$elm$html$Html$text(st),
+						A2(
+						$elm$html$Html$p,
+						_List_Nil,
+						_List_fromArray(
+							[
+								A3(
+								$author$project$HtmlMsg$showButtons,
+								_Utils_Tuple2(80, 7),
+								_Utils_Tuple2(50, 110),
+								_List_fromArray(
+									[
+										_Utils_Tuple3(
+										'restart',
+										$author$project$Msg$Clickon($author$project$Msg$Restart),
+										3.5),
+										_Utils_Tuple3(
+										'download',
+										$author$project$Msg$Clickon($author$project$Msg$Download),
+										3.5)
+									]))
+							]))
+					]))
+			]));
+};
+var $author$project$Msg$FileRequested = {$: 'FileRequested'};
+var $author$project$Msg$LoadDefault = {$: 'LoadDefault'};
 var $author$project$HtmlMsg$loadHtmlMsg = function (loadInfo) {
 	return A2(
 		$elm$html$Html$div,
@@ -8404,8 +8562,6 @@ var $author$project$HtmlMsg$loadHtmlMsg = function (loadInfo) {
 					]))
 			]));
 };
-var $author$project$Msg$Download = {$: 'Download'};
-var $elm$html$Html$p = _VirtualDom_node('p');
 var $author$project$HtmlMsg$pauseHtmlMsg = function (st) {
 	return A2(
 		$elm$html$Html$div,
@@ -8492,7 +8648,7 @@ var $elm$core$Basics$round = _Basics_round;
 var $author$project$Model$getStory = function (model) {
 	var i = A2(
 		$elm$core$Debug$log,
-		'1',
+		'Story',
 		A2(
 			$elm$core$Basics$max,
 			0,
@@ -8527,7 +8683,7 @@ var $author$project$View$show_DeadInfo = function (state) {
 			]),
 		_List_fromArray(
 			[
-				_Utils_eq(state, $author$project$Msg$End) ? $elm$svg$Svg$text('Mission Failed! Retry the mission of a terminator! Press R to restart') : $elm$svg$Svg$text('Save the world! Terminator!')
+				_Utils_eq(state, $author$project$Msg$Lose) ? $elm$svg$Svg$text('Mission Failed! Retry the mission of a terminator! Press R to restart') : $elm$svg$Svg$text('Save the world! Terminator!')
 			]));
 };
 var $author$project$View$show_PauseInfo = A2(
@@ -8580,13 +8736,13 @@ var $author$project$View$viewUnitArea = F2(
 		var max = _v0.b;
 		var min = _v0.c;
 		var other = $elm$core$String$fromFloat(
-			255 - A2(
+			A2(
 				$elm$core$Basics$min,
 				255,
-				(A2(
+				((A2(
 					$elm$core$Maybe$withDefault,
 					$author$project$PureCPdata$initPureCPdata,
-					A2($elm$core$Dict$get, cp, unitArea.localCP)).data / (max - min)) * 255));
+					A2($elm$core$Dict$get, cp, unitArea.localCP)).data - min) / (max - min)) * 255));
 		var name = unitArea.name;
 		return A2(
 			$elm$svg$Svg$path,
@@ -8687,34 +8843,12 @@ var $author$project$View$viewCRs = F2(
 			$author$project$View$viewUnitCR(dict),
 			cRS);
 	});
-var $elm$core$Basics$not = _Basics_not;
 var $elm$core$Basics$negate = function (n) {
 	return -n;
 };
 var $elm$core$Basics$abs = function (n) {
 	return (n < 0) ? (-n) : n;
 };
-var $elm$core$List$any = F2(
-	function (isOkay, list) {
-		any:
-		while (true) {
-			if (!list.b) {
-				return false;
-			} else {
-				var x = list.a;
-				var xs = list.b;
-				if (isOkay(x)) {
-					return true;
-				} else {
-					var $temp$isOkay = isOkay,
-						$temp$list = xs;
-					isOkay = $temp$isOkay;
-					list = $temp$list;
-					continue any;
-				}
-			}
-		}
-	});
 var $elm$core$Basics$neq = _Utils_notEqual;
 var $elm$core$String$foldr = _String_foldr;
 var $elm$core$String$toList = function (string) {
@@ -9240,6 +9374,10 @@ var $author$project$Main$view = function (model) {
 							return x + (' : ' + (y.text + '\n'));
 						},
 						$elm$core$Dict$toList(model.data.helpText))));
+		case 'Win':
+			return $author$project$HtmlMsg$endHtmlMsg('Congratulation! You save the city.\n\n');
+		case 'Lose':
+			return $author$project$HtmlMsg$endHtmlMsg('You failed.\n\n');
 		default:
 			return $author$project$Model$runningHtmlMsg(model);
 	}
