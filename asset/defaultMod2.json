@@ -38,7 +38,7 @@
         }
     },
     "globalCP": {
-        "Core Course Term GPA": 4
+        "Core Course Term GPA": 100
     },
     "CR": {
         "academic purposes": {
@@ -48,7 +48,10 @@
                 "Science literacy and capability": 2,
                 "Interpersonal Popularity": 5,
                 "Self Pursuits Fulfillment": 3
-            }
+            },
+            "placeX": 5,
+                       "placeY": -5,
+                       "color": "yellow"
         },
         "social contact": {
             "location": "Core courses",
@@ -57,7 +60,10 @@
                 "Science literacy and capability": 2,
                 "Interpersonal Popularity": 5,
                 "Self Pursuits Fulfillment": 3
-            }
+            },
+            "placeX": -5,
+                        "placeY": -5,
+                        "color": "red"
         },
         "family life": {
             "location": "Preliminary courses",
@@ -66,7 +72,10 @@
                 "Science literacy and capability": 2,
                 "Interpersonal Popularity": 5,
                 "Self Pursuits Fulfillment": 3
-            }
+            },
+            "placeX": 5,
+                        "placeY": 5,
+                        "color": "rgb(125,130,198)"
         },
         "recreation and resting": {
             "location": "Extracurricular Life",
@@ -75,7 +84,10 @@
                 "Science literacy and capability": 2,
                 "Interpersonal Popularity": 5,
                 "Self Pursuits Fulfillment": 3
-            }
+            },
+            "placeX": -5,
+                   "placeY": 5,
+                   "color": "green"
         }
     },
     "area": {
@@ -88,10 +100,13 @@
                 "Self Pursuits Fulfillment": 3
             },
             "init": {
-                "Science literacy and capability": 2,
-                "Interpersonal Popularity": 5,
-                "Self Pursuits Fulfillment": 3
-            }
+                "Science literacy and capability": 100,
+                "Interpersonal Popularity": 50,
+                "Self Pursuits Fulfillment": 30
+            },
+         "path":"M 10 10 L 75 10 L 75 75 L 10 75 Z",
+         "centerX": 42.5,
+         "centerY": 42.5
         },
         "Core courses": {
             "location": 2,
@@ -102,10 +117,14 @@
                 "Self Pursuits Fulfillment": 3
             },
             "init": {
-                "Science literacy and capability": 2,
-                "Interpersonal Popularity": 5,
-                "Self Pursuits Fulfillment": 3
-            }
+                "Science literacy and capability": 20,
+                "Interpersonal Popularity": 50,
+                "Self Pursuits Fulfillment": 30
+            },
+            "path": "M 75 10 L 140 10 L 140 75 L 75 75 Z",
+            "centerX": 100,
+            "centerY": 60
+
         },
         "Humanistic courses": {
             "location": 3,
@@ -116,10 +135,13 @@
                 "Self Pursuits Fulfillment": 3
             },
             "init": {
-                "Science literacy and capability": 2,
-                "Interpersonal Popularity": 5,
-                "Self Pursuits Fulfillment": 3
-            }
+                "Science literacy and capability": 20,
+                "Interpersonal Popularity": 50,
+                "Self Pursuits Fulfillment": 30
+            },
+            "path": "M 75 75 L 140 75 L 140 140 L 75 140 Z",
+                      "centerX": 100,
+                      "centerY": 120
         },
         "Extracurricular Life": {
             "location": 4,
@@ -130,10 +152,13 @@
                 "Self Pursuits Fulfillment": 3
             },
             "init": {
-                "Science literacy and capability": 2,
-                "Interpersonal Popularity": 5,
-                "Self Pursuits Fulfillment": 3
-            }
+                "Science literacy and capability": 20,
+                "Interpersonal Popularity": 50,
+                "Self Pursuits Fulfillment": 30
+            },
+            "path": "M 10 140 L 10 75 L 75 75 L 75 140 Z",
+                    "centerX": 30,
+                    "centerY": 100
         }
     },
     "helpText": {
@@ -148,6 +173,25 @@
         "Humanistic courses": "A component of your term life regarding Humanistic courses studying",
         "Core courses": "A component of your term life regarding Core courses studying such as mathematics or engineering-related courses",
         "Preliminary courses": "A component of your term life regarding your internship at Silverfocs or other companies",
-        "Extracurricular Life": "A component of your term life regarding Extracurricular activities"
+        "Extracurricular Life": "A component of your term life regarding Extracurricular activities",
+        "rule": "The game ends when you make any of the global or local CP decrease to 0."
+    },
+    "winningMsg": {
+            "LocalCP":  "Interpersonal Popularity",
+            "GlobalCP": [
+                "Core Course Term GPA"
+            ],
+            "winningTime": 100000,
+            "losing": [
+                -10000
+            ],
+            "max": 1000,
+            "min": 0
+        },
+        "story": [
+            "Gotham is located in the downtown area of the city, just like the capital of a country, highly developed and helpful. Bombay is Gotham's \"Satellite district\", geographically and interactively, thus the CR exchanging between those two district is particularly efficient!",
+            "GassVille is located in the most developed Southeast coastal area, boasting highest initial CP but has underwent a long period of misgovernment and its improper import & Export policies. Finally, Burnley is in the most deserted and least developed Northwest corner in contrast to the diligence of its citizens hence the premium exports.",
+            "Remember: transferred CR both increase and DECREASE the CP in each area at a certain high or low ratio. The occurrence conditions of this risk is left to you to discover, and whether to play it safe to take the risk, it's all up to you! Try to survive as long as possible, baby let the game begin!"
+        ],
+        "time": 0
     }
-}
