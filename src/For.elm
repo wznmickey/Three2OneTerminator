@@ -41,6 +41,7 @@ for (int index = i ; index < n ; index++) (x,o)=f(x,index,o);
         , 10
         )
     == ([20,19,18,17,16,15,14,13,12,11,10],10)
+
 -}
 for : Int -> Int -> (outer -> Int -> io -> ( io, outer )) -> ( io, outer ) -> ( io, outer )
 for i n f ( x, o ) =

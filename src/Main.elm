@@ -2,6 +2,7 @@ module Main exposing (main)
 
 {-| It is the module that contain the other functions to the main function.
 
+
 # Main
 
 @docs main

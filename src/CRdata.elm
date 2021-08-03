@@ -1,4 +1,9 @@
-module CRdata exposing (CRdata,initCRdata,decoder_CRdata,encodeCRdata)
+module CRdata exposing
+    ( CRdata
+    , initCRdata
+    , decoder_CRdata, encodeCRdata
+    )
+
 {-| It is the module that defines type `CPtype` used as a subtype and related functions.
 
 
@@ -6,9 +11,11 @@ module CRdata exposing (CRdata,initCRdata,decoder_CRdata,encodeCRdata)
 
 @docs CRdata
 
+
 # Init
 
 @docs initCRdata
+
 
 # Json relate
 
@@ -17,22 +24,23 @@ module CRdata exposing (CRdata,initCRdata,decoder_CRdata,encodeCRdata)
 -}
 
 import Dict exposing (Dict)
-import Json.Decode exposing (Decoder,dict,string,map5,field,float,map)
-import Json.Encode exposing (object,Value,string,float,dict)
-import PureCPdata exposing (PureCPdata,initPureCPdata,decoder_PureCPdata,encodePureCPdata)
+import Json.Decode exposing (Decoder, dict, field, float, map, map5, string)
+import Json.Encode exposing (Value, dict, float, object, string)
+import PureCPdata exposing (PureCPdata, decoder_PureCPdata, encodePureCPdata, initPureCPdata)
+
 
 {-| This type defines the data of CR.
 -}
-
 type alias CRdata =
-    { 
-      name : String
+    { name : String
+
     -- The name of the area.
     , location : String
     , effect : Dict String PureCPdata
     , place : ( Float, Float )
     , color : String
     }
+
 
 {-| This function gives a init `CRdata`, should not be actually used in `Running`.
 -}
@@ -60,9 +68,9 @@ initCRdata =
         "white"
     }
 
+
 {-| This function decodes `CRdata`.
 -}
-
 decoder_CRdata : Decoder (Dict.Dict String CRdata)
 decoder_CRdata =
     map
@@ -73,9 +81,9 @@ decoder_CRdata =
             infoDecoder
         )
 
-{-| This type is a help type suggested in https://package.elm-lang.org/packages/elm/json/latest/Json-Decode#dict.
--}
 
+{-| This type is a help type suggested in <https://package.elm-lang.org/packages/elm/json/latest/Json-Decode#dict>.
+-}
 type alias Info =
     { location : String
     , effect : Dict String PureCPdata
@@ -84,9 +92,9 @@ type alias Info =
     , color : String
     }
 
-{-| This function is a help function suggested in https://package.elm-lang.org/packages/elm/json/latest/Json-Decode#dict.
--}
 
+{-| This function is a help function suggested in <https://package.elm-lang.org/packages/elm/json/latest/Json-Decode#dict>.
+-}
 infoDecoder : Decoder Info
 infoDecoder =
     map5 Info
@@ -111,9 +119,9 @@ infoDecoder =
             Json.Decode.string
         )
 
-{-| This function is a help function suggested in https://package.elm-lang.org/packages/elm/json/latest/Json-Decode#dict.
--}
 
+{-| This function is a help function suggested in <https://package.elm-lang.org/packages/elm/json/latest/Json-Decode#dict>.
+-}
 infoToCRdata : String -> Info -> CRdata
 infoToCRdata name { location, effect, x, y, color } =
     CRdata
@@ -123,9 +131,9 @@ infoToCRdata name { location, effect, x, y, color } =
         ( x, y )
         color
 
+
 {-| This function encodes `CRdata`.
 -}
-
 encodeCRdata : CRdata -> Json.Encode.Value
 encodeCRdata data =
     Json.Encode.object

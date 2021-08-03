@@ -1,6 +1,6 @@
 module Msg exposing
-    ( init_onMovingCR
-    , Element(..), FileStatus(..), KeyInfo(..), Msg(..), OnMovingCR, State(..)
+    ( OnMovingCR, State(..), KeyInfo(..), Element(..), FileStatus(..), Msg(..)
+    , init_onMovingCR
     )
 
 {-| It is the module that defines all the necessary Msg used in the game.

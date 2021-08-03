@@ -1,4 +1,7 @@
-module CPtype exposing (CPtype(..), dCPtype, encodeCPtype)
+module CPtype exposing
+    ( CPtype(..)
+    , dCPtype, encodeCPtype
+    )
 
 {-| It is the module that defines type `CPtype` used as a subtype and related functions.
 
@@ -14,15 +17,16 @@ module CPtype exposing (CPtype(..), dCPtype, encodeCPtype)
 
 -}
 
+import Json.Decode exposing (Decoder, andThen, fail, string, succeed)
+import Json.Encode exposing (Value, string)
 
-import Json.Decode exposing (string,andThen,succeed,fail,Decoder)
-import Json.Encode exposing (Value,string)
 
 {-| This type defines the type of CP.
 -}
 type CPtype
     = Local
     | Global
+
 
 {-| This function decode `CPtype`.
 -}
@@ -49,6 +53,7 @@ dString2CPtype string =
                 ("Invalid type: "
                     ++ string
                 )
+
 
 {-| This function encode `CPtype`.
 -}
