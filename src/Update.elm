@@ -9,7 +9,6 @@ import Dict exposing (Dict)
 import For exposing (for)
 import GameData exposing (GameData, getCPdataByName, getPureCPdataByName)
 import GameInfo exposing (GameInfo)
-import Html exposing (ol)
 import Msg exposing (Element(..), FileStatus(..), KeyInfo(..), Msg(..), State(..))
 import PureCPdata exposing (PureCPdata, initPureCPdata)
 

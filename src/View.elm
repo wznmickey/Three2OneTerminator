@@ -161,19 +161,6 @@ combineCPdata2String cpTocombine =
 
 view_Areadata : Dict String Area -> String -> Html Msg
 view_Areadata area onview =
-    let
-        areaInfo =
-            (checkArea
-                onview
-                area
-            ).name
-
-        areaNum =
-            (checkArea
-                onview
-                area
-            ).no
-    in
     div
         [ style
             "color"
