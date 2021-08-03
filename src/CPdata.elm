@@ -1,18 +1,39 @@
 module CPdata exposing (CPdata, decoder_CPdata, encodeCPdata, initCPdata)
+{-| It is the module that defines type `CPdata` used as a subtype and related functions.
 
-import CPtype exposing (..)
+
+# Type
+
+@docs CPdata
+
+
+# Init
+
+@docs initCPdata
+
+
+# Json relate
+
+@docs decoder_CPdata, encodeCPdata
+
+-}
+
+import CPtype exposing (CPtype(..),dCPtype, encodeCPtype)
 import Dict exposing (Dict)
-import Json.Decode exposing (..)
-import Json.Encode exposing (..)
-import PureCPdata exposing (..)
+import Json.Decode exposing (Decoder,map2,field,map,dict)
+import Json.Encode exposing (object,dict,Value)
+import PureCPdata exposing (PureCPdata,initPureCPdata,decoder_PureCPdata,encodePureCPdata)
 
-
+{-| This type defines the data of CP.
+-}
 type alias CPdata =
     { name : String
     , effect : Dict String PureCPdata
     , typeCP : CPtype
     }
 
+{-| This function gives a init `CPdata`, should not be actually used in `Running`.
+-}
 
 initCPdata : CPdata
 initCPdata =
@@ -36,6 +57,8 @@ initCPdata =
         newTypeCP
     }
 
+{-| This function decodes `CPdata`.
+-}
 
 decoder_CPdata : Decoder (Dict.Dict String CPdata)
 decoder_CPdata =
@@ -47,12 +70,16 @@ decoder_CPdata =
             infoDecoder
         )
 
+{-| This type is a help type suggested in https://package.elm-lang.org/packages/elm/json/latest/Json-Decode#dict.
+-}
 
 type alias Info =
     { effect : Dict String PureCPdata
     , typeCP : CPtype
     }
 
+{-| This function is a help function suggested in https://package.elm-lang.org/packages/elm/json/latest/Json-Decode#dict.
+-}
 
 infoDecoder : Decoder Info
 infoDecoder =
@@ -66,6 +93,8 @@ infoDecoder =
             dCPtype
         )
 
+{-| This function is a help function suggested in https://package.elm-lang.org/packages/elm/json/latest/Json-Decode#dict.
+-}
 
 infoToCPdata : String -> Info -> CPdata
 infoToCPdata name { effect, typeCP } =
@@ -74,6 +103,8 @@ infoToCPdata name { effect, typeCP } =
         effect
         typeCP
 
+{-| This function encodes `CPdata`.
+-}
 
 encodeCPdata : CPdata -> Json.Encode.Value
 encodeCPdata data =
