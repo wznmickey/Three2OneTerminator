@@ -1,15 +1,32 @@
-module CRdata exposing (..)
+module CRdata exposing (CRdata,initCRdata,decoder_CRdata,encodeCRdata)
+{-| It is the module that defines type `CPtype` used as a subtype and related functions.
+
+
+# Type
+
+@docs CRdata
+
+# Init
+
+@docs initCRdata
+
+# Json relate
+
+@docs decoder_CRdata, encodeCRdata
+
+-}
 
 import Dict exposing (Dict)
 import Json.Decode exposing (..)
 import Json.Encode exposing (..)
-import PureCPdata exposing (..)
+import PureCPdata exposing (PureCPdata,initPureCPdata,decoder_PureCPdata,encodePureCPdata)
 
+{-| This type defines the data of CR.
+-}
 
 type alias CRdata =
-    { --view: CRview
+    { 
       name : String
-
     -- The name of the area.
     , location : String
     , effect : Dict String PureCPdata
@@ -17,7 +34,8 @@ type alias CRdata =
     , color : String
     }
 
-
+{-| This function gives a init `CRdata`, should not be actually used in `Running`.
+-}
 initCRdata : CRdata
 initCRdata =
     let
@@ -42,6 +60,8 @@ initCRdata =
         "white"
     }
 
+{-| This function decodes `CRdata`.
+-}
 
 decoder_CRdata : Decoder (Dict.Dict String CRdata)
 decoder_CRdata =
@@ -53,6 +73,8 @@ decoder_CRdata =
             infoDecoder
         )
 
+{-| This type is a help type suggested in https://package.elm-lang.org/packages/elm/json/latest/Json-Decode#dict.
+-}
 
 type alias Info =
     { location : String
@@ -62,6 +84,8 @@ type alias Info =
     , color : String
     }
 
+{-| This function is a help function suggested in https://package.elm-lang.org/packages/elm/json/latest/Json-Decode#dict.
+-}
 
 infoDecoder : Decoder Info
 infoDecoder =
@@ -87,6 +111,8 @@ infoDecoder =
             Json.Decode.string
         )
 
+{-| This function is a help function suggested in https://package.elm-lang.org/packages/elm/json/latest/Json-Decode#dict.
+-}
 
 infoToCRdata : String -> Info -> CRdata
 infoToCRdata name { location, effect, x, y, color } =
@@ -97,6 +123,8 @@ infoToCRdata name { location, effect, x, y, color } =
         ( x, y )
         color
 
+{-| This function encodes `CRdata`.
+-}
 
 encodeCRdata : CRdata -> Json.Encode.Value
 encodeCRdata data =

@@ -41,7 +41,7 @@ type alias PureCPdata =
     }
 
 
-{-| This function gives a init `PureCPdata` , should never be used in running.
+{-| This function gives a init `PureCPdata`, should not be actually used in `Running`.
 -}
 initPureCPdata : PureCPdata
 initPureCPdata =
