@@ -2,7 +2,7 @@ module GameData exposing
     ( GameData
     , initGameData
     , encodeGameData, dGameData
-    , getPureCPdataByName, getCPdataByName
+    , getPureCPdataByName, getCPdataByName, getAreaByName
     )
 
 {-| It is the module that defines type `GameData` that contain all the necessary data for game running.
@@ -25,7 +25,7 @@ module GameData exposing
 
 # Get element
 
-@docs getPureCPdataByName, getCPdataByName
+@docs getPureCPdataByName, getCPdataByName, getAreaByName
 
 -}
 
@@ -82,6 +82,7 @@ import Json.Encode
         , list
         , object
         )
+import Msg exposing (Element(..))
 import PureCPdata
     exposing
         ( PureCPdata
@@ -214,6 +215,18 @@ getPureCPdataByName : ( String, Dict String PureCPdata ) -> PureCPdata
 getPureCPdataByName ( name, dict ) =
     Maybe.withDefault
         initPureCPdata
+        (Dict.get
+            name
+            dict
+        )
+
+
+{-| This function gives certain `Area` by `String` in the `Dict String Area`.
+-}
+getAreaByName : ( String, Dict String Area ) -> Area
+getAreaByName ( name, dict ) =
+    Maybe.withDefault
+        initArea
         (Dict.get
             name
             dict

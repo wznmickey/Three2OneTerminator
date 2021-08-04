@@ -1,5 +1,4 @@
-module Model exposing (..)
-
+module Model exposing (Model,initModel,runningHtmlMsg,update)
 import Area exposing (..)
 import Array exposing (..)
 import CmdMsg exposing (..)
@@ -127,8 +126,6 @@ runningHtmlMsg model =
                 model
             )
         , show_PauseInfo
-        , show_DeadInfo
-            model.state
         , viewMovingCR
             (combineList_2String
                 model.cRmovingInfo
@@ -574,3 +571,48 @@ changeCR newArea model =
 
         Nothing ->
             model
+
+filter_CRMovinginfo : List String -> List String
+filter_CRMovinginfo crMovingInfo =
+    if List.length crMovingInfo >= 3 then
+        update_CRMovinginfo
+            crMovingInfo
+
+    else
+        crMovingInfo
+
+update_CRMovinginfo : List String -> List String
+update_CRMovinginfo old =
+    List.take
+        2
+        old
+        ++ [ "CR MOVED:" ]
+combineList_2String : List String -> String
+combineList_2String toCombine =
+    List.foldl
+        (++)
+        ""
+        toCombine
+
+combine_onmoveCR2String : OnMovingCR -> String -> String
+combine_onmoveCR2String crInfoTocombine toArea =
+    case crInfoTocombine.cRname of
+        Just name ->
+            case crInfoTocombine.formerArea of
+                Just area ->
+                    if area == toArea then
+                        ""
+
+                    else
+                        "\n"
+                            ++ name
+                            ++ " : "
+                            ++ area
+                            ++ " -> "
+                            ++ toArea
+
+                Nothing ->
+                    ""
+
+        Nothing ->
+            ""
