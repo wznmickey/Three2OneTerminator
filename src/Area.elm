@@ -1,25 +1,51 @@
---unit area
+module Area exposing
+    ( Area
+    , initArea
+    , decoder_Area
+    , encodeArea
+    )
+
+{-| It is the module that defines type `Area` used as a subtype and related functions.
 
 
-module Area exposing (..)
+# Type
+
+@docs Area
+
+
+# Init
+
+@docs initArea
+
+
+# Json relate
+
+@docs decoder_Area, encodeArea
+
+-}
 
 import Dict exposing (Dict)
-import Json.Decode exposing (..)
-import Json.Encode exposing (..)
-import PureCPdata exposing (..)
+import Json.Decode exposing (Decoder, dict, field, float, int, map, map6, string)
+import Json.Encode exposing (Value, dict, int, object, string)
+import PureCPdata exposing (PureCPdata, decoder_PureCPdata, encodePureCPdata, initPureCPdata)
 
 
+{-| This type defines the infomation of `Area`.
+*no is not used now*
+-}
 type alias Area =
     { view : String
     , center : ( Float, Float )
     , name : String
     , localCP : Dict String PureCPdata
     , effect : Dict String PureCPdata
-    , --The index of the area. Start from **1**.
+    , --The index of the area. Start from **1**. Not use now.
       no : Int
     }
 
 
+{-| This function gives a init `Area`, should not be actually used in `Running`.
+-}
 initArea : Area
 initArea =
     let
@@ -54,19 +80,21 @@ initArea =
     }
 
 
+{-| This function decodes `Area`.
+-}
 decoder_Area : Decoder (Dict.Dict String Area)
 decoder_Area =
-    Debug.log "1"
-        (map
-            (Dict.map
-                infoToArea
-            )
-            (Json.Decode.dict
-                infoDecoder
-            )
+    map
+        (Dict.map
+            infoToArea
+        )
+        (Json.Decode.dict
+            infoDecoder
         )
 
 
+{-| This type is a help type suggested in <https://package.elm-lang.org/packages/elm/json/latest/Json-Decode#dict>.
+-}
 type alias Info =
     { localCP : Dict String PureCPdata
     , effect : Dict String PureCPdata
@@ -77,6 +105,8 @@ type alias Info =
     }
 
 
+{-| This function is a help function suggested in <https://package.elm-lang.org/packages/elm/json/latest/Json-Decode#dict>.
+-}
 infoDecoder : Decoder Info
 infoDecoder =
     map6 Info
@@ -106,6 +136,8 @@ infoDecoder =
         )
 
 
+{-| This function is a help function suggested in <https://package.elm-lang.org/packages/elm/json/latest/Json-Decode#dict>.
+-}
 infoToArea : String -> Info -> Area
 infoToArea name { localCP, effect, no, view, x, y } =
     Area
@@ -117,6 +149,8 @@ infoToArea name { localCP, effect, no, view, x, y } =
         no
 
 
+{-| This function encodes `Area`.
+-}
 encodeArea : Area -> Json.Encode.Value
 encodeArea data =
     Json.Encode.object
