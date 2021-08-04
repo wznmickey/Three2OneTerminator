@@ -1,11 +1,33 @@
-module SvgMsg exposing (..)
+module SvgMsg exposing (button)
 
-import Msg exposing (Element(..), FileStatus(..), KeyInfo(..), Msg(..), OnMovingCR, State(..), init_onMovingCR)
-import Svg exposing (Svg, text)
+{-| It is the module that contain simple svg elements.
+
+
+# Element
+
+@docs button
+
+-}
+
+import Msg exposing (Msg(..))
+import Svg
+    exposing
+        ( Svg
+        , text
+        )
 import Svg.Attributes as SvgAttr
-import Svg.Events as SvgEvent
+import Svg.Events as SvgEvent exposing (onClick)
 
 
+{-| This function give a button based on the inputs.
+
+`String` is the showing text of the button.
+
+`Msg` is what to deliver after clicking.
+
+Three `Float`s show x, y and size.
+
+-}
 button : String -> Msg -> Float -> Float -> Float -> Svg Msg
 button showText msg x y size =
     Svg.g
