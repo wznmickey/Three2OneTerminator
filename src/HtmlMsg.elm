@@ -1,15 +1,31 @@
-module HtmlMsg exposing (..)
+module HtmlMsg exposing
+    ( endHtmlMsg, loadHtmlMsg, pauseHtmlMsg, startHtmlMsg, storyShow
+    , showButtons
+    )
 
-import Array
+{-| This module gives functions that to show on the screen as `Html Msg`.
+
+
+# Text
+
+@docs endHtmlMsg, loadHtmlMsg, pauseHtmlMsg, startHtmlMsg, storyShow
+
+
+# Draw
+
+@docs showButtons
+
+-}
+
+import Array exposing (get)
 import For exposing (for)
-import Html exposing (..)
+import Html exposing (Html, div, img, p)
 import Html.Attributes as HtmlAttr exposing (..)
-import Html.Events as HtmlEvent exposing (..)
 import Msg exposing (Element(..), FileStatus(..), KeyInfo(..), Msg(..), State(..))
 import Svg exposing (Svg, text)
 import Svg.Attributes as SvgAttr
-import Svg.Events as SvgEvent
-import SvgMsg exposing (..)
+import Svg.Events as SvgEvent exposing (onClick)
+import SvgMsg exposing (button)
 
 
 assetURL : String
@@ -17,6 +33,13 @@ assetURL =
     "asset/"
 
 
+{-| This function returns `Html Msg` as several buttons based on :
+
+- `(Float,Float)` as width and height
+- `(Float,Float)` as left and top
+- `List ( String, Msg, Float )` as showing text, bounded `Msg` and showing size
+
+-}
 showButtons : ( Float, Float ) -> ( Float, Float ) -> List ( String, Msg, Float ) -> Html Msg
 showButtons ( w, h ) ( l, t ) x =
     div
@@ -75,6 +98,8 @@ showButtons ( w, h ) ( l, t ) x =
         ]
 
 
+{-| This function returns `Html Msg` in start page.
+-}
 startHtmlMsg : Html Msg
 startHtmlMsg =
     div
@@ -149,6 +174,8 @@ startHtmlMsg =
         ]
 
 
+{-| This function returns `Html Msg` in load page.
+-}
 loadHtmlMsg : String -> Html Msg
 loadHtmlMsg loadInfo =
     div
@@ -187,6 +214,8 @@ loadHtmlMsg loadInfo =
         ]
 
 
+{-| This function returns `Html Msg` in pause page.
+-}
 pauseHtmlMsg : String -> Html Msg
 pauseHtmlMsg st =
     div
@@ -259,6 +288,8 @@ pauseHtmlMsg st =
         ]
 
 
+{-| This function returns `Html Msg` in end page, showing text from `String`.
+-}
 endHtmlMsg : String -> Html Msg
 endHtmlMsg st =
     div
@@ -325,6 +356,8 @@ endHtmlMsg st =
         ]
 
 
+{-| This function returns `Html Msg` as story from `String`.
+-}
 storyShow : String -> Html Msg
 storyShow story =
     div

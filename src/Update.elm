@@ -1,19 +1,71 @@
-module Update exposing (..)
+module Update exposing
+    ( switchPause, checkHelp
+    , updateData, moveCR
+    , keyPress
+    )
 
-import Area exposing (Area, initArea)
+{-| This module gives the functions for updating data.
+
+
+# State
+
+@docs switchPause, checkHelp
+
+
+# Data
+
+@docs updateData, moveCR
+
+
+# Key
+
+@docs keyPress
+
+-}
+
+import Area
+    exposing
+        ( Area
+        , initArea
+        )
 import Array exposing (Array)
-import CPdata exposing (CPdata, initCPdata)
+import CPdata
+    exposing
+        ( CPdata
+        , initCPdata
+        )
 import CPtype exposing (CPtype(..))
-import CRdata exposing (CRdata, initCRdata)
+import CRdata
+    exposing
+        ( CRdata
+        , initCRdata
+        )
 import Dict exposing (Dict)
 import For exposing (for)
-import GameData exposing (GameData, getCPdataByName, getPureCPdataByName)
+import GameData
+    exposing
+        ( GameData
+        , getCPdataByName
+        , getPureCPdataByName
+        )
 import GameInfo exposing (GameInfo)
-import Html exposing (ol)
-import Msg exposing (Element(..), FileStatus(..), KeyInfo(..), Msg(..), State(..))
-import PureCPdata exposing (PureCPdata, initPureCPdata)
+import Msg
+    exposing
+        ( Element(..)
+        , FileStatus(..)
+        , KeyInfo(..)
+        , Msg(..)
+        , State(..)
+        )
+import PureCPdata
+    exposing
+        ( PureCPdata
+        , initPureCPdata
+        )
 
 
+{-| This function receive `State` as the current state and return `Msg` as `ToState State` to indicate next state. Used when related to pause.
+-}
 switchPause : State -> Msg
 switchPause state =
     if state == Pause then
@@ -29,6 +81,8 @@ switchPause state =
             state
 
 
+{-| This function receive `State` as the current state and return `Msg` as `ToState State` to indicate next state. Used when related to help.
+-}
 checkHelp : State -> Msg
 checkHelp state =
     if state == Running then
@@ -81,8 +135,6 @@ getEffect effect key before =
 
 valueEffectCP : PureCPdata -> PureCPdata -> PureCPdata
 valueEffectCP effect before =
-    --For debug
-    --{ before | data = (Debug.log "before" before.data) + (Debug.log "add" effect.data) }
     { before
         | data =
             before.data + effect.data
@@ -93,6 +145,8 @@ valueEffectCP effect before =
 --data update
 
 
+{-| This function changes CP based on the inputted data.
+-}
 updateData : GameData -> GameData
 updateData data =
     data
@@ -509,6 +563,8 @@ eachAreaCPchange global i a =
     )
 
 
+{-| This function use `Dict String CRdata` as the CR data and 2 `String` (1st as from, 2st as to) to move CR and return the whole CR data.
+-}
 moveCR : Dict String CRdata -> String -> String -> Dict String CRdata
 moveCR before from to =
     Dict.update
@@ -533,6 +589,8 @@ setCRlocation to from =
             from
 
 
+{-| This function transfer `Int` as keycode to meaningful `Msg` of which key is pressed.
+-}
 keyPress : Int -> Msg
 keyPress input =
     let

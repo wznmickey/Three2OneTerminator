@@ -25,9 +25,5 @@
     "test-dependencies": {
         "direct": {},
         "indirect": {}
-    },
-    "exposed-modules": [
-        "Main",
-        "For"
-    ]
+    }
 }

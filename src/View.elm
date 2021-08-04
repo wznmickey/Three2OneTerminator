@@ -1,21 +1,50 @@
-module View exposing (..)
+module View exposing
+    ( viewMovingCR, show_PauseInfo, disp_Onview, view_Areadata, viewGlobalData
+    , viewCRs, viewAreas
+    )
 
-import Area exposing (..)
-import CPdata exposing (..)
-import CPtype exposing (..)
+{-| This module gives functions related to viewing.
+
+
+# Info
+
+@docs viewMovingCR, show_PauseInfo, disp_Onview, view_Areadata, viewGlobalData
+
+
+# Drawing
+
+@docs viewCRs, viewAreas
+
+-}
+
+import Area exposing (Area)
+import CPdata exposing (CPdata)
+import CPtype exposing (CPtype(..))
 import CRdata exposing (CRdata)
 import Debug exposing (toString)
 import Dict exposing (Dict, get)
-import GameData exposing (..)
+import GameData
+    exposing
+        ( GameData
+        , getAreaByName
+        , getCPdataByName
+        , getPureCPdataByName
+        , initGameData
+        )
 import Html exposing (Html, div)
 import Html.Attributes exposing (style)
 import Json.Decode exposing (Error, string)
-import Msg exposing (Element(..), FileStatus(..), KeyInfo(..), Msg(..), OnMovingCR, State(..))
-import PureCPdata exposing (..)
+import Msg
+    exposing
+        ( Element(..)
+        , Msg(..)
+        , State(..)
+        )
+import PureCPdata exposing (PureCPdata)
 import Round exposing (round)
 import Svg exposing (Svg, text)
 import Svg.Attributes as SvgAttr
-import Svg.Events as SvgEvent
+import Svg.Events as SvgEvent exposing (onClick)
 
 
 pink : String
@@ -33,11 +62,9 @@ viewUnitArea ( cp, max, min ) unitArea =
             String.fromFloat
                 (Basics.min
                     255
-                    (((Maybe.withDefault
-                        initPureCPdata
-                        (Dict.get
-                            cp
-                            unitArea.localCP
+                    (((getPureCPdataByName
+                        ( cp
+                        , unitArea.localCP
                         )
                       ).data
                         - min
@@ -74,6 +101,8 @@ viewUnitArea ( cp, max, min ) unitArea =
         ]
         []
 
+{-| This function returns `List (Svg Msg)` showing every area by getting `(String, Float, Float)` as color info and `List Area` as dict and location info. `( String, Float, Float )` is in order the color related local CP, max CP data and min CP data.
+-}
 
 viewAreas : ( String, Float, Float ) -> List Area -> List (Svg Msg)
 viewAreas ( cp, max, min ) areaS =
@@ -81,6 +110,8 @@ viewAreas ( cp, max, min ) areaS =
         (viewUnitArea ( cp, max, min ))
         areaS
 
+{-| This function returns `Html Msg` showing global CP from `Dict String CPdata` as dict and `List PureCPdata` as the candidates of CPs.
+-}
 
 viewGlobalData : List PureCPdata -> Dict String CPdata -> Html Msg
 viewGlobalData pure dict =
@@ -158,22 +189,11 @@ combineCPdata2String cpTocombine =
             cpTocombine
         )
 
+{-| This function returns `Html Msg` based on `String` as onview area from `Dict String Area` as dict, showing the local CP.
+-}
 
 view_Areadata : Dict String Area -> String -> Html Msg
 view_Areadata area onview =
-    let
-        areaInfo =
-            (checkArea
-                onview
-                area
-            ).name
-
-        areaNum =
-            (checkArea
-                onview
-                area
-            ).no
-    in
     div
         [ style
             "color"
@@ -203,14 +223,17 @@ view_Areadata area onview =
         [ text
             (combineCPdata2String
                 (Dict.values
-                    (checkArea
-                        onview
-                        area
+                    (getAreaByName
+                        ( onview
+                        , area
+                        )
                     ).localCP
                 )
             )
         ]
 
+{-| This function returns `Html Msg` showing `String` as the name of `Area`.
+-}
 
 disp_Onview : String -> Html Msg
 disp_Onview onview =
@@ -249,20 +272,8 @@ disp_Onview onview =
             )
         ]
 
-
-checkArea : String -> Dict String Area -> Area
-checkArea areaName areaS =
-    case
-        Dict.get
-            areaName
-            areaS
-    of
-        Just areaThis ->
-            areaThis
-
-        Nothing ->
-            initArea
-
+{-| This function returns `List (Svg Msg)` showing CRs from `Dict String Area` as dict of area and `List CRdata` to get CR logic location.
+-}
 
 viewCRs : Dict String Area -> List CRdata -> List (Svg Msg)
 viewCRs dict cRS =
@@ -280,11 +291,9 @@ viewUnitCR dict cRpos =
             cRpos.name
 
         ( xpos, ypos ) =
-            (Maybe.withDefault
-                initArea
-                (Dict.get
-                    cRpos.location
-                    dict
+            (getAreaByName
+                ( cRpos.location
+                , dict
                 )
             ).center
 
@@ -355,6 +364,8 @@ viewUnitCR dict cRpos =
             [ text (String.left 2 name) ]
         ]
 
+{-| This function returns `Html Msg` showing player information of pause and help.
+-}
 
 show_PauseInfo : Html Msg
 show_PauseInfo =
@@ -386,41 +397,9 @@ show_PauseInfo =
         ]
 
 
-show_DeadInfo : State -> Html Msg
-show_DeadInfo state =
-    div
-        [ style
-            "color"
-            "red"
-        , style
-            "font-size"
-            "20px"
-        , style
-            "font-weight"
-            "bold"
-        , style
-            "position"
-            "absolute"
-        , style
-            "left"
-            "2vw"
-        , style
-            "top"
-            "5vh"
-        , style
-            "white-space"
-            "pre-line"
-        ]
-        [ if state == Lose then
-            text
-                "Mission Failed! Retry the mission of a terminator! Press R to restart"
 
-          else
-            text
-                "Save the world! Terminator!"
-        ]
-
-
+{-| This function returns `Html Msg` showing `String` as CR moving history.
+-}
 viewMovingCR : String -> Html Msg
 viewMovingCR info =
     div
@@ -449,53 +428,3 @@ viewMovingCR info =
         [ text
             info
         ]
-
-
-combine_onmoveCR2String : OnMovingCR -> String -> String
-combine_onmoveCR2String crInfoTocombine toArea =
-    case crInfoTocombine.cRname of
-        Just name ->
-            case crInfoTocombine.formerArea of
-                Just area ->
-                    if area == toArea then
-                        ""
-
-                    else
-                        "\n"
-                            ++ name
-                            ++ " : "
-                            ++ area
-                            ++ " -> "
-                            ++ toArea
-
-                Nothing ->
-                    ""
-
-        Nothing ->
-            ""
-
-
-combineList_2String : List String -> String
-combineList_2String toCombine =
-    List.foldl
-        (++)
-        ""
-        toCombine
-
-
-filter_CRMovinginfo : List String -> List String
-filter_CRMovinginfo crMovingInfo =
-    if List.length crMovingInfo >= 3 then
-        update_CRMovinginfo
-            crMovingInfo
-
-    else
-        crMovingInfo
-
-
-update_CRMovinginfo : List String -> List String
-update_CRMovinginfo old =
-    List.take
-        2
-        old
-        ++ [ "CR MOVED:" ]

@@ -2,6 +2,7 @@ module Main exposing (main)
 
 {-| It is the module that contain the other functions to the main function.
 
+
 # Main
 
 @docs main
@@ -9,15 +10,30 @@ module Main exposing (main)
 -}
 
 import Browser exposing (element)
-import Browser.Events exposing (onAnimationFrameDelta, onClick, onKeyDown)
+import Browser.Events
+    exposing
+        ( onAnimationFrameDelta
+        , onClick
+        , onKeyDown
+        )
 import Browser.Navigation exposing (load)
-import Dict exposing (..)
-import Html exposing (..)
-import Html.Events as HtmlEvent exposing (..)
-import HtmlMsg exposing (..)
-import Json.Decode as Decode
+import Dict exposing (toList)
+import Html exposing (Html)
+import Html.Events exposing (keyCode)
+import HtmlMsg
+    exposing
+        ( endHtmlMsg
+        , loadHtmlMsg
+        , pauseHtmlMsg
+        , startHtmlMsg
+        )
+import Json.Decode as Decode exposing (map)
 import Model exposing (..)
-import Msg exposing (Element(..), FileStatus(..), KeyInfo(..), Msg(..), OnMovingCR, State(..), init_onMovingCR)
+import Msg
+    exposing
+        ( Msg(..)
+        , State(..)
+        )
 import Update exposing (..)
 import View exposing (..)
 

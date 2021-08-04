@@ -1,10 +1,29 @@
 module LoadMod exposing (loadMod)
 
-import Area exposing (..)
-import GameData exposing (..)
-import Json.Decode exposing (..)
+{-| This module gives functions to transfer `String` to organized data.
 
 
+# Load
+
+@docs loadMod
+
+-}
+
+import GameData
+    exposing
+        ( GameData
+        , dGameData
+        , initGameData
+        )
+import Json.Decode
+    exposing
+        ( decodeString
+        , errorToString
+        )
+
+
+{-| Input `String` as data. Output `(GameData,String)` as the organized data and loading information.("Ok" for right and other message for error)
+-}
 loadMod : String -> ( GameData, String )
 loadMod st =
     let
