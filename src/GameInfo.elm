@@ -1,9 +1,55 @@
-module GameInfo exposing (..)
+module GameInfo exposing
+    ( GameInfo
+    , decoderGameInfo
+    , encodeGameInfo
+    , initGameInfo
+    )
+{-| It is the module that defines type `GameInfo` used as a subtype describing gamerules and related functions.
 
-import Json.Decode exposing (..)
-import Json.Encode exposing (..)
 
+# Type
 
+@docs GameInfo
+
+# Init
+
+@docs initGameInfo
+
+# Json relate
+
+@docs decoderGameInfo, encodeGameInfo
+
+-}
+import Json.Decode
+    exposing
+        ( Decoder
+        , field
+        , float
+        , map6
+        , string
+        )
+import Json.Encode
+    exposing
+        ( Value
+        , float
+        , list
+        , object
+        , string
+        )
+
+{-| This type defines the game rules.
+
+`local` shows that localCP related to color.
+
+`global` shows the list of globalCP related to lose.
+
+`win` shows the time needed to win.
+
+`lose` shows the list of min number for lose.
+
+`max` and `min` shows color range of `local`. When reach `min`, also lose.
+
+-}
 type alias GameInfo =
     { local : String
     , global : List String
@@ -13,7 +59,8 @@ type alias GameInfo =
     , min : Float
     }
 
-
+{-| This function gives a init `GameInfo`, should not be actually used in `Running`.
+-}
 initGameInfo : GameInfo
 initGameInfo =
     GameInfo
@@ -24,10 +71,13 @@ initGameInfo =
         100
         0
 
+{-| This function decodes `GameInfo`.
+-}
 
 decoderGameInfo : Decoder GameInfo
 decoderGameInfo =
-    map6 GameInfo
+    map6
+        GameInfo
         (field
             "LocalCP"
             Json.Decode.string
@@ -57,6 +107,8 @@ decoderGameInfo =
             Json.Decode.float
         )
 
+{-| This function encodes `GameInfo`.
+-}
 
 encodeGameInfo : GameInfo -> Json.Encode.Value
 encodeGameInfo data =

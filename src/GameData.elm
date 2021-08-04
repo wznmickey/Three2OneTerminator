@@ -1,16 +1,115 @@
-module GameData exposing (..)
+module GameData exposing
+    ( GameData
+    , initGameData
+    , encodeGameData, dGameData
+    , getPureCPdataByName, getCPdataByName
+    )
 
-import Area exposing (..)
-import CPdata exposing (..)
-import CRdata exposing (..)
+{-| It is the module that defines type `GameData` that contain all the necessary data for game running.
+
+
+# Type
+
+@docs GameData
+
+
+# Init
+
+@docs initGameData
+
+
+# Json relate
+
+@docs encodeGameData, dGameData
+
+
+# Get element
+
+@docs getPureCPdataByName, getCPdataByName
+
+-}
+
+import Area
+    exposing
+        ( Area
+        , decoder_Area
+        , encodeArea
+        , initArea
+        )
+import CPdata
+    exposing
+        ( CPdata
+        , decoder_CPdata
+        , encodeCPdata
+        , initCPdata
+        )
+import CRdata
+    exposing
+        ( CRdata
+        , decoder_CRdata
+        , encodeCRdata
+        , initCRdata
+        )
 import Dict exposing (Dict)
-import GameInfo exposing (..)
-import HelpText exposing (..)
-import Json.Decode exposing (..)
-import Json.Encode exposing (..)
-import PureCPdata exposing (..)
+import GameInfo
+    exposing
+        ( GameInfo
+        , decoderGameInfo
+        , encodeGameInfo
+        , initGameInfo
+        )
+import HelpText
+    exposing
+        ( HelpText
+        , decoder_HelpText
+        , encodeHelpText
+        , initHelpText
+        )
+import Json.Decode
+    exposing
+        ( Decoder
+        , field
+        , float
+        , list
+        , map8
+        , string
+        )
+import Json.Encode
+    exposing
+        ( Value
+        , dict
+        , float
+        , list
+        , object
+        )
+import PureCPdata
+    exposing
+        ( PureCPdata
+        , decoder_PureCPdata
+        , encodePureCPdata
+        , initPureCPdata
+        )
 
 
+{-| This type defines the data for game running.
+
+`infoCP` is the dict of CP related information. It should not change during game.
+
+`globalCP` is the data of globalCP.
+
+`allCR` contains all the CR.
+
+`area` contains all the information of areas.
+
+`helpText` contains the help of each element.
+
+`gameInfo` contains the rules of game.
+
+`story` is where story words contained.
+
+`time` is the game time.
+
+-}
 type alias GameData =
     { infoCP : Dict String CPdata
     , globalCP : Dict String PureCPdata
@@ -23,6 +122,8 @@ type alias GameData =
     }
 
 
+{-| This function gives a init `GameData`, should not be actually used in `Running`.
+-}
 initGameData : GameData
 initGameData =
     { infoCP =
@@ -54,6 +155,8 @@ initGameData =
     }
 
 
+{-| This function decodes `GameData`.
+-}
 dGameData : Decoder GameData
 dGameData =
     map8 GameData
@@ -93,6 +196,8 @@ dGameData =
         )
 
 
+{-| This function gives certain `CPdata` by `String` in the `Dict String CPdata`.
+-}
 getCPdataByName : ( String, Dict String CPdata ) -> CPdata
 getCPdataByName ( name, dict ) =
     Maybe.withDefault
@@ -103,6 +208,8 @@ getCPdataByName ( name, dict ) =
         )
 
 
+{-| This function gives certain `PureCPdata` by `String` in the `Dict String PureCPdata`.
+-}
 getPureCPdataByName : ( String, Dict String PureCPdata ) -> PureCPdata
 getPureCPdataByName ( name, dict ) =
     Maybe.withDefault
@@ -113,6 +220,8 @@ getPureCPdataByName ( name, dict ) =
         )
 
 
+{-| This function encodes `GameData`.
+-}
 encodeGameData : GameData -> Json.Encode.Value
 encodeGameData data =
     Json.Encode.object
