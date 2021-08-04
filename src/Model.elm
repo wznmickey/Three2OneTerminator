@@ -1,21 +1,69 @@
-module Model exposing (Model,initModel,runningHtmlMsg,update)
-import Area exposing (..)
-import Array exposing (..)
-import CmdMsg exposing (..)
+module Model exposing
+    ( Model
+    , initModel
+    , runningHtmlMsg, update
+    )
+
+{-| This module defines `Model` and gives related functions.
+
+
+# Type
+
+@docs Model
+
+
+# Init
+
+@docs initModel
+
+
+# Useful functions
+
+@docs runningHtmlMsg, update
+
+-}
+
+import Area exposing (Area)
+import Array exposing (fromList, get, length)
+import CmdMsg exposing (fileRequest, fileSelect, loadUpdate)
 import Dict exposing (Dict)
 import GameData exposing (GameData, getPureCPdataByName, initGameData)
-import Html exposing (..)
+import Html exposing (Html,div)
 import Html.Attributes as HtmlAttr exposing (..)
 import Html.Events as HtmlEvent exposing (..)
-import HtmlMsg exposing (..)
+import HtmlMsg
+    exposing
+        ( endHtmlMsg
+        , loadHtmlMsg
+        , pauseHtmlMsg
+        , showButtons
+        , startHtmlMsg
+        , storyShow
+        )
 import Http
 import LoadMod exposing (loadMod)
 import Msg exposing (Element(..), FileStatus(..), KeyInfo(..), Msg(..), OnMovingCR, State(..), init_onMovingCR)
 import Svg exposing (Svg)
 import Svg.Attributes as SvgAttr exposing (restart)
-import ToSaving exposing (..)
-import Update exposing (..)
-import View exposing (..)
+import ToSaving exposing (save)
+import Update
+    exposing
+        ( checkHelp
+        , keyPress
+        , moveCR
+        , switchPause
+        , updateData
+        )
+import View
+    exposing
+        ( disp_Onview
+        , show_PauseInfo
+        , viewAreas
+        , viewCRs
+        , viewGlobalData
+        , viewMovingCR
+        , view_Areadata
+        )
 
 
 timeChange : Float
@@ -23,6 +71,8 @@ timeChange =
     1000
 
 
+{-| This type is a `Model` type, storing all necessary data.
+-}
 type alias Model =
     { data : GameData
     , state : State
@@ -35,6 +85,8 @@ type alias Model =
     }
 
 
+{-| This function gives a init `Model`, should not be actually used in `Running`.
+-}
 initModel : Model
 initModel =
     Model
@@ -48,6 +100,8 @@ initModel =
         [ "CR MOVED:" ]
 
 
+{-| This functions gives showing `Html Msg` based on the `Model`.
+-}
 runningHtmlMsg : Model -> Html Msg
 runningHtmlMsg model =
     div
@@ -198,6 +252,8 @@ updateGotTextOK fullText model =
             )
 
 
+{-| This function receive `Msg` and `Model` to return `(Model,Cmd Msg)`, using `Msg` to know how to update data in `Model`.
+-}
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
@@ -572,6 +628,7 @@ changeCR newArea model =
         Nothing ->
             model
 
+
 filter_CRMovinginfo : List String -> List String
 filter_CRMovinginfo crMovingInfo =
     if List.length crMovingInfo >= 3 then
@@ -581,18 +638,22 @@ filter_CRMovinginfo crMovingInfo =
     else
         crMovingInfo
 
+
 update_CRMovinginfo : List String -> List String
 update_CRMovinginfo old =
     List.take
         2
         old
         ++ [ "CR MOVED:" ]
+
+
 combineList_2String : List String -> String
 combineList_2String toCombine =
     List.foldl
         (++)
         ""
         toCombine
+
 
 combine_onmoveCR2String : OnMovingCR -> String -> String
 combine_onmoveCR2String crInfoTocombine toArea =
