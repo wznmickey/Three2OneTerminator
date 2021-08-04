@@ -53,7 +53,9 @@ import PureCPdata
 
 
 {-| This type defines the infomation of `Area`.
-_no is not used now_
+
+no is not used now
+
 -}
 type alias Area =
     { view : String
