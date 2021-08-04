@@ -1,8 +1,7 @@
 module Area exposing
     ( Area
     , initArea
-    , decoder_Area
-    , encodeArea
+    , decoder_Area, encodeArea
     )
 
 {-| It is the module that defines type `Area` used as a subtype and related functions.
@@ -25,13 +24,36 @@ module Area exposing
 -}
 
 import Dict exposing (Dict)
-import Json.Decode exposing (Decoder, dict, field, float, int, map, map6, string)
-import Json.Encode exposing (Value, dict, int, object, string)
-import PureCPdata exposing (PureCPdata, decoder_PureCPdata, encodePureCPdata, initPureCPdata)
+import Json.Decode
+    exposing
+        ( Decoder
+        , dict
+        , field
+        , float
+        , int
+        , map
+        , map6
+        , string
+        )
+import Json.Encode
+    exposing
+        ( Value
+        , dict
+        , int
+        , object
+        , string
+        )
+import PureCPdata
+    exposing
+        ( PureCPdata
+        , decoder_PureCPdata
+        , encodePureCPdata
+        , initPureCPdata
+        )
 
 
 {-| This type defines the infomation of `Area`.
-*no is not used now*
+_no is not used now_
 -}
 type alias Area =
     { view : String

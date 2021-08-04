@@ -1,4 +1,8 @@
-module PureCPdata exposing (PureCPdata, decoder_PureCPdata, encodePureCPdata, initPureCPdata)
+module PureCPdata exposing
+    ( PureCPdata
+    , initPureCPdata
+    , decoder_PureCPdata, encodePureCPdata
+    )
 
 {-| It is the module that defines type `PureCPdata` used as a subtype and related functions.
 
@@ -20,20 +24,33 @@ module PureCPdata exposing (PureCPdata, decoder_PureCPdata, encodePureCPdata, in
 -}
 
 import Dict exposing (Dict)
-import Json.Decode exposing (Decoder, dict, float, map)
-import Json.Encode exposing (Value, float)
+import Json.Decode
+    exposing
+        ( Decoder
+        , dict
+        , float
+        , map
+        )
+import Json.Encode
+    exposing
+        ( Value
+        , float
+        )
 
 
 {-| This type has two name (`String`) and data (`Float`).
 The data have 2 meaning:
 
-1. when as effect: increase or decrease of certain CP each time loaded
+1.  when as effect: increase or decrease of certain CP each time loaded
 
-    1.1 In CR/Area, the value.
+```
+1.1 In CR/Area, the value.
 
-    1.2 In CP, the ratio.
+1.2 In CP, the ratio.
+```
 
-2. when as globalCP/localCP: the value of the certain CP
+1.  when as globalCP/localCP: the value of the certain CP
+
 -}
 type alias PureCPdata =
     { name : String

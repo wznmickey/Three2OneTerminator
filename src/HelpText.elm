@@ -24,8 +24,18 @@ module HelpText exposing
 -}
 
 import Dict exposing (Dict)
-import Json.Decode exposing (Decoder, dict, map, string)
-import Json.Encode exposing (Value, string)
+import Json.Decode
+    exposing
+        ( Decoder
+        , dict
+        , map
+        , string
+        )
+import Json.Encode
+    exposing
+        ( Value
+        , string
+        )
 
 
 {-| This type defines the help text of area, CP and CR.

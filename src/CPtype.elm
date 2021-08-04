@@ -17,8 +17,19 @@ module CPtype exposing
 
 -}
 
-import Json.Decode exposing (Decoder, andThen, fail, string, succeed)
-import Json.Encode exposing (Value, string)
+import Json.Decode
+    exposing
+        ( Decoder
+        , andThen
+        , fail
+        , string
+        , succeed
+        )
+import Json.Encode
+    exposing
+        ( Value
+        , string
+        )
 
 
 {-| This type defines the type of CP.

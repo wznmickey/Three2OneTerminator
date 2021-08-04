@@ -1,19 +1,22 @@
-module CmdMsg exposing (loadUpdate,fileRequest,fileSelect)
+module CmdMsg exposing (loadUpdate, fileRequest, fileSelect)
+
 {-| It is the module that define several `Cmd Msg` functions related to `File`.
 
 
 # File
 
-@docs loadUpdate,fileRequest,fileSelect
-
-
+@docs loadUpdate, fileRequest, fileSelect
 
 -}
 
 import File exposing (File)
 import File.Select as Select
-import Http
-import Msg exposing (Element(..), FileStatus(..), KeyInfo(..), Msg(..), OnMovingCR, State(..))
+import Http exposing(get)
+import Msg
+    exposing
+        ( FileStatus(..)
+        , Msg(..)
+        )
 import Task exposing (perform)
 
 
@@ -21,9 +24,9 @@ wholeURL : String
 wholeURL =
     "asset/defaultMod.json"
 
+
 {-| This functions gives `Cmd Msg` that requests to load default mod.
 -}
-
 loadUpdate : Cmd Msg
 loadUpdate =
     Http.get
@@ -33,9 +36,9 @@ loadUpdate =
             Http.expectString GotText
         }
 
+
 {-| This functions gives `Cmd Msg` that requests to upload a file.
 -}
-
 fileRequest : Cmd Msg
 fileRequest =
     Cmd.map
@@ -45,9 +48,9 @@ fileRequest =
             FileSelected
         )
 
+
 {-| This functions gives `Cmd Msg` that turns the file to `String` by giving a `File` as input.
 -}
-
 fileSelect : File -> Cmd Msg
 fileSelect file =
     Cmd.map

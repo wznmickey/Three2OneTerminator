@@ -17,8 +17,8 @@ module Msg exposing
 
 -}
 
-import File exposing (..)
-import Http
+import File exposing (File)
+import Http exposing(Error)
 
 
 {-| This type define the moving info of a CR.

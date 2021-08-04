@@ -23,11 +23,34 @@ module CPdata exposing
 
 -}
 
-import CPtype exposing (CPtype(..), dCPtype, encodeCPtype)
+import CPtype
+    exposing
+        ( CPtype(..)
+        , dCPtype
+        , encodeCPtype
+        )
 import Dict exposing (Dict)
-import Json.Decode exposing (Decoder, dict, field, map, map2)
-import Json.Encode exposing (Value, dict, object)
-import PureCPdata exposing (PureCPdata, decoder_PureCPdata, encodePureCPdata, initPureCPdata)
+import Json.Decode
+    exposing
+        ( Decoder
+        , dict
+        , field
+        , map
+        , map2
+        )
+import Json.Encode
+    exposing
+        ( Value
+        , dict
+        , object
+        )
+import PureCPdata
+    exposing
+        ( PureCPdata
+        , decoder_PureCPdata
+        , encodePureCPdata
+        , initPureCPdata
+        )
 
 
 {-| This type defines the data of CP.

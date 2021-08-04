@@ -24,9 +24,31 @@ module CRdata exposing
 -}
 
 import Dict exposing (Dict)
-import Json.Decode exposing (Decoder, dict, field, float, map, map5, string)
-import Json.Encode exposing (Value, dict, float, object, string)
-import PureCPdata exposing (PureCPdata, decoder_PureCPdata, encodePureCPdata, initPureCPdata)
+import Json.Decode
+    exposing
+        ( Decoder
+        , dict
+        , field
+        , float
+        , map
+        , map5
+        , string
+        )
+import Json.Encode
+    exposing
+        ( Value
+        , dict
+        , float
+        , object
+        , string
+        )
+import PureCPdata
+    exposing
+        ( PureCPdata
+        , decoder_PureCPdata
+        , encodePureCPdata
+        , initPureCPdata
+        )
 
 
 {-| This type defines the data of CR.
