@@ -20,14 +20,12 @@ Type `outer` (`o`) is the data used.
 
 C++ style code :
 
-```
-for (int index = i ; index < n ; index++) o=f(index,o);
-```
+    for (int index = i ; index < n ; index++) o=f(index,o);
 
     for
         0
         10
-        (\i (list,added) ->
+        (\i ( list, added ) ->
             ( (i
                 + added
               )
@@ -38,7 +36,7 @@ for (int index = i ; index < n ; index++) o=f(index,o);
         ( []
         , 10
         )
-    == ([20,19,18,17,16,15,14,13,12,11,10],10)
+        == ( [ 20, 19, 18, 17, 16, 15, 14, 13, 12, 11, 10 ], 10 )
 
 -}
 for : Int -> Int -> (Int -> io -> io) -> io -> io
