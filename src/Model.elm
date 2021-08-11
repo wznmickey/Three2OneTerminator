@@ -42,7 +42,8 @@ import HtmlMsg
         )
 import Http
 import LoadMod exposing (loadMod)
-import Msg exposing (Element(..), FileStatus(..), KeyInfo(..), Msg(..), OnMovingCR, State(..), initOnMovingCR)
+import Msg exposing (Element(..), FileStatus(..), KeyInfo(..), Msg(..), State(..))
+import SimpleType exposing (LoadInfo(..), OnMovingCR, SetURL(..), initOnMovingCR)
 import Svg exposing (Svg)
 import Svg.Attributes as SvgAttr exposing (restart)
 import ToSaving exposing (save)
@@ -77,7 +78,7 @@ type alias Model =
     { data : GameData
     , state : State
     , modInfo : String
-    , loadInfo : String
+    , loadInfo : LoadInfo
     , onViewArea : String
     , time : ( Float, Float )
     , onMovingCR : OnMovingCR
@@ -93,7 +94,7 @@ initModel =
         initGameData
         Start
         "modInfo"
-        "Init"
+        (ShowMsg ( "", Nothing ))
         "init"
         ( 0, 0 )
         initOnMovingCR
@@ -233,9 +234,12 @@ updateGotTextOK fullText model =
                     fullText
                 )
         , loadInfo =
-            Tuple.second
-                (loadMod
-                    fullText
+            ShowMsg
+                ( Tuple.second
+                    (loadMod
+                        fullText
+                    )
+                , getOldLoadInfo model.loadInfo
                 )
         , time =
             ( 0
@@ -250,6 +254,16 @@ updateGotTextOK fullText model =
             (ToState
                 Loading
             )
+
+
+getOldLoadInfo : LoadInfo -> Maybe String
+getOldLoadInfo loadInfo =
+    case loadInfo of
+        URL x ->
+            x
+
+        ShowMsg ( _, x ) ->
+            x
 
 
 {-| This function receive `Msg` and `Model` to return `(Model,Cmd Msg)`, using `Msg` to know how to update data in `Model`.
@@ -292,9 +306,10 @@ updateGotTextFail : Model -> ( Model, Cmd Msg )
 updateGotTextFail model =
     { model
         | modInfo =
-            "Error code : 1002"
+            "Error"
         , loadInfo =
-            "Error code : 1001"
+            ShowMsg
+                ( "Error code : 1001", getOldLoadInfo model.loadInfo )
     }
         |> update
             (ToState
@@ -390,11 +405,6 @@ clickOnUpdate element model =
                 infoCR
                 model
 
-        Msg.LoadDefault ->
-            ( model
-            , loadUpdate
-            )
-
         Msg.Download ->
             ( model
             , downloadUpdate
@@ -404,6 +414,50 @@ clickOnUpdate element model =
         Msg.Restart ->
             restartUpdate
                 model
+
+        Msg.SetURL x ->
+            urlUpdate
+                x
+                model
+
+
+urlUpdate : Maybe SetURL -> Model -> ( Model, Cmd Msg )
+urlUpdate io model =
+    case io of
+        Nothing ->
+            case model.loadInfo of
+                URL (Just x) ->
+                    ( model
+                    , loadUpdate
+                        x
+                    )
+
+                ShowMsg ( _, Just x ) ->
+                    ( model
+                    , loadUpdate
+                        x
+                    )
+
+                _ ->
+                    { model
+                        | loadInfo =
+                            ShowMsg ( "Error code 2001 : Not found URL.", getOldLoadInfo model.loadInfo )
+                    }
+                        |> toState Loading
+
+        Just (Temp url) ->
+            ( { model
+                | loadInfo =
+                    URL (Just url)
+              }
+            , Cmd.none
+            )
+
+        Just (Final url) ->
+            ( model
+            , loadUpdate
+                url
+            )
 
 
 uploadUpdate : FileStatus -> Model -> ( Model, Cmd Msg )
@@ -493,17 +547,18 @@ checkWin model =
 
 loadingUpdate : Model -> ( Model, Cmd Msg )
 loadingUpdate model =
-    if Debug.log "info" model.loadInfo == "Ok" then
-        model
-            |> update
-                (ToState
-                    Running
-                )
+    case model.loadInfo of
+        ShowMsg ( "Ok", _ ) ->
+            model
+                |> update
+                    (ToState
+                        Running
+                    )
 
-    else
-        ( model
-        , Cmd.none
-        )
+        _ ->
+            ( model
+            , Cmd.none
+            )
 
 
 timeUpdate : Float -> Model -> ( Model, Cmd Msg )

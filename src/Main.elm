@@ -34,6 +34,7 @@ import Msg
         ( Msg(..)
         , State(..)
         )
+import SimpleType exposing (LoadInfo(..))
 import Update exposing (..)
 import View exposing (..)
 

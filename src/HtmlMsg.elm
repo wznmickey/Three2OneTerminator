@@ -19,9 +19,11 @@ module HtmlMsg exposing
 
 import Array exposing (get)
 import For exposing (for)
-import Html exposing (Html, div, img, p)
+import Html exposing (Html, div, img, input, p)
 import Html.Attributes as HtmlAttr exposing (..)
+import Html.Events as HtmlEvent exposing (onInput)
 import Msg exposing (Element(..), FileStatus(..), KeyInfo(..), Msg(..), State(..))
+import SimpleType exposing (LoadInfo(..), SetURL(..))
 import Svg exposing (Svg, text)
 import Svg.Attributes as SvgAttr
 import Svg.Events as SvgEvent exposing (onClick)
@@ -31,6 +33,11 @@ import SvgMsg exposing (button)
 assetURL : String
 assetURL =
     "asset/"
+
+
+defaultModName : String
+defaultModName =
+    "defaultMod.json"
 
 
 {-| This function returns `Html Msg` as several buttons based on :
@@ -65,7 +72,7 @@ showButtons ( w, h ) ( l, t ) x =
         [ Svg.svg
             [ SvgAttr.viewBox
                 ("-5 0 "
-                    ++ String.fromInt (List.length x * 25 + 10)
+                    ++ String.fromInt (List.length x * 25 + 15)
                     ++ " 15"
                 )
             , SvgAttr.width
@@ -98,6 +105,20 @@ showButtons ( w, h ) ( l, t ) x =
         ]
 
 
+setCenter : List (Html.Attribute Msg)
+setCenter =
+    [ HtmlAttr.style
+        "transform"
+        "translate(-50%,-50%)"
+    , HtmlAttr.style
+        "left"
+        "50%"
+    , HtmlAttr.style
+        "position"
+        "absolute"
+    ]
+
+
 {-| This function returns `Html Msg` in start page.
 -}
 startHtmlMsg : Html Msg
@@ -109,75 +130,109 @@ startHtmlMsg =
         , HtmlAttr.style
             "height"
             "100vh"
-        , HtmlAttr.style
-            "left"
-            "0"
-        , HtmlAttr.style
-            "top"
-            "0"
-        , HtmlAttr.style
-            "text-align"
-            "center"
         ]
         [ img
-            [ HtmlAttr.src (assetURL ++ "game.png")
-            , HtmlAttr.style
+            ([ HtmlAttr.src (assetURL ++ "game.png")
+             , HtmlAttr.style
                 "height"
                 "20vh"
-            , HtmlAttr.style
-                "transform"
-                "translate(-50%,-50%)"
-            , HtmlAttr.style
+             , HtmlAttr.style
                 "top"
                 "15%"
-            , HtmlAttr.style
+             , HtmlAttr.style
                 "left"
                 "50%"
-            , HtmlAttr.style
+             , HtmlAttr.style
                 "position"
                 "absolute"
-            ]
+             ]
+                ++ setCenter
+            )
             []
         , img
-            [ HtmlAttr.src (assetURL ++ "logo.svg")
-            , HtmlAttr.style
+            ([ HtmlAttr.src (assetURL ++ "logo.svg")
+             , HtmlAttr.style
                 "height"
                 "30vh"
-            , HtmlAttr.style
-                "transform"
-                "translate(-50%,-50%)"
-            , HtmlAttr.style
+             , HtmlAttr.style
                 "top"
                 "45%"
-            , HtmlAttr.style
-                "left"
-                "50%"
-            , HtmlAttr.style
-                "position"
-                "absolute"
-            ]
+             ]
+                ++ setCenter
+            )
             []
         , showButtons
-            ( 20, 10 )
+            ( 30, 10 )
             ( 50, 70 )
-            [ ( "From Mod/Save"
+            [ ( "From local"
               , Msg.UploadFile
                     FileRequested
-              , 2.4
+              , 3
               )
             , ( "Quick start"
               , Msg.ClickOn
-                    LoadDefault
-              , 2.4
+                    (SetURL
+                        (Just
+                            (Final
+                                (assetURL
+                                    ++ defaultModName
+                                )
+                            )
+                        )
+                    )
+              , 3
+              )
+            , ( "From net"
+              , Msg.ClickOn
+                    (SetURL
+                        Nothing
+                    )
+              , 3
               )
             ]
+        , input
+            ([ type_ "input"
+             , placeholder "https://example.com/mod.json"
+             , onInput
+                (\x ->
+                    ClickOn
+                        (SetURL
+                            (Just
+                                (Temp
+                                    x
+                                )
+                            )
+                        )
+                )
+             , HtmlAttr.style
+                "height"
+                "3vh"
+             , HtmlAttr.style
+                "width"
+                "20vw"
+             , HtmlAttr.style
+                "top"
+                "80%"
+             ]
+                ++ setCenter
+            )
+            []
         ]
 
 
 {-| This function returns `Html Msg` in load page.
 -}
-loadHtmlMsg : String -> Html Msg
+loadHtmlMsg : LoadInfo -> Html Msg
 loadHtmlMsg loadInfo =
+    let
+        ( text, url ) =
+            case loadInfo of
+                ShowMsg ( x, y ) ->
+                    ( x, y )
+
+                URL x ->
+                    ( "", x )
+    in
     div
         [ HtmlAttr.style
             "width"
@@ -195,22 +250,86 @@ loadHtmlMsg loadInfo =
             "text-align"
             "center"
         ]
-        [ Html.text
-            loadInfo
+        [ p
+            ([ HtmlAttr.style
+                "height"
+                "30vh"
+             , HtmlAttr.style
+                "overflow"
+                "auto"
+             , HtmlAttr.style
+                "top"
+                "15vh"
+             , HtmlAttr.style
+                "width"
+                "70vw"
+             ]
+                ++ setCenter
+            )
+            [ Html.text
+                text
+            ]
         , showButtons
-            ( 20, 10 )
+            ( 30, 10 )
             ( 50, 70 )
-            [ ( "From Mod/Save"
+            [ ( "From local"
               , Msg.UploadFile
                     FileRequested
-              , 2.4
+              , 3
               )
             , ( "Quick start"
               , Msg.ClickOn
-                    LoadDefault
-              , 2.4
+                    (SetURL
+                        (Just
+                            (Final
+                                (assetURL
+                                    ++ defaultModName
+                                )
+                            )
+                        )
+                    )
+              , 3
+              )
+            , ( "From net"
+              , Msg.ClickOn
+                    (SetURL
+                        Nothing
+                    )
+              , 3
               )
             ]
+        , input
+            ([ type_ "input"
+             , case url of
+                Nothing ->
+                    placeholder "https://example.com/mod.json"
+
+                Just x ->
+                    value x
+             , onInput
+                (\x ->
+                    ClickOn
+                        (SetURL
+                            (Just
+                                (Temp
+                                    x
+                                )
+                            )
+                        )
+                )
+             , HtmlAttr.style
+                "height"
+                "3vh"
+             , HtmlAttr.style
+                "width"
+                "20vw"
+             , HtmlAttr.style
+                "top"
+                "80%"
+             ]
+                ++ setCenter
+            )
+            []
         ]
 
 
