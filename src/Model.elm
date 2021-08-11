@@ -58,11 +58,11 @@ import View
     exposing
         ( displayOnView
         , showPauseInfo
+        , viewAreaData
         , viewAreas
         , viewCRs
         , viewGlobalData
         , viewMovingCR
-        , viewAreaData
         )
 
 
@@ -436,7 +436,13 @@ runningUpdate time model =
         newModel1 =
             { model
                 | time =
-                    ( Tuple.first model.time + newTime, Tuple.second model.time + newTime )
+                    ( Tuple.first
+                        model.time
+                        + newTime
+                    , Tuple.second
+                        model.time
+                        + newTime
+                    )
             }
 
         newModel2 =
@@ -446,7 +452,12 @@ runningUpdate time model =
                         updateData
                             newModel1.data
                     , time =
-                        ( Tuple.first newModel1.time - timeChange, Tuple.second newModel1.time )
+                        ( Tuple.first
+                            newModel1.time
+                            - timeChange
+                        , Tuple.second
+                            newModel1.time
+                        )
                 }
 
             else
@@ -461,7 +472,9 @@ runningUpdate time model =
 
         newModel4 =
             { newModel3
-                | state = checkWin newModel3
+                | state =
+                    checkWin
+                        newModel3
             }
     in
     ( newModel4
@@ -556,9 +569,27 @@ checkDeadLocalCP model =
             model.data.gameInfo.local
 
         local =
-            List.map (\x -> x.localCP) (Dict.values model.data.area)
+            List.map
+                (\x ->
+                    x.localCP
+                )
+                (Dict.values
+                    model.data.area
+                )
     in
-    List.all (\x -> x == True) (List.map (\x -> (getPureCPdataByName ( name, x )).data > model.data.gameInfo.min) local)
+    List.all
+        (\x ->
+            x == True
+        )
+        (List.map
+            (\x ->
+                (getPureCPdataByName
+                    ( name, x )
+                ).data
+                    > model.data.gameInfo.min
+            )
+            local
+        )
 
 
 checkDead : Model -> State

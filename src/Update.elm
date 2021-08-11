@@ -192,7 +192,10 @@ updateDataCP : GameData -> GameData
 updateDataCP data =
     let
         ( newArea, newGlobal ) =
-            changeCP2CP data.infoCP data.globalCP data.area
+            changeCP2CP
+                data.infoCP
+                data.globalCP
+                data.area
     in
     { data
         | area =
