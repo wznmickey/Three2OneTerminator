@@ -4,7 +4,7 @@ module GameInfo exposing
     , decoderGameInfo, encodeGameInfo
     )
 
-{-| It is the module that defines type `GameInfo` used as a subtype describing gamerules and related functions.
+{-| It is the module that defines type `GameInfo` used as a subtype describing game rules and related functions.
 
 
 # Type

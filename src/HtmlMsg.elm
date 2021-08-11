@@ -166,7 +166,7 @@ startHtmlMsg =
               , 2.4
               )
             , ( "Quick start"
-              , Msg.Clickon
+              , Msg.ClickOn
                     LoadDefault
               , 2.4
               )
@@ -206,7 +206,7 @@ loadHtmlMsg loadInfo =
               , 2.4
               )
             , ( "Quick start"
-              , Msg.Clickon
+              , Msg.ClickOn
                     LoadDefault
               , 2.4
               )
@@ -273,12 +273,12 @@ pauseHtmlMsg st =
                       , 3.5
                       )
                     , ( "restart"
-                      , Msg.Clickon
+                      , Msg.ClickOn
                             Restart
                       , 3.5
                       )
                     , ( "download"
-                      , Msg.Clickon
+                      , Msg.ClickOn
                             Download
                       , 3.5
                       )
@@ -341,12 +341,12 @@ endHtmlMsg st =
                     ( 80, 7 )
                     ( 50, 110 )
                     [ ( "restart"
-                      , Msg.Clickon
+                      , Msg.ClickOn
                             Restart
                       , 3.5
                       )
                     , ( "download"
-                      , Msg.Clickon
+                      , Msg.ClickOn
                             Download
                       , 3.5
                       )

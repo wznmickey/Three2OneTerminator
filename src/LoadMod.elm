@@ -12,7 +12,7 @@ module LoadMod exposing (loadMod)
 import GameData
     exposing
         ( GameData
-        , dGameData
+        , decoderGameData
         , initGameData
         )
 import Json.Decode
@@ -29,7 +29,7 @@ loadMod st =
     let
         ans =
             decodeString
-                dGameData
+                decoderGameData
                 st
     in
     case ans of

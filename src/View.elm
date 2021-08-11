@@ -1,5 +1,5 @@
 module View exposing
-    ( viewMovingCR, show_PauseInfo, disp_Onview, view_Areadata, viewGlobalData
+    ( viewMovingCR, showPauseInfo, displayOnView, viewAreaData, viewGlobalData
     , viewCRs, viewAreas
     )
 
@@ -8,7 +8,7 @@ module View exposing
 
 # Info
 
-@docs viewMovingCR, show_PauseInfo, disp_Onview, view_Areadata, viewGlobalData
+@docs viewMovingCR, showPauseInfo, displayOnView, viewAreaData, viewGlobalData
 
 
 # Drawing
@@ -93,7 +93,7 @@ viewUnitArea ( cp, max, min ) unitArea =
         , SvgAttr.strokeLinecap
             "round"
         , SvgEvent.onClick
-            (Clickon
+            (ClickOn
                 (Msg.Area
                     name
                 )
@@ -166,7 +166,7 @@ filterGlobalData cpAll dict =
 
 
 combineCPdata2String : List PureCPdata -> String
-combineCPdata2String cpTocombine =
+combineCPdata2String toCombineCP =
     List.foldl
         (\x a ->
             x
@@ -186,14 +186,14 @@ combineCPdata2String cpTocombine =
                             a.data
                         ++ "\n"
             )
-            cpTocombine
+            toCombineCP
         )
 
 
-{-| This function returns `Html Msg` based on `String` as onview area from `Dict String Area` as dict, showing the local CP.
+{-| This function returns `Html Msg` based on `String` as onView area from `Dict String Area` as dict, showing the local CP.
 -}
-view_Areadata : Dict String Area -> String -> Html Msg
-view_Areadata area onview =
+viewAreaData : Dict String Area -> String -> Html Msg
+viewAreaData area onView =
     div
         [ style
             "color"
@@ -224,7 +224,7 @@ view_Areadata area onview =
             (combineCPdata2String
                 (Dict.values
                     (getAreaByName
-                        ( onview
+                        ( onView
                         , area
                         )
                     ).localCP
@@ -235,8 +235,8 @@ view_Areadata area onview =
 
 {-| This function returns `Html Msg` showing `String` as the name of `Area`.
 -}
-disp_Onview : String -> Html Msg
-disp_Onview onview =
+displayOnView : String -> Html Msg
+displayOnView onView =
     div
         [ style
             "color"
@@ -264,11 +264,11 @@ disp_Onview onview =
             "center"
         ]
         [ text
-            (if onview == "init" then
+            (if onView == "init" then
                 ""
 
              else
-                onview
+                onView
             )
         ]
 
@@ -276,39 +276,39 @@ disp_Onview onview =
 {-| This function returns `List (Svg Msg)` showing CRs from `Dict String Area` as dict of area and `List CRdata` to get CR logic location.
 -}
 viewCRs : Dict String Area -> List CRdata -> List (Svg Msg)
-viewCRs dict cRS =
+viewCRs dict cr =
     List.map
         (viewUnitCR
             dict
         )
-        cRS
+        cr
 
 
 viewUnitCR : Dict String Area -> CRdata -> Svg Msg
-viewUnitCR dict cRpos =
+viewUnitCR dict cr =
     let
         name =
-            cRpos.name
+            cr.name
 
-        ( xpos, ypos ) =
+        ( xPos, yPos ) =
             (getAreaByName
-                ( cRpos.location
+                ( cr.location
                 , dict
                 )
             ).center
 
         color =
-            cRpos.color
+            cr.color
     in
     Svg.g
         [ SvgEvent.onClick
-            (Clickon
+            (ClickOn
                 (Msg.CR
-                    { cRname =
+                    { nameCR =
                         Just name
-                    , formerArea =
+                    , fromArea =
                         Just
-                            cRpos.location
+                            cr.location
                     , toArea =
                         Nothing
                     }
@@ -318,16 +318,16 @@ viewUnitCR dict cRpos =
         [ Svg.circle
             [ SvgAttr.cx
                 (String.fromFloat
-                    (xpos
+                    (xPos
                         + Tuple.first
-                            cRpos.place
+                            cr.place
                     )
                 )
             , SvgAttr.cy
                 (String.fromFloat
-                    (ypos
+                    (yPos
                         + Tuple.second
-                            cRpos.place
+                            cr.place
                     )
                 )
             , SvgAttr.r
@@ -345,16 +345,16 @@ viewUnitCR dict cRpos =
         , Svg.text_
             [ SvgAttr.x
                 (String.fromFloat
-                    (xpos
+                    (xPos
                         + Tuple.first
-                            cRpos.place
+                            cr.place
                     )
                 )
             , SvgAttr.y
                 (String.fromFloat
-                    (ypos
+                    (yPos
                         + Tuple.second
-                            cRpos.place
+                            cr.place
                         + 1
                     )
                 )
@@ -367,8 +367,8 @@ viewUnitCR dict cRpos =
 
 {-| This function returns `Html Msg` showing player information of pause and help.
 -}
-show_PauseInfo : Html Msg
-show_PauseInfo =
+showPauseInfo : Html Msg
+showPauseInfo =
     div
         [ style
             "color"
