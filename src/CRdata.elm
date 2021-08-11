@@ -4,7 +4,7 @@ module CRdata exposing
     , decoderCRdata, encodeCRdata
     )
 
-{-| It is the module that defines type `CPtype` used as a subtype and related functions.
+{-| It is the module that defines type `CRtype` used as a subtype and related functions.
 
 
 # Type

@@ -1,6 +1,6 @@
 module For exposing (for)
 
-{-| `for` gives the usage of `for` function like that in other language.
+{-| Give `for` function like that in other language.
 
 
 # For
