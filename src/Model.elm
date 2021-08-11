@@ -428,38 +428,43 @@ uploadUpdate fileStatus model =
 runningUpdate : Float -> Model -> ( Model, Cmd Msg )
 runningUpdate time model =
     let
-        newmodel1 =
+        newTime =
+            Basics.min
+                100
+                time
+
+        newModel1 =
             { model
                 | time =
-                    ( Tuple.first model.time + time, Tuple.second model.time + time )
+                    ( Tuple.first model.time + newTime, Tuple.second model.time + newTime )
             }
 
-        newmodel2 =
-            if Tuple.first newmodel1.time >= timeChange then
-                { newmodel1
+        newModel2 =
+            if Tuple.first newModel1.time >= timeChange then
+                { newModel1
                     | data =
                         updateData
-                            newmodel1.data
+                            newModel1.data
                     , time =
-                        ( Tuple.first newmodel1.time - timeChange, Tuple.second newmodel1.time )
+                        ( Tuple.first newModel1.time - timeChange, Tuple.second newModel1.time )
                 }
 
             else
-                newmodel1
+                newModel1
 
-        newmodel3 =
-            { newmodel2
+        newModel3 =
+            { newModel2
                 | state =
                     check_Dead
-                        newmodel2
+                        newModel2
             }
 
-        newmodel4 =
-            { newmodel3
-                | state = checkWin newmodel3
+        newModel4 =
+            { newModel3
+                | state = checkWin newModel3
             }
     in
-    ( newmodel4
+    ( newModel4
     , Cmd.none
     )
 
