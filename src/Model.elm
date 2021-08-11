@@ -28,7 +28,7 @@ import Array exposing (fromList, get, length)
 import CmdMsg exposing (fileRequest, fileSelect, loadUpdate)
 import Dict exposing (Dict)
 import GameData exposing (GameData, getPureCPdataByName, initGameData)
-import Html exposing (Html,div)
+import Html exposing (Html, div)
 import Html.Attributes as HtmlAttr exposing (..)
 import Html.Events as HtmlEvent exposing (..)
 import HtmlMsg

@@ -101,18 +101,18 @@ viewUnitArea ( cp, max, min ) unitArea =
         ]
         []
 
+
 {-| This function returns `List (Svg Msg)` showing every area by getting `(String, Float, Float)` as color info and `List Area` as dict and location info. `( String, Float, Float )` is in order the color related local CP, max CP data and min CP data.
 -}
-
 viewAreas : ( String, Float, Float ) -> List Area -> List (Svg Msg)
 viewAreas ( cp, max, min ) areaS =
     List.map
         (viewUnitArea ( cp, max, min ))
         areaS
 
+
 {-| This function returns `Html Msg` showing global CP from `Dict String CPdata` as dict and `List PureCPdata` as the candidates of CPs.
 -}
-
 viewGlobalData : List PureCPdata -> Dict String CPdata -> Html Msg
 viewGlobalData pure dict =
     div
@@ -189,9 +189,9 @@ combineCPdata2String cpTocombine =
             cpTocombine
         )
 
+
 {-| This function returns `Html Msg` based on `String` as onview area from `Dict String Area` as dict, showing the local CP.
 -}
-
 view_Areadata : Dict String Area -> String -> Html Msg
 view_Areadata area onview =
     div
@@ -232,9 +232,9 @@ view_Areadata area onview =
             )
         ]
 
+
 {-| This function returns `Html Msg` showing `String` as the name of `Area`.
 -}
-
 disp_Onview : String -> Html Msg
 disp_Onview onview =
     div
@@ -272,9 +272,9 @@ disp_Onview onview =
             )
         ]
 
+
 {-| This function returns `List (Svg Msg)` showing CRs from `Dict String Area` as dict of area and `List CRdata` to get CR logic location.
 -}
-
 viewCRs : Dict String Area -> List CRdata -> List (Svg Msg)
 viewCRs dict cRS =
     List.map
@@ -364,9 +364,9 @@ viewUnitCR dict cRpos =
             [ text (String.left 2 name) ]
         ]
 
+
 {-| This function returns `Html Msg` showing player information of pause and help.
 -}
-
 show_PauseInfo : Html Msg
 show_PauseInfo =
     div
@@ -395,7 +395,6 @@ show_PauseInfo =
         [ text
             "Press Space to pause.\nPress H for help."
         ]
-
 
 
 {-| This function returns `Html Msg` showing `String` as CR moving history.

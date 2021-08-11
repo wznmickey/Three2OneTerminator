@@ -14,27 +14,25 @@ module For exposing (for)
 
 Second `Int` (`n`) set the times of function `f`.
 
-Type `outer` (`o`) is the outer environment data.
+Type `outer` (`o`) is the data used.
 
-Type `io` (`x`) is the data that will change during the for function.
-
-`( outer -> Int->  io -> (io,outer))`(`f`) set a function which use (outer environment data) & (for function process) to map a function from type `io` to type `io`.
+`( Int->  io -> io)`(`f`) set a function which use `i` as index of the `for` function to map from `io` to `io`.
 
 C++ style code :
 
 ```
-for (int index = i ; index < n ; index++) (x,o)=f(x,index,o);
+for (int index = i ; index < n ; index++) o=f(index,o);
 ```
 
     for
         0
         10
-        (\outer i io ->
+        (\i (list,added) ->
             ( (i
-                + outer
+                + added
               )
-                :: io
-            , outer
+                :: list
+            , added
             )
         )
         ( []
@@ -43,10 +41,10 @@ for (int index = i ; index < n ; index++) (x,o)=f(x,index,o);
     == ([20,19,18,17,16,15,14,13,12,11,10],10)
 
 -}
-for : Int -> Int -> (outer -> Int -> io -> ( io, outer )) -> ( io, outer ) -> ( io, outer )
-for i n f ( x, o ) =
+for : Int -> Int -> (Int -> io -> io) -> io -> io
+for i n f x =
     if i > n then
-        ( x, o )
+        x
 
     else
         for
@@ -54,7 +52,6 @@ for i n f ( x, o ) =
             n
             f
             (f
-                o
                 i
                 x
             )

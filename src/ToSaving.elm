@@ -2,9 +2,11 @@ module ToSaving exposing (save)
 
 {-| This module gives function to transfer from `GameData` to file to download.
 
+
 # Save
 
 @docs save
+
 -}
 
 import File.Download as Download exposing (string)
