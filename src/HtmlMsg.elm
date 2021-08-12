@@ -140,9 +140,6 @@ startHtmlMsg =
                 "top"
                 "15%"
              , HtmlAttr.style
-                "left"
-                "50%"
-             , HtmlAttr.style
                 "position"
                 "absolute"
              ]
@@ -358,28 +355,21 @@ pauseHtmlMsg st =
             "brown"
         ]
         [ p
-            [ HtmlAttr.style
+            ([ HtmlAttr.style
                 "top"
                 "45%"
-            , HtmlAttr.style
-                "left"
-                "50%"
-            , HtmlAttr.style
-                "transform"
-                "translate( -50%, -50%)"
-            , HtmlAttr.style
-                "position"
-                "absolute"
-            , HtmlAttr.style
+             , HtmlAttr.style
                 "white-space"
                 "pre-line"
-            , HtmlAttr.style
+             , HtmlAttr.style
                 "width"
                 "90vw"
-            , HtmlAttr.style
+             , HtmlAttr.style
                 "color"
                 "white"
-            ]
+             ]
+                ++ setCenter
+            )
             [ Html.text "Press Space to continue\nPress R to restart\n"
             , Html.text st
             , p []
@@ -432,28 +422,21 @@ endHtmlMsg st =
             "brown"
         ]
         [ p
-            [ HtmlAttr.style
+            ([ HtmlAttr.style
                 "top"
                 "45%"
-            , HtmlAttr.style
-                "left"
-                "50%"
-            , HtmlAttr.style
-                "transform"
-                "translate( -50%, -50%)"
-            , HtmlAttr.style
-                "position"
-                "absolute"
-            , HtmlAttr.style
+             , HtmlAttr.style
                 "white-space"
                 "pre-line"
-            , HtmlAttr.style
+             , HtmlAttr.style
                 "width"
                 "90vw"
-            , HtmlAttr.style
+             , HtmlAttr.style
                 "color"
                 "white"
-            ]
+             ]
+                ++ setCenter
+            )
             [ Html.text st
             , p []
                 [ showButtons
