@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-# Terminator
-=======
 # README
->>>>>>> AllowUrl
 
 ## Copyright
 
