@@ -14,6 +14,8 @@ import Http exposing (Error)
 import SimpleType exposing (OnMovingCR, SetURL(..))
 
 
+{-| This type defines the state of the game.
+-}
 type State
     = Start
     | Loading

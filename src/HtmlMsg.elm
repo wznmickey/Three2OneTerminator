@@ -220,7 +220,7 @@ startHtmlMsg =
         ]
 
 
-{-| This function returns `Html Msg` in load page.
+{-| This function returns `Html Msg` in load page by inputting `LoadInfo` as the message showing on the screen.
 -}
 loadHtmlMsg : LoadInfo -> Html Msg
 loadHtmlMsg loadInfo =
@@ -333,7 +333,7 @@ loadHtmlMsg loadInfo =
         ]
 
 
-{-| This function returns `Html Msg` in pause page.
+{-| This function returns `Html Msg` in pause page by inputting `String` as the help message.
 -}
 pauseHtmlMsg : String -> Html Msg
 pauseHtmlMsg st =
