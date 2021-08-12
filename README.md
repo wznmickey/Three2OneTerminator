@@ -9,8 +9,6 @@
 Game Name: Terminator.
 
 Developed by Three 2 One @ SliverFocs.
-<<<<<<< HEAD
-=======
 
 ![US](./asset/logo.svg)
 
@@ -36,4 +34,3 @@ Developed by Three 2 One @ SliverFocs.
 - Perfect control points & Critical Resources & Area interactions.
 - being able to judge the time with ticking and display the control points accordingly upon each click.
 - Dual gaming mod available which offers a sense of returning from the grand heroism to attention and introspection on our personal life by trying to figure out how to navigate yourself through the challenging but interesting JI summer term as the second barrier.
->>>>>>> AllowUrl
