@@ -4550,6 +4550,43 @@ function _File_toUrl(blob)
 
 
 
+var _Bitwise_and = F2(function(a, b)
+{
+	return a & b;
+});
+
+var _Bitwise_or = F2(function(a, b)
+{
+	return a | b;
+});
+
+var _Bitwise_xor = F2(function(a, b)
+{
+	return a ^ b;
+});
+
+function _Bitwise_complement(a)
+{
+	return ~a;
+};
+
+var _Bitwise_shiftLeftBy = F2(function(offset, a)
+{
+	return a << offset;
+});
+
+var _Bitwise_shiftRightBy = F2(function(offset, a)
+{
+	return a >> offset;
+});
+
+var _Bitwise_shiftRightZfBy = F2(function(offset, a)
+{
+	return a >>> offset;
+});
+
+
+
 // SEND REQUEST
 
 var _Http_toTask = F3(function(router, toTask, request)
@@ -4722,44 +4759,7 @@ function _Http_track(router, xhr, tracker)
 			size: event.lengthComputable ? $elm$core$Maybe$Just(event.total) : $elm$core$Maybe$Nothing
 		}))));
 	});
-}
-
-
-var _Bitwise_and = F2(function(a, b)
-{
-	return a & b;
-});
-
-var _Bitwise_or = F2(function(a, b)
-{
-	return a | b;
-});
-
-var _Bitwise_xor = F2(function(a, b)
-{
-	return a ^ b;
-});
-
-function _Bitwise_complement(a)
-{
-	return ~a;
-};
-
-var _Bitwise_shiftLeftBy = F2(function(offset, a)
-{
-	return a << offset;
-});
-
-var _Bitwise_shiftRightBy = F2(function(offset, a)
-{
-	return a >> offset;
-});
-
-var _Bitwise_shiftRightZfBy = F2(function(offset, a)
-{
-	return a >>> offset;
-});
-var $elm$core$Basics$EQ = {$: 'EQ'};
+}var $elm$core$Basics$EQ = {$: 'EQ'};
 var $elm$core$Basics$GT = {$: 'GT'};
 var $elm$core$Basics$LT = {$: 'LT'};
 var $elm$core$List$cons = _List_cons;
@@ -5549,9 +5549,12 @@ var $elm$core$Task$perform = F2(
 	});
 var $elm$browser$Browser$element = _Browser_element;
 var $author$project$Model$Model = F8(
-	function (data, state, modInfo, loadInfo, onviewArea, time, onMovingCR, cRmovingInfo) {
-		return {cRmovingInfo: cRmovingInfo, data: data, loadInfo: loadInfo, modInfo: modInfo, onMovingCR: onMovingCR, onviewArea: onviewArea, state: state, time: time};
+	function (data, state, modInfo, loadInfo, onViewArea, time, onMovingCR, movingInfoCR) {
+		return {data: data, loadInfo: loadInfo, modInfo: modInfo, movingInfoCR: movingInfoCR, onMovingCR: onMovingCR, onViewArea: onViewArea, state: state, time: time};
 	});
+var $author$project$SimpleType$ShowMsg = function (a) {
+	return {$: 'ShowMsg', a: a};
+};
 var $author$project$Msg$Start = {$: 'Start'};
 var $author$project$PureCPdata$initPureCPdata = {data: 0, name: 'init'};
 var $elm$core$Dict$Black = {$: 'Black'};
@@ -5627,16 +5630,17 @@ var $author$project$GameData$initGameData = {
 		['']),
 	time: 0
 };
-var $author$project$Msg$init_onMovingCR = {cRname: $elm$core$Maybe$Nothing, formerArea: $elm$core$Maybe$Nothing, toArea: $elm$core$Maybe$Nothing};
+var $author$project$SimpleType$initOnMovingCR = {fromArea: $elm$core$Maybe$Nothing, nameCR: $elm$core$Maybe$Nothing, toArea: $elm$core$Maybe$Nothing};
 var $author$project$Model$initModel = A8(
 	$author$project$Model$Model,
 	$author$project$GameData$initGameData,
 	$author$project$Msg$Start,
 	'modInfo',
-	'Init',
+	$author$project$SimpleType$ShowMsg(
+		_Utils_Tuple2('', $elm$core$Maybe$Nothing)),
 	'init',
 	_Utils_Tuple2(0, 0),
-	$author$project$Msg$init_onMovingCR,
+	$author$project$SimpleType$initOnMovingCR,
 	_List_fromArray(
 		['CR MOVED:']));
 var $elm$core$Platform$Cmd$batch = _Platform_batch;
@@ -6208,8 +6212,8 @@ var $author$project$Main$subscriptions = function (model) {
 				A2($elm$json$Json$Decode$map, $author$project$Update$keyPress, $elm$html$Html$Events$keyCode))
 			]));
 };
-var $author$project$Msg$Clickon = function (a) {
-	return {$: 'Clickon', a: a};
+var $author$project$Msg$ClickOn = function (a) {
+	return {$: 'ClickOn', a: a};
 };
 var $author$project$Msg$FileLoaded = function (a) {
 	return {$: 'FileLoaded', a: a};
@@ -6223,12 +6227,12 @@ var $author$project$Msg$ToState = function (a) {
 var $author$project$Msg$UploadFile = function (a) {
 	return {$: 'UploadFile', a: a};
 };
-var $author$project$View$combine_onmoveCR2String = F2(
-	function (crInfoTocombine, toArea) {
-		var _v0 = crInfoTocombine.cRname;
+var $author$project$Model$combineOnMoveCR2String = F2(
+	function (infoCRToCombine, toArea) {
+		var _v0 = infoCRToCombine.nameCR;
 		if (_v0.$ === 'Just') {
 			var name = _v0.a;
-			var _v1 = crInfoTocombine.formerArea;
+			var _v1 = infoCRToCombine.fromArea;
 			if (_v1.$ === 'Just') {
 				var area = _v1.a;
 				return _Utils_eq(area, toArea) ? '' : ('\n' + (name + (' : ' + (area + (' -> ' + toArea)))));
@@ -6366,14 +6370,14 @@ var $elm$core$List$take = F2(
 	function (n, list) {
 		return A3($elm$core$List$takeFast, 0, n, list);
 	});
-var $author$project$View$update_CRMovinginfo = function (old) {
+var $author$project$Model$updateCRMovingInfo = function (old) {
 	return _Utils_ap(
 		A2($elm$core$List$take, 2, old),
 		_List_fromArray(
 			['CR MOVED:']));
 };
-var $author$project$View$filter_CRMovinginfo = function (crMovingInfo) {
-	return ($elm$core$List$length(crMovingInfo) >= 3) ? $author$project$View$update_CRMovinginfo(crMovingInfo) : crMovingInfo;
+var $author$project$Model$filterCRMovingInfo = function (movingInfoCR) {
+	return ($elm$core$List$length(movingInfoCR) >= 3) ? $author$project$Model$updateCRMovingInfo(movingInfoCR) : movingInfoCR;
 };
 var $author$project$Update$setCRlocation = F2(
 	function (to, from) {
@@ -6802,16 +6806,16 @@ var $author$project$Update$moveCR = F3(
 var $author$project$Model$changeCR = F2(
 	function (newArea, model) {
 		var oldMovingCR = model.onMovingCR;
-		var _v0 = model.onMovingCR.cRname;
+		var _v0 = model.onMovingCR.nameCR;
 		if (_v0.$ === 'Just') {
 			var x = _v0.a;
-			var oldInfo = $author$project$View$filter_CRMovinginfo(model.cRmovingInfo);
-			var newmovingCR = _Utils_update(
+			var oldInfo = $author$project$Model$filterCRMovingInfo(model.movingInfoCR);
+			var newMovingCR = _Utils_update(
 				oldMovingCR,
-				{cRname: $elm$core$Maybe$Nothing});
+				{nameCR: $elm$core$Maybe$Nothing});
 			var newInfo = A2(
 				$elm$core$List$cons,
-				A2($author$project$View$combine_onmoveCR2String, oldMovingCR, newArea),
+				A2($author$project$Model$combineOnMoveCR2String, oldMovingCR, newArea),
 				oldInfo);
 			var data = model.data;
 			var newData = _Utils_update(
@@ -6821,7 +6825,7 @@ var $author$project$Model$changeCR = F2(
 				});
 			return _Utils_update(
 				model,
-				{cRmovingInfo: newInfo, data: newData, onMovingCR: newmovingCR});
+				{data: newData, movingInfoCR: newInfo, onMovingCR: newMovingCR});
 		} else {
 			return model;
 		}
@@ -6834,26 +6838,26 @@ var $author$project$Model$areaClick = F2(
 				name,
 				_Utils_update(
 					model,
-					{onviewArea: name})) : model,
+					{onViewArea: name})) : model,
 			$elm$core$Platform$Cmd$none);
 	});
 var $author$project$Msg$Pause = {$: 'Pause'};
 var $author$project$Update$checkHelp = function (state) {
 	return _Utils_eq(state, $author$project$Msg$Running) ? $author$project$Msg$ToState($author$project$Msg$Pause) : $author$project$Msg$ToState(state);
 };
-var $author$project$Model$crClick = F2(
-	function (crInfo, model) {
+var $author$project$Model$clickCR = F2(
+	function (infoCR, model) {
 		return _Utils_Tuple2(
 			function () {
 				var oldMovingCR = model.onMovingCR;
-				var newformerArea = crInfo.formerArea;
-				var newcRname = crInfo.cRname;
+				var newNameCR = infoCR.nameCR;
+				var newFromArea = infoCR.fromArea;
 				return _Utils_eq(model.state, $author$project$Msg$Running) ? _Utils_update(
 					model,
 					{
 						onMovingCR: _Utils_update(
 							oldMovingCR,
-							{cRname: newcRname, formerArea: newformerArea})
+							{fromArea: newFromArea, nameCR: newNameCR})
 					}) : model;
 			}(),
 			$elm$core$Platform$Cmd$none);
@@ -7079,29 +7083,21 @@ var $author$project$CmdMsg$fileSelect = function (file) {
 			$author$project$Msg$FileLoaded,
 			$elm$file$File$toString(file)));
 };
+var $author$project$Model$getOldLoadInfo = function (loadInfo) {
+	if (loadInfo.$ === 'URL') {
+		var x = loadInfo.a;
+		return x;
+	} else {
+		var _v1 = loadInfo.a;
+		var x = _v1.b;
+		return x;
+	}
+};
+var $elm$json$Json$Decode$decodeString = _Json_runOnString;
 var $author$project$GameData$GameData = F8(
 	function (infoCP, globalCP, allCR, area, helpText, gameInfo, story, time) {
 		return {allCR: allCR, area: area, gameInfo: gameInfo, globalCP: globalCP, helpText: helpText, infoCP: infoCP, story: story, time: time};
 	});
-var $elm$json$Json$Decode$float = _Json_decodeFloat;
-var $elm$json$Json$Decode$list = _Json_decodeList;
-var $elm$json$Json$Decode$map6 = _Json_map6;
-var $elm$json$Json$Decode$string = _Json_decodeString;
-var $author$project$GameInfo$decoderGameInfo = A7(
-	$elm$json$Json$Decode$map6,
-	$author$project$GameInfo$GameInfo,
-	A2($elm$json$Json$Decode$field, 'LocalCP', $elm$json$Json$Decode$string),
-	A2(
-		$elm$json$Json$Decode$field,
-		'GlobalCP',
-		$elm$json$Json$Decode$list($elm$json$Json$Decode$string)),
-	A2($elm$json$Json$Decode$field, 'winningTime', $elm$json$Json$Decode$float),
-	A2(
-		$elm$json$Json$Decode$field,
-		'losing',
-		$elm$json$Json$Decode$list($elm$json$Json$Decode$float)),
-	A2($elm$json$Json$Decode$field, 'max', $elm$json$Json$Decode$float),
-	A2($elm$json$Json$Decode$field, 'min', $elm$json$Json$Decode$float));
 var $elm$json$Json$Decode$keyValuePairs = _Json_decodeKeyValuePairs;
 var $elm$json$Json$Decode$dict = function (decoder) {
 	return A2(
@@ -7117,6 +7113,7 @@ var $author$project$PureCPdata$PureCPdata = F2(
 	function (name, data) {
 		return {data: data, name: name};
 	});
+var $elm$json$Json$Decode$float = _Json_decodeFloat;
 var $elm$core$Dict$map = F2(
 	function (func, dict) {
 		if (dict.$ === 'RBEmpty_elm_builtin') {
@@ -7136,7 +7133,7 @@ var $elm$core$Dict$map = F2(
 				A2($elm$core$Dict$map, func, right));
 		}
 	});
-var $author$project$PureCPdata$decoder_PureCPdata = A2(
+var $author$project$PureCPdata$decoderPureCPdata = A2(
 	$elm$json$Json$Decode$map,
 	$elm$core$Dict$map(
 		F2(
@@ -7144,11 +7141,13 @@ var $author$project$PureCPdata$decoder_PureCPdata = A2(
 				return A2($author$project$PureCPdata$PureCPdata, name, value);
 			})),
 	$elm$json$Json$Decode$dict($elm$json$Json$Decode$float));
+var $elm$json$Json$Decode$map6 = _Json_map6;
+var $elm$json$Json$Decode$string = _Json_decodeString;
 var $author$project$Area$infoDecoder = A7(
 	$elm$json$Json$Decode$map6,
 	$author$project$Area$Info,
-	A2($elm$json$Json$Decode$field, 'init', $author$project$PureCPdata$decoder_PureCPdata),
-	A2($elm$json$Json$Decode$field, 'effect', $author$project$PureCPdata$decoder_PureCPdata),
+	A2($elm$json$Json$Decode$field, 'init', $author$project$PureCPdata$decoderPureCPdata),
+	A2($elm$json$Json$Decode$field, 'effect', $author$project$PureCPdata$decoderPureCPdata),
 	A2($elm$json$Json$Decode$field, 'location', $elm$json$Json$Decode$int),
 	A2($elm$json$Json$Decode$field, 'path', $elm$json$Json$Decode$string),
 	A2($elm$json$Json$Decode$field, 'centerX', $elm$json$Json$Decode$float),
@@ -7174,13 +7173,10 @@ var $author$project$Area$infoToArea = F2(
 			effect,
 			no);
 	});
-var $author$project$Area$decoder_Area = A2(
-	$elm$core$Debug$log,
-	'1',
-	A2(
-		$elm$json$Json$Decode$map,
-		$elm$core$Dict$map($author$project$Area$infoToArea),
-		$elm$json$Json$Decode$dict($author$project$Area$infoDecoder)));
+var $author$project$Area$decoderArea = A2(
+	$elm$json$Json$Decode$map,
+	$elm$core$Dict$map($author$project$Area$infoToArea),
+	$elm$json$Json$Decode$dict($author$project$Area$infoDecoder));
 var $author$project$CPdata$Info = F2(
 	function (effect, typeCP) {
 		return {effect: effect, typeCP: typeCP};
@@ -7188,7 +7184,7 @@ var $author$project$CPdata$Info = F2(
 var $elm$json$Json$Decode$andThen = _Json_andThen;
 var $author$project$CPtype$Local = {$: 'Local'};
 var $elm$json$Json$Decode$fail = _Json_fail;
-var $author$project$CPtype$dString2CPtype = function (string) {
+var $author$project$CPtype$decoderString2CPtype = function (string) {
 	switch (string) {
 		case 'Local':
 			return $elm$json$Json$Decode$succeed($author$project$CPtype$Local);
@@ -7198,12 +7194,12 @@ var $author$project$CPtype$dString2CPtype = function (string) {
 			return $elm$json$Json$Decode$fail('Invalid type: ' + string);
 	}
 };
-var $author$project$CPtype$dCPtype = A2($elm$json$Json$Decode$andThen, $author$project$CPtype$dString2CPtype, $elm$json$Json$Decode$string);
+var $author$project$CPtype$decoderCPtype = A2($elm$json$Json$Decode$andThen, $author$project$CPtype$decoderString2CPtype, $elm$json$Json$Decode$string);
 var $author$project$CPdata$infoDecoder = A3(
 	$elm$json$Json$Decode$map2,
 	$author$project$CPdata$Info,
-	A2($elm$json$Json$Decode$field, 'effect', $author$project$PureCPdata$decoder_PureCPdata),
-	A2($elm$json$Json$Decode$field, 'type', $author$project$CPtype$dCPtype));
+	A2($elm$json$Json$Decode$field, 'effect', $author$project$PureCPdata$decoderPureCPdata),
+	A2($elm$json$Json$Decode$field, 'type', $author$project$CPtype$decoderCPtype));
 var $author$project$CPdata$CPdata = F3(
 	function (name, effect, typeCP) {
 		return {effect: effect, name: name, typeCP: typeCP};
@@ -7214,7 +7210,7 @@ var $author$project$CPdata$infoToCPdata = F2(
 		var typeCP = _v0.typeCP;
 		return A3($author$project$CPdata$CPdata, name, effect, typeCP);
 	});
-var $author$project$CPdata$decoder_CPdata = A2(
+var $author$project$CPdata$decoderCPdata = A2(
 	$elm$json$Json$Decode$map,
 	$elm$core$Dict$map($author$project$CPdata$infoToCPdata),
 	$elm$json$Json$Decode$dict($author$project$CPdata$infoDecoder));
@@ -7227,7 +7223,7 @@ var $author$project$CRdata$infoDecoder = A6(
 	$elm$json$Json$Decode$map5,
 	$author$project$CRdata$Info,
 	A2($elm$json$Json$Decode$field, 'location', $elm$json$Json$Decode$string),
-	A2($elm$json$Json$Decode$field, 'effect', $author$project$PureCPdata$decoder_PureCPdata),
+	A2($elm$json$Json$Decode$field, 'effect', $author$project$PureCPdata$decoderPureCPdata),
 	A2($elm$json$Json$Decode$field, 'placeX', $elm$json$Json$Decode$float),
 	A2($elm$json$Json$Decode$field, 'placeY', $elm$json$Json$Decode$float),
 	A2($elm$json$Json$Decode$field, 'color', $elm$json$Json$Decode$string));
@@ -7250,15 +7246,31 @@ var $author$project$CRdata$infoToCRdata = F2(
 			_Utils_Tuple2(x, y),
 			color);
 	});
-var $author$project$CRdata$decoder_CRdata = A2(
+var $author$project$CRdata$decoderCRdata = A2(
 	$elm$json$Json$Decode$map,
 	$elm$core$Dict$map($author$project$CRdata$infoToCRdata),
 	$elm$json$Json$Decode$dict($author$project$CRdata$infoDecoder));
+var $elm$json$Json$Decode$list = _Json_decodeList;
+var $author$project$GameInfo$decoderGameInfo = A7(
+	$elm$json$Json$Decode$map6,
+	$author$project$GameInfo$GameInfo,
+	A2($elm$json$Json$Decode$field, 'LocalCP', $elm$json$Json$Decode$string),
+	A2(
+		$elm$json$Json$Decode$field,
+		'GlobalCP',
+		$elm$json$Json$Decode$list($elm$json$Json$Decode$string)),
+	A2($elm$json$Json$Decode$field, 'winningTime', $elm$json$Json$Decode$float),
+	A2(
+		$elm$json$Json$Decode$field,
+		'losing',
+		$elm$json$Json$Decode$list($elm$json$Json$Decode$float)),
+	A2($elm$json$Json$Decode$field, 'max', $elm$json$Json$Decode$float),
+	A2($elm$json$Json$Decode$field, 'min', $elm$json$Json$Decode$float));
 var $author$project$HelpText$HelpText = F2(
 	function (name, text) {
 		return {name: name, text: text};
 	});
-var $author$project$HelpText$decoder_HelpText = A2(
+var $author$project$HelpText$decoderHelpText = A2(
 	$elm$json$Json$Decode$map,
 	$elm$core$Dict$map(
 		F2(
@@ -7267,23 +7279,22 @@ var $author$project$HelpText$decoder_HelpText = A2(
 			})),
 	$elm$json$Json$Decode$dict($elm$json$Json$Decode$string));
 var $elm$json$Json$Decode$map8 = _Json_map8;
-var $author$project$GameData$dGameData = A9(
+var $author$project$GameData$decoderGameData = A9(
 	$elm$json$Json$Decode$map8,
 	$author$project$GameData$GameData,
-	A2($elm$json$Json$Decode$field, 'CP', $author$project$CPdata$decoder_CPdata),
-	A2($elm$json$Json$Decode$field, 'globalCP', $author$project$PureCPdata$decoder_PureCPdata),
-	A2($elm$json$Json$Decode$field, 'CR', $author$project$CRdata$decoder_CRdata),
-	A2($elm$json$Json$Decode$field, 'area', $author$project$Area$decoder_Area),
-	A2($elm$json$Json$Decode$field, 'helpText', $author$project$HelpText$decoder_HelpText),
+	A2($elm$json$Json$Decode$field, 'CP', $author$project$CPdata$decoderCPdata),
+	A2($elm$json$Json$Decode$field, 'globalCP', $author$project$PureCPdata$decoderPureCPdata),
+	A2($elm$json$Json$Decode$field, 'CR', $author$project$CRdata$decoderCRdata),
+	A2($elm$json$Json$Decode$field, 'area', $author$project$Area$decoderArea),
+	A2($elm$json$Json$Decode$field, 'helpText', $author$project$HelpText$decoderHelpText),
 	A2($elm$json$Json$Decode$field, 'winningMsg', $author$project$GameInfo$decoderGameInfo),
 	A2(
 		$elm$json$Json$Decode$field,
 		'story',
 		$elm$json$Json$Decode$list($elm$json$Json$Decode$string)),
 	A2($elm$json$Json$Decode$field, 'time', $elm$json$Json$Decode$float));
-var $elm$json$Json$Decode$decodeString = _Json_runOnString;
 var $author$project$LoadMod$loadMod = function (st) {
-	var ans = A2($elm$json$Json$Decode$decodeString, $author$project$GameData$dGameData, st);
+	var ans = A2($elm$json$Json$Decode$decodeString, $author$project$GameData$decoderGameData, st);
 	if (ans.$ === 'Ok') {
 		var x = ans.a;
 		return _Utils_Tuple2(x, 'Ok');
@@ -7293,6 +7304,657 @@ var $author$project$LoadMod$loadMod = function (st) {
 			$author$project$GameData$initGameData,
 			$elm$json$Json$Decode$errorToString(x));
 	}
+};
+var $author$project$Msg$Lose = {$: 'Lose'};
+var $elm$core$List$any = F2(
+	function (isOkay, list) {
+		any:
+		while (true) {
+			if (!list.b) {
+				return false;
+			} else {
+				var x = list.a;
+				var xs = list.b;
+				if (isOkay(x)) {
+					return true;
+				} else {
+					var $temp$isOkay = isOkay,
+						$temp$list = xs;
+					isOkay = $temp$isOkay;
+					list = $temp$list;
+					continue any;
+				}
+			}
+		}
+	});
+var $elm$core$Basics$not = _Basics_not;
+var $elm$core$List$all = F2(
+	function (isOkay, list) {
+		return !A2(
+			$elm$core$List$any,
+			A2($elm$core$Basics$composeL, $elm$core$Basics$not, isOkay),
+			list);
+	});
+var $elm$core$Maybe$withDefault = F2(
+	function (_default, maybe) {
+		if (maybe.$ === 'Just') {
+			var value = maybe.a;
+			return value;
+		} else {
+			return _default;
+		}
+	});
+var $author$project$GameData$getPureCPdataByName = function (_v0) {
+	var name = _v0.a;
+	var dict = _v0.b;
+	return A2(
+		$elm$core$Maybe$withDefault,
+		$author$project$PureCPdata$initPureCPdata,
+		A2($elm$core$Dict$get, name, dict));
+};
+var $elm$core$Dict$values = function (dict) {
+	return A3(
+		$elm$core$Dict$foldr,
+		F3(
+			function (key, value, valueList) {
+				return A2($elm$core$List$cons, value, valueList);
+			}),
+		_List_Nil,
+		dict);
+};
+var $author$project$Model$checkDeadLocalCP = function (model) {
+	var name = model.data.gameInfo.local;
+	var local = A2(
+		$elm$core$List$map,
+		function (x) {
+			return x.localCP;
+		},
+		$elm$core$Dict$values(model.data.area));
+	return A2(
+		$elm$core$List$all,
+		function (x) {
+			return x;
+		},
+		A2(
+			$elm$core$List$map,
+			function (x) {
+				return _Utils_cmp(
+					$author$project$GameData$getPureCPdataByName(
+						_Utils_Tuple2(name, x)).data,
+					model.data.gameInfo.min) > 0;
+			},
+			local));
+};
+var $author$project$Model$checkDead = function (model) {
+	var keyVal = A3(
+		$elm$core$List$map2,
+		F2(
+			function (x, y) {
+				return _Utils_Tuple2(x.data, y);
+			}),
+		A2(
+			$elm$core$List$map,
+			function (x) {
+				return $author$project$GameData$getPureCPdataByName(
+					_Utils_Tuple2(x, model.data.globalCP));
+			},
+			model.data.gameInfo.global),
+		model.data.gameInfo.lose);
+	return (A2(
+		$elm$core$List$all,
+		function (_v0) {
+			var x = _v0.a;
+			var y = _v0.b;
+			return _Utils_cmp(x, y) > 0;
+		},
+		keyVal) && $author$project$Model$checkDeadLocalCP(model)) ? model.state : $author$project$Msg$Lose;
+};
+var $author$project$Msg$Win = {$: 'Win'};
+var $author$project$Model$checkWin = function (model) {
+	return (_Utils_cmp(model.time.b, model.data.gameInfo.win) > 0) ? $author$project$Msg$Win : model.state;
+};
+var $elm$core$Basics$min = F2(
+	function (x, y) {
+		return (_Utils_cmp(x, y) < 0) ? x : y;
+	});
+var $author$project$Model$timeChange = 1000;
+var $author$project$Update$valueEffectCP = F2(
+	function (effect, before) {
+		return _Utils_update(
+			before,
+			{data: before.data + effect.data});
+	});
+var $author$project$Update$getEffect = F3(
+	function (effect, key, before) {
+		return _Utils_eq(before.name, key) ? A2(
+			$author$project$Update$valueEffectCP,
+			$author$project$GameData$getPureCPdataByName(
+				_Utils_Tuple2(key, effect)),
+			before) : before;
+	});
+var $author$project$Update$dictEffectCP = F2(
+	function (effect, before) {
+		return A2(
+			$elm$core$Dict$map,
+			$author$project$Update$getEffect(effect),
+			before);
+	});
+var $author$project$Update$effectCP = F3(
+	function (effect, global, local) {
+		return _Utils_Tuple2(
+			A2($author$project$Update$dictEffectCP, effect, global),
+			A2($author$project$Update$dictEffectCP, effect, local));
+	});
+var $elm$core$Bitwise$and = _Bitwise_and;
+var $elm$core$Bitwise$shiftRightZfBy = _Bitwise_shiftRightZfBy;
+var $elm$core$Array$bitMask = 4294967295 >>> (32 - $elm$core$Array$shiftStep);
+var $elm$core$Elm$JsArray$unsafeGet = _JsArray_unsafeGet;
+var $elm$core$Array$getHelp = F3(
+	function (shift, index, tree) {
+		getHelp:
+		while (true) {
+			var pos = $elm$core$Array$bitMask & (index >>> shift);
+			var _v0 = A2($elm$core$Elm$JsArray$unsafeGet, pos, tree);
+			if (_v0.$ === 'SubTree') {
+				var subTree = _v0.a;
+				var $temp$shift = shift - $elm$core$Array$shiftStep,
+					$temp$index = index,
+					$temp$tree = subTree;
+				shift = $temp$shift;
+				index = $temp$index;
+				tree = $temp$tree;
+				continue getHelp;
+			} else {
+				var values = _v0.a;
+				return A2($elm$core$Elm$JsArray$unsafeGet, $elm$core$Array$bitMask & index, values);
+			}
+		}
+	});
+var $elm$core$Bitwise$shiftLeftBy = _Bitwise_shiftLeftBy;
+var $elm$core$Array$tailIndex = function (len) {
+	return (len >>> 5) << 5;
+};
+var $elm$core$Array$get = F2(
+	function (index, _v0) {
+		var len = _v0.a;
+		var startShift = _v0.b;
+		var tree = _v0.c;
+		var tail = _v0.d;
+		return ((index < 0) || (_Utils_cmp(index, len) > -1)) ? $elm$core$Maybe$Nothing : ((_Utils_cmp(
+			index,
+			$elm$core$Array$tailIndex(len)) > -1) ? $elm$core$Maybe$Just(
+			A2($elm$core$Elm$JsArray$unsafeGet, $elm$core$Array$bitMask & index, tail)) : $elm$core$Maybe$Just(
+			A3($elm$core$Array$getHelp, startShift, index, tree)));
+	});
+var $elm$core$Elm$JsArray$unsafeSet = _JsArray_unsafeSet;
+var $elm$core$Array$setHelp = F4(
+	function (shift, index, value, tree) {
+		var pos = $elm$core$Array$bitMask & (index >>> shift);
+		var _v0 = A2($elm$core$Elm$JsArray$unsafeGet, pos, tree);
+		if (_v0.$ === 'SubTree') {
+			var subTree = _v0.a;
+			var newSub = A4($elm$core$Array$setHelp, shift - $elm$core$Array$shiftStep, index, value, subTree);
+			return A3(
+				$elm$core$Elm$JsArray$unsafeSet,
+				pos,
+				$elm$core$Array$SubTree(newSub),
+				tree);
+		} else {
+			var values = _v0.a;
+			var newLeaf = A3($elm$core$Elm$JsArray$unsafeSet, $elm$core$Array$bitMask & index, value, values);
+			return A3(
+				$elm$core$Elm$JsArray$unsafeSet,
+				pos,
+				$elm$core$Array$Leaf(newLeaf),
+				tree);
+		}
+	});
+var $elm$core$Array$set = F3(
+	function (index, value, array) {
+		var len = array.a;
+		var startShift = array.b;
+		var tree = array.c;
+		var tail = array.d;
+		return ((index < 0) || (_Utils_cmp(index, len) > -1)) ? array : ((_Utils_cmp(
+			index,
+			$elm$core$Array$tailIndex(len)) > -1) ? A4(
+			$elm$core$Array$Array_elm_builtin,
+			len,
+			startShift,
+			tree,
+			A3($elm$core$Elm$JsArray$unsafeSet, $elm$core$Array$bitMask & index, value, tail)) : A4(
+			$elm$core$Array$Array_elm_builtin,
+			len,
+			startShift,
+			A4($elm$core$Array$setHelp, startShift, index, value, tree),
+			tail));
+	});
+var $author$project$Update$eachAreaCPchange = F2(
+	function (i, _v0) {
+		var a = _v0.a;
+		var global = _v0.b;
+		var newArea = A2(
+			$elm$core$Maybe$withDefault,
+			$author$project$Area$initArea,
+			A2($elm$core$Array$get, i, a));
+		var _v1 = A3($author$project$Update$effectCP, newArea.effect, global, newArea.localCP);
+		var newGlobal = _v1.a;
+		var local = _v1.b;
+		return _Utils_Tuple2(
+			A3(
+				$elm$core$Array$set,
+				i,
+				A2(
+					F2(
+						function (y, x) {
+							return _Utils_update(
+								x,
+								{localCP: y});
+						}),
+					local,
+					newArea),
+				a),
+			newGlobal);
+	});
+var $author$project$For$for = F4(
+	function (i, n, f, x) {
+		_for:
+		while (true) {
+			if (_Utils_cmp(i, n) > 0) {
+				return x;
+			} else {
+				var $temp$i = i + 1,
+					$temp$n = n,
+					$temp$f = f,
+					$temp$x = A2(f, i, x);
+				i = $temp$i;
+				n = $temp$n;
+				f = $temp$f;
+				x = $temp$x;
+				continue _for;
+			}
+		}
+	});
+var $elm$core$Array$fromListHelp = F3(
+	function (list, nodeList, nodeListSize) {
+		fromListHelp:
+		while (true) {
+			var _v0 = A2($elm$core$Elm$JsArray$initializeFromList, $elm$core$Array$branchFactor, list);
+			var jsArray = _v0.a;
+			var remainingItems = _v0.b;
+			if (_Utils_cmp(
+				$elm$core$Elm$JsArray$length(jsArray),
+				$elm$core$Array$branchFactor) < 0) {
+				return A2(
+					$elm$core$Array$builderToArray,
+					true,
+					{nodeList: nodeList, nodeListSize: nodeListSize, tail: jsArray});
+			} else {
+				var $temp$list = remainingItems,
+					$temp$nodeList = A2(
+					$elm$core$List$cons,
+					$elm$core$Array$Leaf(jsArray),
+					nodeList),
+					$temp$nodeListSize = nodeListSize + 1;
+				list = $temp$list;
+				nodeList = $temp$nodeList;
+				nodeListSize = $temp$nodeListSize;
+				continue fromListHelp;
+			}
+		}
+	});
+var $elm$core$Array$fromList = function (list) {
+	if (!list.b) {
+		return $elm$core$Array$empty;
+	} else {
+		return A3($elm$core$Array$fromListHelp, list, _List_Nil, 0);
+	}
+};
+var $elm$core$Elm$JsArray$map = _JsArray_map;
+var $elm$core$Array$map = F2(
+	function (func, _v0) {
+		var len = _v0.a;
+		var startShift = _v0.b;
+		var tree = _v0.c;
+		var tail = _v0.d;
+		var helper = function (node) {
+			if (node.$ === 'SubTree') {
+				var subTree = node.a;
+				return $elm$core$Array$SubTree(
+					A2($elm$core$Elm$JsArray$map, helper, subTree));
+			} else {
+				var values = node.a;
+				return $elm$core$Array$Leaf(
+					A2($elm$core$Elm$JsArray$map, func, values));
+			}
+		};
+		return A4(
+			$elm$core$Array$Array_elm_builtin,
+			len,
+			startShift,
+			A2($elm$core$Elm$JsArray$map, helper, tree),
+			A2($elm$core$Elm$JsArray$map, func, tail));
+	});
+var $elm$core$Dict$sizeHelp = F2(
+	function (n, dict) {
+		sizeHelp:
+		while (true) {
+			if (dict.$ === 'RBEmpty_elm_builtin') {
+				return n;
+			} else {
+				var left = dict.d;
+				var right = dict.e;
+				var $temp$n = A2($elm$core$Dict$sizeHelp, n + 1, right),
+					$temp$dict = left;
+				n = $temp$n;
+				dict = $temp$dict;
+				continue sizeHelp;
+			}
+		}
+	});
+var $elm$core$Dict$size = function (dict) {
+	return A2($elm$core$Dict$sizeHelp, 0, dict);
+};
+var $author$project$Update$areaCPchange = F2(
+	function (area, global) {
+		var pureArea = A2(
+			$elm$core$Array$map,
+			function (_v1) {
+				var x = _v1.a;
+				var y = _v1.b;
+				return y;
+			},
+			$elm$core$Array$fromList(
+				$elm$core$Dict$toList(area)));
+		var _v0 = A4(
+			$author$project$For$for,
+			0,
+			$elm$core$Dict$size(area) - 1,
+			$author$project$Update$eachAreaCPchange,
+			_Utils_Tuple2(pureArea, global));
+		var afterAreaArray = _v0.a;
+		var afterGlobal = _v0.b;
+		return _Utils_Tuple2(
+			$elm$core$Dict$fromList(
+				A2(
+					$elm$core$List$map,
+					function (x) {
+						return _Utils_Tuple2(x.name, x);
+					},
+					$elm$core$Array$toList(afterAreaArray))),
+			afterGlobal);
+	});
+var $author$project$Update$updateDataArea = function (data) {
+	var _v0 = A2($author$project$Update$areaCPchange, data.area, data.globalCP);
+	var newArea = _v0.a;
+	var newGlobal = _v0.b;
+	return _Utils_update(
+		data,
+		{area: newArea, globalCP: newGlobal});
+};
+var $author$project$Update$eachEffectCP = F2(
+	function (i, _v0) {
+		var global = _v0.a;
+		var effect = _v0.b;
+		return _Utils_Tuple2(
+			A2(
+				$author$project$Update$dictEffectCP,
+				A2(
+					$elm$core$Maybe$withDefault,
+					$elm$core$Dict$empty,
+					A2($elm$core$Array$get, i, effect)),
+				global),
+			effect);
+	});
+var $author$project$Update$timesCPdata = F2(
+	function (a, b) {
+		return A2(
+			$elm$core$List$map,
+			function (x) {
+				return _Utils_update(
+					x,
+					{data: x.data * b.data});
+			},
+			a);
+	});
+var $author$project$Update$eachGlobalCertainCPchangeCP2CP = F3(
+	function (dict, local, nameCP) {
+		return $elm$core$Dict$fromList(
+			A2(
+				$elm$core$List$map,
+				function (x) {
+					return _Utils_Tuple2(x.name, x);
+				},
+				A2(
+					$author$project$Update$timesCPdata,
+					$elm$core$Dict$values(
+						A2(
+							$elm$core$Maybe$withDefault,
+							$author$project$CPdata$initCPdata,
+							A2($elm$core$Dict$get, nameCP, dict)).effect),
+					A2(
+						$elm$core$Maybe$withDefault,
+						$author$project$PureCPdata$initPureCPdata,
+						A2($elm$core$Dict$get, nameCP, local)))));
+	});
+var $elm$core$Array$length = function (_v0) {
+	var len = _v0.a;
+	return len;
+};
+var $author$project$Update$eachGlobalChangeCP2CP = F3(
+	function (dict, local, global) {
+		var effect = $elm$core$Array$fromList(
+			$elm$core$Dict$values(
+				A2(
+					$elm$core$Dict$map,
+					F2(
+						function (name, x) {
+							return A3($author$project$Update$eachGlobalCertainCPchangeCP2CP, dict, local, name);
+						}),
+					local)));
+		return A4(
+			$author$project$For$for,
+			0,
+			$elm$core$Array$length(effect) - 1,
+			$author$project$Update$eachEffectCP,
+			_Utils_Tuple2(global, effect)).a;
+	});
+var $author$project$Update$changeGlobalCP2CP = F2(
+	function (dict, global) {
+		return A3($author$project$Update$eachGlobalChangeCP2CP, dict, global, global);
+	});
+var $author$project$Update$getCertainArea = F3(
+	function (dict, i, _v0) {
+		var global = _v0.a;
+		var area = _v0.b;
+		return _Utils_Tuple2(
+			A3(
+				$author$project$Update$eachGlobalChangeCP2CP,
+				dict,
+				A2(
+					$elm$core$Maybe$withDefault,
+					$author$project$Area$initArea,
+					A2($elm$core$Array$get, i, area)).localCP,
+				global),
+			area);
+	});
+var $author$project$Update$globalChangeCP2CP = F3(
+	function (dict, area, global) {
+		return A4(
+			$author$project$For$for,
+			0,
+			$elm$core$Dict$size(area) - 1,
+			$author$project$Update$getCertainArea(dict),
+			_Utils_Tuple2(
+				global,
+				$elm$core$Array$fromList(
+					$elm$core$Dict$values(area)))).a;
+	});
+var $author$project$Update$changeLocalCP2CP = F3(
+	function (dict, area, global) {
+		var afterGlobal = A3($author$project$Update$globalChangeCP2CP, dict, area, global);
+		var afterArea = $elm$core$Dict$fromList(
+			A2(
+				$elm$core$List$map,
+				function (x) {
+					return _Utils_Tuple2(
+						x.name,
+						A3($author$project$Update$eachGlobalChangeCP2CP, dict, x.localCP, x.localCP));
+				},
+				$elm$core$Dict$values(area)));
+		return _Utils_Tuple2(
+			A2(
+				$elm$core$Dict$map,
+				F3(
+					function (after, name, x) {
+						return _Utils_update(
+							x,
+							{
+								localCP: A2(
+									$elm$core$Maybe$withDefault,
+									x.localCP,
+									A2($elm$core$Dict$get, name, after))
+							});
+					})(afterArea),
+				area),
+			afterGlobal);
+	});
+var $author$project$Update$changeCP2CP = F3(
+	function (dict, global, area) {
+		var afterGlobal = A2($author$project$Update$changeGlobalCP2CP, dict, global);
+		return A3($author$project$Update$changeLocalCP2CP, dict, area, afterGlobal);
+	});
+var $author$project$Update$updateDataCP = function (data) {
+	var _v0 = A3($author$project$Update$changeCP2CP, data.infoCP, data.globalCP, data.area);
+	var newArea = _v0.a;
+	var newGlobal = _v0.b;
+	return _Utils_update(
+		data,
+		{area: newArea, globalCP: newGlobal});
+};
+var $author$project$Update$certainChangeCR2CP = F3(
+	function (global, area, certainCR) {
+		var localCP = area.localCP;
+		var effect = certainCR.effect;
+		var _v0 = A3($author$project$Update$effectCP, effect, global, localCP);
+		var newGlobal = _v0.a;
+		var newLocal = _v0.b;
+		return _Utils_Tuple2(
+			_Utils_update(
+				area,
+				{localCP: newLocal}),
+			newGlobal);
+	});
+var $author$project$Update$eachChangeCR2CP = F2(
+	function (i, _v0) {
+		var cr = _v0.a;
+		var _v1 = _v0.b;
+		var global = _v1.a;
+		var area = _v1.b;
+		var certainCR = A2(
+			$elm$core$Maybe$withDefault,
+			$author$project$CRdata$initCRdata,
+			A2($elm$core$Array$get, i, cr));
+		var certainArea = A2(
+			$elm$core$Maybe$withDefault,
+			$author$project$Area$initArea,
+			A2(
+				$elm$core$Dict$get,
+				A2($elm$core$Debug$log, '1', certainCR.location),
+				area));
+		var _v2 = A3($author$project$Update$certainChangeCR2CP, global, certainArea, certainCR);
+		var updatedArea = _v2.a;
+		var updatedGlobal = _v2.b;
+		var updatedAllArea = A3(
+			$elm$core$Dict$update,
+			certainCR.location,
+			F2(
+				function (x, y) {
+					return x;
+				})(
+				$elm$core$Maybe$Just(updatedArea)),
+			area);
+		return _Utils_Tuple2(
+			cr,
+			_Utils_Tuple2(updatedGlobal, updatedAllArea));
+	});
+var $author$project$Update$changeCR2CP = F3(
+	function (cr, global, area) {
+		var arrayCR = A2(
+			$elm$core$Array$map,
+			function (_v2) {
+				var x = _v2.a;
+				var y = _v2.b;
+				return y;
+			},
+			$elm$core$Array$fromList(
+				$elm$core$Dict$toList(cr)));
+		var _v0 = A4(
+			$author$project$For$for,
+			0,
+			$elm$core$Dict$size(cr) - 1,
+			$author$project$Update$eachChangeCR2CP,
+			_Utils_Tuple2(
+				arrayCR,
+				_Utils_Tuple2(global, area)));
+		var dontcare = _v0.a;
+		var _v1 = _v0.b;
+		var updatedArea = _v1.a;
+		var updatedGlobal = _v1.b;
+		return _Utils_Tuple2(updatedGlobal, updatedArea);
+	});
+var $author$project$Update$updateDataCR = function (data) {
+	var _v0 = A3($author$project$Update$changeCR2CP, data.allCR, data.globalCP, data.area);
+	var newArea = _v0.a;
+	var newGlobal = _v0.b;
+	return _Utils_update(
+		data,
+		{area: newArea, globalCP: newGlobal});
+};
+var $author$project$Update$updateData = function (data) {
+	return $author$project$Update$updateDataCP(
+		$author$project$Update$updateDataCR(
+			$author$project$Update$updateDataArea(data)));
+};
+var $author$project$Model$runningUpdate = F2(
+	function (time, model) {
+		var newTime = A2($elm$core$Basics$min, 100, time);
+		var newModel1 = _Utils_update(
+			model,
+			{
+				time: _Utils_Tuple2(model.time.a + newTime, model.time.b + newTime)
+			});
+		var newModel2 = (_Utils_cmp(newModel1.time.a, $author$project$Model$timeChange) > -1) ? _Utils_update(
+			newModel1,
+			{
+				data: $author$project$Update$updateData(newModel1.data),
+				time: _Utils_Tuple2(newModel1.time.a - $author$project$Model$timeChange, newModel1.time.b)
+			}) : newModel1;
+		var newModel3 = _Utils_update(
+			newModel2,
+			{
+				state: $author$project$Model$checkDead(newModel2)
+			});
+		var newModel4 = _Utils_update(
+			newModel3,
+			{
+				state: $author$project$Model$checkWin(newModel3)
+			});
+		return _Utils_Tuple2(newModel4, $elm$core$Platform$Cmd$none);
+	});
+var $author$project$Update$switchPause = function (state) {
+	return _Utils_eq(state, $author$project$Msg$Pause) ? $author$project$Msg$ToState($author$project$Msg$Running) : (_Utils_eq(state, $author$project$Msg$Running) ? $author$project$Msg$ToState($author$project$Msg$Pause) : $author$project$Msg$ToState(state));
+};
+var $author$project$Model$toState = F2(
+	function (newState, model) {
+		return _Utils_Tuple2(
+			_Utils_update(
+				model,
+				{state: newState}),
+			$elm$core$Platform$Cmd$none);
+	});
+var $author$project$SimpleType$URL = function (a) {
+	return {$: 'URL', a: a};
 };
 var $author$project$Msg$GotText = function (a) {
 	return {$: 'GotText', a: a};
@@ -7540,666 +8202,88 @@ var $elm$http$Http$get = function (r) {
 	return $elm$http$Http$request(
 		{body: $elm$http$Http$emptyBody, expect: r.expect, headers: _List_Nil, method: 'GET', timeout: $elm$core$Maybe$Nothing, tracker: $elm$core$Maybe$Nothing, url: r.url});
 };
-var $author$project$CmdMsg$wholeURL = 'asset/defaultMod.json';
-var $author$project$CmdMsg$loadUpdate = $elm$http$Http$get(
-	{
-		expect: $elm$http$Http$expectString($author$project$Msg$GotText),
-		url: $author$project$CmdMsg$wholeURL
-	});
-var $author$project$Msg$Win = {$: 'Win'};
-var $author$project$Model$checkWin = function (model) {
-	return (_Utils_cmp(model.time.b, model.data.gameInfo.win) > 0) ? $author$project$Msg$Win : model.state;
+var $author$project$CmdMsg$loadUpdate = function (x) {
+	return $elm$http$Http$get(
+		{
+			expect: $elm$http$Http$expectString($author$project$Msg$GotText),
+			url: x
+		});
 };
-var $author$project$Msg$Lose = {$: 'Lose'};
-var $elm$core$List$any = F2(
-	function (isOkay, list) {
-		any:
-		while (true) {
-			if (!list.b) {
-				return false;
-			} else {
-				var x = list.a;
-				var xs = list.b;
-				if (isOkay(x)) {
-					return true;
+var $author$project$Model$urlUpdate = F2(
+	function (io, model) {
+		if (io.$ === 'Nothing') {
+			var _v1 = model.loadInfo;
+			_v1$2:
+			while (true) {
+				if (_v1.$ === 'URL') {
+					if (_v1.a.$ === 'Just') {
+						var x = _v1.a.a;
+						return _Utils_Tuple2(
+							model,
+							$author$project$CmdMsg$loadUpdate(x));
+					} else {
+						break _v1$2;
+					}
 				} else {
-					var $temp$isOkay = isOkay,
-						$temp$list = xs;
-					isOkay = $temp$isOkay;
-					list = $temp$list;
-					continue any;
+					if (_v1.a.b.$ === 'Just') {
+						var _v2 = _v1.a;
+						var x = _v2.b.a;
+						return _Utils_Tuple2(
+							model,
+							$author$project$CmdMsg$loadUpdate(x));
+					} else {
+						break _v1$2;
+					}
 				}
 			}
-		}
-	});
-var $elm$core$Basics$not = _Basics_not;
-var $elm$core$List$all = F2(
-	function (isOkay, list) {
-		return !A2(
-			$elm$core$List$any,
-			A2($elm$core$Basics$composeL, $elm$core$Basics$not, isOkay),
-			list);
-	});
-var $elm$core$Maybe$withDefault = F2(
-	function (_default, maybe) {
-		if (maybe.$ === 'Just') {
-			var value = maybe.a;
-			return value;
+			return A2(
+				$author$project$Model$toState,
+				$author$project$Msg$Loading,
+				_Utils_update(
+					model,
+					{
+						loadInfo: $author$project$SimpleType$ShowMsg(
+							_Utils_Tuple2(
+								'Error code 2001 : Not found URL.',
+								$author$project$Model$getOldLoadInfo(model.loadInfo)))
+					}));
 		} else {
-			return _default;
-		}
-	});
-var $author$project$GameData$getPureCPdataByName = function (_v0) {
-	var name = _v0.a;
-	var dict = _v0.b;
-	return A2(
-		$elm$core$Maybe$withDefault,
-		$author$project$PureCPdata$initPureCPdata,
-		A2($elm$core$Dict$get, name, dict));
-};
-var $elm$core$Dict$values = function (dict) {
-	return A3(
-		$elm$core$Dict$foldr,
-		F3(
-			function (key, value, valueList) {
-				return A2($elm$core$List$cons, value, valueList);
-			}),
-		_List_Nil,
-		dict);
-};
-var $author$project$Model$check_DeadLocalCP = function (model) {
-	var name = model.data.gameInfo.local;
-	var local = A2(
-		$elm$core$List$map,
-		function (x) {
-			return x.localCP;
-		},
-		$elm$core$Dict$values(model.data.area));
-	return A2(
-		$elm$core$List$all,
-		function (x) {
-			return x;
-		},
-		A2(
-			$elm$core$List$map,
-			function (x) {
-				return _Utils_cmp(
-					$author$project$GameData$getPureCPdataByName(
-						_Utils_Tuple2(name, x)).data,
-					model.data.gameInfo.min) > 0;
-			},
-			local));
-};
-var $author$project$Model$check_Dead = function (model) {
-	var keyVal = A3(
-		$elm$core$List$map2,
-		F2(
-			function (x, y) {
-				return _Utils_Tuple2(x.data, y);
-			}),
-		A2(
-			$elm$core$List$map,
-			function (x) {
-				return $author$project$GameData$getPureCPdataByName(
-					_Utils_Tuple2(x, model.data.globalCP));
-			},
-			model.data.gameInfo.global),
-		model.data.gameInfo.lose);
-	return (A2(
-		$elm$core$List$all,
-		function (_v0) {
-			var x = _v0.a;
-			var y = _v0.b;
-			return _Utils_cmp(x, y) > 0;
-		},
-		keyVal) && $author$project$Model$check_DeadLocalCP(model)) ? model.state : $author$project$Msg$Lose;
-};
-var $author$project$Model$timeChange = 1000;
-var $author$project$Update$valueEffectCP = F2(
-	function (effect, before) {
-		return _Utils_update(
-			before,
-			{data: before.data + effect.data});
-	});
-var $author$project$Update$getEffect = F3(
-	function (effect, key, before) {
-		return _Utils_eq(before.name, key) ? A2(
-			$author$project$Update$valueEffectCP,
-			$author$project$GameData$getPureCPdataByName(
-				_Utils_Tuple2(key, effect)),
-			before) : before;
-	});
-var $author$project$Update$dictEffectCP = F2(
-	function (effect, before) {
-		return A2(
-			$elm$core$Dict$map,
-			$author$project$Update$getEffect(effect),
-			before);
-	});
-var $author$project$Update$effectCP = F3(
-	function (effect, global, local) {
-		return _Utils_Tuple2(
-			A2($author$project$Update$dictEffectCP, effect, global),
-			A2($author$project$Update$dictEffectCP, effect, local));
-	});
-var $elm$core$Bitwise$and = _Bitwise_and;
-var $elm$core$Bitwise$shiftRightZfBy = _Bitwise_shiftRightZfBy;
-var $elm$core$Array$bitMask = 4294967295 >>> (32 - $elm$core$Array$shiftStep);
-var $elm$core$Elm$JsArray$unsafeGet = _JsArray_unsafeGet;
-var $elm$core$Array$getHelp = F3(
-	function (shift, index, tree) {
-		getHelp:
-		while (true) {
-			var pos = $elm$core$Array$bitMask & (index >>> shift);
-			var _v0 = A2($elm$core$Elm$JsArray$unsafeGet, pos, tree);
-			if (_v0.$ === 'SubTree') {
-				var subTree = _v0.a;
-				var $temp$shift = shift - $elm$core$Array$shiftStep,
-					$temp$index = index,
-					$temp$tree = subTree;
-				shift = $temp$shift;
-				index = $temp$index;
-				tree = $temp$tree;
-				continue getHelp;
-			} else {
-				var values = _v0.a;
-				return A2($elm$core$Elm$JsArray$unsafeGet, $elm$core$Array$bitMask & index, values);
-			}
-		}
-	});
-var $elm$core$Bitwise$shiftLeftBy = _Bitwise_shiftLeftBy;
-var $elm$core$Array$tailIndex = function (len) {
-	return (len >>> 5) << 5;
-};
-var $elm$core$Array$get = F2(
-	function (index, _v0) {
-		var len = _v0.a;
-		var startShift = _v0.b;
-		var tree = _v0.c;
-		var tail = _v0.d;
-		return ((index < 0) || (_Utils_cmp(index, len) > -1)) ? $elm$core$Maybe$Nothing : ((_Utils_cmp(
-			index,
-			$elm$core$Array$tailIndex(len)) > -1) ? $elm$core$Maybe$Just(
-			A2($elm$core$Elm$JsArray$unsafeGet, $elm$core$Array$bitMask & index, tail)) : $elm$core$Maybe$Just(
-			A3($elm$core$Array$getHelp, startShift, index, tree)));
-	});
-var $elm$core$Elm$JsArray$unsafeSet = _JsArray_unsafeSet;
-var $elm$core$Array$setHelp = F4(
-	function (shift, index, value, tree) {
-		var pos = $elm$core$Array$bitMask & (index >>> shift);
-		var _v0 = A2($elm$core$Elm$JsArray$unsafeGet, pos, tree);
-		if (_v0.$ === 'SubTree') {
-			var subTree = _v0.a;
-			var newSub = A4($elm$core$Array$setHelp, shift - $elm$core$Array$shiftStep, index, value, subTree);
-			return A3(
-				$elm$core$Elm$JsArray$unsafeSet,
-				pos,
-				$elm$core$Array$SubTree(newSub),
-				tree);
-		} else {
-			var values = _v0.a;
-			var newLeaf = A3($elm$core$Elm$JsArray$unsafeSet, $elm$core$Array$bitMask & index, value, values);
-			return A3(
-				$elm$core$Elm$JsArray$unsafeSet,
-				pos,
-				$elm$core$Array$Leaf(newLeaf),
-				tree);
-		}
-	});
-var $elm$core$Array$set = F3(
-	function (index, value, array) {
-		var len = array.a;
-		var startShift = array.b;
-		var tree = array.c;
-		var tail = array.d;
-		return ((index < 0) || (_Utils_cmp(index, len) > -1)) ? array : ((_Utils_cmp(
-			index,
-			$elm$core$Array$tailIndex(len)) > -1) ? A4(
-			$elm$core$Array$Array_elm_builtin,
-			len,
-			startShift,
-			tree,
-			A3($elm$core$Elm$JsArray$unsafeSet, $elm$core$Array$bitMask & index, value, tail)) : A4(
-			$elm$core$Array$Array_elm_builtin,
-			len,
-			startShift,
-			A4($elm$core$Array$setHelp, startShift, index, value, tree),
-			tail));
-	});
-var $author$project$Update$eachAreaCPchange = F3(
-	function (global, i, a) {
-		var newArea = A2(
-			$elm$core$Maybe$withDefault,
-			$author$project$Area$initArea,
-			A2($elm$core$Array$get, i, a));
-		var _v0 = A3($author$project$Update$effectCP, newArea.effect, global, newArea.localCP);
-		var newGlobal = _v0.a;
-		var local = _v0.b;
-		return _Utils_Tuple2(
-			A3(
-				$elm$core$Array$set,
-				i,
-				A2(
-					F2(
-						function (y, x) {
-							return _Utils_update(
-								x,
-								{localCP: y});
+			if (io.a.$ === 'Temp') {
+				var url = io.a.a;
+				return _Utils_Tuple2(
+					_Utils_update(
+						model,
+						{
+							loadInfo: $author$project$SimpleType$URL(
+								$elm$core$Maybe$Just(url))
 						}),
-					local,
-					newArea),
-				a),
-			newGlobal);
-	});
-var $author$project$For$for = F4(
-	function (i, n, f, _v0) {
-		_for:
-		while (true) {
-			var x = _v0.a;
-			var o = _v0.b;
-			if (_Utils_cmp(i, n) > 0) {
-				return _Utils_Tuple2(x, o);
+					$elm$core$Platform$Cmd$none);
 			} else {
-				var $temp$i = i + 1,
-					$temp$n = n,
-					$temp$f = f,
-					$temp$_v0 = A3(f, o, i, x);
-				i = $temp$i;
-				n = $temp$n;
-				f = $temp$f;
-				_v0 = $temp$_v0;
-				continue _for;
+				var url = io.a.a;
+				return _Utils_Tuple2(
+					model,
+					$author$project$CmdMsg$loadUpdate(url));
 			}
 		}
 	});
-var $elm$core$Array$fromListHelp = F3(
-	function (list, nodeList, nodeListSize) {
-		fromListHelp:
-		while (true) {
-			var _v0 = A2($elm$core$Elm$JsArray$initializeFromList, $elm$core$Array$branchFactor, list);
-			var jsArray = _v0.a;
-			var remainingItems = _v0.b;
-			if (_Utils_cmp(
-				$elm$core$Elm$JsArray$length(jsArray),
-				$elm$core$Array$branchFactor) < 0) {
-				return A2(
-					$elm$core$Array$builderToArray,
-					true,
-					{nodeList: nodeList, nodeListSize: nodeListSize, tail: jsArray});
-			} else {
-				var $temp$list = remainingItems,
-					$temp$nodeList = A2(
-					$elm$core$List$cons,
-					$elm$core$Array$Leaf(jsArray),
-					nodeList),
-					$temp$nodeListSize = nodeListSize + 1;
-				list = $temp$list;
-				nodeList = $temp$nodeList;
-				nodeListSize = $temp$nodeListSize;
-				continue fromListHelp;
-			}
-		}
-	});
-var $elm$core$Array$fromList = function (list) {
-	if (!list.b) {
-		return $elm$core$Array$empty;
-	} else {
-		return A3($elm$core$Array$fromListHelp, list, _List_Nil, 0);
-	}
-};
-var $elm$core$Elm$JsArray$map = _JsArray_map;
-var $elm$core$Array$map = F2(
-	function (func, _v0) {
-		var len = _v0.a;
-		var startShift = _v0.b;
-		var tree = _v0.c;
-		var tail = _v0.d;
-		var helper = function (node) {
-			if (node.$ === 'SubTree') {
-				var subTree = node.a;
-				return $elm$core$Array$SubTree(
-					A2($elm$core$Elm$JsArray$map, helper, subTree));
-			} else {
-				var values = node.a;
-				return $elm$core$Array$Leaf(
-					A2($elm$core$Elm$JsArray$map, func, values));
-			}
-		};
-		return A4(
-			$elm$core$Array$Array_elm_builtin,
-			len,
-			startShift,
-			A2($elm$core$Elm$JsArray$map, helper, tree),
-			A2($elm$core$Elm$JsArray$map, func, tail));
-	});
-var $elm$core$Dict$sizeHelp = F2(
-	function (n, dict) {
-		sizeHelp:
-		while (true) {
-			if (dict.$ === 'RBEmpty_elm_builtin') {
-				return n;
-			} else {
-				var left = dict.d;
-				var right = dict.e;
-				var $temp$n = A2($elm$core$Dict$sizeHelp, n + 1, right),
-					$temp$dict = left;
-				n = $temp$n;
-				dict = $temp$dict;
-				continue sizeHelp;
-			}
-		}
-	});
-var $elm$core$Dict$size = function (dict) {
-	return A2($elm$core$Dict$sizeHelp, 0, dict);
-};
-var $author$project$Update$areaCPchange = F2(
-	function (area, global) {
-		var pureArea = A2(
-			$elm$core$Array$map,
-			function (_v1) {
-				var x = _v1.a;
-				var y = _v1.b;
-				return y;
-			},
-			$elm$core$Array$fromList(
-				$elm$core$Dict$toList(area)));
-		var _v0 = A4(
-			$author$project$For$for,
-			0,
-			$elm$core$Dict$size(area) - 1,
-			$author$project$Update$eachAreaCPchange,
-			_Utils_Tuple2(pureArea, global));
-		var afterAreaArray = _v0.a;
-		var afterGlobal = _v0.b;
-		return _Utils_Tuple2(
-			$elm$core$Dict$fromList(
-				A2(
-					$elm$core$List$map,
-					function (x) {
-						return _Utils_Tuple2(x.name, x);
-					},
-					$elm$core$Array$toList(afterAreaArray))),
-			afterGlobal);
-	});
-var $author$project$Update$updateDataArea = function (data) {
-	var _v0 = A2($author$project$Update$areaCPchange, data.area, data.globalCP);
-	var newArea = _v0.a;
-	var newGlobal = _v0.b;
-	return _Utils_update(
-		data,
-		{area: newArea, globalCP: newGlobal});
-};
-var $author$project$Update$eachEffectCP = F3(
-	function (effect, i, global) {
-		return _Utils_Tuple2(
-			A2(
-				$author$project$Update$dictEffectCP,
-				A2(
-					$elm$core$Maybe$withDefault,
-					$elm$core$Dict$empty,
-					A2($elm$core$Array$get, i, effect)),
-				global),
-			effect);
-	});
-var $author$project$Update$timesCPdata = F2(
-	function (a, b) {
-		return A2(
-			$elm$core$List$map,
-			function (x) {
-				return _Utils_update(
-					x,
-					{data: x.data * b.data});
-			},
-			a);
-	});
-var $author$project$Update$eachGlobalCertainCPchangeCP2CP = F3(
-	function (dict, local, nameCP) {
-		return $elm$core$Dict$fromList(
-			A2(
-				$elm$core$List$map,
-				function (x) {
-					return _Utils_Tuple2(x.name, x);
-				},
-				A2(
-					$author$project$Update$timesCPdata,
-					$elm$core$Dict$values(
-						A2(
-							$elm$core$Maybe$withDefault,
-							$author$project$CPdata$initCPdata,
-							A2($elm$core$Dict$get, nameCP, dict)).effect),
-					A2(
-						$elm$core$Maybe$withDefault,
-						$author$project$PureCPdata$initPureCPdata,
-						A2($elm$core$Dict$get, nameCP, local)))));
-	});
-var $elm$core$Array$length = function (_v0) {
-	var len = _v0.a;
-	return len;
-};
-var $author$project$Update$eachGlobalChangeCP2CP = F3(
-	function (dict, local, global) {
-		var effect = $elm$core$Array$fromList(
-			$elm$core$Dict$values(
-				A2(
-					$elm$core$Dict$map,
-					F2(
-						function (name, x) {
-							return A3($author$project$Update$eachGlobalCertainCPchangeCP2CP, dict, local, name);
-						}),
-					local)));
-		return A4(
-			$author$project$For$for,
-			0,
-			$elm$core$Array$length(effect) - 1,
-			$author$project$Update$eachEffectCP,
-			_Utils_Tuple2(global, effect)).a;
-	});
-var $author$project$Update$changeGlobalCP2CP = F2(
-	function (dict, global) {
-		return A3($author$project$Update$eachGlobalChangeCP2CP, dict, global, global);
-	});
-var $author$project$Update$getCertainArea = F4(
-	function (dict, area, i, global) {
-		return _Utils_Tuple2(
-			A3(
-				$author$project$Update$eachGlobalChangeCP2CP,
-				dict,
-				A2(
-					$elm$core$Maybe$withDefault,
-					$author$project$Area$initArea,
-					A2($elm$core$Array$get, i, area)).localCP,
-				global),
-			area);
-	});
-var $author$project$Update$globalChangeCP2CP = F3(
-	function (dict, area, global) {
-		return A4(
-			$author$project$For$for,
-			0,
-			$elm$core$Dict$size(area) - 1,
-			$author$project$Update$getCertainArea(dict),
-			_Utils_Tuple2(
-				global,
-				$elm$core$Array$fromList(
-					$elm$core$Dict$values(area)))).a;
-	});
-var $author$project$Update$changeLocalCP2CP = F3(
-	function (dict, area, global) {
-		var afterGlobal = A3($author$project$Update$globalChangeCP2CP, dict, area, global);
-		var afterArea = $elm$core$Dict$fromList(
-			A2(
-				$elm$core$List$map,
-				function (x) {
-					return _Utils_Tuple2(
-						x.name,
-						A3($author$project$Update$eachGlobalChangeCP2CP, dict, x.localCP, x.localCP));
-				},
-				$elm$core$Dict$values(area)));
-		return _Utils_Tuple2(
-			A2(
-				$elm$core$Dict$map,
-				F3(
-					function (after, name, x) {
-						return _Utils_update(
-							x,
-							{
-								localCP: A2(
-									$elm$core$Maybe$withDefault,
-									x.localCP,
-									A2($elm$core$Dict$get, name, after))
-							});
-					})(afterArea),
-				area),
-			afterGlobal);
-	});
-var $author$project$Update$changeCP2CP = F3(
-	function (dict, global, area) {
-		var afterGlobal = A2($author$project$Update$changeGlobalCP2CP, dict, global);
-		return A3($author$project$Update$changeLocalCP2CP, dict, area, afterGlobal);
-	});
-var $author$project$Update$updateDataCP = function (data) {
-	var _v0 = A3($author$project$Update$changeCP2CP, data.infoCP, data.globalCP, data.area);
-	var newArea = _v0.a;
-	var newGlobal = _v0.b;
-	return _Utils_update(
-		data,
-		{area: newArea, globalCP: newGlobal});
-};
-var $author$project$Update$certainChangeCR2CP = F3(
-	function (global, area, certainCR) {
-		var localCP = area.localCP;
-		var effect = certainCR.effect;
-		var _v0 = A3($author$project$Update$effectCP, effect, global, localCP);
-		var newGlobal = _v0.a;
-		var newLocal = _v0.b;
-		return _Utils_Tuple2(
-			_Utils_update(
-				area,
-				{localCP: newLocal}),
-			newGlobal);
-	});
-var $author$project$Update$eachChangeCR2CP = F3(
-	function (_v0, i, cr) {
-		var global = _v0.a;
-		var area = _v0.b;
-		var certainCR = A2(
-			$elm$core$Maybe$withDefault,
-			$author$project$CRdata$initCRdata,
-			A2($elm$core$Array$get, i, cr));
-		var certainArea = A2(
-			$elm$core$Maybe$withDefault,
-			$author$project$Area$initArea,
-			A2(
-				$elm$core$Dict$get,
-				A2($elm$core$Debug$log, '1', certainCR.location),
-				area));
-		var _v1 = A3($author$project$Update$certainChangeCR2CP, global, certainArea, certainCR);
-		var updatedArea = _v1.a;
-		var updatedGlobal = _v1.b;
-		var updatedAllArea = A3(
-			$elm$core$Dict$update,
-			certainCR.location,
-			F2(
-				function (x, y) {
-					return x;
-				})(
-				$elm$core$Maybe$Just(updatedArea)),
-			area);
-		return _Utils_Tuple2(
-			cr,
-			_Utils_Tuple2(updatedGlobal, updatedAllArea));
-	});
-var $author$project$Update$changeCR2CP = F3(
-	function (cr, global, area) {
-		var arrayCR = A2(
-			$elm$core$Array$map,
-			function (_v2) {
-				var x = _v2.a;
-				var y = _v2.b;
-				return y;
-			},
-			$elm$core$Array$fromList(
-				$elm$core$Dict$toList(cr)));
-		var _v0 = A4(
-			$author$project$For$for,
-			0,
-			$elm$core$Dict$size(cr) - 1,
-			$author$project$Update$eachChangeCR2CP,
-			_Utils_Tuple2(
-				arrayCR,
-				_Utils_Tuple2(global, area)));
-		var dontcare = _v0.a;
-		var _v1 = _v0.b;
-		var updatedArea = _v1.a;
-		var updatedGlobal = _v1.b;
-		return _Utils_Tuple2(updatedGlobal, updatedArea);
-	});
-var $author$project$Update$updateDataCR = function (data) {
-	var _v0 = A3($author$project$Update$changeCR2CP, data.allCR, data.globalCP, data.area);
-	var newArea = _v0.a;
-	var newGlobal = _v0.b;
-	return _Utils_update(
-		data,
-		{area: newArea, globalCP: newGlobal});
-};
-var $author$project$Update$updateData = function (data) {
-	return $author$project$Update$updateDataCP(
-		$author$project$Update$updateDataCR(
-			$author$project$Update$updateDataArea(data)));
-};
-var $author$project$Model$runningUpdate = F2(
-	function (time, model) {
-		var newmodel1 = _Utils_update(
-			model,
-			{
-				time: _Utils_Tuple2(model.time.a + time, model.time.b + time)
-			});
-		var newmodel2 = (_Utils_cmp(newmodel1.time.a, $author$project$Model$timeChange) > -1) ? _Utils_update(
-			newmodel1,
-			{
-				data: $author$project$Update$updateData(newmodel1.data),
-				time: _Utils_Tuple2(newmodel1.time.a - $author$project$Model$timeChange, newmodel1.time.b)
-			}) : newmodel1;
-		var newmodel3 = _Utils_update(
-			newmodel2,
-			{
-				state: $author$project$Model$check_Dead(newmodel2)
-			});
-		var newmodel4 = _Utils_update(
-			newmodel3,
-			{
-				state: $author$project$Model$checkWin(newmodel3)
-			});
-		return _Utils_Tuple2(newmodel4, $elm$core$Platform$Cmd$none);
-	});
-var $author$project$Update$switchPause = function (state) {
-	return _Utils_eq(state, $author$project$Msg$Pause) ? $author$project$Msg$ToState($author$project$Msg$Running) : (_Utils_eq(state, $author$project$Msg$Running) ? $author$project$Msg$ToState($author$project$Msg$Pause) : $author$project$Msg$ToState(state));
-};
-var $author$project$Model$toState = F2(
-	function (newState, model) {
-		return _Utils_Tuple2(
-			_Utils_update(
-				model,
-				{state: newState}),
-			$elm$core$Platform$Cmd$none);
-	});
-var $author$project$Model$clickonUpdate = F2(
-	function (ele, model) {
-		switch (ele.$) {
+var $author$project$Model$clickOnUpdate = F2(
+	function (element, model) {
+		switch (element.$) {
 			case 'Area':
-				var name = ele.a;
+				var name = element.a;
 				return A2($author$project$Model$areaClick, name, model);
 			case 'CR':
-				var crInfo = ele.a;
-				return A2($author$project$Model$crClick, crInfo, model);
-			case 'LoadDefault':
-				return _Utils_Tuple2(model, $author$project$CmdMsg$loadUpdate);
+				var infoCR = element.a;
+				return A2($author$project$Model$clickCR, infoCR, model);
 			case 'Download':
 				return _Utils_Tuple2(
 					model,
 					$author$project$Model$downloadUpdate(model));
-			default:
+			case 'Restart':
 				return $author$project$Model$restartUpdate(model);
+			default:
+				var x = element.a;
+				return A2($author$project$Model$urlUpdate, x, model);
 		}
 	});
 var $author$project$Model$keyUpdate = F2(
@@ -8213,7 +8297,7 @@ var $author$project$Model$keyUpdate = F2(
 			case 'R':
 				return A2(
 					$author$project$Model$update,
-					$author$project$Msg$Clickon($author$project$Msg$Restart),
+					$author$project$Msg$ClickOn($author$project$Msg$Restart),
 					model);
 			case 'H':
 				return A2(
@@ -8225,10 +8309,16 @@ var $author$project$Model$keyUpdate = F2(
 		}
 	});
 var $author$project$Model$loadingUpdate = function (model) {
-	return (A2($elm$core$Debug$log, 'info', model.loadInfo) === 'Ok') ? A2(
-		$author$project$Model$update,
-		$author$project$Msg$ToState($author$project$Msg$Running),
-		model) : _Utils_Tuple2(model, $elm$core$Platform$Cmd$none);
+	var _v4 = model.loadInfo;
+	if ((_v4.$ === 'ShowMsg') && (_v4.a.a === 'Ok')) {
+		var _v5 = _v4.a;
+		return A2(
+			$author$project$Model$update,
+			$author$project$Msg$ToState($author$project$Msg$Running),
+			model);
+	} else {
+		return _Utils_Tuple2(model, $elm$core$Platform$Cmd$none);
+	}
 };
 var $author$project$Model$restartUpdate = function (model) {
 	return A2(
@@ -8255,9 +8345,9 @@ var $author$project$Model$update = F2(
 			case 'GotText':
 				var result = msg.a;
 				return A2($author$project$Model$updateGotText, result, model);
-			case 'Clickon':
+			case 'ClickOn':
 				var element = msg.a;
-				return A2($author$project$Model$clickonUpdate, element, model);
+				return A2($author$project$Model$clickOnUpdate, element, model);
 			case 'UploadFile':
 				var fileStatus = msg.a;
 				return A2($author$project$Model$uploadUpdate, fileStatus, model);
@@ -8287,7 +8377,13 @@ var $author$project$Model$updateGotTextFail = function (model) {
 		$author$project$Msg$ToState($author$project$Msg$Loading),
 		_Utils_update(
 			model,
-			{loadInfo: 'Error code : 1001', modInfo: 'Error code : 1002'}));
+			{
+				loadInfo: $author$project$SimpleType$ShowMsg(
+					_Utils_Tuple2(
+						'Error code : 1001',
+						$author$project$Model$getOldLoadInfo(model.loadInfo))),
+				modInfo: 'Error'
+			}));
 };
 var $author$project$Model$updateGotTextOK = F2(
 	function (fullText, model) {
@@ -8298,7 +8394,10 @@ var $author$project$Model$updateGotTextOK = F2(
 				model,
 				{
 					data: $author$project$LoadMod$loadMod(fullText).a,
-					loadInfo: $author$project$LoadMod$loadMod(fullText).b,
+					loadInfo: $author$project$SimpleType$ShowMsg(
+						_Utils_Tuple2(
+							$author$project$LoadMod$loadMod(fullText).b,
+							$author$project$Model$getOldLoadInfo(model.loadInfo))),
 					modInfo: fullText,
 					time: _Utils_Tuple2(
 						0,
@@ -8442,7 +8541,7 @@ var $author$project$HtmlMsg$showButtons = F3(
 						[
 							$elm$svg$Svg$Attributes$viewBox(
 							'-5 0 ' + ($elm$core$String$fromInt(
-								($elm$core$List$length(x) * 25) + 10) + ' 15')),
+								($elm$core$List$length(x) * 25) + 15) + ' 15')),
 							$elm$svg$Svg$Attributes$width('100%'),
 							$elm$svg$Svg$Attributes$height('100%')
 						]),
@@ -8450,9 +8549,11 @@ var $author$project$HtmlMsg$showButtons = F3(
 						$author$project$For$for,
 						0,
 						$elm$core$List$length(x) - 1,
-						F3(
-							function (all, i, before) {
-								var _v2 = A2(
+						F2(
+							function (i, _v2) {
+								var before = _v2.a;
+								var all = _v2.b;
+								var _v3 = A2(
 									$elm$core$Maybe$withDefault,
 									_Utils_Tuple3(
 										'',
@@ -8462,9 +8563,9 @@ var $author$project$HtmlMsg$showButtons = F3(
 										$elm$core$Array$get,
 										i,
 										$elm$core$Array$fromList(all)));
-								var st = _v2.a;
-								var m = _v2.b;
-								var size = _v2.c;
+								var st = _v3.a;
+								var m = _v3.b;
+								var size = _v3.c;
 								return _Utils_Tuple2(
 									A2(
 										$elm$core$List$cons,
@@ -8518,11 +8619,11 @@ var $author$project$HtmlMsg$endHtmlMsg = function (st) {
 									[
 										_Utils_Tuple3(
 										'restart',
-										$author$project$Msg$Clickon($author$project$Msg$Restart),
+										$author$project$Msg$ClickOn($author$project$Msg$Restart),
 										3.5),
 										_Utils_Tuple3(
 										'download',
-										$author$project$Msg$Clickon($author$project$Msg$Download),
+										$author$project$Msg$ClickOn($author$project$Msg$Download),
 										3.5)
 									]))
 							]))
@@ -8530,8 +8631,79 @@ var $author$project$HtmlMsg$endHtmlMsg = function (st) {
 			]));
 };
 var $author$project$Msg$FileRequested = {$: 'FileRequested'};
-var $author$project$Msg$LoadDefault = {$: 'LoadDefault'};
+var $author$project$SimpleType$Final = function (a) {
+	return {$: 'Final', a: a};
+};
+var $author$project$Msg$SetURL = function (a) {
+	return {$: 'SetURL', a: a};
+};
+var $author$project$SimpleType$Temp = function (a) {
+	return {$: 'Temp', a: a};
+};
+var $author$project$HtmlMsg$assetURL = 'asset/';
+var $author$project$HtmlMsg$defaultModName = 'defaultMod.json';
+var $elm$html$Html$input = _VirtualDom_node('input');
+var $elm$html$Html$Events$alwaysStop = function (x) {
+	return _Utils_Tuple2(x, true);
+};
+var $elm$virtual_dom$VirtualDom$MayStopPropagation = function (a) {
+	return {$: 'MayStopPropagation', a: a};
+};
+var $elm$html$Html$Events$stopPropagationOn = F2(
+	function (event, decoder) {
+		return A2(
+			$elm$virtual_dom$VirtualDom$on,
+			event,
+			$elm$virtual_dom$VirtualDom$MayStopPropagation(decoder));
+	});
+var $elm$json$Json$Decode$at = F2(
+	function (fields, decoder) {
+		return A3($elm$core$List$foldr, $elm$json$Json$Decode$field, decoder, fields);
+	});
+var $elm$html$Html$Events$targetValue = A2(
+	$elm$json$Json$Decode$at,
+	_List_fromArray(
+		['target', 'value']),
+	$elm$json$Json$Decode$string);
+var $elm$html$Html$Events$onInput = function (tagger) {
+	return A2(
+		$elm$html$Html$Events$stopPropagationOn,
+		'input',
+		A2(
+			$elm$json$Json$Decode$map,
+			$elm$html$Html$Events$alwaysStop,
+			A2($elm$json$Json$Decode$map, tagger, $elm$html$Html$Events$targetValue)));
+};
+var $elm$html$Html$Attributes$stringProperty = F2(
+	function (key, string) {
+		return A2(
+			_VirtualDom_property,
+			key,
+			$elm$json$Json$Encode$string(string));
+	});
+var $elm$html$Html$Attributes$placeholder = $elm$html$Html$Attributes$stringProperty('placeholder');
+var $author$project$HtmlMsg$setCenter = _List_fromArray(
+	[
+		A2($elm$html$Html$Attributes$style, 'transform', 'translate(-50%,-50%)'),
+		A2($elm$html$Html$Attributes$style, 'left', '50%'),
+		A2($elm$html$Html$Attributes$style, 'position', 'absolute')
+	]);
+var $elm$html$Html$Attributes$type_ = $elm$html$Html$Attributes$stringProperty('type');
+var $elm$html$Html$Attributes$value = $elm$html$Html$Attributes$stringProperty('value');
 var $author$project$HtmlMsg$loadHtmlMsg = function (loadInfo) {
+	var _v0 = function () {
+		if (loadInfo.$ === 'ShowMsg') {
+			var _v2 = loadInfo.a;
+			var x = _v2.a;
+			var y = _v2.b;
+			return _Utils_Tuple2(x, y);
+		} else {
+			var x = loadInfo.a;
+			return _Utils_Tuple2('', x);
+		}
+	}();
+	var text = _v0.a;
+	var url = _v0.b;
 	return A2(
 		$elm$html$Html$div,
 		_List_fromArray(
@@ -8544,22 +8716,72 @@ var $author$project$HtmlMsg$loadHtmlMsg = function (loadInfo) {
 			]),
 		_List_fromArray(
 			[
-				$elm$html$Html$text(loadInfo),
+				A2(
+				$elm$html$Html$p,
+				_Utils_ap(
+					_List_fromArray(
+						[
+							A2($elm$html$Html$Attributes$style, 'height', '30vh'),
+							A2($elm$html$Html$Attributes$style, 'overflow', 'auto'),
+							A2($elm$html$Html$Attributes$style, 'top', '15vh'),
+							A2($elm$html$Html$Attributes$style, 'width', '70vw')
+						]),
+					$author$project$HtmlMsg$setCenter),
+				_List_fromArray(
+					[
+						$elm$html$Html$text(text)
+					])),
 				A3(
 				$author$project$HtmlMsg$showButtons,
-				_Utils_Tuple2(20, 10),
+				_Utils_Tuple2(30, 10),
 				_Utils_Tuple2(50, 70),
 				_List_fromArray(
 					[
 						_Utils_Tuple3(
-						'From Mod/Save',
+						'From local',
 						$author$project$Msg$UploadFile($author$project$Msg$FileRequested),
-						2.4),
+						3),
 						_Utils_Tuple3(
 						'Quick start',
-						$author$project$Msg$Clickon($author$project$Msg$LoadDefault),
-						2.4)
-					]))
+						$author$project$Msg$ClickOn(
+							$author$project$Msg$SetURL(
+								$elm$core$Maybe$Just(
+									$author$project$SimpleType$Final(
+										_Utils_ap($author$project$HtmlMsg$assetURL, $author$project$HtmlMsg$defaultModName))))),
+						3),
+						_Utils_Tuple3(
+						'From net',
+						$author$project$Msg$ClickOn(
+							$author$project$Msg$SetURL($elm$core$Maybe$Nothing)),
+						3)
+					])),
+				A2(
+				$elm$html$Html$input,
+				_Utils_ap(
+					_List_fromArray(
+						[
+							$elm$html$Html$Attributes$type_('input'),
+							function () {
+							if (url.$ === 'Nothing') {
+								return $elm$html$Html$Attributes$placeholder('https://example.com/mod.json');
+							} else {
+								var x = url.a;
+								return $elm$html$Html$Attributes$value(x);
+							}
+						}(),
+							$elm$html$Html$Events$onInput(
+							function (x) {
+								return $author$project$Msg$ClickOn(
+									$author$project$Msg$SetURL(
+										$elm$core$Maybe$Just(
+											$author$project$SimpleType$Temp(x))));
+							}),
+							A2($elm$html$Html$Attributes$style, 'height', '3vh'),
+							A2($elm$html$Html$Attributes$style, 'width', '20vw'),
+							A2($elm$html$Html$Attributes$style, 'top', '80%')
+						]),
+					$author$project$HtmlMsg$setCenter),
+				_List_Nil)
 			]));
 };
 var $author$project$HtmlMsg$pauseHtmlMsg = function (st) {
@@ -8609,22 +8831,22 @@ var $author$project$HtmlMsg$pauseHtmlMsg = function (st) {
 										3.5),
 										_Utils_Tuple3(
 										'restart',
-										$author$project$Msg$Clickon($author$project$Msg$Restart),
+										$author$project$Msg$ClickOn($author$project$Msg$Restart),
 										3.5),
 										_Utils_Tuple3(
 										'download',
-										$author$project$Msg$Clickon($author$project$Msg$Download),
+										$author$project$Msg$ClickOn($author$project$Msg$Download),
 										3.5)
 									]))
 							]))
 					]))
 			]));
 };
-var $author$project$View$combineList_2String = function (toCombine) {
+var $author$project$Model$combineList2String = function (toCombine) {
 	return A3($elm$core$List$foldl, $elm$core$Basics$append, '', toCombine);
 };
 var $author$project$View$pink = 'rgb(157, 99, 110)';
-var $author$project$View$disp_Onview = function (onview) {
+var $author$project$View$displayOnView = function (onView) {
 	return A2(
 		$elm$html$Html$div,
 		_List_fromArray(
@@ -8641,7 +8863,7 @@ var $author$project$View$disp_Onview = function (onview) {
 		_List_fromArray(
 			[
 				$elm$svg$Svg$text(
-				(onview === 'init') ? '' : onview)
+				(onView === 'init') ? '' : onView)
 			]));
 };
 var $elm$core$Basics$round = _Basics_round;
@@ -8668,25 +8890,7 @@ var $author$project$Model$getStory = function (model) {
 			i,
 			$elm$core$Array$fromList(model.data.story)));
 };
-var $author$project$View$show_DeadInfo = function (state) {
-	return A2(
-		$elm$html$Html$div,
-		_List_fromArray(
-			[
-				A2($elm$html$Html$Attributes$style, 'color', 'red'),
-				A2($elm$html$Html$Attributes$style, 'font-size', '20px'),
-				A2($elm$html$Html$Attributes$style, 'font-weight', 'bold'),
-				A2($elm$html$Html$Attributes$style, 'position', 'absolute'),
-				A2($elm$html$Html$Attributes$style, 'left', '2vw'),
-				A2($elm$html$Html$Attributes$style, 'top', '5vh'),
-				A2($elm$html$Html$Attributes$style, 'white-space', 'pre-line')
-			]),
-		_List_fromArray(
-			[
-				_Utils_eq(state, $author$project$Msg$Lose) ? $elm$svg$Svg$text('Mission Failed! Retry the mission of a terminator! Press R to restart') : $elm$svg$Svg$text('Save the world! Terminator!')
-			]));
-};
-var $author$project$View$show_PauseInfo = A2(
+var $author$project$View$showPauseInfo = A2(
 	$elm$html$Html$div,
 	_List_fromArray(
 		[
@@ -8719,130 +8923,6 @@ var $author$project$HtmlMsg$storyShow = function (story) {
 				$elm$html$Html$text(story)
 			]));
 };
-var $author$project$Msg$Area = function (a) {
-	return {$: 'Area', a: a};
-};
-var $elm$svg$Svg$Attributes$d = _VirtualDom_attribute('d');
-var $elm$core$Basics$min = F2(
-	function (x, y) {
-		return (_Utils_cmp(x, y) < 0) ? x : y;
-	});
-var $elm$svg$Svg$path = $elm$svg$Svg$trustedNode('path');
-var $elm$svg$Svg$Attributes$strokeLinecap = _VirtualDom_attribute('stroke-linecap');
-var $elm$svg$Svg$Attributes$strokeLinejoin = _VirtualDom_attribute('stroke-linejoin');
-var $author$project$View$viewUnitArea = F2(
-	function (_v0, unitArea) {
-		var cp = _v0.a;
-		var max = _v0.b;
-		var min = _v0.c;
-		var other = $elm$core$String$fromFloat(
-			A2(
-				$elm$core$Basics$min,
-				255,
-				((A2(
-					$elm$core$Maybe$withDefault,
-					$author$project$PureCPdata$initPureCPdata,
-					A2($elm$core$Dict$get, cp, unitArea.localCP)).data - min) / (max - min)) * 255));
-		var name = unitArea.name;
-		return A2(
-			$elm$svg$Svg$path,
-			_List_fromArray(
-				[
-					$elm$svg$Svg$Attributes$d(unitArea.view),
-					$elm$svg$Svg$Attributes$fill('rgb(' + ('255' + (',' + (other + (',' + (other + ')')))))),
-					$elm$svg$Svg$Attributes$stroke('Black'),
-					$elm$svg$Svg$Attributes$strokeLinejoin('round'),
-					$elm$svg$Svg$Attributes$strokeLinecap('round'),
-					$elm$svg$Svg$Events$onClick(
-					$author$project$Msg$Clickon(
-						$author$project$Msg$Area(name)))
-				]),
-			_List_Nil);
-	});
-var $author$project$View$viewAreas = F2(
-	function (_v0, areaS) {
-		var cp = _v0.a;
-		var max = _v0.b;
-		var min = _v0.c;
-		return A2(
-			$elm$core$List$map,
-			$author$project$View$viewUnitArea(
-				_Utils_Tuple3(cp, max, min)),
-			areaS);
-	});
-var $author$project$Msg$CR = function (a) {
-	return {$: 'CR', a: a};
-};
-var $elm$svg$Svg$circle = $elm$svg$Svg$trustedNode('circle');
-var $elm$svg$Svg$Attributes$cx = _VirtualDom_attribute('cx');
-var $elm$svg$Svg$Attributes$cy = _VirtualDom_attribute('cy');
-var $elm$svg$Svg$Attributes$r = _VirtualDom_attribute('r');
-var $elm$svg$Svg$Attributes$strokeWidth = _VirtualDom_attribute('stroke-width');
-var $author$project$View$viewUnitCR = F2(
-	function (dict, cRpos) {
-		var name = cRpos.name;
-		var color = cRpos.color;
-		var _v0 = A2(
-			$elm$core$Maybe$withDefault,
-			$author$project$Area$initArea,
-			A2($elm$core$Dict$get, cRpos.location, dict)).center;
-		var xpos = _v0.a;
-		var ypos = _v0.b;
-		return A2(
-			$elm$svg$Svg$g,
-			_List_fromArray(
-				[
-					$elm$svg$Svg$Events$onClick(
-					$author$project$Msg$Clickon(
-						$author$project$Msg$CR(
-							{
-								cRname: $elm$core$Maybe$Just(name),
-								formerArea: $elm$core$Maybe$Just(cRpos.location),
-								toArea: $elm$core$Maybe$Nothing
-							})))
-				]),
-			_List_fromArray(
-				[
-					A2(
-					$elm$svg$Svg$circle,
-					_List_fromArray(
-						[
-							$elm$svg$Svg$Attributes$cx(
-							$elm$core$String$fromFloat(xpos + cRpos.place.a)),
-							$elm$svg$Svg$Attributes$cy(
-							$elm$core$String$fromFloat(ypos + cRpos.place.b)),
-							$elm$svg$Svg$Attributes$r(
-							$elm$core$String$fromFloat(4.5)),
-							$elm$svg$Svg$Attributes$fill(color),
-							$elm$svg$Svg$Attributes$stroke('black'),
-							$elm$svg$Svg$Attributes$strokeWidth('0.5')
-						]),
-					_List_Nil),
-					A2(
-					$elm$svg$Svg$text_,
-					_List_fromArray(
-						[
-							$elm$svg$Svg$Attributes$x(
-							$elm$core$String$fromFloat(xpos + cRpos.place.a)),
-							$elm$svg$Svg$Attributes$y(
-							$elm$core$String$fromFloat((ypos + cRpos.place.b) + 1)),
-							$elm$svg$Svg$Attributes$fontSize('4'),
-							$elm$svg$Svg$Attributes$textAnchor('middle')
-						]),
-					_List_fromArray(
-						[
-							$elm$svg$Svg$text(
-							A2($elm$core$String$left, 2, name))
-						]))
-				]));
-	});
-var $author$project$View$viewCRs = F2(
-	function (dict, cRS) {
-		return A2(
-			$elm$core$List$map,
-			$author$project$View$viewUnitCR(dict),
-			cRS);
-	});
 var $elm$core$Basics$negate = function (n) {
 	return -n;
 };
@@ -9093,7 +9173,7 @@ var $myrho$elm_round$Round$round = $myrho$elm_round$Round$roundFun(
 				}
 			}
 		}));
-var $author$project$View$combineCPdata2String = function (cpTocombine) {
+var $author$project$View$combineCPdata2String = function (toCombineCP) {
 	return A3(
 		$elm$core$List$foldl,
 		F2(
@@ -9106,8 +9186,156 @@ var $author$project$View$combineCPdata2String = function (cpTocombine) {
 			function (a) {
 				return (a.name === 'init') ? '' : (a.name + (': ' + (A2($myrho$elm_round$Round$round, 2, a.data) + '\n')));
 			},
-			cpTocombine));
+			toCombineCP));
 };
+var $author$project$GameData$getAreaByName = function (_v0) {
+	var name = _v0.a;
+	var dict = _v0.b;
+	return A2(
+		$elm$core$Maybe$withDefault,
+		$author$project$Area$initArea,
+		A2($elm$core$Dict$get, name, dict));
+};
+var $author$project$View$viewAreaData = F2(
+	function (area, onView) {
+		return A2(
+			$elm$html$Html$div,
+			_List_fromArray(
+				[
+					A2($elm$html$Html$Attributes$style, 'color', $author$project$View$pink),
+					A2($elm$html$Html$Attributes$style, 'text-align', 'center'),
+					A2($elm$html$Html$Attributes$style, 'position', 'absolute'),
+					A2($elm$html$Html$Attributes$style, 'left', '70vw'),
+					A2($elm$html$Html$Attributes$style, 'top', '10vh'),
+					A2($elm$html$Html$Attributes$style, 'width', '27vw'),
+					A2($elm$html$Html$Attributes$style, 'white-space', 'pre-line'),
+					A2($elm$html$Html$Attributes$style, 'font-weight', 'bold')
+				]),
+			_List_fromArray(
+				[
+					$elm$svg$Svg$text(
+					$author$project$View$combineCPdata2String(
+						$elm$core$Dict$values(
+							$author$project$GameData$getAreaByName(
+								_Utils_Tuple2(onView, area)).localCP)))
+				]));
+	});
+var $author$project$Msg$Area = function (a) {
+	return {$: 'Area', a: a};
+};
+var $elm$svg$Svg$Attributes$d = _VirtualDom_attribute('d');
+var $elm$svg$Svg$path = $elm$svg$Svg$trustedNode('path');
+var $elm$svg$Svg$Attributes$strokeLinecap = _VirtualDom_attribute('stroke-linecap');
+var $elm$svg$Svg$Attributes$strokeLinejoin = _VirtualDom_attribute('stroke-linejoin');
+var $author$project$View$viewUnitArea = F2(
+	function (_v0, unitArea) {
+		var cp = _v0.a;
+		var max = _v0.b;
+		var min = _v0.c;
+		var other = $elm$core$String$fromFloat(
+			A2(
+				$elm$core$Basics$min,
+				255,
+				(($author$project$GameData$getPureCPdataByName(
+					_Utils_Tuple2(cp, unitArea.localCP)).data - min) / (max - min)) * 255));
+		var name = unitArea.name;
+		return A2(
+			$elm$svg$Svg$path,
+			_List_fromArray(
+				[
+					$elm$svg$Svg$Attributes$d(unitArea.view),
+					$elm$svg$Svg$Attributes$fill('rgb(' + ('255' + (',' + (other + (',' + (other + ')')))))),
+					$elm$svg$Svg$Attributes$stroke('Black'),
+					$elm$svg$Svg$Attributes$strokeLinejoin('round'),
+					$elm$svg$Svg$Attributes$strokeLinecap('round'),
+					$elm$svg$Svg$Events$onClick(
+					$author$project$Msg$ClickOn(
+						$author$project$Msg$Area(name)))
+				]),
+			_List_Nil);
+	});
+var $author$project$View$viewAreas = F2(
+	function (_v0, areaS) {
+		var cp = _v0.a;
+		var max = _v0.b;
+		var min = _v0.c;
+		return A2(
+			$elm$core$List$map,
+			$author$project$View$viewUnitArea(
+				_Utils_Tuple3(cp, max, min)),
+			areaS);
+	});
+var $author$project$Msg$CR = function (a) {
+	return {$: 'CR', a: a};
+};
+var $elm$svg$Svg$circle = $elm$svg$Svg$trustedNode('circle');
+var $elm$svg$Svg$Attributes$cx = _VirtualDom_attribute('cx');
+var $elm$svg$Svg$Attributes$cy = _VirtualDom_attribute('cy');
+var $elm$svg$Svg$Attributes$r = _VirtualDom_attribute('r');
+var $elm$svg$Svg$Attributes$strokeWidth = _VirtualDom_attribute('stroke-width');
+var $author$project$View$viewUnitCR = F2(
+	function (dict, cr) {
+		var name = cr.name;
+		var color = cr.color;
+		var _v0 = $author$project$GameData$getAreaByName(
+			_Utils_Tuple2(cr.location, dict)).center;
+		var xPos = _v0.a;
+		var yPos = _v0.b;
+		return A2(
+			$elm$svg$Svg$g,
+			_List_fromArray(
+				[
+					$elm$svg$Svg$Events$onClick(
+					$author$project$Msg$ClickOn(
+						$author$project$Msg$CR(
+							{
+								fromArea: $elm$core$Maybe$Just(cr.location),
+								nameCR: $elm$core$Maybe$Just(name),
+								toArea: $elm$core$Maybe$Nothing
+							})))
+				]),
+			_List_fromArray(
+				[
+					A2(
+					$elm$svg$Svg$circle,
+					_List_fromArray(
+						[
+							$elm$svg$Svg$Attributes$cx(
+							$elm$core$String$fromFloat(xPos + cr.place.a)),
+							$elm$svg$Svg$Attributes$cy(
+							$elm$core$String$fromFloat(yPos + cr.place.b)),
+							$elm$svg$Svg$Attributes$r(
+							$elm$core$String$fromFloat(4.5)),
+							$elm$svg$Svg$Attributes$fill(color),
+							$elm$svg$Svg$Attributes$stroke('black'),
+							$elm$svg$Svg$Attributes$strokeWidth('0.5')
+						]),
+					_List_Nil),
+					A2(
+					$elm$svg$Svg$text_,
+					_List_fromArray(
+						[
+							$elm$svg$Svg$Attributes$x(
+							$elm$core$String$fromFloat(xPos + cr.place.a)),
+							$elm$svg$Svg$Attributes$y(
+							$elm$core$String$fromFloat((yPos + cr.place.b) + 1)),
+							$elm$svg$Svg$Attributes$fontSize('4'),
+							$elm$svg$Svg$Attributes$textAnchor('middle')
+						]),
+					_List_fromArray(
+						[
+							$elm$svg$Svg$text(
+							A2($elm$core$String$left, 2, name))
+						]))
+				]));
+	});
+var $author$project$View$viewCRs = F2(
+	function (dict, cr) {
+		return A2(
+			$elm$core$List$map,
+			$author$project$View$viewUnitCR(dict),
+			cr);
+	});
 var $elm$core$List$filter = F2(
 	function (isGood, list) {
 		return A3(
@@ -9180,41 +9408,6 @@ var $author$project$View$viewMovingCR = function (info) {
 				$elm$svg$Svg$text(info)
 			]));
 };
-var $author$project$View$checkArea = F2(
-	function (areaName, areaS) {
-		var _v0 = A2($elm$core$Dict$get, areaName, areaS);
-		if (_v0.$ === 'Just') {
-			var areaThis = _v0.a;
-			return areaThis;
-		} else {
-			return $author$project$Area$initArea;
-		}
-	});
-var $author$project$View$view_Areadata = F2(
-	function (area, onview) {
-		var areaNum = A2($author$project$View$checkArea, onview, area).no;
-		var areaInfo = A2($author$project$View$checkArea, onview, area).name;
-		return A2(
-			$elm$html$Html$div,
-			_List_fromArray(
-				[
-					A2($elm$html$Html$Attributes$style, 'color', $author$project$View$pink),
-					A2($elm$html$Html$Attributes$style, 'text-align', 'center'),
-					A2($elm$html$Html$Attributes$style, 'position', 'absolute'),
-					A2($elm$html$Html$Attributes$style, 'left', '70vw'),
-					A2($elm$html$Html$Attributes$style, 'top', '10vh'),
-					A2($elm$html$Html$Attributes$style, 'width', '27vw'),
-					A2($elm$html$Html$Attributes$style, 'white-space', 'pre-line'),
-					A2($elm$html$Html$Attributes$style, 'font-weight', 'bold')
-				]),
-			_List_fromArray(
-				[
-					$elm$svg$Svg$text(
-					$author$project$View$combineCPdata2String(
-						$elm$core$Dict$values(
-							A2($author$project$View$checkArea, onview, area).localCP)))
-				]));
-	});
 var $author$project$Model$runningHtmlMsg = function (model) {
 	return A2(
 		$elm$html$Html$div,
@@ -9264,14 +9457,13 @@ var $author$project$Model$runningHtmlMsg = function (model) {
 				$author$project$View$viewGlobalData,
 				$elm$core$Dict$values(model.data.globalCP),
 				model.data.infoCP),
-				A2($author$project$View$view_Areadata, model.data.area, model.onviewArea),
-				$author$project$View$disp_Onview(model.onviewArea),
+				A2($author$project$View$viewAreaData, model.data.area, model.onViewArea),
+				$author$project$View$displayOnView(model.onViewArea),
 				$author$project$HtmlMsg$storyShow(
 				$author$project$Model$getStory(model)),
-				$author$project$View$show_PauseInfo,
-				$author$project$View$show_DeadInfo(model.state),
+				$author$project$View$showPauseInfo,
 				$author$project$View$viewMovingCR(
-				$author$project$View$combineList_2String(model.cRmovingInfo)),
+				$author$project$Model$combineList2String(model.movingInfoCR)),
 				A3(
 				$author$project$HtmlMsg$showButtons,
 				_Utils_Tuple2(15, 15),
@@ -9289,15 +9481,7 @@ var $author$project$Model$runningHtmlMsg = function (model) {
 					]))
 			]));
 };
-var $author$project$HtmlMsg$assetURL = 'asset/';
 var $elm$html$Html$img = _VirtualDom_node('img');
-var $elm$html$Html$Attributes$stringProperty = F2(
-	function (key, string) {
-		return A2(
-			_VirtualDom_property,
-			key,
-			$elm$json$Json$Encode$string(string));
-	});
 var $elm$html$Html$Attributes$src = function (url) {
 	return A2(
 		$elm$html$Html$Attributes$stringProperty,
@@ -9309,52 +9493,78 @@ var $author$project$HtmlMsg$startHtmlMsg = A2(
 	_List_fromArray(
 		[
 			A2($elm$html$Html$Attributes$style, 'width', '100vw'),
-			A2($elm$html$Html$Attributes$style, 'height', '100vh'),
-			A2($elm$html$Html$Attributes$style, 'left', '0'),
-			A2($elm$html$Html$Attributes$style, 'top', '0'),
-			A2($elm$html$Html$Attributes$style, 'text-align', 'center')
+			A2($elm$html$Html$Attributes$style, 'height', '100vh')
 		]),
 	_List_fromArray(
 		[
 			A2(
 			$elm$html$Html$img,
-			_List_fromArray(
-				[
-					$elm$html$Html$Attributes$src($author$project$HtmlMsg$assetURL + 'game.png'),
-					A2($elm$html$Html$Attributes$style, 'height', '20vh'),
-					A2($elm$html$Html$Attributes$style, 'transform', 'translate(-50%,-50%)'),
-					A2($elm$html$Html$Attributes$style, 'top', '15%'),
-					A2($elm$html$Html$Attributes$style, 'left', '50%'),
-					A2($elm$html$Html$Attributes$style, 'position', 'absolute')
-				]),
+			_Utils_ap(
+				_List_fromArray(
+					[
+						$elm$html$Html$Attributes$src($author$project$HtmlMsg$assetURL + 'game.png'),
+						A2($elm$html$Html$Attributes$style, 'height', '20vh'),
+						A2($elm$html$Html$Attributes$style, 'top', '15%'),
+						A2($elm$html$Html$Attributes$style, 'left', '50%'),
+						A2($elm$html$Html$Attributes$style, 'position', 'absolute')
+					]),
+				$author$project$HtmlMsg$setCenter),
 			_List_Nil),
 			A2(
 			$elm$html$Html$img,
-			_List_fromArray(
-				[
-					$elm$html$Html$Attributes$src($author$project$HtmlMsg$assetURL + 'logo.svg'),
-					A2($elm$html$Html$Attributes$style, 'height', '30vh'),
-					A2($elm$html$Html$Attributes$style, 'transform', 'translate(-50%,-50%)'),
-					A2($elm$html$Html$Attributes$style, 'top', '45%'),
-					A2($elm$html$Html$Attributes$style, 'left', '50%'),
-					A2($elm$html$Html$Attributes$style, 'position', 'absolute')
-				]),
+			_Utils_ap(
+				_List_fromArray(
+					[
+						$elm$html$Html$Attributes$src($author$project$HtmlMsg$assetURL + 'logo.svg'),
+						A2($elm$html$Html$Attributes$style, 'height', '30vh'),
+						A2($elm$html$Html$Attributes$style, 'top', '45%')
+					]),
+				$author$project$HtmlMsg$setCenter),
 			_List_Nil),
 			A3(
 			$author$project$HtmlMsg$showButtons,
-			_Utils_Tuple2(20, 10),
+			_Utils_Tuple2(30, 10),
 			_Utils_Tuple2(50, 70),
 			_List_fromArray(
 				[
 					_Utils_Tuple3(
-					'From Mod/Save',
+					'From local',
 					$author$project$Msg$UploadFile($author$project$Msg$FileRequested),
-					2.4),
+					3),
 					_Utils_Tuple3(
 					'Quick start',
-					$author$project$Msg$Clickon($author$project$Msg$LoadDefault),
-					2.4)
-				]))
+					$author$project$Msg$ClickOn(
+						$author$project$Msg$SetURL(
+							$elm$core$Maybe$Just(
+								$author$project$SimpleType$Final(
+									_Utils_ap($author$project$HtmlMsg$assetURL, $author$project$HtmlMsg$defaultModName))))),
+					3),
+					_Utils_Tuple3(
+					'From net',
+					$author$project$Msg$ClickOn(
+						$author$project$Msg$SetURL($elm$core$Maybe$Nothing)),
+					3)
+				])),
+			A2(
+			$elm$html$Html$input,
+			_Utils_ap(
+				_List_fromArray(
+					[
+						$elm$html$Html$Attributes$type_('input'),
+						$elm$html$Html$Attributes$placeholder('https://example.com/mod.json'),
+						$elm$html$Html$Events$onInput(
+						function (x) {
+							return $author$project$Msg$ClickOn(
+								$author$project$Msg$SetURL(
+									$elm$core$Maybe$Just(
+										$author$project$SimpleType$Temp(x))));
+						}),
+						A2($elm$html$Html$Attributes$style, 'height', '3vh'),
+						A2($elm$html$Html$Attributes$style, 'width', '20vw'),
+						A2($elm$html$Html$Attributes$style, 'top', '80%')
+					]),
+				$author$project$HtmlMsg$setCenter),
+			_List_Nil)
 		]));
 var $author$project$Main$view = function (model) {
 	var _v0 = model.state;
