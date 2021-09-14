@@ -1,6 +1,6 @@
 module Msg exposing
     ( OnMovingCR, State(..), KeyInfo(..), Element(..), FileStatus(..), Msg(..)
-    , init_onMovingCR
+    , initOnMovingCR
     )
 
 {-| It is the module that defines all the necessary Msg used in the game.
@@ -13,30 +13,30 @@ module Msg exposing
 
 # Init
 
-@docs init_onMovingCR
+@docs initOnMovingCR
 
 -}
 
 import File exposing (File)
-import Http exposing(Error)
+import Http exposing (Error)
 
 
 {-| This type define the moving info of a CR.
 -}
 type alias OnMovingCR =
-    { cRname : Maybe String
-    , formerArea : Maybe String
+    { nameCR : Maybe String
+    , fromArea : Maybe String
     , toArea : Maybe String
     }
 
 
 {-| This function init `OnMovingCR` with all `Nothing`.
 -}
-init_onMovingCR : OnMovingCR
-init_onMovingCR =
-    { cRname =
+initOnMovingCR : OnMovingCR
+initOnMovingCR =
+    { nameCR =
         Nothing
-    , formerArea =
+    , fromArea =
         Nothing
     , toArea =
         Nothing
@@ -87,6 +87,6 @@ type Msg
     = ToState State
     | GotText (Result Http.Error String)
     | Tick Float
-    | Clickon Element
+    | ClickOn Element
     | UploadFile FileStatus
     | KeyPress KeyInfo

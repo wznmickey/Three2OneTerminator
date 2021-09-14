@@ -1,6 +1,6 @@
 module CPtype exposing
     ( CPtype(..)
-    , dCPtype, encodeCPtype
+    , decoderCPtype, encodeCPtype
     )
 
 {-| It is the module that defines type `CPtype` used as a subtype and related functions.
@@ -13,7 +13,7 @@ module CPtype exposing
 
 # Json relate
 
-@docs dCPtype, encodeCPtype
+@docs decoderCPtype, encodeCPtype
 
 -}
 
@@ -41,15 +41,15 @@ type CPtype
 
 {-| This function decode `CPtype`.
 -}
-dCPtype : Decoder CPtype
-dCPtype =
+decoderCPtype : Decoder CPtype
+decoderCPtype =
     Json.Decode.string
         |> Json.Decode.andThen
-            dString2CPtype
+            decoderString2CPtype
 
 
-dString2CPtype : String -> Decoder CPtype
-dString2CPtype string =
+decoderString2CPtype : String -> Decoder CPtype
+decoderString2CPtype string =
     case string of
         "Local" ->
             Json.Decode.succeed

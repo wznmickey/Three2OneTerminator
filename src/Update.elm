@@ -192,7 +192,10 @@ updateDataCP : GameData -> GameData
 updateDataCP data =
     let
         ( newArea, newGlobal ) =
-            changeCP2CP data.infoCP data.globalCP data.area
+            changeCP2CP
+                data.infoCP
+                data.globalCP
+                data.area
     in
     { data
         | area =
@@ -293,8 +296,8 @@ globalChangeCP2CP dict area global =
         )
 
 
-getCertainArea : Dict String CPdata -> Array Area -> Int -> Dict String PureCPdata -> ( Dict String PureCPdata, Array Area )
-getCertainArea dict area i global =
+getCertainArea : Dict String CPdata -> Int -> ( Dict String PureCPdata, Array Area ) -> ( Dict String PureCPdata, Array Area )
+getCertainArea dict i ( global, area ) =
     ( eachGlobalChangeCP2CP
         dict
         (Maybe.withDefault
@@ -339,8 +342,8 @@ eachGlobalChangeCP2CP dict local global =
         )
 
 
-eachEffectCP : Array (Dict String PureCPdata) -> Int -> Dict String PureCPdata -> ( Dict String PureCPdata, Array (Dict String PureCPdata) )
-eachEffectCP effect i global =
+eachEffectCP : Int -> ( Dict String PureCPdata, Array (Dict String PureCPdata) ) -> ( Dict String PureCPdata, Array (Dict String PureCPdata) )
+eachEffectCP i ( global, effect ) =
     ( dictEffectCP
         (Maybe.withDefault
             Dict.empty
@@ -429,8 +432,8 @@ changeCR2CP cr global area =
     )
 
 
-eachChangeCR2CP : ( Dict String PureCPdata, Dict String Area ) -> Int -> Array CRdata -> ( Array CRdata, ( Dict String PureCPdata, Dict String Area ) )
-eachChangeCR2CP ( global, area ) i cr =
+eachChangeCR2CP : Int -> ( Array CRdata, ( Dict String PureCPdata, Dict String Area ) ) -> ( Array CRdata, ( Dict String PureCPdata, Dict String Area ) )
+eachChangeCR2CP i ( cr, ( global, area ) ) =
     let
         certainCR =
             Maybe.withDefault
@@ -530,8 +533,8 @@ areaCPchange area global =
     )
 
 
-eachAreaCPchange : Dict String PureCPdata -> Int -> Array Area -> ( Array Area, Dict String PureCPdata )
-eachAreaCPchange global i a =
+eachAreaCPchange : Int -> ( Array Area, Dict String PureCPdata ) -> ( Array Area, Dict String PureCPdata )
+eachAreaCPchange i ( a, global ) =
     let
         newArea =
             Maybe.withDefault

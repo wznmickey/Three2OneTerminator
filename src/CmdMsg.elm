@@ -11,7 +11,7 @@ module CmdMsg exposing (loadUpdate, fileRequest, fileSelect)
 
 import File exposing (File)
 import File.Select as Select
-import Http exposing(get)
+import Http exposing (get)
 import Msg
     exposing
         ( FileStatus(..)

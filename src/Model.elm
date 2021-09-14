@@ -28,7 +28,7 @@ import Array exposing (fromList, get, length)
 import CmdMsg exposing (fileRequest, fileSelect, loadUpdate)
 import Dict exposing (Dict)
 import GameData exposing (GameData, getPureCPdataByName, initGameData)
-import Html exposing (Html,div)
+import Html exposing (Html, div)
 import Html.Attributes as HtmlAttr exposing (..)
 import Html.Events as HtmlEvent exposing (..)
 import HtmlMsg
@@ -42,7 +42,7 @@ import HtmlMsg
         )
 import Http
 import LoadMod exposing (loadMod)
-import Msg exposing (Element(..), FileStatus(..), KeyInfo(..), Msg(..), OnMovingCR, State(..), init_onMovingCR)
+import Msg exposing (Element(..), FileStatus(..), KeyInfo(..), Msg(..), OnMovingCR, State(..), initOnMovingCR)
 import Svg exposing (Svg)
 import Svg.Attributes as SvgAttr exposing (restart)
 import ToSaving exposing (save)
@@ -56,13 +56,13 @@ import Update
         )
 import View
     exposing
-        ( disp_Onview
-        , show_PauseInfo
+        ( displayOnView
+        , showPauseInfo
+        , viewAreaData
         , viewAreas
         , viewCRs
         , viewGlobalData
         , viewMovingCR
-        , view_Areadata
         )
 
 
@@ -78,10 +78,10 @@ type alias Model =
     , state : State
     , modInfo : String
     , loadInfo : String
-    , onviewArea : String
+    , onViewArea : String
     , time : ( Float, Float )
     , onMovingCR : OnMovingCR
-    , cRmovingInfo : List String
+    , movingInfoCR : List String
     }
 
 
@@ -96,7 +96,7 @@ initModel =
         "Init"
         "init"
         ( 0, 0 )
-        init_onMovingCR
+        initOnMovingCR
         [ "CR MOVED:" ]
 
 
@@ -170,19 +170,19 @@ runningHtmlMsg model =
                 model.data.globalCP
             )
             model.data.infoCP
-        , view_Areadata
+        , viewAreaData
             model.data.area
-            model.onviewArea
-        , disp_Onview
-            model.onviewArea
+            model.onViewArea
+        , displayOnView
+            model.onViewArea
         , storyShow
             (getStory
                 model
             )
-        , show_PauseInfo
+        , showPauseInfo
         , viewMovingCR
-            (combineList_2String
-                model.cRmovingInfo
+            (combineList2String
+                model.movingInfoCR
             )
         , HtmlMsg.showButtons
             ( 15, 15 )
@@ -262,8 +262,8 @@ update msg model =
                 result
                 model
 
-        Clickon element ->
-            clickonUpdate
+        ClickOn element ->
+            clickOnUpdate
                 element
                 model
 
@@ -306,7 +306,7 @@ areaClick : String -> Model -> ( Model, Cmd Msg )
 areaClick name model =
     ( if model.state == Msg.Running then
         { model
-            | onviewArea =
+            | onViewArea =
                 name
         }
             |> changeCR
@@ -318,26 +318,26 @@ areaClick name model =
     )
 
 
-crClick : OnMovingCR -> Model -> ( Model, Cmd Msg )
-crClick crInfo model =
+clickCR : OnMovingCR -> Model -> ( Model, Cmd Msg )
+clickCR infoCR model =
     ( let
         oldMovingCR =
             model.onMovingCR
 
-        newcRname =
-            crInfo.cRname
+        newNameCR =
+            infoCR.nameCR
 
-        newformerArea =
-            crInfo.formerArea
+        newFromArea =
+            infoCR.fromArea
       in
       if model.state == Msg.Running then
         { model
             | onMovingCR =
                 { oldMovingCR
-                    | cRname =
-                        newcRname
-                    , formerArea =
-                        newformerArea
+                    | nameCR =
+                        newNameCR
+                    , fromArea =
+                        newFromArea
                 }
         }
 
@@ -377,17 +377,17 @@ restartUpdate model =
             )
 
 
-clickonUpdate : Element -> Model -> ( Model, Cmd Msg )
-clickonUpdate ele model =
-    case ele of
+clickOnUpdate : Element -> Model -> ( Model, Cmd Msg )
+clickOnUpdate element model =
+    case element of
         Msg.Area name ->
             areaClick
                 name
                 model
 
-        Msg.CR crInfo ->
-            crClick
-                crInfo
+        Msg.CR infoCR ->
+            clickCR
+                infoCR
                 model
 
         Msg.LoadDefault ->
@@ -428,38 +428,56 @@ uploadUpdate fileStatus model =
 runningUpdate : Float -> Model -> ( Model, Cmd Msg )
 runningUpdate time model =
     let
-        newmodel1 =
+        newTime =
+            Basics.min
+                100
+                time
+
+        newModel1 =
             { model
                 | time =
-                    ( Tuple.first model.time + time, Tuple.second model.time + time )
+                    ( Tuple.first
+                        model.time
+                        + newTime
+                    , Tuple.second
+                        model.time
+                        + newTime
+                    )
             }
 
-        newmodel2 =
-            if Tuple.first newmodel1.time >= timeChange then
-                { newmodel1
+        newModel2 =
+            if Tuple.first newModel1.time >= timeChange then
+                { newModel1
                     | data =
                         updateData
-                            newmodel1.data
+                            newModel1.data
                     , time =
-                        ( Tuple.first newmodel1.time - timeChange, Tuple.second newmodel1.time )
+                        ( Tuple.first
+                            newModel1.time
+                            - timeChange
+                        , Tuple.second
+                            newModel1.time
+                        )
                 }
 
             else
-                newmodel1
+                newModel1
 
-        newmodel3 =
-            { newmodel2
+        newModel3 =
+            { newModel2
                 | state =
-                    check_Dead
-                        newmodel2
+                    checkDead
+                        newModel2
             }
 
-        newmodel4 =
-            { newmodel3
-                | state = checkWin newmodel3
+        newModel4 =
+            { newModel3
+                | state =
+                    checkWin
+                        newModel3
             }
     in
-    ( newmodel4
+    ( newModel4
     , Cmd.none
     )
 
@@ -518,7 +536,7 @@ keyUpdate key model =
 
         Msg.R ->
             update
-                (Clickon
+                (ClickOn
                     Restart
                 )
                 model
@@ -544,20 +562,38 @@ toState newState model =
     )
 
 
-check_DeadLocalCP : Model -> Bool
-check_DeadLocalCP model =
+checkDeadLocalCP : Model -> Bool
+checkDeadLocalCP model =
     let
         name =
             model.data.gameInfo.local
 
         local =
-            List.map (\x -> x.localCP) (Dict.values model.data.area)
+            List.map
+                (\x ->
+                    x.localCP
+                )
+                (Dict.values
+                    model.data.area
+                )
     in
-    List.all (\x -> x == True) (List.map (\x -> (getPureCPdataByName ( name, x )).data > model.data.gameInfo.min) local)
+    List.all
+        (\x ->
+            x == True
+        )
+        (List.map
+            (\x ->
+                (getPureCPdataByName
+                    ( name, x )
+                ).data
+                    > model.data.gameInfo.min
+            )
+            local
+        )
 
 
-check_Dead : Model -> State
-check_Dead model =
+checkDead : Model -> State
+checkDead model =
     let
         keyVal =
             List.map2 (\x y -> ( x.data, y ))
@@ -572,7 +608,7 @@ check_Dead model =
                 )
                 model.data.gameInfo.lose
     in
-    if List.all (\( x, y ) -> x > y) keyVal && check_DeadLocalCP model then
+    if List.all (\( x, y ) -> x > y) keyVal && checkDeadLocalCP model then
         model.state
 
     else
@@ -585,7 +621,7 @@ changeCR newArea model =
         oldMovingCR =
             model.onMovingCR
     in
-    case model.onMovingCR.cRname of
+    case model.onMovingCR.nameCR of
         Just x ->
             let
                 data =
@@ -600,18 +636,18 @@ changeCR newArea model =
                                 newArea
                     }
 
-                newmovingCR =
+                newMovingCR =
                     { oldMovingCR
-                        | cRname =
+                        | nameCR =
                             Nothing
                     }
 
                 oldInfo =
-                    model.cRmovingInfo
-                        |> filter_CRMovinginfo
+                    model.movingInfoCR
+                        |> filterCRMovingInfo
 
                 newInfo =
-                    combine_onmoveCR2String
+                    combineOnMoveCR2String
                         oldMovingCR
                         newArea
                         :: oldInfo
@@ -620,8 +656,8 @@ changeCR newArea model =
                 | data =
                     newData
                 , onMovingCR =
-                    newmovingCR
-                , cRmovingInfo =
+                    newMovingCR
+                , movingInfoCR =
                     newInfo
             }
 
@@ -629,37 +665,37 @@ changeCR newArea model =
             model
 
 
-filter_CRMovinginfo : List String -> List String
-filter_CRMovinginfo crMovingInfo =
-    if List.length crMovingInfo >= 3 then
-        update_CRMovinginfo
-            crMovingInfo
+filterCRMovingInfo : List String -> List String
+filterCRMovingInfo movingInfoCR =
+    if List.length movingInfoCR >= 3 then
+        updateCRMovingInfo
+            movingInfoCR
 
     else
-        crMovingInfo
+        movingInfoCR
 
 
-update_CRMovinginfo : List String -> List String
-update_CRMovinginfo old =
+updateCRMovingInfo : List String -> List String
+updateCRMovingInfo old =
     List.take
         2
         old
         ++ [ "CR MOVED:" ]
 
 
-combineList_2String : List String -> String
-combineList_2String toCombine =
+combineList2String : List String -> String
+combineList2String toCombine =
     List.foldl
         (++)
         ""
         toCombine
 
 
-combine_onmoveCR2String : OnMovingCR -> String -> String
-combine_onmoveCR2String crInfoTocombine toArea =
-    case crInfoTocombine.cRname of
+combineOnMoveCR2String : OnMovingCR -> String -> String
+combineOnMoveCR2String infoCRToCombine toArea =
+    case infoCRToCombine.nameCR of
         Just name ->
-            case crInfoTocombine.formerArea of
+            case infoCRToCombine.fromArea of
                 Just area ->
                     if area == toArea then
                         ""

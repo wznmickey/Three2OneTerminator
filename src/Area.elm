@@ -1,7 +1,7 @@
 module Area exposing
     ( Area
     , initArea
-    , decoder_Area, encodeArea
+    , decoderArea, encodeArea
     )
 
 {-| It is the module that defines type `Area` used as a subtype and related functions.
@@ -19,7 +19,7 @@ module Area exposing
 
 # Json relate
 
-@docs decoder_Area, encodeArea
+@docs decoderArea, encodeArea
 
 -}
 
@@ -46,13 +46,13 @@ import Json.Encode
 import PureCPdata
     exposing
         ( PureCPdata
-        , decoder_PureCPdata
+        , decoderPureCPdata
         , encodePureCPdata
         , initPureCPdata
         )
 
 
-{-| This type defines the infomation of `Area`.
+{-| This type defines the information of `Area`.
 
 no is not used now
 
@@ -106,8 +106,8 @@ initArea =
 
 {-| This function decodes `Area`.
 -}
-decoder_Area : Decoder (Dict.Dict String Area)
-decoder_Area =
+decoderArea : Decoder (Dict.Dict String Area)
+decoderArea =
     map
         (Dict.map
             infoToArea
@@ -136,11 +136,11 @@ infoDecoder =
     map6 Info
         (field
             "init"
-            decoder_PureCPdata
+            decoderPureCPdata
         )
         (field
             "effect"
-            decoder_PureCPdata
+            decoderPureCPdata
         )
         (field
             "location"

@@ -1,7 +1,7 @@
 module HelpText exposing
     ( HelpText
     , initHelpText
-    , decoder_HelpText, encodeHelpText
+    , decoderHelpText, encodeHelpText
     )
 
 {-| It is the module that defines type `HelpText` used as a subtype and related functions.
@@ -19,7 +19,7 @@ module HelpText exposing
 
 # Json relate
 
-@docs decoder_HelpText, encodeHelpText
+@docs decoderHelpText, encodeHelpText
 
 -}
 
@@ -60,8 +60,8 @@ initHelpText =
 
 {-| This function decodes `HelpText`.
 -}
-decoder_HelpText : Decoder (Dict.Dict String HelpText)
-decoder_HelpText =
+decoderHelpText : Decoder (Dict.Dict String HelpText)
+decoderHelpText =
     map
         (Dict.map
             (\name value ->

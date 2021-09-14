@@ -1,10 +1,10 @@
 module CRdata exposing
     ( CRdata
     , initCRdata
-    , decoder_CRdata, encodeCRdata
+    , decoderCRdata, encodeCRdata
     )
 
-{-| It is the module that defines type `CPtype` used as a subtype and related functions.
+{-| It is the module that defines type `CRtype` used as a subtype and related functions.
 
 
 # Type
@@ -19,7 +19,7 @@ module CRdata exposing
 
 # Json relate
 
-@docs decoder_CRdata, encodeCRdata
+@docs decoderCRdata, encodeCRdata
 
 -}
 
@@ -45,7 +45,7 @@ import Json.Encode
 import PureCPdata
     exposing
         ( PureCPdata
-        , decoder_PureCPdata
+        , decoderPureCPdata
         , encodePureCPdata
         , initPureCPdata
         )
@@ -93,8 +93,8 @@ initCRdata =
 
 {-| This function decodes `CRdata`.
 -}
-decoder_CRdata : Decoder (Dict.Dict String CRdata)
-decoder_CRdata =
+decoderCRdata : Decoder (Dict.Dict String CRdata)
+decoderCRdata =
     map
         (Dict.map
             infoToCRdata
@@ -126,7 +126,7 @@ infoDecoder =
         )
         (field
             "effect"
-            decoder_PureCPdata
+            decoderPureCPdata
         )
         (field
             "placeX"

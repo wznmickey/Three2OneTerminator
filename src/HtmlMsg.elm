@@ -35,9 +35,9 @@ assetURL =
 
 {-| This function returns `Html Msg` as several buttons based on :
 
-- `(Float,Float)` as width and height
-- `(Float,Float)` as left and top
-- `List ( String, Msg, Float )` as showing text, bounded `Msg` and showing size
+  - `(Float,Float)` as width and height
+  - `(Float,Float)` as left and top
+  - `List ( String, Msg, Float )` as showing text, bounded `Msg` and showing size
 
 -}
 showButtons : ( Float, Float ) -> ( Float, Float ) -> List ( String, Msg, Float ) -> Html Msg
@@ -77,7 +77,7 @@ showButtons ( w, h ) ( l, t ) x =
                 (For.for
                     0
                     (List.length x - 1)
-                    (\all i before ->
+                    (\i ( before, all ) ->
                         let
                             ( st, m, size ) =
                                 Maybe.withDefault ( "", KeyPress NotCare, 0 ) (Array.get i (Array.fromList all))
@@ -166,7 +166,7 @@ startHtmlMsg =
               , 2.4
               )
             , ( "Quick start"
-              , Msg.Clickon
+              , Msg.ClickOn
                     LoadDefault
               , 2.4
               )
@@ -206,7 +206,7 @@ loadHtmlMsg loadInfo =
               , 2.4
               )
             , ( "Quick start"
-              , Msg.Clickon
+              , Msg.ClickOn
                     LoadDefault
               , 2.4
               )
@@ -273,12 +273,12 @@ pauseHtmlMsg st =
                       , 3.5
                       )
                     , ( "restart"
-                      , Msg.Clickon
+                      , Msg.ClickOn
                             Restart
                       , 3.5
                       )
                     , ( "download"
-                      , Msg.Clickon
+                      , Msg.ClickOn
                             Download
                       , 3.5
                       )
@@ -341,12 +341,12 @@ endHtmlMsg st =
                     ( 80, 7 )
                     ( 50, 110 )
                     [ ( "restart"
-                      , Msg.Clickon
+                      , Msg.ClickOn
                             Restart
                       , 3.5
                       )
                     , ( "download"
-                      , Msg.Clickon
+                      , Msg.ClickOn
                             Download
                       , 3.5
                       )

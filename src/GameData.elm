@@ -1,7 +1,7 @@
 module GameData exposing
     ( GameData
     , initGameData
-    , encodeGameData, dGameData
+    , encodeGameData, decoderGameData
     , getPureCPdataByName, getCPdataByName, getAreaByName
     )
 
@@ -20,7 +20,7 @@ module GameData exposing
 
 # Json relate
 
-@docs encodeGameData, dGameData
+@docs encodeGameData, decoderGameData
 
 
 # Get element
@@ -32,21 +32,21 @@ module GameData exposing
 import Area
     exposing
         ( Area
-        , decoder_Area
+        , decoderArea
         , encodeArea
         , initArea
         )
 import CPdata
     exposing
         ( CPdata
-        , decoder_CPdata
+        , decoderCPdata
         , encodeCPdata
         , initCPdata
         )
 import CRdata
     exposing
         ( CRdata
-        , decoder_CRdata
+        , decoderCRdata
         , encodeCRdata
         , initCRdata
         )
@@ -61,7 +61,7 @@ import GameInfo
 import HelpText
     exposing
         ( HelpText
-        , decoder_HelpText
+        , decoderHelpText
         , encodeHelpText
         , initHelpText
         )
@@ -86,7 +86,7 @@ import Msg exposing (Element(..))
 import PureCPdata
     exposing
         ( PureCPdata
-        , decoder_PureCPdata
+        , decoderPureCPdata
         , encodePureCPdata
         , initPureCPdata
         )
@@ -158,28 +158,28 @@ initGameData =
 
 {-| This function decodes `GameData`.
 -}
-dGameData : Decoder GameData
-dGameData =
+decoderGameData : Decoder GameData
+decoderGameData =
     map8 GameData
         (field
             "CP"
-            decoder_CPdata
+            decoderCPdata
         )
         (field
             "globalCP"
-            decoder_PureCPdata
+            decoderPureCPdata
         )
         (field
             "CR"
-            decoder_CRdata
+            decoderCRdata
         )
         (field
             "area"
-            decoder_Area
+            decoderArea
         )
         (field
             "helpText"
-            decoder_HelpText
+            decoderHelpText
         )
         (field
             "winningMsg"

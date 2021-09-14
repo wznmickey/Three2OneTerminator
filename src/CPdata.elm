@@ -1,7 +1,7 @@
 module CPdata exposing
     ( CPdata
     , initCPdata
-    , decoder_CPdata, encodeCPdata
+    , decoderCPdata, encodeCPdata
     )
 
 {-| It is the module that defines type `CPdata` used as a subtype and related functions.
@@ -19,14 +19,14 @@ module CPdata exposing
 
 # Json relate
 
-@docs decoder_CPdata, encodeCPdata
+@docs decoderCPdata, encodeCPdata
 
 -}
 
 import CPtype
     exposing
         ( CPtype(..)
-        , dCPtype
+        , decoderCPtype
         , encodeCPtype
         )
 import Dict exposing (Dict)
@@ -47,7 +47,7 @@ import Json.Encode
 import PureCPdata
     exposing
         ( PureCPdata
-        , decoder_PureCPdata
+        , decoderPureCPdata
         , encodePureCPdata
         , initPureCPdata
         )
@@ -89,8 +89,8 @@ initCPdata =
 
 {-| This function decodes `CPdata`.
 -}
-decoder_CPdata : Decoder (Dict.Dict String CPdata)
-decoder_CPdata =
+decoderCPdata : Decoder (Dict.Dict String CPdata)
+decoderCPdata =
     map
         (Dict.map
             infoToCPdata
@@ -115,11 +115,11 @@ infoDecoder =
     map2 Info
         (field
             "effect"
-            decoder_PureCPdata
+            decoderPureCPdata
         )
         (field
             "type"
-            dCPtype
+            decoderCPtype
         )
 
 

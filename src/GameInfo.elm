@@ -1,25 +1,28 @@
 module GameInfo exposing
     ( GameInfo
-    , decoderGameInfo
-    , encodeGameInfo
     , initGameInfo
+    , decoderGameInfo, encodeGameInfo
     )
-{-| It is the module that defines type `GameInfo` used as a subtype describing gamerules and related functions.
+
+{-| It is the module that defines type `GameInfo` used as a subtype describing game rules and related functions.
 
 
 # Type
 
 @docs GameInfo
 
+
 # Init
 
 @docs initGameInfo
+
 
 # Json relate
 
 @docs decoderGameInfo, encodeGameInfo
 
 -}
+
 import Json.Decode
     exposing
         ( Decoder
@@ -36,6 +39,7 @@ import Json.Encode
         , object
         , string
         )
+
 
 {-| This type defines the game rules.
 
@@ -59,6 +63,7 @@ type alias GameInfo =
     , min : Float
     }
 
+
 {-| This function gives a init `GameInfo`, should not be actually used in `Running`.
 -}
 initGameInfo : GameInfo
@@ -71,9 +76,9 @@ initGameInfo =
         100
         0
 
+
 {-| This function decodes `GameInfo`.
 -}
-
 decoderGameInfo : Decoder GameInfo
 decoderGameInfo =
     map6
@@ -107,9 +112,9 @@ decoderGameInfo =
             Json.Decode.float
         )
 
+
 {-| This function encodes `GameInfo`.
 -}
-
 encodeGameInfo : GameInfo -> Json.Encode.Value
 encodeGameInfo data =
     Json.Encode.object

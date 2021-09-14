@@ -1,7 +1,7 @@
 module PureCPdata exposing
     ( PureCPdata
     , initPureCPdata
-    , decoder_PureCPdata, encodePureCPdata
+    , decoderPureCPdata, encodePureCPdata
     )
 
 {-| It is the module that defines type `PureCPdata` used as a subtype and related functions.
@@ -19,7 +19,7 @@ module PureCPdata exposing
 
 # Json relate
 
-@docs decoder_PureCPdata, encodePureCPdata
+@docs decoderPureCPdata, encodePureCPdata
 
 -}
 
@@ -71,8 +71,8 @@ initPureCPdata =
 
 {-| This function decodes `PureCPdata`.
 -}
-decoder_PureCPdata : Decoder (Dict.Dict String PureCPdata)
-decoder_PureCPdata =
+decoderPureCPdata : Decoder (Dict.Dict String PureCPdata)
+decoderPureCPdata =
     map
         (Dict.map
             (\name value ->
