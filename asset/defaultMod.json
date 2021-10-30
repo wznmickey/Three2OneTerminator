@@ -94,7 +94,6 @@
     },
     "area": {
         "Gotham": {
-            "location": 1,
             "effect": {
                 "Health threat drop": -7,
                 "Citizen trust": 3,
@@ -109,7 +108,6 @@
             "centerY": 113
         },
         "BomBay": {
-            "location": 2,
             "effect": {
                 "Health threat drop": 12,
                 "Citizen trust": 6,
@@ -124,7 +122,6 @@
             "centerY": 90
         },
         "GassVille": {
-            "location": 3,
             "effect": {
                 "Health threat drop": 4,
                 "Citizen trust": -6,
@@ -139,7 +136,6 @@
             "centerY": 120
         },
         "Burnley": {
-            "location": 4,
             "effect": {
                 "Health threat drop": 8,
                 "Citizen trust": 6,

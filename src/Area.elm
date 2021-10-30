@@ -32,7 +32,7 @@ import Json.Decode
         , float
         , int
         , map
-        , map6
+        , map5
         , string
         )
 import Json.Encode
@@ -54,7 +54,6 @@ import PureCPdata
 
 {-| This type defines the information of `Area`.
 
-no is not used now
 
 -}
 type alias Area =
@@ -63,8 +62,6 @@ type alias Area =
     , name : String
     , localCP : Dict String PureCPdata
     , effect : Dict String PureCPdata
-    , --The index of the area. Start from **1**. Not use now.
-      no : Int
     }
 
 
@@ -82,8 +79,6 @@ initArea =
         newEffect =
             initPureCPdata
 
-        newNo =
-            0
     in
     { name =
         newName
@@ -95,8 +90,6 @@ initArea =
         Dict.singleton
             newEffect.name
             newEffect
-    , no =
-        newNo
     , view =
         ""
     , center =
@@ -122,7 +115,6 @@ decoderArea =
 type alias Info =
     { localCP : Dict String PureCPdata
     , effect : Dict String PureCPdata
-    , no : Int
     , view : String
     , x : Float
     , y : Float
@@ -133,7 +125,7 @@ type alias Info =
 -}
 infoDecoder : Decoder Info
 infoDecoder =
-    map6 Info
+    map5 Info
         (field
             "init"
             decoderPureCPdata
@@ -141,10 +133,6 @@ infoDecoder =
         (field
             "effect"
             decoderPureCPdata
-        )
-        (field
-            "location"
-            Json.Decode.int
         )
         (field
             "path"
@@ -163,14 +151,13 @@ infoDecoder =
 {-| This function is a help function suggested in <https://package.elm-lang.org/packages/elm/json/latest/Json-Decode#dict>.
 -}
 infoToArea : String -> Info -> Area
-infoToArea name { localCP, effect, no, view, x, y } =
+infoToArea name { localCP, effect, view, x, y } =
     Area
         view
         ( x, y )
         name
         localCP
         effect
-        no
 
 
 {-| This function encodes `Area`.
@@ -189,10 +176,6 @@ encodeArea data =
                 identity
                 encodePureCPdata
                 data.effect
-          )
-        , ( "location"
-          , Json.Encode.int
-                data.no
           )
         , ( "path"
           , Json.Encode.string

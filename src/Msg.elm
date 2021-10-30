@@ -1,46 +1,17 @@
-module Msg exposing
-    ( OnMovingCR, State(..), KeyInfo(..), Element(..), FileStatus(..), Msg(..)
-    , initOnMovingCR
-    )
+module Msg exposing (State(..), KeyInfo(..), Element(..), FileStatus(..), Msg(..))
 
 {-| It is the module that defines all the necessary Msg used in the game.
 
 
 # Type
 
-@docs OnMovingCR, State, KeyInfo, Element, FileStatus, Msg
-
-
-# Init
-
-@docs initOnMovingCR
+@docs State, KeyInfo, Element, FileStatus, Msg
 
 -}
 
 import File exposing (File)
 import Http exposing (Error)
-
-
-{-| This type define the moving info of a CR.
--}
-type alias OnMovingCR =
-    { nameCR : Maybe String
-    , fromArea : Maybe String
-    , toArea : Maybe String
-    }
-
-
-{-| This function init `OnMovingCR` with all `Nothing`.
--}
-initOnMovingCR : OnMovingCR
-initOnMovingCR =
-    { nameCR =
-        Nothing
-    , fromArea =
-        Nothing
-    , toArea =
-        Nothing
-    }
+import SimpleType exposing (OnMovingCR, SetURL(..))
 
 
 {-| This type defines the state of the game.
@@ -68,9 +39,9 @@ type KeyInfo
 type Element
     = CR OnMovingCR
     | Area String
-    | LoadDefault
     | Restart
     | Download
+    | SetURL (Maybe SetURL)
 
 
 {-| This type defines the state of the file operation.

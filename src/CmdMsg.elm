@@ -20,18 +20,13 @@ import Msg
 import Task exposing (perform)
 
 
-wholeURL : String
-wholeURL =
-    "asset/defaultMod.json"
-
-
 {-| This functions gives `Cmd Msg` that requests to load default mod.
 -}
-loadUpdate : Cmd Msg
-loadUpdate =
+loadUpdate : String -> Cmd Msg
+loadUpdate x =
     Http.get
         { url =
-            wholeURL
+            x
         , expect =
             Http.expectString GotText
         }
