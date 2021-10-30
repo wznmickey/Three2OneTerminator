@@ -50,8 +50,8 @@
                 "Self Pursuits Fulfillment": 3
             },
             "placeX": 5,
-                       "placeY": -5,
-                       "color": "yellow"
+            "placeY": -5,
+            "color": "yellow"
         },
         "social contact": {
             "location": "Core courses",
@@ -62,8 +62,8 @@
                 "Self Pursuits Fulfillment": 3
             },
             "placeX": -5,
-                        "placeY": -5,
-                        "color": "red"
+            "placeY": -5,
+            "color": "red"
         },
         "family life": {
             "location": "Preliminary courses",
@@ -74,8 +74,8 @@
                 "Self Pursuits Fulfillment": 3
             },
             "placeX": 5,
-                        "placeY": 5,
-                        "color": "rgb(125,130,198)"
+            "placeY": 5,
+            "color": "rgb(125,130,198)"
         },
         "recreation and resting": {
             "location": "Extracurricular Life",
@@ -86,13 +86,12 @@
                 "Self Pursuits Fulfillment": 3
             },
             "placeX": -5,
-                   "placeY": 5,
-                   "color": "green"
+            "placeY": 5,
+            "color": "green"
         }
     },
     "area": {
         "Preliminary courses": {
-            "location": 1,
             "effect": {
                 "Core Course Term GPA": 1.3,
                 "Science literacy and capability": 2,
@@ -104,12 +103,11 @@
                 "Interpersonal Popularity": 50,
                 "Self Pursuits Fulfillment": 30
             },
-         "path":"M 10 10 L 75 10 L 75 75 L 10 75 Z",
-         "centerX": 42.5,
-         "centerY": 42.5
+            "path": "M 10 10 L 75 10 L 75 75 L 10 75 Z",
+            "centerX": 42.5,
+            "centerY": 42.5
         },
         "Core courses": {
-            "location": 2,
             "effect": {
                 "Core Course Term GPA": 1.2,
                 "Science literacy and capability": 2,
@@ -124,10 +122,8 @@
             "path": "M 75 10 L 140 10 L 140 75 L 75 75 Z",
             "centerX": 100,
             "centerY": 60
-
         },
         "Humanistic courses": {
-            "location": 3,
             "effect": {
                 "Core Course Term GPA": 1.2,
                 "Science literacy and capability": 2,
@@ -140,11 +136,10 @@
                 "Self Pursuits Fulfillment": 30
             },
             "path": "M 75 75 L 140 75 L 140 140 L 75 140 Z",
-                      "centerX": 100,
-                      "centerY": 120
+            "centerX": 100,
+            "centerY": 120
         },
         "Extracurricular Life": {
-            "location": 4,
             "effect": {
                 "Core Course Term GPA": 0.8,
                 "Science literacy and capability": 2,
@@ -157,8 +152,8 @@
                 "Self Pursuits Fulfillment": 30
             },
             "path": "M 10 140 L 10 75 L 75 75 L 75 140 Z",
-                    "centerX": 30,
-                    "centerY": 100
+            "centerX": 30,
+            "centerY": 100
         }
     },
     "helpText": {
@@ -177,21 +172,21 @@
         "rule": "The game ends when you make any of the global or local CP decrease to 0."
     },
     "winningMsg": {
-            "LocalCP":  "Interpersonal Popularity",
-            "GlobalCP": [
-                "Core Course Term GPA"
-            ],
-            "winningTime": 100000,
-            "losing": [
-                -10000
-            ],
-            "max": 1000,
-            "min": 0
-        },
-        "story": [
-            "You are a freshman here in JI who is about to spend the appalling summer semester. You want to make your life easier and make through this semester",
-            "There are some particularly challenging courses during this semester and you want to distribute your energy and time wisely. Because GPA isn't everything, always.",
-            "Remember: The main goal of this challenge is to achieve a balanced personal deveplopment during the semester. There are several index (Control Points) that evaluates your progress made in diverse aspects. Mark your progress by distributing the Critical Resource you have!"
+        "LocalCP": "Interpersonal Popularity",
+        "GlobalCP": [
+            "Core Course Term GPA"
         ],
-        "time": 0
-    }
+        "winningTime": 100000,
+        "losing": [
+            -10000
+        ],
+        "max": 1000,
+        "min": 0
+    },
+    "story": [
+        "You are a freshman here in JI who is about to spend the appalling summer semester. You want to make your life easier and make through this semester",
+        "There are some particularly challenging courses during this semester and you want to distribute your energy and time wisely. Because GPA isn't everything, always.",
+        "Remember: The main goal of this challenge is to achieve a balanced personal deveplopment during the semester. There are several index (Control Points) that evaluates your progress made in diverse aspects. Mark your progress by distributing the Critical Resource you have!"
+    ],
+    "time": 0
+}
