@@ -5568,7 +5568,6 @@ var $elm$core$Dict$singleton = F2(
 		return A5($elm$core$Dict$RBNode_elm_builtin, $elm$core$Dict$Black, key, value, $elm$core$Dict$RBEmpty_elm_builtin, $elm$core$Dict$RBEmpty_elm_builtin);
 	});
 var $author$project$Area$initArea = function () {
-	var newNo = 0;
 	var newName = 'init';
 	var newLocalCP = $author$project$PureCPdata$initPureCPdata;
 	var newEffect = $author$project$PureCPdata$initPureCPdata;
@@ -5577,7 +5576,6 @@ var $author$project$Area$initArea = function () {
 		effect: A2($elm$core$Dict$singleton, newEffect.name, newEffect),
 		localCP: A2($elm$core$Dict$singleton, newLocalCP.name, newLocalCP),
 		name: newName,
-		no: newNo,
 		view: ''
 	};
 }();
@@ -6882,7 +6880,6 @@ var $elm$json$Json$Encode$float = _Json_wrap;
 var $author$project$PureCPdata$encodePureCPdata = function (data) {
 	return $elm$json$Json$Encode$float(data.data);
 };
-var $elm$json$Json$Encode$int = _Json_wrap;
 var $elm$json$Json$Encode$object = function (pairs) {
 	return _Json_wrap(
 		A3(
@@ -6911,9 +6908,6 @@ var $author$project$Area$encodeArea = function (data) {
 				_Utils_Tuple2(
 				'effect',
 				A3($elm$json$Json$Encode$dict, $elm$core$Basics$identity, $author$project$PureCPdata$encodePureCPdata, data.effect)),
-				_Utils_Tuple2(
-				'location',
-				$elm$json$Json$Encode$int(data.no)),
 				_Utils_Tuple2(
 				'path',
 				$elm$json$Json$Encode$string(data.view)),
@@ -7105,9 +7099,9 @@ var $elm$json$Json$Decode$dict = function (decoder) {
 		$elm$core$Dict$fromList,
 		$elm$json$Json$Decode$keyValuePairs(decoder));
 };
-var $author$project$Area$Info = F6(
-	function (localCP, effect, no, view, x, y) {
-		return {effect: effect, localCP: localCP, no: no, view: view, x: x, y: y};
+var $author$project$Area$Info = F5(
+	function (localCP, effect, view, x, y) {
+		return {effect: effect, localCP: localCP, view: view, x: x, y: y};
 	});
 var $author$project$PureCPdata$PureCPdata = F2(
 	function (name, data) {
@@ -7141,37 +7135,34 @@ var $author$project$PureCPdata$decoderPureCPdata = A2(
 				return A2($author$project$PureCPdata$PureCPdata, name, value);
 			})),
 	$elm$json$Json$Decode$dict($elm$json$Json$Decode$float));
-var $elm$json$Json$Decode$map6 = _Json_map6;
+var $elm$json$Json$Decode$map5 = _Json_map5;
 var $elm$json$Json$Decode$string = _Json_decodeString;
-var $author$project$Area$infoDecoder = A7(
-	$elm$json$Json$Decode$map6,
+var $author$project$Area$infoDecoder = A6(
+	$elm$json$Json$Decode$map5,
 	$author$project$Area$Info,
 	A2($elm$json$Json$Decode$field, 'init', $author$project$PureCPdata$decoderPureCPdata),
 	A2($elm$json$Json$Decode$field, 'effect', $author$project$PureCPdata$decoderPureCPdata),
-	A2($elm$json$Json$Decode$field, 'location', $elm$json$Json$Decode$int),
 	A2($elm$json$Json$Decode$field, 'path', $elm$json$Json$Decode$string),
 	A2($elm$json$Json$Decode$field, 'centerX', $elm$json$Json$Decode$float),
 	A2($elm$json$Json$Decode$field, 'centerY', $elm$json$Json$Decode$float));
-var $author$project$Area$Area = F6(
-	function (view, center, name, localCP, effect, no) {
-		return {center: center, effect: effect, localCP: localCP, name: name, no: no, view: view};
+var $author$project$Area$Area = F5(
+	function (view, center, name, localCP, effect) {
+		return {center: center, effect: effect, localCP: localCP, name: name, view: view};
 	});
 var $author$project$Area$infoToArea = F2(
 	function (name, _v0) {
 		var localCP = _v0.localCP;
 		var effect = _v0.effect;
-		var no = _v0.no;
 		var view = _v0.view;
 		var x = _v0.x;
 		var y = _v0.y;
-		return A6(
+		return A5(
 			$author$project$Area$Area,
 			view,
 			_Utils_Tuple2(x, y),
 			name,
 			localCP,
-			effect,
-			no);
+			effect);
 	});
 var $author$project$Area$decoderArea = A2(
 	$elm$json$Json$Decode$map,
@@ -7218,7 +7209,6 @@ var $author$project$CRdata$Info = F5(
 	function (location, effect, x, y, color) {
 		return {color: color, effect: effect, location: location, x: x, y: y};
 	});
-var $elm$json$Json$Decode$map5 = _Json_map5;
 var $author$project$CRdata$infoDecoder = A6(
 	$elm$json$Json$Decode$map5,
 	$author$project$CRdata$Info,
@@ -7251,6 +7241,7 @@ var $author$project$CRdata$decoderCRdata = A2(
 	$elm$core$Dict$map($author$project$CRdata$infoToCRdata),
 	$elm$json$Json$Decode$dict($author$project$CRdata$infoDecoder));
 var $elm$json$Json$Decode$list = _Json_decodeList;
+var $elm$json$Json$Decode$map6 = _Json_map6;
 var $author$project$GameInfo$decoderGameInfo = A7(
 	$elm$json$Json$Decode$map6,
 	$author$project$GameInfo$GameInfo,
@@ -7556,7 +7547,7 @@ var $author$project$Update$eachAreaCPchange = F2(
 				a),
 			newGlobal);
 	});
-var $author$project$For$for = F4(
+var $wznmickey$elm_for$For$for = F4(
 	function (i, n, f, x) {
 		_for:
 		while (true) {
@@ -7667,7 +7658,7 @@ var $author$project$Update$areaCPchange = F2(
 			$elm$core$Array$fromList(
 				$elm$core$Dict$toList(area)));
 		var _v0 = A4(
-			$author$project$For$for,
+			$wznmickey$elm_for$For$for,
 			0,
 			$elm$core$Dict$size(area) - 1,
 			$author$project$Update$eachAreaCPchange,
@@ -7753,7 +7744,7 @@ var $author$project$Update$eachGlobalChangeCP2CP = F3(
 						}),
 					local)));
 		return A4(
-			$author$project$For$for,
+			$wznmickey$elm_for$For$for,
 			0,
 			$elm$core$Array$length(effect) - 1,
 			$author$project$Update$eachEffectCP,
@@ -7781,7 +7772,7 @@ var $author$project$Update$getCertainArea = F3(
 var $author$project$Update$globalChangeCP2CP = F3(
 	function (dict, area, global) {
 		return A4(
-			$author$project$For$for,
+			$wznmickey$elm_for$For$for,
 			0,
 			$elm$core$Dict$size(area) - 1,
 			$author$project$Update$getCertainArea(dict),
@@ -7890,7 +7881,7 @@ var $author$project$Update$changeCR2CP = F3(
 			$elm$core$Array$fromList(
 				$elm$core$Dict$toList(cr)));
 		var _v0 = A4(
-			$author$project$For$for,
+			$wznmickey$elm_for$For$for,
 			0,
 			$elm$core$Dict$size(cr) - 1,
 			$author$project$Update$eachChangeCR2CP,
@@ -8425,6 +8416,14 @@ var $elm$core$String$concat = function (strings) {
 var $author$project$Msg$Download = {$: 'Download'};
 var $elm$html$Html$div = _VirtualDom_node('div');
 var $elm$html$Html$p = _VirtualDom_node('p');
+var $elm$virtual_dom$VirtualDom$style = _VirtualDom_style;
+var $elm$html$Html$Attributes$style = $elm$virtual_dom$VirtualDom$style;
+var $author$project$HtmlMsg$setCenter = _List_fromArray(
+	[
+		A2($elm$html$Html$Attributes$style, 'transform', 'translate(-50%,-50%)'),
+		A2($elm$html$Html$Attributes$style, 'left', '50%'),
+		A2($elm$html$Html$Attributes$style, 'position', 'absolute')
+	]);
 var $elm$svg$Svg$Attributes$fill = _VirtualDom_attribute('fill');
 var $elm$svg$Svg$Attributes$fontSize = _VirtualDom_attribute('font-size');
 var $elm$core$String$fromFloat = _String_fromNumber;
@@ -8501,8 +8500,6 @@ var $author$project$SvgMsg$button = F5(
 						]))
 				]));
 	});
-var $elm$virtual_dom$VirtualDom$style = _VirtualDom_style;
-var $elm$html$Html$Attributes$style = $elm$virtual_dom$VirtualDom$style;
 var $elm$svg$Svg$svg = $elm$svg$Svg$trustedNode('svg');
 var $author$project$HtmlMsg$showButtons = F3(
 	function (_v0, _v1, x) {
@@ -8546,7 +8543,7 @@ var $author$project$HtmlMsg$showButtons = F3(
 							$elm$svg$Svg$Attributes$height('100%')
 						]),
 					A4(
-						$author$project$For$for,
+						$wznmickey$elm_for$For$for,
 						0,
 						$elm$core$List$length(x) - 1,
 						F2(
@@ -8593,16 +8590,15 @@ var $author$project$HtmlMsg$endHtmlMsg = function (st) {
 			[
 				A2(
 				$elm$html$Html$p,
-				_List_fromArray(
-					[
-						A2($elm$html$Html$Attributes$style, 'top', '45%'),
-						A2($elm$html$Html$Attributes$style, 'left', '50%'),
-						A2($elm$html$Html$Attributes$style, 'transform', 'translate( -50%, -50%)'),
-						A2($elm$html$Html$Attributes$style, 'position', 'absolute'),
-						A2($elm$html$Html$Attributes$style, 'white-space', 'pre-line'),
-						A2($elm$html$Html$Attributes$style, 'width', '90vw'),
-						A2($elm$html$Html$Attributes$style, 'color', 'white')
-					]),
+				_Utils_ap(
+					_List_fromArray(
+						[
+							A2($elm$html$Html$Attributes$style, 'top', '45%'),
+							A2($elm$html$Html$Attributes$style, 'white-space', 'pre-line'),
+							A2($elm$html$Html$Attributes$style, 'width', '90vw'),
+							A2($elm$html$Html$Attributes$style, 'color', 'white')
+						]),
+					$author$project$HtmlMsg$setCenter),
 				_List_fromArray(
 					[
 						$elm$html$Html$text(st),
@@ -8682,12 +8678,6 @@ var $elm$html$Html$Attributes$stringProperty = F2(
 			$elm$json$Json$Encode$string(string));
 	});
 var $elm$html$Html$Attributes$placeholder = $elm$html$Html$Attributes$stringProperty('placeholder');
-var $author$project$HtmlMsg$setCenter = _List_fromArray(
-	[
-		A2($elm$html$Html$Attributes$style, 'transform', 'translate(-50%,-50%)'),
-		A2($elm$html$Html$Attributes$style, 'left', '50%'),
-		A2($elm$html$Html$Attributes$style, 'position', 'absolute')
-	]);
 var $elm$html$Html$Attributes$type_ = $elm$html$Html$Attributes$stringProperty('type');
 var $elm$html$Html$Attributes$value = $elm$html$Html$Attributes$stringProperty('value');
 var $author$project$HtmlMsg$loadHtmlMsg = function (loadInfo) {
@@ -8800,16 +8790,15 @@ var $author$project$HtmlMsg$pauseHtmlMsg = function (st) {
 			[
 				A2(
 				$elm$html$Html$p,
-				_List_fromArray(
-					[
-						A2($elm$html$Html$Attributes$style, 'top', '45%'),
-						A2($elm$html$Html$Attributes$style, 'left', '50%'),
-						A2($elm$html$Html$Attributes$style, 'transform', 'translate( -50%, -50%)'),
-						A2($elm$html$Html$Attributes$style, 'position', 'absolute'),
-						A2($elm$html$Html$Attributes$style, 'white-space', 'pre-line'),
-						A2($elm$html$Html$Attributes$style, 'width', '90vw'),
-						A2($elm$html$Html$Attributes$style, 'color', 'white')
-					]),
+				_Utils_ap(
+					_List_fromArray(
+						[
+							A2($elm$html$Html$Attributes$style, 'top', '45%'),
+							A2($elm$html$Html$Attributes$style, 'white-space', 'pre-line'),
+							A2($elm$html$Html$Attributes$style, 'width', '90vw'),
+							A2($elm$html$Html$Attributes$style, 'color', 'white')
+						]),
+					$author$project$HtmlMsg$setCenter),
 				_List_fromArray(
 					[
 						$elm$html$Html$text('Press Space to continue\nPress R to restart\n'),
@@ -9505,7 +9494,6 @@ var $author$project$HtmlMsg$startHtmlMsg = A2(
 						$elm$html$Html$Attributes$src($author$project$HtmlMsg$assetURL + 'game.png'),
 						A2($elm$html$Html$Attributes$style, 'height', '20vh'),
 						A2($elm$html$Html$Attributes$style, 'top', '15%'),
-						A2($elm$html$Html$Attributes$style, 'left', '50%'),
 						A2($elm$html$Html$Attributes$style, 'position', 'absolute')
 					]),
 				$author$project$HtmlMsg$setCenter),
